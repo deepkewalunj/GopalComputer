@@ -1,0 +1,195 @@
+/*table related css here*/
+
+.table {
+	table-layout: fixed;
+    thead {
+        th {
+            border-top: none !important;
+			border-bottom: 0.0625rem solid $border !important;
+			position: relative;
+			vertical-align: middle;
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+				border-bottom: 0.0625rem solid $border;
+				vertical-align: middle;
+                &.action {
+                    a {
+                        font-size:$font18;
+						margin: 0 0.3125rem;
+					}
+					
+					i {
+                        font-size:$font18;
+						margin: 0 0.3125rem;
+						color:$dark-blue;
+						cursor: pointer;
+						&.disabled {
+							color:$disabled;
+						}
+                    }
+				}
+				&.description-td {
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+				}
+
+				.description-para {
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					margin: 0;
+				}
+			}
+        }
+	}
+	
+	&.editable-table {
+		tbody {
+			tr {
+				background-color:rgba(0, 0, 0, 0.075);
+				td {
+					.form-control {
+						padding-left: 5px;
+						padding-right: 5px;
+						border: 1px solid $border;
+						margin: 0;
+					}
+					select.form-control {
+						padding-right: 1.5rem;
+					}
+					.plain-select {
+						select option {
+							font-size: 0.875rem;
+						}
+						&:after {
+							right: 9px;
+							top: 44%;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.table-pagination {
+	.plain-select {
+		margin-right: 1.5rem;
+	}
+	.pagination {
+		.page-item{
+			margin: 0 0.125rem;
+			.page-link {
+				border: 0;
+				color: $dark-blue;
+				border-radius: 0.25rem;
+				padding: 0.200rem 0.525rem;
+			}
+			&.active {
+				.page-link {
+					background-color:  $dark-blue;
+					border-color:  $dark-blue;
+					color: $white;
+				}
+			}
+		}
+	}
+}
+
+
+
+// Resposnsive tables css
+
+@media only screen and (max-width: 800px) {
+    
+    /* Force table to not be like tables anymore */
+	#no-more-tables table, 
+	#no-more-tables thead, 
+	#no-more-tables tbody, 
+	#no-more-tables th, 
+	#no-more-tables td, 
+	#no-more-tables tr { 
+		display: block; 
+	}
+ 
+	/* Hide table headers (but not display: none;, for accessibility) */
+	#no-more-tables {
+		thead  { 
+			tr { 
+				position: absolute;
+				top: -9999px;
+				left: -9999px;
+			}
+		}
+
+		tr { 
+			border-bottom: 0.0625rem solid $border;
+			padding: 0.625rem 0;
+			td { 
+				/* Behave  like a "row" */
+				border: none;
+				border-bottom: 0px solid $border; 
+				position: relative;
+				padding-left: 43%; 
+				text-align:left;
+				min-height: 36px;
+				&:before { 
+					/*Label the data*/
+					content: attr(data-title);
+					/* Now like a table header */
+					position: absolute;
+					/* Top/left values mimic padding */
+					top: 0.75rem;
+					left: 0.375rem;
+					width: 40%; 
+					padding-right: 0.625rem; 
+					white-space: normal;
+					text-align:left;
+					font-weight: bold;
+				}
+			}
+		}
+		.editable-table {
+			tbody {
+				tr {
+					
+				
+					td {
+				
+						&::before {
+							top: 1.25rem;
+						}
+						.dollar {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+	} 
+
+	.table {
+		.actions-td {
+			text-align: left !important;
+			div {
+				justify-content: flex-start !important;
+				a {
+					margin: 0 !important;;
+					margin-right: 0.625rem !important;;
+				}
+			}
+		}
+		.status-td {
+			text-align: left !important;
+		}
+	}
+	.table-pagination {
+		.plain-select {
+			margin-right: 0.5rem;
+		}
+	}
+}

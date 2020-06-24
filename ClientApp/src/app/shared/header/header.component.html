@@ -1,0 +1,43 @@
+<!-- sidebar should be hide on role base -->
+
+<!-- header start -->
+<header class="header">
+  <div class="header-container">
+    <div class="nav-logo">
+      <!-- <a class="sidenav-fold-toggler" href="javascript:void(0);">
+          <i class="icon-menu"></i>
+      </a> -->
+      <a class="logo" href="javascript:void(0)" title="Logo">
+        <img src="./assets/imgs/logos/logo.png" alt="Logo">
+      </a>
+    </div>
+    <ul class="nav-right">
+     
+      <!-- profile dropdown-menu here -->
+      <li class="user-profile" ngbDropdown>
+        <span class="user-name">Deepak Walunj</span>
+        <a href="javascript:void(0)" class="dropdown-toggle sidenav-fold-toggler-profile" id="userDropdown" ngbDropdownToggle title="User Profile"
+          placement="left" ngbTooltip="User Profile">
+          <img class="profile-img img-fluid" src="./assets/imgs/avatar/avatar.jpg" alt="User Profile Photograph">
+        </a>
+        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="userDropdown">
+          <li class="user-name-device">
+            <img class="profile-img img-fluid" src="./assets/imgs/avatar/avatar.jpg" alt="User Profile Photograph">
+            <div class="user-info">
+              <a href="javascript:void(0)" ngbDropdownItem title="User Name"> Gopal Shinde </a>
+              <!-- <div class="user-role">System Admin</div> -->
+            </div>
+          </li>
+          <li><a href="javascript:void(0)" routerLink="/login"><i class="icon-logout"></i> Logout</a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-toggle-li">
+        <a class="sidenav-fold-toggler" href="javascript:void(0);">
+          <i class="icon-menu"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+<!-- header end -->

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Visual</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+   <meta name="theme-color" content="#ffffff" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+
+
+<!--font size increase and decrease code here-->
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    var originalSize = $('html').css('font-size');
+
+    // Increase Font Size          
+    $(".increase").click(function () {
+      var currentSize = $('html').css('font-size');
+      var currentSize = parseFloat(currentSize) + 2 + "px";
+      $('html').css('font-size', currentSize);
+      return false;
+    });
+
+    // Decrease Font Size       
+    $(".decrease").click(function () {
+      var currentFontSize = $('html').css('font-size');
+      var currentSize = $('html').css('font-size');
+      var currentSize = parseFloat(currentSize) - 2 + "px";
+      $('html').css('font-size', currentSize);
+      return false;
+    });
+
+    // reset        
+    $(".resetMe").click(function () {
+      $('html').css('font-size', originalSize);
+    });
+  });
+
+  //kyepad hide on ios devices on touch code here
+
+  $(function () {
+    var cacheInput = null;
+    var timer = null;
+    if (!isApple()) {
+      return false;
+    }
+    $(document).on('focus', 'input', function (e) {
+      cacheInput = e.target;
+    })
+    $(document).on('focus', 'textarea', function (e) {
+      cacheInput = e.target;
+    })
+    $(document).on('touchend', function (e) {
+      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        if (cacheInput !== null) {
+          timer = setTimeout(function () {
+            cacheInput.blur();
+            clearTimeout(timer);
+          })
+        }
+      }
+    })
+    function isApple() {
+      var ua = navigator.userAgent.toUpperCase();
+      var
+        ipad = ua.indexOf('IPAD') > -1,
+        ipod = ua.indexOf('IPOD') > -1,
+        iphone = ua.indexOf('IPHONE') > -1;
+      return ipad || ipod || iphone;
+    }
+  })
+
+   
+///////////////
+
+// requires jquery library
+$(document).ready(function() {
+   $(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
+ });
+</script>
+
+<!--this js is for broser detection so we can write broswer and device specify css-->
+<script>
+function css_browser_selector(u){var ua=u.toLowerCase(),is=function(t){return ua.indexOf(t)>-1},g='gecko',w='webkit',s='safari',o='opera',m='mobile',h=document.documentElement,b=[(!(/opera|webtv/i.test(ua))&&/msie\s(\d)/.test(ua))?('ie ie'+RegExp.$1):is('firefox/2')?g+' ff2':is('firefox/3.5')?g+' ff3 ff3_5':is('firefox/3.6')?g+' ff3 ff3_6':is('firefox/3')?g+' ff3':is('gecko/')?g:is('opera')?o+(/version\/(\d+)/.test(ua)?' '+o+RegExp.$1:(/opera(\s|\/)(\d+)/.test(ua)?' '+o+RegExp.$2:'')):is('konqueror')?'konqueror':is('blackberry')?m+' blackberry':is('android')?m+' android':is('chrome')?w+' chrome':is('iron')?w+' iron':is('applewebkit/')?w+' '+s+(/version\/(\d+)/.test(ua)?' '+s+RegExp.$1:''):is('mozilla/')?g:'',is('j2me')?m+' j2me':is('iphone')?m+' iphone':is('ipod')?m+' ipod':is('ipad')?m+' ipad':is('mac')?'mac':is('darwin')?'mac':is('webtv')?'webtv':is('win')?'win'+(is('windows nt 6.0')?' vista':''):is('freebsd')?'freebsd':(is('x11')||is('linux'))?'linux':'','js']; c = b.join(' '); h.className += ' '+c; return c;}; css_browser_selector(navigator.userAgent);
+</script>
+</html>
+
+

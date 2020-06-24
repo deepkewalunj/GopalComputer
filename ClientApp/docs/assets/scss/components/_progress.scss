@@ -1,0 +1,191 @@
+ol.progress-tracker {
+    display: table;
+    margin: 0 auto 70px auto;
+    padding: 0;
+    table-layout: fixed;
+    width: 100%;
+
+    li {
+        border-bottom: 5px solid silver;
+        display: table-cell;
+        text-align: center;
+        padding-bottom: 20px;
+        white-space: nowrap;
+        position: relative;
+        cursor: pointer;
+
+        &.done {
+            border-color: #ff9121;
+
+            &:before {
+                background-color: #ff9121;
+                border-color: #ff9121;
+            }
+        }
+
+        &.todo:before {
+            background-color: #fff;
+            color: silver;
+        }
+
+        &:before {
+            font-family: "Font Awesome 5 Free";
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            position: absolute;
+            bottom: -32px;
+            left: 35%;
+            height: 60px;
+            width: 62px;
+            line-height: 54px;
+            border: 2px solid silver;
+            border-radius: 30px;
+        }
+
+        &.employer:before {
+            content: "\f303";
+        }
+
+        &.employee:before {
+            content: "\f0c0";
+        }
+
+        &.plans:before {
+            content: "\f7e6";
+        }
+
+        &.proposal:before {
+            content: "\f085";
+        }
+
+        &.enroll:before {
+            content: "\f164";
+        }
+    }
+}
+
+
+// Progress steps css ------------------------------------
+.progress-wrap {
+    position: relative;
+    display: flex;
+    margin: 4rem 0 2rem;
+    // Background Track
+    .progress-track {
+      position: absolute;
+      top: 6px;
+      width: 100%;
+      height: 1px;
+      background-color: $grey;
+    }
+    
+    // Each Step on the Progress Bar
+    .progress-step {
+      position: relative;
+      width: 100%;
+      font-size:0.800rem;
+      text-align: center;
+      padding-top:8px;
+      
+      // Hide the final step's progress bar
+      &:last-child:after {
+        display: none;
+      }
+      
+      // Step's circle in default state
+      &:before {
+        content: "";
+        display: flex;      
+        margin: 0 auto;
+        width: 12px;
+        height: 12px;
+        background-color: $grey; 
+        border: 0px solid $grey;
+        border-radius: 100%;
+        color: $white;    
+        position: relative;
+        top: -8px;  
+      }
+
+      .pin {
+        width: 40px;
+        height: 40px;
+        border-radius: 50% 50% 50% 0;
+        background-color: $grey;
+        position: absolute;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        left: 0;
+        right: 0;
+        top: -3.3rem;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        i {
+            transform: rotate(45deg);
+            display: inline-block;
+            background-color: $white;
+            color: $grey;
+            padding: 5px;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+      }
+      
+      // Step's active state
+      &.is-active {
+        color: $danger;
+  
+        &:before {
+          background-color: $danger;
+        }
+
+        .pin {
+            background-color: $danger;
+            i {
+                color: $black;
+            }
+        }
+      }
+      
+      // Step's complete state
+      &.is-complete {
+        color: $green;
+        &:before {
+            background-color: $green;
+          }
+  
+          .pin {
+              background-color: $green;
+              i {
+                  color: $black;
+              }
+          }
+      }
+     
+    }
+  }
+  
+  @media only screen and (max-width: 441px) {
+    .progress-wrap {
+        .progress-step {
+            line-height: 1rem;
+            .pin {
+                width: 35px;
+                height: 35px;
+                top: -3.3rem;
+                i {
+                    padding: 4px;
+                    border-radius: 100%;
+                    font-size: 0.75rem;
+                }
+            }
+        }
+    }
+  }
+
+  // Progress steps css ends------------------------------------

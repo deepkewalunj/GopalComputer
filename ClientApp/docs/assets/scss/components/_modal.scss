@@ -1,0 +1,93 @@
+/*modal related css here*/
+
+/* modal animation */
+@keyframes modal-b-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.5;
+    }
+}
+
+@keyframes modal-fade {
+    from {
+        top: -6.25rem;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+.modal-backdrop {
+    opacity: 0.5;
+    animation: ease-in-out .3s modal-b-fade;
+    transition: all .3s ease-in-out;
+}
+
+.modal {
+    top: -6.25rem;
+    animation: ease-in-out .3s modal-fade;
+    transition: all .3s ease-in-out;
+
+    &.show {
+        top: 0;
+        animation: ease-in-out .3s modal-fade;
+        transition: all .3s ease-in-out;
+    }
+    .modal-header {
+        padding: 0.5rem 1rem;
+        border-color: $light-grey;
+        i {
+            color: $orange;
+            margin-right: 0.3125rem;
+        }
+    }
+    .modal-body {
+        padding-bottom: 0 !important;
+    }
+    .modal-footer {
+        .btn {
+            min-width: 4rem;
+            padding: 0.25rem;
+            font-size: $font14;
+        }
+        /*just add following class with "modal footer class for remove top border of modal footer"*/
+        &.no-top-border {
+            border-top:0!important;
+            justify-content: center !important;
+        }
+    }
+    &.sic-modal {
+        .modal-dialog {
+            width: 350px;
+        }
+        .modal-body {
+            max-height: 350px;
+            overflow: hidden;
+            overflow-y:auto;
+            padding: 0.5rem 2rem;
+            .sic-label {
+                border-bottom: 1px solid $grey
+            }
+            .custom-control {
+                padding: 0.875rem 1.7rem;
+                border-bottom: 1px solid $grey
+            }
+        }
+    }
+}
+
+/* media css for modal */
+
+@media (max-width: 768px) {
+    .modal-dialog {
+        width: auto;
+
+        .modal-content {
+            height: 100%;
+        }
+    }
+}

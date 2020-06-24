@@ -1,0 +1,139 @@
+.panel {
+    width: 33%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 2.2rem;
+    padding: .5rem;
+
+    h5 {
+        display: inline-block;
+        margin: -1.3rem 0 0 0;
+        background-color: #fff;
+    }
+
+    .fa-star {
+        position: relative;
+        top: 1px;
+        margin-right: .2rem;
+    }
+
+    #btn-add-favorite {
+        text-align: right;
+        margin-right: .2rem;
+    }
+
+    div:first-of-type .fas {
+        display: inline;
+    }
+
+    ul {
+        margin: -.25rem 0 0 0;
+        padding: 0;
+        list-style-type: none;
+
+        li:not(:last-child) {
+            margin-bottom: .5rem;
+        }
+    }
+
+    &.repeating {
+        width: 100%;
+        padding-left: 1rem;
+
+        .repeat-row {
+            margin-top: 1.9rem;
+
+            label {
+                padding-left: 0;
+            }
+        }
+
+        .repeat-form {
+            border-top: 1px solid #ccc;
+            padding-top: .7rem;
+
+            .form-check {
+                position: relative;
+                top: 2.2rem;
+            }
+
+            .row:nth-child(2) {
+                padding-left: 2.9rem;
+            }
+
+            .id {
+                font-size: 24px;
+                padding: 1rem;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+.repeat-row {
+    border: 1px solid #f1f1f1;
+    border-radius: 4px;
+    padding: 1.5625rem 0;
+    margin-bottom: 1rem;
+}
+
+.fas {
+    &.fa-star {
+        color: #FFFC00;
+        display: none;
+    }
+
+    &.fa-trash-alt {
+        position: relative;
+        top: 38px;
+
+        @media (max-width: 992px) {
+            top: 0;
+        }
+    }
+}
+.layout {
+    .container.form-container, .container-fluid.form-container-fluid {
+        .accordion {
+            .card {
+                padding: 0;;
+                .card-header {
+                    background-color: transparent !important;
+                    border: 0;
+                    border-bottom: 1px solid $grey;
+                    padding: 0.5rem 0;
+                    margin-bottom: 0;
+                    .btn {
+                        min-width: 100%;
+                        padding: 0;
+                        text-decoration: none;
+                        display: flex;
+                        color: $black;
+                        &.collapsed {
+                            color: $black;
+                            i {
+                                color: $black;
+                            }
+                        }
+                        i {
+                            margin-left: auto;
+                        }
+                    }
+                }
+                .card-body {
+                    padding:0;
+                    .history-list {
+                        padding: 1rem 0;
+                        border-bottom: 1px solid $grey;
+                        &:last-of-type {
+                            border: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

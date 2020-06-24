@@ -1,0 +1,620 @@
+<!--success message-->
+<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+<!--success message-->
+
+<div class="container-fluid">
+    <h3 class="text-center mb-4">Employer Listing</h3>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="float-left">Tables</h4> <button class="btn btn-search btn-primary float-right d-sm-none"
+                (click)="toggleSearch()"><i class="icon-search"></i></button>
+        </div>
+        <div class="card-body">
+            <!--table search filter start-->
+            <form class="search-filter d-none d-md-block" [ngClass]="searchFilter ? 'd-block' : 'd-none'">
+                <div class="row mb-2">
+                    <div class="col-sm">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="Keyword" placeholder="Keyword">
+                            <label for="employerId">Keyword</label>
+                        </div>
+                    </div>
+                   
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select1">
+                                    <option value="" selected>State</option>
+                                    <option>Alabama</option>
+                                    <option>California</option>
+                                    <option>Florida</option>
+                                    <option>Alaska</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select3">
+                                    <option value="" selected>City</option>
+                                    <option disabled>Huntsville</option>
+                                    <option disabled>Los Angeles</option>
+                                    <option disabled>Miami</option>
+                                    <option disabled>Anchorage</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm text-right">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-outline btn-outline-dark">Reset</button>
+                            <button type="submit" class="btn btn-outline btn-outline-dark">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--table search filter end-->
+            <!--table listing statrt-->
+            <div id="no-more-tables">
+                <!-- This id used for responsive table -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width:18%" class="cursor">
+                                <div class="d-flex align-items-center"><span>General Agency Name</span> <span>
+                                        &#9660;</span></div>
+                            </th>
+                            <th scope="col" style="width:10%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Agency ID</span> <span> &#9650; </span>
+                                </div>
+                            </th>
+                            <th scope="col" style="width:17%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Agency Contact Person</span> <span> &#9650;
+                                    </span></div>
+                            </th>
+                            <th scope="col" style="width:21%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Contact Person Email</span> <span>&#9660;
+                                    </span></div>
+                            </th>
+                            <th scope="col" style="width:14%">
+                                <div class="d-flex align-items-center"><span>Contact Number</span></div>
+                            </th>
+                            <th scope="col" style="width:10%" class="text-center status-td cursor">
+                                <div class="d-flex align-items-center justify-content-center"><span>Status</span> <span>
+                                        &#9650; </span></div>
+                            </th>
+                            <th scope="col" style="width:10%" class="text-center actions-td cursor">
+                                <div class="d-flex align-items-center justify-content-center"><span>Actions</span>
+                                    <span> &#9650; </span></div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-title="General Agency Name">Brandon's General Agency</td>
+                            <td data-title="Agency ID">AG-00021</td>
+                            <td data-title="Agency Contact Person">Mathew Sphilburg</td>
+                            <td data-title="Contact Person Email">mathewsphilburg@gmail.com</td>
+                            <td data-title="Contact Number">669-221-6251</td>
+                            <td data-title="Status" class="text-center status-td">Active</td>
+                            <td data-title="Actions" class="action text-center actions-td">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0)"> <i class="icon-view orange" placement="top"
+                                            ngbTooltip="View"></i></a>
+                                    <a href="javascript:void(0)" (click)="open(content)"><i class="icon-remove orange"
+                                            placement="top" ngbTooltip="Delete"></i></a>
+                                    <a href="javascript:void(0)"><i class="icon-download grey not-allowed"
+                                            placement="top" ngbTooltip="Download"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="General Agency Name">Brandon's General Agency</td>
+                            <td data-title="Agency ID">AG-00021</td>
+                            <td data-title="Agency Contact Person">Mathew Sphilburg</td>
+                            <td data-title="Contact Person Email">mathewsphilburg@gmail.com</td>
+                            <td data-title="Contact Number">669-221-6251</td>
+                            <td data-title="Status" class="text-center status-td">Active</td>
+                            <td data-title="Actions" class="action text-center actions-td">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0)"> <i class="icon-view orange" placement="top"
+                                            ngbTooltip="View"></i></a>
+                                    <a href="javascript:void(0)" (click)="open(content)"><i class="icon-remove orange"
+                                            placement="top" ngbTooltip="Delete"></i></a>
+                                    <a href="javascript:void(0)"><i class="icon-download grey not-allowed"
+                                            placement="top" ngbTooltip="Download"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="General Agency Name">Brandon's General Agency</td>
+                            <td data-title="Agency ID">AG-00021</td>
+                            <td data-title="Agency Contact Person">Mathew Sphilburg</td>
+                            <td data-title="Contact Person Email">mathewsphilburg@gmail.com</td>
+                            <td data-title="Contact Number">669-221-6251</td>
+                            <td data-title="Status" class="text-center status-td">Active</td>
+                            <td data-title="Actions" class="action text-center actions-td">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0)"> <i class="icon-view orange" placement="top"
+                                            ngbTooltip="View"></i></a>
+                                    <a href="javascript:void(0)" (click)="open(content)"><i class="icon-remove orange"
+                                            placement="top" ngbTooltip="Delete"></i></a>
+                                    <a href="javascript:void(0)"><i class="icon-download grey not-allowed"
+                                            placement="top" ngbTooltip="Download"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="General Agency Name">Brandon's General Agency</td>
+                            <td data-title="Agency ID">AG-00021</td>
+                            <td data-title="Agency Contact Person">Mathew Sphilburg</td>
+                            <td data-title="Contact Person Email">mathewsphilburg@gmail.com</td>
+                            <td data-title="Contact Number">669-221-6251</td>
+                            <td data-title="Status" class="text-center status-td">Active</td>
+                            <td data-title="Actions" class="action text-center actions-td">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0)"> <i class="icon-view orange" placement="top"
+                                            ngbTooltip="View"></i></a>
+                                    <a href="javascript:void(0)" (click)="open(content)"><i class="icon-remove orange"
+                                            placement="top" ngbTooltip="Delete"></i></a>
+                                    <a href="javascript:void(0)"><i class="icon-download grey not-allowed"
+                                            placement="top" ngbTooltip="Download"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between align-items-center table-pagination">
+                    <div class="d-flex align-items-center">
+                        Show <span class="plain-select">
+                            <select class="form-control ml-2 mr-2" id="select3">
+                                <option>10</option>
+                                <option>20</option>
+                                <option>25</option>
+                            </select>
+                        </span>
+                        Entries
+                    </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="javascript:void(0)" tabindex="-1"><i
+                                        class="icon-left"></i></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0)">1</a></li>
+                            <li class="page-item active"><a class="page-link" href="javascript:void(0)">2</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="javascript:void(0)"><i class="icon-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!--table listing end-->
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="float-left">Tables Hover</h4> <button class="btn btn-search btn-primary float-right d-sm-none"
+                (click)="toggleSearch()"><i class="icon-search"></i></button>
+        </div>
+        <div class="card-body">
+            <!--table search filter start-->
+            <form class="search-filter d-none d-md-block" [ngClass]="searchFilter ? 'd-block' : 'd-none'">
+                <div class="form-row  mb-2">
+                    <div class="col-12 col-md-12 col-lg-10">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="form-group has-float-label">
+                                    <input class="form-control" type="text" id="Keyword" placeholder="Keyword">
+                                    <label for="employerId">Keyword</label>
+                                </div>
+                            </div>
+                            <div class="col-sm col-md-auto">
+                                <div class="form-group has-float-label">
+                                    <input class="form-control" type="text" id="generalAgency"
+                                        placeholder="General Agency Name">
+                                    <label for="generalAgency">General Agency Name</label>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <span class="plain-select">
+                                        <select class="form-control" id="select1">
+                                            <option value="" selected>State</option>
+                                            <option>Alabama</option>
+                                            <option>California</option>
+                                            <option>Florida</option>
+                                            <option>Alaska</option>
+                                        </select>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <span class="plain-select">
+                                        <select class="form-control" id="select3">
+                                            <option value="" selected>City</option>
+                                            <option disabled>Huntsville</option>
+                                            <option disabled>Los Angeles</option>
+                                            <option disabled>Miami</option>
+                                            <option disabled>Anchorage</option>
+                                        </select>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-2">
+                        <div class="row">
+                            <div class="col-sm text-right">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline btn-outline-light">Reset</button>
+                                    <button type="submit" class="btn btn-outline btn-outline-dark">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--table search filter end-->
+            <!--table listing statrt hover-->
+            <div id="no-more-tables">
+                <!-- This id used for responsive table -->
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width:18%" class="cursor">
+                                <div class="d-flex align-items-center"><span>General Agency Name</span> <span>
+                                        &#9660;</span></div>
+                            </th>
+                            <th scope="col" style="width:10%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Agency ID</span> <span> &#9650; </span>
+                                </div>
+                            </th>
+                            <th scope="col" style="width:17%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Agency Contact Person</span> <span> &#9650;
+                                    </span></div>
+                            </th>
+                            <th scope="col" style="width:21%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Contact Person Email</span> <span>&#9660;
+                                    </span></div>
+                            </th>
+                            <th scope="col" style="width:14%">
+                                <div class="d-flex align-items-center"><span>Contact Number</span></div>
+                            </th>
+                            <th scope="col" style="width:10%" class="text-center status-td cursor">
+                                <div class="d-flex align-items-center justify-content-center"><span>Status</span> <span>
+                                        &#9650; </span></div>
+                            </th>
+                            <th scope="col" style="width:10%" class="text-center actions-td cursor">
+                                <div class="d-flex align-items-center justify-content-center"><span>Actions</span>
+                                    <span> &#9650; </span></div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-title="General Agency Name">Brandon's General Agency</td>
+                            <td data-title="Agency ID">AG-00021</td>
+                            <td data-title="Agency Contact Person">Mathew Sphilburg</td>
+                            <td data-title="Contact Person Email">mathewsphilburg@gmail.com</td>
+                            <td data-title="Contact Number">669-221-6251</td>
+                            <td data-title="Status" class="text-center status-td">Active</td>
+                            <td data-title="Actions" class="action text-center actions-td">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0)"> <i class="icon-view orange" placement="top"
+                                            ngbTooltip="View"></i></a>
+                                    <a href="javascript:void(0)" (click)="openLg(contentLg)"><i
+                                            class="icon-remove orange" placement="top" ngbTooltip="Delete"></i></a>
+                                    <a href="javascript:void(0)"><i class="icon-download grey not-allowed"
+                                            placement="top" ngbTooltip="Download"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="General Agency Name">Brandon's General Agency</td>
+                            <td data-title="Agency ID">AG-00021</td>
+                            <td data-title="Agency Contact Person">Mathew Sphilburg</td>
+                            <td data-title="Contact Person Email">mathewsphilburg@gmail.com</td>
+                            <td data-title="Contact Number">669-221-6251</td>
+                            <td data-title="Status" class="text-center status-td">Active</td>
+                            <td data-title="Actions" class="action text-center actions-td">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0)"> <i class="icon-view orange" placement="top"
+                                            ngbTooltip="View"></i></a>
+                                    <a href="javascript:void(0)" (click)="open(content)"><i class="icon-remove orange"
+                                            placement="top" ngbTooltip="Delete"></i></a>
+                                    <a href="javascript:void(0)"><i class="icon-download grey not-allowed"
+                                            placement="top" ngbTooltip="Download"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="General Agency Name">Brandon's General Agency</td>
+                            <td data-title="Agency ID">AG-00021</td>
+                            <td data-title="Agency Contact Person">Mathew Sphilburg</td>
+                            <td data-title="Contact Person Email">mathewsphilburg@gmail.com</td>
+                            <td data-title="Contact Number">669-221-6251</td>
+                            <td data-title="Status" class="text-center status-td">Active</td>
+                            <td data-title="Actions" class="action text-center actions-td">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0)"> <i class="icon-view orange" placement="top"
+                                            ngbTooltip="View"></i></a>
+                                    <a href="javascript:void(0)" (click)="open(content)"><i class="icon-remove orange"
+                                            placement="top" ngbTooltip="Delete"></i></a>
+                                    <a href="javascript:void(0)"><i class="icon-download grey not-allowed"
+                                            placement="top" ngbTooltip="Download"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="General Agency Name">Brandon's General Agency</td>
+                            <td data-title="Agency ID">AG-00021</td>
+                            <td data-title="Agency Contact Person">Mathew Sphilburg</td>
+                            <td data-title="Contact Person Email">mathewsphilburg@gmail.com</td>
+                            <td data-title="Contact Number">669-221-6251</td>
+                            <td data-title="Status" class="text-center status-td">Active</td>
+                            <td data-title="Actions" class="action text-center actions-td">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0)"> <i class="icon-view orange" placement="top"
+                                            ngbTooltip="View"></i></a>
+                                    <a href="javascript:void(0)" (click)="open(content)"><i class="icon-remove orange"
+                                            placement="top" ngbTooltip="Delete"></i></a>
+                                    <a href="javascript:void(0)"><i class="icon-download grey not-allowed"
+                                            placement="top" ngbTooltip="Download"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between align-items-center table-pagination">
+                    <div class="d-flex align-items-center">
+                        Show <span class="plain-select">
+                            <select class="form-control ml-2 mr-2" id="select3">
+                                <option>10</option>
+                                <option>20</option>
+                                <option>25</option>
+                            </select>
+                        </span>
+                        Entries
+                    </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="javascript:void(0)" tabindex="-1"><i
+                                        class="icon-left"></i></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0)">1</a></li>
+                            <li class="page-item active"><a class="page-link" href="javascript:void(0)">2</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="javascript:void(0)"><i class="icon-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!--table listing end-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ng tabs -->
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h4>Tabs</h4>
+        </div>
+        <div class="card-body pb-0">
+            <ngb-tabset>
+                <ngb-tab>
+                    <ng-template ngbTabTitle>Profile</ng-template>
+                    <ng-template ngbTabContent>
+                        <div class="card">
+                            <div class="card-header">
+                                Profile (Ben's Agency)
+                            </div>
+                            <div class="card-body mb-0 profile-content">
+                                <div class="row">
+                                    <div class="col-12 col-md-3 col-lg-3">
+                                        <div class="profile-photo mb-4">
+                                            <img src="./assets/imgs/avatar/profile-thumb.png" alt="Profile Photo">
+                                            <div class="upload-btn-wrapper">
+                                                <button class="btn"><i class="icon-cloud"></i></button>
+                                                <input type="file" name="myfile" />
+                                            </div>
+                                        </div>
+                                        <div class="profile-photo mb-4">
+                                            <img src="./assets/imgs/avatar/profile.jpg" alt="Profile Photo">
+                                            <div class="upload-btn-wrapper">
+                                                <button class="btn"><i class="icon-cloud"></i></button>
+                                                <input type="file" name="myfile" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-9 col-lg-9">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6 col-lg-6">
+                                                <div class="form-group has-float-label">
+                                                    <input class="form-control" id="firstName" placeholder="First Name"
+                                                        type="text">
+                                                    <label for="firstName">First Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-6">
+                                                <div class="form-group has-float-label">
+                                                    <input class="form-control" id="lastName" placeholder="Last Name"
+                                                        type="text">
+                                                    <label for="lastName">Last Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-6">
+                                                <div class="form-group has-float-label">
+                                                    <input class="form-control" id="email" placeholder="Email"
+                                                        type="text">
+                                                    <label for="email">Email</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-6">
+                                                <div class="form-group has-float-label">
+                                                    <input class="form-control" id="mobile" placeholder="Mobile"
+                                                        type="text">
+                                                    <label for="mobile">Mobile</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-6">
+                                                <div class="form-group has-float-label">
+                                                    <input class="form-control" id="ffmId" placeholder="FFFM User ID"
+                                                        type="text">
+                                                    <label for="ffmId">FFM User ID</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-6">
+                                                <div class="form-group has-float-label">
+                                                    <input class="form-control" id="nationalProducerId"
+                                                        placeholder="National Producer ID" type="text">
+                                                    <label for="nationalProducerId">National Producer ID</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <span class="plain-select">
+                                                        <select class="form-control" id="select1">
+                                                            <option value="" selected>Carrier</option>
+                                                            <option>United Health Care</option>
+                                                            <option>California Health Care</option>
+                                                            <option>Florida Health Care</option>
+                                                            <option>Alaska Health Care</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-6">
+                                                <div class="form-group has-float-label d-flex broker-col">
+                                                    <div>
+                                                        <input class="form-control" id="brokerId"
+                                                            placeholder="Broker ID" type="text">
+                                                        <label for="brokerId">Broker ID</label>
+                                                    </div>
+                                                    <div class="d-flex align-items-end">
+                                                        <i class="icon-remove danger ml-1 cursor"
+                                                            ngbTooltip="Delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <span class="plain-select">
+                                                        <select class="form-control" id="select1">
+                                                            <option value="" selected>Carrier</option>
+                                                            <option>United Health Care</option>
+                                                            <option>California Health Care</option>
+                                                            <option>Florida Health Care</option>
+                                                            <option>Alaska Health Care</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-6">
+                                                <div class="form-group has-float-label d-flex broker-col">
+                                                    <div>
+                                                        <input class="form-control" id="brokerId"
+                                                            placeholder="Broker ID" type="text">
+                                                        <label for="brokerId">Broker ID</label>
+                                                    </div>
+                                                    <div class="d-flex align-items-end">
+                                                        <i class="icon-remove danger ml-1 cursor"
+                                                            ngbTooltip="Delete"></i> <i
+                                                            class="icon-plus-button grey ml-2 cursor"
+                                                            ngbTooltip="Add"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 text-right">
+                                                <button class="btn btn-secondary">Cancel</button>
+                                                <button class="btn btn-primary"> Save </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab>
+                    <ng-template ngbTabTitle>Agency</ng-template>
+                    <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+                        single-origin coffee squid.
+                        <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan
+                            four loko farm-to-table
+                            craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean
+                            shorts ullamco ad vinyl
+                            cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar
+                            helvetica VHS salvia
+                            yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson
+                            8-bit, sustainable jean
+                            shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown,
+                            tumblr butcher vero
+                            sint qui sapiente accusamus tattooed echo park.</p>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab>
+                    <ng-template ngbTabTitle>Employer</ng-template>
+                    <ng-template ngbTabContent>Hello Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+                        single-origin coffee squid.
+                        <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan
+                            four loko farm-to-table
+                            craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean
+                            shorts ullamco ad vinyl
+                            cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar
+                            helvetica VHS salvia
+                            yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson
+                            8-bit, sustainable jean
+                            shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown,
+                            tumblr butcher vero
+                            sint qui sapiente accusamus tattooed echo park.</p>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>
+
+
+<!-- Ng modal window -->
+<ng-template #contentLg let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"><i class="icon-select"></i> Confirm</h4>
+    </div>
+    <div class="modal-body">
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking
+            at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,
+            as opposed to using 'Content here, content here', making it look like readable English. Many desktop
+            publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for
+            'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the
+            years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="changeSuccessMessage(); modal.close('Save click')">OK</button>
+        <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+</ng-template>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"><i class="icon-select"></i> Confirm</h4>
+    </div>
+    <div class="modal-body">
+        <p class="text-center">Are you sure, you want to delete?</p>
+    </div>
+    <div class="modal-footer no-top-border">
+        <button class="btn btn-primary" (click)="changeSuccessMessage(); modal.close('Save click')">OK</button>
+        <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+</ng-template>

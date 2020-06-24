@@ -1,0 +1,682 @@
+/* global css for layout here*/
+
+html {
+    overflow-x: inherit;
+    font-size: 16px;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: $font-primary;
+}
+
+body {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    background-color: $light-grey;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-font-smoothing: subpixel-antialiased;
+    line-height: 1.8;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    overflow-x: hidden;
+}
+
+
+/*css general setting*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+h1 {
+    font-size: 1.75rem;
+    /*28px*/
+}
+
+h2 {
+    font-size: 1.5rem;
+    /*24px*/
+}
+
+h3 {
+    font-size: 1.375rem;
+    /*22px*/
+}
+
+h4 {
+    font-size: 1.25rem;
+    /*20px*/
+}
+
+h5 {
+    font-size: 1rem;
+    /*16px*/
+}
+
+h6 {
+    font-size: 0.875rem;
+    /*14px*/
+}
+
+p,
+div,
+a {
+    font-size: $font14;
+    /*16px*/
+}
+
+a:hover {
+    text-decoration: none;
+    color: $dark-blue;
+    cursor: pointer;
+}
+
+a:focus,
+input,
+.form-control:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: $border !important;
+}
+
+ul,
+ol {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+
+ul li a,
+ol li a {
+    list-style: none;
+    font-size: $font14;
+    /*14px*/
+}
+
+table tr th {
+    font-size: $font14;
+    /*14px*/
+    line-height: 1rem;
+}
+
+table tr td {
+    font-size: $font14;
+    /*14px*/
+    line-height: 1rem;
+}
+
+.form-control,
+input {
+    font-size: $font14;
+    color: $black;
+    font-weight: 400;
+}
+
+:focus {
+    outline: 0 !important;
+}
+
+
+/* removed number spinner from input type number field for firefox browser*/
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.line-height-20 {
+    line-height: 1.2rem;
+}
+
+.line-height-15 {
+    line-height: 0.9375rem;
+}
+
+
+/*common-colors*/
+
+.orange {
+    color: map-get($theme-colors, orange);
+}
+
+.danger {
+    color: map-get($theme-colors, danger);
+}
+
+.grey {
+    color: map-get($theme-colors, light);
+}
+
+.dark-blue {
+    color: map-get($theme-colors, dark);
+}
+
+.badge {
+    padding: .4rem .4rem .4rem .4rem;
+    font-size: $font13;
+    font-weight: normal;
+    border-radius: 2px;
+    i {
+        font-size: 0.5rem;
+        margin-left: .1rem;
+        cursor: pointer;
+    }
+}
+
+
+/*pointers*/
+
+.not-allowed {
+    cursor: not-allowed !important;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.min-width-0 {
+    min-width: 0;
+}
+
+.tooltip {
+    z-index: 1049;
+}
+
+/* css for main layout*/
+
+.layout {
+    .page-container {
+        min-height: 100vh;
+        padding-left: 15.625rem;
+        transition: all 0.2s ease;
+        -webkit-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        -ms-transition: all 0.2s ease;
+        .main-content {
+            padding: calc(3.125rem + 2.1875rem) 0.9375rem 0.9375rem 0.9375rem;
+            min-height: calc(100vh - 0px);
+            width: 100%;
+            flex-grow: 1;
+            position: relative;
+            footer {
+                position: sticky;
+                bottom: -1px;
+                left: 0;
+                padding: 1.5rem;
+                padding-left: 4.3rem;
+                border-top: 1px solid $border;
+                width: 100%;
+                z-index: 2;
+                background-color: $white;
+                text-align: right;
+            }
+        }
+    }
+    .container {
+        &.form-container {
+            max-width: 1240px;
+            /*bootstrap card css override here*/
+            .card {
+                border: none;
+                padding: 1.875rem 2rem 0;
+                .card-header {
+                    background-color: transparent;
+                    border: none;
+                    border-left: 0.1875rem solid $orange;
+                    border-radius: 0;
+                }
+                .card-body {
+                padding-right: 0;
+                }
+            }
+        }
+    }
+
+  //fluid-container with fluid form full width  
+    .container-fluid {
+        &.form-container-fluid {
+          
+            /*bootstrap card css override here*/
+            .card {
+                border: none;
+                padding: 1.875rem 3.125rem 0;
+                .card-header {
+                    background-color: transparent;
+                    border: none;
+                    border-left: 0.1875rem solid $orange;
+                    border-radius: 0;
+                }
+                .card-body {
+                padding-right: 0;
+                }
+            }
+        }
+    }
+    
+    &.side-nav-folded {
+        header {
+            padding-left: 6rem;
+        }
+        .page-container {
+            padding-left: 4.0625rem;
+        }
+    }
+}
+
+
+/*bootstrap card css override for fluid container here*/
+
+.card {
+    border: none;
+    padding: 0;
+    .card-header {
+        background-color: transparent;
+        border: none;
+        border-left: 0.1875rem solid $orange;
+        border-radius: 0;
+        display: flex;
+        align-items: center;
+        &.border-left-none {
+            border-left: 0 !important;
+        }
+        h4 {
+            flex: 1;
+        }
+
+        @media screen and (max-width:441px){
+            &.steps-list-card-header {
+                padding-left:1.25rem !important;
+                padding-right:1.25rem !important;
+            }
+        }
+
+       
+    }
+    .card-body {
+        margin-bottom: .5rem;
+        padding-bottom: .75rem;
+        padding-left: 1.25rem;
+        padding-top: 2rem;
+
+        @media screen and (min-width:769px){
+            &.steps-listing-card-body {
+                // padding-left: 0;
+            }
+        }
+    }
+}
+
+
+
+
+/*profile photo upload css start*/
+
+.profile-content {
+    .profile-photo {
+        width: 9.375rem;
+        height: 9.375rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $grey;
+        position: relative;
+        overflow: hidden;
+        padding-bottom: 1.6875rem;
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .upload-btn-wrapper {
+            position: absolute;
+            overflow: hidden;
+            display: inline-block;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.76);
+            width: 100%;
+            left: 0;
+            .btn {
+                background-color: transparent;
+                padding: 0.1875rem 0.3125rem;
+                float: right;
+                min-width: 0;
+                line-height: 1rem;
+                i {
+                    color: $white;
+                    font-size: $font18;
+                }
+            }
+            input[type="file"] {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+            }
+        }
+    }
+    .broker-col {
+        div {
+            flex-basis: 100%;
+            i {
+                font-size: $font18;
+            }
+        }
+        div+div {
+            flex-basis: 3.75rem;
+        }
+    }
+    @media (max-width: 575.98px) {
+        .user-profile-photo {
+            margin: 0 auto;
+        }
+    }
+}
+
+.img-upload-note {
+    font-size: $font13;
+    line-height: 1rem;
+}
+
+
+/*profile photo upload css end*/
+
+
+/*password error css here*/
+
+.password-error {
+    ol {
+        list-style: disc;
+        li {
+            font-size: $font13;
+        }
+    }
+}
+
+
+/* hide header and sidebar from login page and other css*/
+
+.login-page-body {
+    background-color: $light-grey;
+     app-header,
+     app-sidebar {
+       display: none;
+     }
+    .page-container {
+        padding: 0;
+        .main-content {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            app-signin,
+            app-forgot-password {
+                display: flex;
+                width: 100%;
+            }
+        }
+    }
+}
+
+
+/*login and forgot page css here*/
+
+.form-signin {
+    background-color: $white;
+    width: 100%;
+    width: 30rem;
+    padding: 2rem;
+    margin: auto;
+    border-radius: 4px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.18), 1px 1px 4px 0 rgba(0, 0, 0, 0.24);
+    .logo {
+        width: 15.625rem;
+        margin: auto;
+        margin-bottom: 3rem;
+        margin-top: 1rem;
+        img {
+            width: 100%;
+        }
+    }
+    .unable-login-guidelines {
+        ol {
+            list-style: decimal;
+            padding-left: 2rem;
+            li {
+                font-size: $font13;
+            }
+        }
+    }
+}
+
+
+/* end login css*/
+
+
+/*page not found css here*/
+
+.page-not-found {
+    background-color: $light-grey;
+    app-header,
+    app-sidebar {
+        display: none;
+    }
+    .page-container {
+        padding-left: 0;
+        .main-content {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}
+
+
+/*page not found css end here*/
+
+
+/*no-access-right css here*/
+
+.no-access-right {
+    background-color: $light-grey;
+    header {
+        padding-left: 15px;
+    }
+    app-sidebar {
+        display: none;
+    }
+    .page-container {
+        padding-left: 0;
+        .main-content {
+            padding-left: 0;
+            padding-right: 0;
+            img {
+                width: 140px;
+                margin: auto;
+            }
+            h2 {
+                font-size: 2rem;
+                text-align: center;
+                color: #000;
+                margin: 1rem 0 3rem;
+                font-weight: 700;
+            }
+            h3 {
+                font-size: 1.2rem;
+                text-align: center;
+                color: #636060;
+                margin: 3rem 0;
+                line-height: 31px;
+            }
+        }
+    }
+}
+
+
+/*no-access-right css here*/
+
+
+/* media css for main layout*/
+
+
+
+@media only screen and (max-width: 1024px) {
+    .layout {
+        .page-container {
+            padding-left: 0;
+            .main-content {
+                padding-left: 0;
+                padding-right: 0;
+                footer {
+                    padding: 1rem 1.25rem;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+    .layout {
+        .page-container {
+            .main-content {
+                padding-left: 0;
+                padding-right: 0;
+                .container {
+                    &.form-container {
+                        .card {
+                            padding: 0;
+                            .card-body {
+                                padding-right: 1.25rem;
+                            }
+                        }
+                    }
+                }
+                .container-fluid {
+                    &.form-container-fluid {
+                        .card {
+                            padding: 0;
+                            .card-body {
+                                padding-right: 1.25rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/* scroll to top css here*/
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    opacity: 0;
+    transition: all .2s ease-in-out;
+    background-color: rgba(57, 80, 112, 0.8);
+    width: 40px;
+    height: 40px;
+    padding: 9px 12px;
+    border-radius: 100%;
+    display: inline-block;
+    cursor: pointer;
+    z-index: 10;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    i {
+        color: $white;
+        position: relative;
+        font-size: $font18;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+}
+
+.show-scrollTop {
+    opacity: 1;
+    transition: all .2s ease-in-out;
+}
+
+.sub-title {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+
+/* font size decrease for small device max-width 441px*/
+
+@media only screen and (max-width: 441px) {
+    html {
+        font-size: 14px;
+    }
+    h4 {
+        font-size: 1rem;
+    }
+    h3 {
+        font-size: 1.25rem;
+    }
+    .form-signin {
+        max-width: 25rem;
+    }
+    .spinner {
+        display: flex;
+        align-items: center;
+        .lds-roller {
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
+}
+
+#basicInfo,
+#underwriterTab,
+#underwriterTab1,
+#portfolios,
+#carrierForms,
+#updateProfile,
+#changePassword,
+#activityLogs {
+    padding: 0;
+    .tab-anchor {
+        padding: 0.5rem 1rem;
+    }
+}
+
+.edit-angency-common-card {
+    .card {
+        padding: 0;
+    }
+}
+

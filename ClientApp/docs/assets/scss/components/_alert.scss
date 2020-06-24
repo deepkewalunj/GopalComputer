@@ -1,0 +1,26 @@
+/* all alert and error messages css here*/
+
+.error-msg {
+    color: $danger;
+    font-size: $font14;
+    padding: 0.3125rem 0;
+    line-height: 1.2rem;
+}
+ngb-alert {
+    &.sticky-alert {
+        position: sticky;
+        top: 3.875rem;
+        z-index: 1045;
+    }
+}
+
+/* css for IE 11*/
+_:-ms-fullscreen,
+:root {
+    ngb-alert {
+        &.sticky-alert  {
+            top:0;
+            z-index: 1000;
+        }
+    }
+}

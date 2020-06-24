@@ -1,0 +1,88 @@
+<form [formGroup]="addClientForm" novalidate>
+    <div class="container form-container">
+        <h3 class="text-center mb-4">Add Client</h3>
+        <div class="card">
+          
+            <div class="card-header">
+                <h4>Client Information</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select3" formControlName="title">
+                                    <option value="" selected>Select</option>
+                                    <option>Mr</option>
+                                    <option>Mrs</option>
+                                    <option>Miss</option>
+                                </select>
+                                <label class="select-label">Title</label>
+                            </span>
+                            <div *ngIf="addClientForm.controls['title'].invalid && (addClientForm.controls['title'].dirty || addClientForm.controls['title'].touched)"
+                            class="error-msg">
+                            <div *ngIf="addClientForm.controls['title'].errors.required">
+                               Title is required.
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" id="personName" type="text" placeholder="Person Name"
+                                formControlName="personName" />
+                            <label for="personName">Person Name</label>
+                            <div *ngIf="addClientForm.controls['personName'].invalid && (addClientForm.controls['personName'].dirty || addClientForm.controls['personName'].touched)"
+                                class="error-msg">
+                                <div *ngIf="addClientForm.controls['personName'].errors.required">
+                                    Person name is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" id="companyName" type="text" placeholder="Company Name"
+                                formControlName="companyName" />
+                            <label for="companyName">Company Name</label>
+                            <div *ngIf="addClientForm.controls['personName'].invalid && (addClientForm.controls['companyName'].dirty || addClientForm.controls['companyName'].touched)"
+                                class="error-msg">
+                                <div *ngIf="addClientForm.controls['companyName'].errors.required">
+                                    Company name is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="address" placeholder="Address">
+                            <label for="address">Address</label>
+                          
+                        </div>
+                    </div>
+                   
+                 
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="phoneNo" placeholder=" Phone Number"
+                                formControlName="phoneNo">
+                            <label for="phoneNo"> Phone Number</label>
+                            <div *ngIf="addClientForm.controls['phoneNo'].invalid && (addClientForm.controls['phoneNo'].dirty || addClientForm.controls['phoneNo'].touched)"
+                                class="error-msg">
+                                <div *ngIf="addClientForm.controls['phoneNo'].errors.required">
+                                   Phone number is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <button class="btn btn-secondary">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+                Save
+            </button>
+        </footer>
+    </div>
+</form>

@@ -1,0 +1,279 @@
+/*left sidebar nav css here*/
+
+.side-nav {
+  // width: 4.0625rem;
+  width: 15.625rem;
+  background-color:#dee2e6;
+  z-index: 1050;
+  top:0;
+  bottom: 0px;
+  left: 0;
+  position: fixed;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  .side-nav-inner {
+    position: relative;
+    height: 100%;
+    .side-nav-menu {
+      position: relative;
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+      overflow: auto;
+      height: calc(100vh - 2rem);
+      overflow: hidden;
+      li {
+        position: relative;
+        display: block;
+        cursor: pointer;
+        &.dropdown {
+          > .active-link {
+            color: $white;
+            background-color: $orange;
+          }
+          .arrow {
+            position: absolute;
+            right: 1.875rem;
+            line-height: 1.625rem;
+            transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+          }
+          ul {
+            &.dropdown-menu {
+              position: relative;
+              width: 100%;
+              box-shadow: none;
+              border: 0px;
+              border-radius: 0;
+              padding-left: 3.125rem;
+              padding-top: 0px;
+              background-color: transparent;
+              float: none;
+
+              li {
+                a {
+                  padding: 0.625rem 0.9375rem;
+                  &:hover,
+                  &:focus {
+                    background-color: transparent;
+                    color: $white;
+                  }
+                }
+                &.active {
+                  a {
+                    color: $white;
+                  }
+                }
+              }
+            }
+          }
+        }
+        &.dropdown.open {
+          a {
+            transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            .arrow {
+              transform: rotate(90deg);
+              -webkit-transform: rotate(90deg);
+              -moz-transform: rotate(90deg);
+              -o-transform: rotate(90deg);
+              -ms-transform: rotate(90deg);
+            }
+          }
+          .dropdown-menu {
+            display: block;
+            .arrow {
+              line-height: 1.5625rem;
+            }
+            a.active-link {
+              color: $dark;
+              background: transparent;
+            }
+          }
+          > a {
+            color: $white;
+            background: $dark;
+          }
+        }
+        a {
+          color: $black;
+          font-weight: 600;
+          position: relative;
+          display: block;
+          padding: 0.8125rem 1.25rem;;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+          transition: all 0.3s ease;
+          -webkit-transition: all 0.3s ease;
+          -moz-transition: all 0.3s ease;
+          -o-transition: all 0.3s ease;
+          -ms-transition: all 0.3s ease;
+          i {
+            font-size: $font20;
+          }
+          .title {
+            margin-left: 0.9375rem;
+            line-height: 1rem;
+          }
+
+          &:hover,
+          &:focus {
+            text-decoration: none;
+            color: $white;
+            transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+          }
+          &.dropdown-toggle:after {
+            display: none;
+            border-radius: 0px;
+          }
+          &:hover,
+          &:focus {
+            color: $white;
+            background-color: $dark;
+          }
+        }
+      }
+    }
+
+    .fold-menu-on-desktop {
+      display: flex;
+      justify-content: flex-end;
+      background-color: $orange;
+      a {
+        padding: 0.3125rem 0.9375rem;
+        color: $white;
+        i {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.side-nav-folded {
+  .side-nav {
+    width: 4.0625rem;
+    .side-nav-inner {
+      .side-nav-menu {
+        > li {
+          > a {
+            .title {
+              display: none;
+            }
+          }
+        }
+        li {
+          &.dropdown {
+            .arrow {
+              opacity: 0;
+            }
+          }
+
+          &.dropdown.open {
+            ul {
+              &.dropdown-menu {
+                display: none !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    .fold-menu-on-desktop {
+      a {
+        padding: 0.3125rem 1.5625rem;
+        .icon-left:before {
+          content: "\e921";
+       }
+      }
+    }
+  }
+}
+
+.overlay {
+  display: none;
+}
+
+/*media width maxwidth 1024px css for sidebar nav*/
+
+@media only screen and (max-width: 1024px) {
+  .side-nav {
+    right: -16.25rem;
+    left: auto;
+    top: 3.75rem;
+  }
+  .side-nav-folded {
+    .page-container {
+      padding-left: 0 !important;
+    }
+    .side-nav {
+      right: 0px;
+      width: 15.625rem;
+      .side-nav-inner {
+        .side-nav-menu {
+          > li {
+            > a {
+              .title {
+                display: block;
+              }
+            }
+          }
+          li {
+            &.dropdown {
+              .arrow {
+                opacity: 0;
+              }
+            }
+  
+            &.dropdown.open {
+              ul {
+                &.dropdown-menu {
+                  display: none !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      display: block;
+    }
+  }
+}
+
+
+  @media (min-width:800px) and (max-width: 1280px) {
+    .android {
+      .side-nav {
+        .side-nav-inner {
+          .side-nav-menu {
+            height: calc(100vh - 8rem);
+          }
+        }
+      }
+    }
+  }

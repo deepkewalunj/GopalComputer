@@ -1,0 +1,257 @@
+/* top header nav css here*/
+
+header {
+    display: block;
+    height: 3.75rem;
+    width: 100%;
+    position: fixed;
+    padding: 0px;
+    padding-left: 17.625rem;
+    z-index: 4;
+    background-color: $white;
+    margin-bottom: 0px;
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+
+    .header-container {
+        .nav-logo {
+            float: left;
+            display: flex;
+            margin-right: auto;
+            .logo {
+                width:7.25rem;
+            }
+            a {
+                color: $white;
+                height: 3.75rem;
+                display: inline-block;
+                line-height: 3.75rem;
+                text-align: center;
+                img {
+                    width: 100%;
+                }
+            }
+        }
+        .nav-left {
+            float: left;
+        }
+        .nav-right {
+            position: relative;
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0px;
+            float:right;
+            margin-right: 0.625rem;
+            > li {
+                float: left;
+                display: flex;
+                align-items: center;
+                height: 3.75rem;
+                > a {
+                    padding: 0 0.375rem;
+                    color: $dark-blue;
+                    display: block;
+                    text-decoration: none;
+                    border-right: 1.2px solid $light-grey;
+                    line-height: 1rem;
+                    transition: all 0.2s ease-in-out;
+                    -webkit-transition: all 0.2s ease-in-out;
+                    -moz-transition: all 0.2s ease-in-out;
+                    -o-transition: all 0.2s ease-in-out;
+                    -ms-transition: all 0.2s ease-in-out;
+                    i {
+                        font-size:$font20;
+                        vertical-align: middle;
+                        color: $white;
+                        border-radius: 50%;
+                        border: 0;
+                        padding: 0.5rem;
+                        color: $dark-blue;
+                        transition: all 0.3s ease-in-out;
+                        -webkit-transition: all 0.3s ease-in-out;
+                        -moz-transition: all 0.3s ease-in-out;
+                        -o-transition: all 0.3s ease-in-out;
+                        -ms-transition: all 0.3s ease-in-out;
+                        &:focus {
+                            text-decoration: none;
+                            background-color: $orange;
+                            border-color: $orange;
+                            color: $white;
+                        }
+                    }
+                    &.dropdown-toggle:after {
+                        display: none;
+                        border-radius: 0px;
+                    }
+                }
+                &.menu-toggle-li {
+                    display: none;
+                    a {
+                        &.sidenav-fold-toggler {
+                            padding: 0 0.625rem;
+                            border: none;
+                            i {
+                                background-color:$orange;
+                                padding: 0.5rem;
+                                color: $white;
+                                border-radius: 0.125rem;
+                                width: 1.875rem;
+                                height: 1.875rem;
+                                display: inline-block;
+                                font-size: $font14;
+                                transition: all 0.2s ease;
+                                -webkit-transition: all 0.2s ease;
+                                -moz-transition: all 0.2s ease;
+                                -o-transition: all 0.2s ease;
+                                -ms-transition: all 0.2s ease;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            .user-profile {
+                .profile-img {
+                    width: 2.1875rem;
+                    border-radius: 50%;
+                    float: left;
+                }
+                a {
+                    border-right: none;
+                }
+                .user-name {
+                    padding: 0 0.625rem 0 1.25rem;
+                    color: $black-blue;
+                }
+                .dropdown-menu {
+                    min-width: 15.625rem;
+                    border: none;
+                    border-radius:0.25rem;
+                    top: 0.8125rem !important;
+                    padding-top: 0;
+                    margin: 0;
+                    overflow: hidden;
+                    border: 0.0625rem solid $border;
+                    li {
+                        a {
+                        line-height: 1.5;
+                        min-height: auto;
+                        padding: 0.625rem 1.25rem;
+                        display: block;
+                        color: $dark-grey;
+                        &:hover {
+                            color: $orange;
+                        }
+                       i {
+                        margin-right: 0.625rem;
+                       }
+                        }
+                        &.user-name-device {
+                            background-color: $dark-blue;
+                            display: flex;
+                            align-items: center;
+                            padding: 0.9375rem 1.25rem;
+                            margin-bottom: 0.625rem;
+                            img {
+                                margin-right: 0.9375rem;
+                                border: 0.125rem solid $white;
+                                width: 2.5rem;
+                            }
+                            .user-info {
+                                a {
+                                    color: $white;
+                                    padding: 0;
+                                    font-size: $font16;
+                                }
+                                .user-role {
+                                    color:rgba(244, 246, 249, 0.57);
+                                    font-size: $font13;
+                                    line-height:1rem;
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+
+            /*increase decrease font style */
+            .setting {
+                .font-size-btns {
+                    top: 1.1rem !important;
+                    padding: 0.5rem;
+                    li {
+                        display: flex;
+                        justify-content: center;
+                        .btn {
+                            width: 1.875rem;
+                            height: 1.875rem;
+                            min-width: 0;
+                            padding: 0;
+                            background-color: $dark-blue;
+                            color: $white;
+                            display: flex;
+                            text-align: center;
+                            font-size: $font14;
+                            line-height: 0.875rem;
+                            border: 0;
+                            border-radius: 50%;
+                            margin: 0 0.3125rem !important;
+                            align-items: center;
+                            justify-content: center;
+                            white-space: nowrap; 
+                        }
+                    }
+                }
+            }
+            /*increase decrease font style end*/
+        }
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    header {
+        padding-left: 0px !important;
+        .header-container {
+            .nav-logo {
+                padding: 0 0.625rem;
+                .logo {
+                    width:9.375rem;
+                }
+            }
+            .nav-right {
+                margin-right: 0;
+                .user-profile {
+                    .dropdown-toggle {
+                        padding: 0 0.625rem;
+                    }
+                    span.user-name {
+                        display: none;
+                    }
+                }
+                .hide-on-device {
+                    display: none;
+                }
+                li {
+                    &.menu-toggle-li {
+                        display: flex;
+                    }
+                }
+            }
+        }
+    }
+    .side-nav-folded {
+        .sidenav-fold-toggler {
+            .icon-menu {
+                border-radius: 50% !important;
+                &::before {
+                    content: "\e928"
+                }
+            }
+        }
+    }
+}
+

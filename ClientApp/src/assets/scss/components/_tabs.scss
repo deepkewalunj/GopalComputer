@@ -1,0 +1,64 @@
+/* tabs related css here*/
+
+
+ngb-tabset {
+	.tab-content {
+		padding: 2rem 0 0;
+	}
+	.nav-tabs {
+		border-bottom: 0.0625rem solid $orange;
+		.nav-item {
+			margin-bottom: 0;
+			.nav-link {
+				border: 0;
+				position: relative;
+				min-width: 6.25rem;
+				text-align: center;
+				color: $black;
+				&.active:after, &.active:before {
+					top: 100%;
+					left: 50%;
+					border: solid transparent;
+					content: " ";
+					height: 0;
+					width: 0;
+					position: absolute;
+					pointer-events: none;
+				}
+				&.active:before {
+					border-top-color: $orange;
+					border-width: 0.6875rem;
+					margin-left: -0.6875rem;
+				}
+				&.active:after {
+					border-top-color: $white;
+					border-width: 0.625rem;
+					margin-left: -0.625rem;
+				}
+			}
+		}
+	}
+}
+
+
+@media (max-width: 441px) {
+	ngb-tabset {
+		.nav-tabs  {
+			.nav-item {
+				.nav-link {
+					border-radius:  0.3125rem !important;
+					padding: 0.3125rem 0.625rem;
+					margin-bottom:  0.3125rem;
+					&.active {
+						background-color: $orange;
+						color: $white !important;
+						&:after, &:before {
+							display: none;
+						}
+						
+					}
+				}
+			}
+		}
+	} 
+}

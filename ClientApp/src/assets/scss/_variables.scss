@@ -1,0 +1,106 @@
+// Grid settings
+$main-sm-columns: 12;
+$sidebar-sm-columns: 4;
+$grid-gutter-width: 30px;
+$pad: floor($grid-gutter-width/2);
+
+// breakpoints
+$grid-breakpoints: ( xs: 0, sm: 544px, md: 768px, lg: 992px, xl: 1200px);
+
+// same as default
+$screen-xs: map-get($grid-breakpoints, 'xs');
+$screen-sm: map-get($grid-breakpoints, 'sm');
+$screen-md: map-get($grid-breakpoints, 'md');
+$screen-lg: map-get($grid-breakpoints, 'lg');
+$screen-xl: map-get($grid-breakpoints, 'xl');
+
+// colors
+$theme-colors: ( 
+    primary:    #0f25d5 , 
+    secondary:  #e8e8e8, // bootstrap default
+    success:    #3cba54, // bootstrap default
+    info:       #50a9e8, // bootstrap default
+    warning:    #f4c20d, // bootstrap default
+    danger:     #dd3237, // bootstrap default
+    light:      #c7c7c7, // bootstrap default
+    dark:       #313131 // bootstrap default
+);
+
+$brand-primary: map-get($theme-colors, primary);
+$brand-secondary: map-get($theme-colors, secondary);
+$brand-success: map-get($theme-colors, success);
+$brand-info: map-get($theme-colors, info);
+$brand-warning: map-get($theme-colors, warning);
+$brand-danger: map-get($theme-colors, danger);
+$brand-light: map-get($theme-colors, light);
+$brand-dark: map-get($theme-colors, dark);
+
+$orange:        #0f25d5;
+$grey:          #e8e8e8;
+$light-grey:    #f4f6f9;
+$dark-grey:     #222222;
+$green:         #5cb85c;
+$dark-blue:     #1c45ef;
+$black-blue:    #1a2138;
+$blue:          #7d64f6;
+$white:         #ffffff;
+$black:         #000000;
+$border:        #d7d7d7;
+$danger:        #dd3237;
+$placeholder:   #a7a7a7;
+$disabled:      #777777;
+$disabled-bg:      #e9ecef;
+$reset:         #c7c7c7;
+
+
+
+/* font-size */
+$font12:0.75rem;
+$font13:0.8125rem;
+$font14:0.875rem;
+$font15:0.9375rem;
+$font16:1rem;
+$font17:1.0625rem;
+$font18:1.125rem;
+$font20:1.25rem;
+$font22:1.375rem;
+$font24:1.5rem;
+$font30:1.875rem;
+$font34:2.125rem;
+
+$font-primary: 'Open Sans', sans-serif; // body font
+$site-secondary-font: 'Aria',sans-serif;
+
+$site-font-features: sans;
+$button-font-family: $font-primary;
+
+$button-font-weight: 400;
+$regular: 400;
+$semi-bold: 500;
+$bold: 700;
+
+$sizes: () !default;
+$sizes: map-merge(
+  (
+   5: 5%,
+  10: 10%,
+  15: 15%,
+  20: 20%
+  ),
+  $sizes
+);
+
+@mixin content-width() {
+    width: 60em;
+    max-width: 100%;
+    margin: 0 auto;
+    @media (max-width: 768px) {
+        padding: 0 1em;
+    }
+}
+
+@mixin background-center() {
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

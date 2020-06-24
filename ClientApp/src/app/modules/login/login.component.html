@@ -1,0 +1,41 @@
+<form class="form-signin" [formGroup]="loginForm" (ngSubmit)="onLogin()" novalidate>
+  <div class="text-center logo">
+    <img src="./assets/imgs/logos/logo.png" alt="Logo">
+  </div>
+  <div class="row">
+
+    <div class="col-12">
+      <div class="form-group has-float-label field-with-icon">
+        <i class="icon-mail"></i>
+        <input class="form-control" type="text" id="userEmail" placeholder="Email Address" formControlName="userEmail">
+        <label for="userEmail">Email Address</label>
+        <div *ngIf="loginForm.controls['userEmail'].invalid && (loginForm.controls['userEmail'].dirty || loginForm.controls['userEmail'].touched)"
+             class="error-msg">
+          <div *ngIf="loginForm.controls['userEmail'].errors.required">
+            Email is required.
+          </div>
+          <div *ngIf="loginForm.controls['userEmail'].errors.email || loginForm.controls['userEmail'].errors.pattern">
+            Email must be a valid email address.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group  has-float-label field-with-icon">
+        <i class="icon-key"></i>  <input class="form-control" type="password" id="userPassword" placeholder="Password" formControlName="userPassword">
+        <label for="userPassword">Password</label>
+        <div *ngIf="loginForm.controls['userPassword'].invalid && (loginForm.controls['userPassword'].dirty || loginForm.controls['userPassword'].touched)"
+             class="error-msg">
+          <div *ngIf="loginForm.controls['userPassword'].errors.required">
+            Password is required.
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6"> <button [disabled]="submitClick" class="btn btn-lg btn-primary">Login</button></div>
+  </div>
+  <div *ngIf="error" class="alert alert-danger">Please enter valid credentials</div>
+</form>

@@ -1,0 +1,682 @@
+/* forms related all css here*/
+
+.form-control {
+    &:read-only::placeholder {
+        color: $disabled;
+    }
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-control {
+    border: 0;
+    border-bottom: 0.0625rem solid $border;
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 5px;
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+    &[readonly]{
+        opacity: 0.7;
+    }
+    &.ng-invalid {
+        border-color: $danger !important;
+    }
+    &.ng-touched {
+        border-color: $danger !important;
+        &.ng-valid {
+            border-color: $green !important;
+        }
+    }
+}
+
+select:disabled {
+    cursor: not-allowed;
+    opacity: 0.5 !important;
+}
+
+.input-group {
+    &.search-input,
+    &.datepicker {
+        // border-bottom: 1px solid $border;
+        margin-top: -1px;
+        .form-control {
+            &.ng-invalid {
+                border-color: $danger !important;
+            }
+            &.ng-touched {
+                border-color: $danger !important;
+                &.ng-valid {
+                    border-color: $green !important;
+                }
+            }
+        }
+        .form-control + .input-group-append {
+            border-bottom: 0.0625rem solid $border !important;
+        }
+        .form-control.ng-invalid  + .input-group-append,  .form-control.ng-touched  + .input-group-append {
+            border-color: $danger !important;
+        }
+        .form-control.ng-valid  + .input-group-append {
+            border-color: $green !important;
+        }
+
+        .form-control.ng-valid.ng-untouched  + .input-group-append  {
+            border-color: $border !important;
+        }
+
+        .btn {
+            padding: 0;
+            background-color: transparent;
+            border: none;
+            margin: 0;
+            min-width: 1.5rem;
+            i {
+                color: $border;
+            }
+        }
+    }
+    &.info-content {
+        position: relative;
+        border: 0;
+        .form-control {
+            border-bottom: 0.0625rem solid #d7d7d7;
+        }
+        .input-group-append {
+            border-bottom: 0.0625rem solid #d7d7d7;
+        }
+        // border:0;
+        // .form-control {
+        //   padding-right: 25px;
+        //   border-bottom: 0.0625rem solid #d7d7d7;
+        // }
+        // .input-group-append {
+        //   position: absolute;
+        //   right: 0;
+        //   z-index: 1050;
+        //   top:5px;
+        // }
+        .btn {
+            i {
+                color: $dark-blue;
+            }
+        }
+    }
+}
+
+.delete-row {
+    font-size: 1.125rem;
+}
+
+
+/* datepicker css*/
+
+.datepicker {
+    ngb-datepicker {
+        .btn {
+            min-width: 0px;
+        }
+        .custom-select {
+            margin: 0 0.0625rem;
+        }
+        .ngb-dp-header {
+            background-color: $dark-blue !important;
+        }
+        .ngb-dp-week {
+            &.bg-light {
+                background-color: $dark-blue !important;
+            }
+            .ngb-dp-weekday {
+                color: $white;
+            }
+            .ngb-dp-day {
+                .btn-light:hover {
+                    background-color: $orange !important;
+                    border-color: $orange !important;
+                    color: $white !important;
+                }
+            }
+        }
+        .btn-light:active:focus,
+        .btn-light:focus {
+            box-shadow: none !important;
+            outline: 0 !important;
+        }
+    }
+    &.input-group {
+        .date-label {
+            color: $black;
+            font-size: 0.8125rem;
+            font-weight: normal;
+            position: absolute;
+            pointer-events: none;
+            left: 0px;
+            top: -0.875rem;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+    }
+}
+
+
+/* multiselect css*/
+
+
+
+.multiselect-container {
+    position: relative;
+    .select-label-for-multiselect {
+        color: $black;
+        font-size: 0.8125rem;
+        font-weight:normal;
+        pointer-events:none;
+        margin-bottom: 0;
+        position: absolute;
+        top:-1.25rem;
+        z-index: 1;
+    }
+}
+
+.multiselect {
+    .selected-list {
+        margin-top: 5px;
+        .c-btn {
+            border: 0;
+            border-bottom: 1px solid $border;
+            border-radius: 0;
+            padding-left: 0;
+            padding: 0;
+            min-height: 2.1875rem;
+            font-size: $font14;
+            line-height: 2rem;
+            &:focus {
+                outline: none !important;
+            }
+            &.disabled {
+                cursor: not-allowed !important;
+                background-color: $disabled-bg;
+                opacity: 0.7;
+            }
+            span {
+                line-height: 2.1rem;
+            }
+        }
+        .c-list {
+            width: calc(100% - 52px);
+            .c-token {
+                width: initial;
+                max-width: 100%;
+                background: $dark-blue;
+                padding: 0.3rem 1.5rem 0.3rem 0.4rem;
+                margin-top: 7px;
+                color: #fff;
+                .c-label {
+                    position: relative;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    width: 100%;
+                    font-size: 0.785rem;
+                    line-height: 0.875rem;
+                }
+            }
+        }
+        .countplaceholder {
+            font-size: 1rem;
+        }
+        .c-angle-up,
+        .c-angle-down {
+            transform: none;
+            top: 0;
+        }
+    }
+    .dropdown-list {
+        .pure-checkbox {
+            input[type="checkbox"]+label:before {
+                color: $dark-blue;
+                border: 2px solid $dark-blue;
+            }
+            input[type="checkbox"]:checked+label:before {
+                background: $dark-blue;
+            }
+        }
+        .list-filter {
+            .c-search {
+                top: 2px;
+            }
+        }
+    }
+    &.ng-invalid {
+        .c-btn {
+            border-color: $danger !important;
+        }
+    }
+    &.ng-touched {
+        .c-btn {
+            border-color: $danger !important;
+        }
+        &.ng-valid {
+            .c-btn {
+                border-color: $green !important;
+            }
+        }
+    }
+}
+
+
+/* custome checkbox and radio button css*/
+
+.form-check {
+    &.form-check-inline {
+        flex-basis: 31%;
+    }
+}
+
+.custom-control {
+    padding-left: 1.7rem;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: $dark-blue;
+    border-color: $border;
+    background-color: $white;
+}
+
+.custom-control-input:focus~.custom-control-label::before {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    outline: none !important;
+    box-shadow: none;
+}
+
+.custom-control-input:focus:not(:checked)~.custom-control-label::before {
+    border-color: $border;
+}
+
+.custom-control-label::before,
+.custom-control-label::after {
+    width: 1.25rem;
+    height: 1.25rem;
+    top: 0.125rem;
+    left: -1.7rem;
+    display: block;
+}
+.custom-control-label::after {
+    background: no-repeat 50% / 60% 60% !important;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after {
+  
+    background: #5cb85c no-repeat 55% / 60% 60% !important;
+    background-image: url("src/assets/imgs/check.svg") !important;
+    border-radius: 4px;
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-label::after {
+    background: #5cb85c no-repeat 55% / 60% 60% !important;
+    background-image: url("src/assets/imgs/radio.svg") !important;
+    border-radius: 100%;
+}
+
+
+
+.custom-checkbox .custom-control-input:disabled~.custom-control-label {
+    cursor: not-allowed;
+}
+
+.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before {
+    background-color: $grey;
+}
+
+
+/* custome checkbox and radio button css end*/
+
+
+/*select all checkboxes css here for add role page and add coverage line page*/
+
+.checkbox-list {
+    >li {
+        >.custom-checkbox {
+            label {
+                font-weight: 700;
+                font-size: $font17;
+                line-height: 1.5rem;
+                display: flex;
+                align-items: center;
+                i {
+                    font-size: $font20;
+                    color: $orange;
+                    margin: 0 0.75rem 0 0.5rem;
+                }
+            }
+        }
+        ul {
+            margin: 1rem 0rem 1rem 4.25rem;
+            li {
+                display: flex;
+                flex-wrap: wrap;
+                .custom-checkbox,
+                .custom-radio {
+                    margin-right: 0;
+                    margin-bottom: 0.75rem;
+                    flex-basis: 25%;
+                    @media (max-width: $screen-md) {
+                        flex-basis: 50%;
+                    }
+                }
+            }
+            .custom-control {
+                &:not(:first-of-type):not(:nth-child(5)) {
+                    padding-left: 2.16875rem;
+                }
+            }
+        }
+    }
+    .accordion {
+        display: flex;
+        border-bottom: 1px solid $border;
+        padding-bottom: 0.5rem;
+        .custom-control {
+            margin-right: auto;
+            label {
+                font-weight: 700;
+                font-size: $font17;
+                line-height: 1.5rem;
+                display: flex;
+                align-items: center;
+                i {
+                    font-size: $font20;
+                    color: $orange;
+                    margin: 0 0.75rem 0 0.5rem;
+                }
+            }
+        }
+        .accordion-arrow {
+            cursor: pointer;
+        }
+        .accordion-arrow[aria-expanded="false"] {
+            .icon-up-arrow:before {
+                content: "\e90e";
+            }
+        }
+    }
+    @media only screen and (max-width: 441px) {
+        >li {
+            ul {
+                margin-left: 4.25rem;
+                li {
+                    flex-direction: column;
+                    .custom-checkbox {
+                        margin: 0.125rem 0;
+                        padding-left: 1.7rem !important;
+                    }
+                    .custom-radio {
+                        padding-left: 1.7rem !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+::-webkit-inner-spin-button {
+    display: none;
+}
+
+
+/* floating-labels css */
+
+.has-float-label {
+    position: relative;
+    label {
+        position: absolute;
+        left: 0;
+        top: -1.25rem;
+        cursor: text;
+        font-size: $font13;
+        opacity: 1;
+        -webkit-transition: all 0.2s;
+        transition: all 0.2s;
+    }
+    .form-control::-webkit-input-placeholder {
+        -webkit-transition: all 0.2s;
+        transition: all 0.2s;
+    }
+    .form-control::-moz-placeholder {
+        -webkit-transition: all 0.2s;
+        transition: all 0.2s;
+    }
+    .form-control:-ms-input-placeholder {
+        -webkit-transition: all 0.2s;
+        transition: all 0.2s;
+    }
+    .form-control::placeholder {
+        -webkit-transition: all 0.2s;
+        transition: all 0.2s;
+    }
+    .form-control:placeholder-shown:not(:focus)::-webkit-input-placeholder {
+        opacity: 0;
+    }
+    .form-control:placeholder-shown:not(:focus)::-moz-placeholder {
+        opacity: 0;
+    }
+    .form-control:placeholder-shown:not(:focus)+* {
+        font-size: $font14;
+        opacity: 0.5;
+        top: 0.1875rem;
+    }
+    .form-control:focus {
+        outline: none;
+    }
+    /*when you want to add icon for field at start just add this "field-with-icon" class with "has-float-label" this class*/
+    &.field-with-icon {
+        i {
+            position: absolute;
+            left: 0;
+            top: 0.5625rem;
+        }
+        label {
+            left: 1.375rem;
+        }
+        .form-control {
+            padding-left: 1.375rem;
+        }
+    }
+}
+
+.has-float-label input.form-control:-webkit-autofill~label {
+    top: -1rem;
+    line-height: 1.07142857;
+}
+
+
+/*file upload button css*/
+
+.file-upload-wrap {
+    cursor: pointer;
+    position: relative;
+    .custom-file-upload {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        filter: alpha(opacity=0);
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+        opacity: 0;
+        background-color: transparent;
+        color: transparent;
+        cursor: pointer;
+    }
+}
+
+
+
+/*input placeholde color change*/
+
+.form-control::-webkit-input-placeholder {
+    /* Chrome */
+    color: $placeholder;
+}
+
+.form-control:-ms-input-placeholder {
+    /* IE 10+ */
+    color: $placeholder;
+}
+
+.form-control::-moz-placeholder {
+    /* Firefox 19+ */
+    color: $placeholder;
+}
+
+.form-control:-moz-placeholder {
+    /* Firefox 4 - 18 */
+    color: $placeholder;
+}
+
+
+/*select dropdown css change for device*/
+
+
+
+.plain-select {
+  display: block;
+  position: relative;
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    outline: none;
+    padding-right: 1.5rem;
+    border-radius: 0;
+    padding-left: 0px;
+    option {
+      font-size: $font13;
+    }
+  }
+ 
+  &:after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    right: 0px;
+    top: 50%;
+    margin-top: 0px;
+    height: 0;
+    width: 0;
+    border-top: 6px solid $black;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    pointer-events: none;
+  }
+
+  .select-label {
+    color: $black;
+    font-size: 0.8125rem;
+    font-weight:normal;
+    position:absolute;
+    pointer-events:none;
+    left:0px;
+    top:-1.25rem;
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+  }
+}
+
+// repeat div css for agencies and carrier page
+.add-repeat {
+    .repeating {
+        border: 1px solid $border;
+        border-radius: 5px;
+        padding: 1rem 1rem 0 1rem;
+        margin-bottom: 1rem;
+    }
+    @media (max-width: 575.98px) {
+        .profile-content {
+            .profile-photo {
+                margin: 0;
+            }
+        }
+    }
+}
+
+.radio-btns-label {
+    position: absolute;
+    top: -15px;
+    font-size: $font13;
+}
+
+@media (max-width: 575.98px) {
+    // .radio-btns-label {
+    //     position: relative;
+    //     top: 0;
+    //     .form-group {
+    //         margin-top: 0.5rem !important;
+    //     }
+    // }
+.img-upload-note-for-profile {
+    text-align: center;
+}
+  }
+
+
+
+/* css for IE 11*/
+
+_:-ms-fullscreen,
+:root {
+  .has-float-label label {
+    display: none;
+  }
+  select::-ms-expand {
+    display: none;
+  }
+ 
+}
+
+.gecko {
+    .checkbox-list > li ul {
+        .custom-control {
+            padding-left: 1.5rem !important;
+            &:not(:first-of-type):not(:nth-child(5)) {
+                padding-left: 1.5rem !important;
+            }
+        }
+    }
+}
+
+
+
+.gecko .add-forms .checkbox-list > li ul:not(:nth-child(5)):not(:first-of-type).custom-control {
+    padding-left: 1.5rem !important;
+  }
+
+/* css for IE edge*/
+
+@supports (-ms-ime-align: auto) {
+  :disabled.form-control + label {
+    display: none;
+  }
+  .has-float-label {
+    label {
+      display: none;
+    }
+  }
+}
+/* css for mac safari*/
+
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) {
+
+}}
