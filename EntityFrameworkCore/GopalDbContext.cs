@@ -22,13 +22,7 @@ namespace Gopal.EntityFrameworkCore
         public virtual DbSet<TblClient> TblClient { get; set; }
         public virtual DbSet<TblUser> TblUser { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                 optionsBuilder.UseSqlServer(_configuration["ConnectionString"]);
-            }
-        }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
