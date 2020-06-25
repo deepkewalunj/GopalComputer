@@ -3,7 +3,7 @@
 .side-nav {
   // width: 4.0625rem;
   width: 15.625rem;
-  background-color:#dee2e6;
+  background-color:#2f3c4e;
   z-index: 1050;
   top:0;
   bottom: 0px;
@@ -19,151 +19,151 @@
     position: relative;
     height: 100%;
     .side-nav-menu {
-      position: relative;
-      list-style: none;
-      margin: 0;
-      padding-left: 0;
-      overflow: auto;
-      height: calc(100vh - 2rem);
-      overflow: hidden;
-      li {
-        position: relative;
-        display: block;
+      >.nav-item {
+        border-bottom: 1px solid #3c494e;
+      }
+    .nav-item {
+      -webkit-transition-duration: 0.25s;
+      transition-duration: 0.25s;
+      width: 100%;
+     
+      .nav-link {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        white-space: nowrap;
+        padding: 1.125rem 0 1.125rem 0;
+        color: #b8c7ce;
+        -webkit-transition-duration: 0.35s;
+        transition-duration: 0.35s;
         cursor: pointer;
-        &.dropdown {
-          > .active-link {
-            color: $white;
-            background-color: $orange;
-          }
-          .arrow {
-            position: absolute;
-            right: 1.875rem;
-            line-height: 1.625rem;
-            transition: all 0.3s ease;
-            -webkit-transition: all 0.3s ease;
-            -moz-transition: all 0.3s ease;
-            -o-transition: all 0.3s ease;
-            -ms-transition: all 0.3s ease;
-          }
-          ul {
-            &.dropdown-menu {
-              position: relative;
-              width: 100%;
-              box-shadow: none;
-              border: 0px;
-              border-radius: 0;
-              padding-left: 3.125rem;
-              padding-top: 0px;
-              background-color: transparent;
-              float: none;
-
-              li {
-                a {
-                  padding: 0.625rem 0.9375rem;
-                  &:hover,
-                  &:focus {
-                    background-color: transparent;
-                    color: $white;
-                  }
-                }
-                &.active {
-                  a {
-                    color: $white;
-                  }
-                }
-              }
-            }
-          }
+        .menu-title {
+          color: #b8c7ce;
+          display: inline-block;
+          font-size: 0.875rem;
+          line-height: 1;
+          vertical-align: middle;
         }
-        &.dropdown.open {
-          a {
-            transition: all 0.3s ease;
-            -webkit-transition: all 0.3s ease;
-            -moz-transition: all 0.3s ease;
-            -o-transition: all 0.3s ease;
-            -ms-transition: all 0.3s ease;
-            .arrow {
-              transform: rotate(90deg);
-              -webkit-transform: rotate(90deg);
-              -moz-transform: rotate(90deg);
-              -o-transform: rotate(90deg);
-              -ms-transform: rotate(90deg);
-            }
-          }
-          .dropdown-menu {
-            display: block;
-            .arrow {
-              line-height: 1.5625rem;
-            }
-            a.active-link {
-              color: $dark;
-              background: transparent;
-            }
-          }
-          > a {
-            color: $white;
-            background: $dark;
-          }
+        i {
+          font-size: 1.125rem;
+          line-height: 1;
+          margin-left: 10px;
+          margin-right: 10px;
+          color: #b8c7ce;
         }
-        a {
-          color: $black;
-          font-weight: 600;
-          position: relative;
-          display: block;
-          padding: 0.8125rem 1.25rem;;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          white-space: nowrap;
+        .menu-arrow {
+          font-size: 1.125rem;
+          line-height: 1;
+          margin-left: auto;
+          color: #b8c7ce;
           transition: all 0.3s ease;
           -webkit-transition: all 0.3s ease;
           -moz-transition: all 0.3s ease;
           -o-transition: all 0.3s ease;
           -ms-transition: all 0.3s ease;
+      }
+        &[aria-expanded="true"] .menu-arrow {
+          transform: rotate(90deg);
+              -webkit-transform: rotate(90deg);
+              -moz-transform: rotate(90deg);
+              -o-transform: rotate(90deg);
+              -ms-transform: rotate(90deg);
+        }
+      
+      }
+      // &.active {
+      //   background-color: cadetblue;
+      //   a {
+      //     i {
+      //       color: #fff;
+      //     }
+      //   }
+      // }
+      &.active {
+       
+        .nav-link {
           i {
-            font-size: $font20;
+                  color: #fff;
+                }
+          .menu-title {
+            color: #fff;
           }
-          .title {
-            margin-left: 0.9375rem;
-            line-height: 1rem;
-          }
-
-          &:hover,
-          &:focus {
-            text-decoration: none;
-            color: $white;
-            transition: all 0.3s ease;
-            -webkit-transition: all 0.3s ease;
-            -moz-transition: all 0.3s ease;
-            -o-transition: all 0.3s ease;
-            -ms-transition: all 0.3s ease;
-          }
-          &.dropdown-toggle:after {
-            display: none;
-            border-radius: 0px;
-          }
-          &:hover,
-          &:focus {
-            color: $white;
-            background-color: $dark;
+        }
+        .menu-arrow {
+          color: #fff;
+        }
+        .collapse {
+          &.show {
+            .sub-menu {
+              .subActive {
+                >.nav-link {
+                  i {
+                    color: #fff;
+                  }
+                  .menu-title {
+                    color: #fff;
+                  }
+                      }
+              }
+           
+            }
           }
         }
       }
+
+      // .collapse {
+      //   transition: transform .35s, opacity .35s, max-height .2s ease-out;
+      //   opacity: 0;
+      //   max-height: 0;
+      //   transform: translateY(-100%);
+      //   display: block !important;
+      
+      //   &.show {
+      //     opacity: 1;
+      //     max-height: 600px;
+      //      transform: translateY(0);
+      //   }
+      // }
+      .collapse {
+      .sub-menu {
+        .nav-item {
+          padding: 0;
+          padding-left: 10px;
+          .nav-link {
+            color: #b8c7ce;
+            padding: 0.75rem 0 0.75rem 1rem;
+            position: relative;
+            font-size: 0.8125rem;
+            line-height: 1;
+            height: auto;
+            border-top: 0;
+            .menu-title {
+              color: #b8c7ce;
+            }
+            i {
+              font-size: 10px;
+              color: #b8c7ce;
+            }
+            &.active {
+              color: #fff;
+              font-weight: bold;
+              background: transparent;
+              i {
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+     
     }
 
-    .fold-menu-on-desktop {
-      display: flex;
-      justify-content: flex-end;
-      background-color: $orange;
-      a {
-        padding: 0.3125rem 0.9375rem;
-        color: $white;
-        i {
-          font-size: 1rem;
-        }
-      }
     }
   }
+}
 }
 
 .side-nav-folded {
@@ -212,68 +212,96 @@
 
 /*media width maxwidth 1024px css for sidebar nav*/
 
-@media only screen and (max-width: 1024px) {
-  .side-nav {
-    right: -16.25rem;
-    left: auto;
-    top: 3.75rem;
-  }
-  .side-nav-folded {
-    .page-container {
-      padding-left: 0 !important;
-    }
-    .side-nav {
-      right: 0px;
-      width: 15.625rem;
-      .side-nav-inner {
-        .side-nav-menu {
-          > li {
-            > a {
-              .title {
-                display: block;
-              }
-            }
-          }
-          li {
-            &.dropdown {
-              .arrow {
-                opacity: 0;
-              }
-            }
+// @media only screen and (max-width: 1024px) {
+//   .side-nav {
+//     right: -16.25rem;
+//     left: auto;
+//     top: 3.75rem;
+//   }
+//   .side-nav-folded {
+//     .page-container {
+//       padding-left: 0 !important;
+//     }
+//     .side-nav {
+//       right: 0px;
+//       width: 15.625rem;
+//       .side-nav-inner {
+//         .side-nav-menu {
+//           > li {
+//             > a {
+//               .title {
+//                 display: block;
+//               }
+//             }
+//           }
+//           li {
+//             &.dropdown {
+//               .arrow {
+//                 opacity: 0;
+//               }
+//             }
   
-            &.dropdown.open {
-              ul {
-                &.dropdown-menu {
-                  display: none !important;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 10;
-      display: block;
-    }
+//             &.dropdown.open {
+//               ul {
+//                 &.dropdown-menu {
+//                   display: none !important;
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//     .overlay {
+//       position: fixed;
+//       top: 0;
+//       left: 0;
+//       height: 100%;
+//       width: 100%;
+//       background-color: rgba(0, 0, 0, 0.5);
+//       z-index: 10;
+//       display: block;
+//     }
+//   }
+// }
+
+
+//   @media (min-width:800px) and (max-width: 1280px) {
+//     .android {
+//       .side-nav {
+//         .side-nav-inner {
+//           .side-nav-menu {
+//             height: calc(100vh - 8rem);
+//           }
+//         }
+//       }
+//     }
+//   }
+
+
+
+@media screen and (max-width: 991px) {
+  .side-nav {
+    position: fixed;
+    display: block;
+    top: 0;
+    height: 100%;
+    width: 260px;
+    right: auto;
+    left: 0;
+    z-index: 1032;
+    visibility: visible;
+    overflow-y: visible;
+    padding: 0;
+    transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
+    transform: translate3d(-260px, 0, 0);
   }
+
 }
 
-
-  @media (min-width:800px) and (max-width: 1280px) {
-    .android {
-      .side-nav {
-        .side-nav-inner {
-          .side-nav-menu {
-            height: calc(100vh - 8rem);
-          }
-        }
-      }
-    }
+.nav-open {
+  .side-nav {
+    width: 15.625rem;
+    transform: translate3d(0px, 0, 0);
   }
+}

@@ -2,8 +2,10 @@
 <div class="layout">
 
     <!--top header and side navigation start here-->
-    <app-header></app-header> 
-    <app-sidebar></app-sidebar>
+    <app-header *ngIf="sharedService.isLoggedIn()"></app-header> 
+    <div class="side-nav expand-lg" *ngIf="sharedService.getRoleId()==1">
+        <app-sidebar></app-sidebar>
+      </div>
     <!--top header and side navigation end here-->
 
     <!--page main content div start here-->

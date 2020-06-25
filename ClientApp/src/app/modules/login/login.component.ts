@@ -44,6 +44,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = 'master' || '/';
+
+    this.document.body.classList.add('login-page-body');
   }
 
   // convenience getter for easy access to form fields
@@ -71,7 +73,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
-    
+    this.document.body.classList.remove('login-page-body');
   }
 
 }
