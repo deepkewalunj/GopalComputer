@@ -16,7 +16,7 @@ $screen-xl: map-get($grid-breakpoints, 'xl');
 
 // colors
 $theme-colors: ( 
-    primary:    #0f25d5 , 
+    primary:    #4466f2 , 
     secondary:  #e8e8e8, // bootstrap default
     success:    #3cba54, // bootstrap default
     info:       #50a9e8, // bootstrap default
@@ -35,12 +35,12 @@ $brand-danger: map-get($theme-colors, danger);
 $brand-light: map-get($theme-colors, light);
 $brand-dark: map-get($theme-colors, dark);
 
-$orange:        #0f25d5;
+$orange:        #4466f2;
 $grey:          #e8e8e8;
 $light-grey:    #f4f6f9;
 $dark-grey:     #222222;
 $green:         #5cb85c;
-$dark-blue:     #1c45ef;
+$dark-blue:     #4466f2;
 $black-blue:    #1a2138;
 $blue:          #7d64f6;
 $white:         #ffffff;
@@ -68,7 +68,7 @@ $font24:1.5rem;
 $font30:1.875rem;
 $font34:2.125rem;
 
-$font-primary: 'Open Sans', sans-serif; // body font
+$font-primary: 'Source Sans Pro', sans-serif; // body font
 $site-secondary-font: 'Aria',sans-serif;
 
 $site-font-features: sans;

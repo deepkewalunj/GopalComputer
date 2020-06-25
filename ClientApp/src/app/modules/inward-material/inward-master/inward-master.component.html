@@ -1,0 +1,264 @@
+
+
+<div class="container-fluid">
+    <!--success message-->
+<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+<!--success message-->
+    <h3 class="text-center mb-4">Inward</h3>
+  
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="float-left">Inward Details</h4> 
+            <button class="btn btn-search btn-primary float-right d-sm-none"
+                (click)="toggleSearch()"><i class="icon-search"></i></button>
+                <button class="btn  btn-primary float-right" (click)="addClientPopup(clientPopup)">Add Client</button>
+        </div>
+        <div class="card-body">
+            <!--table search filter start-->
+            <form class="search-filter d-none d-md-block" [ngClass]="searchFilter ? 'd-block' : 'd-none'">
+                <div class="row  mb-2">
+                    <div class="col-12 col-sm-3">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="personName" placeholder="Person Name">
+                            <label for="personName">Person Name</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-3">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="companyName" placeholder="Company Name">
+                            <label for="companyName">Company Name</label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 col-sm-3 text-right">
+                        <div class="form-group mt-2">
+                            <button type="submit" class="btn btn-outline btn-outline-dark">Reset</button>
+                            <button type="submit" class="btn btn-outline btn-outline-dark">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--table search filter end-->
+            <!--table listing statrt hover-->
+            <div id="no-more-tables">
+                <!-- This id used for responsive table -->
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width:5%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Title</span> <span>
+                                        &#9660;</span></div>
+                            </th>
+                           
+                            <th scope="col" style="width:20%" class="cursor">
+                                <div class="d-flex align-items-center"><span> Person Name</span> <span>&#9660;
+                                    </span></div>
+                            </th>
+                            <th scope="col" style="width:20%">
+                                <div class="d-flex align-items-center"><span>Company Name</span></div>
+                            </th>
+                            <th scope="col" style="width:30%">
+                                <div class="d-flex align-items-center"><span>Address</span></div>
+                            </th>
+                            <th scope="col" style="width:13%">
+                                <div class="d-flex align-items-center"><span>Phone</span></div>
+                            </th>
+                            
+                            <th scope="col" style="width:12%" class="text-center actions-td cursor">
+                                <div class="d-flex align-items-center justify-content-center"><span>Actions</span>
+                                    </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-title="Title">Mr.</td>
+                            <td data-title="Person Name">Deepak123</td>
+                            <td data-title="Company Name">Advika Pvt. Ltd.</td>
+                            <td data-title="Address">406, Bhoomi Blessing, Rahatani, Pune-411034</td>
+                            <td data-title="Phone">9999999999</td>
+                            <td data-title="Actions" class="action text-center actions-td">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0)"> <i class="icon-edit orange" placement="top"
+                                            ngbTooltip="View" (click)="addClientPopup(clientPopup)"></i></a>
+                                    <a href="javascript:void(0)">
+                                        <i class="icon-remove orange" placement="top" ngbTooltip="Delete" (click)="open(content)"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Title">Mr.</td>
+                            <td data-title="Person Name">Deepak123</td>
+                            <td data-title="Company Name">Advika Pvt. Ltd.</td>
+                            <td data-title="Address">406, Bhoomi Blessing, Rahatani, Pune-411034</td>
+                            <td data-title="Phone">9999999999</td>
+                            <td data-title="Actions" class="action text-center actions-td">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0)"> <i class="icon-edit orange" placement="top"
+                                            ngbTooltip="View" (click)="addClientPopup(clientPopup)"></i></a>
+                                    <a href="javascript:void(0)">
+                                        <i class="icon-remove orange" placement="top" ngbTooltip="Delete" (click)="open(content)"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Title">Mr.</td>
+                            <td data-title="Person Name">Deepak123</td>
+                            <td data-title="Company Name">Advika Pvt. Ltd.</td>
+                            <td data-title="Address">406, Bhoomi Blessing, Rahatani, Pune-411034</td>
+                            <td data-title="Phone">9999999999</td>
+                            <td data-title="Actions" class="action text-center actions-td">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0)"> <i class="icon-edit orange" placement="top"
+                                            ngbTooltip="View" (click)="addClientPopup(clientPopup)"></i></a>
+                                    <a href="javascript:void(0)">
+                                        <i class="icon-remove orange" placement="top" ngbTooltip="Delete" (click)="open(content)"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Title">Mr.</td>
+                            <td data-title="Person Name">Deepak123</td>
+                            <td data-title="Company Name">Advika Pvt. Ltd.</td>
+                            <td data-title="Address">406, Bhoomi Blessing, Rahatani, Pune-411034</td>
+                            <td data-title="Phone">9999999999</td>
+                            <td data-title="Actions" class="action text-center actions-td">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript:void(0)"> <i class="icon-edit orange" placement="top"
+                                            ngbTooltip="View" (click)="addClientPopup(clientPopup)"></i></a>
+                                    <a href="javascript:void(0)">
+                                        <i class="icon-remove orange" placement="top" ngbTooltip="Delete" (click)="open(content)"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between align-items-center table-pagination">
+                    <div class="d-flex align-items-center">
+                        Show <span class="plain-select">
+                            <select class="form-control ml-2 mr-2" id="select3">
+                                <option>10</option>
+                                <option>20</option>
+                                <option>25</option>
+                            </select>
+                        </span>
+                        Entries
+                    </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="javascript:void(0)" tabindex="-1"><i
+                                        class="icon-left"></i></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0)">1</a></li>
+                            <li class="page-item active"><a class="page-link" href="javascript:void(0)">2</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="javascript:void(0)"><i class="icon-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!--table listing end-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ng modal window -->
+<ng-template #clientPopup let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title" ngbAutofocus> Add Client</h4>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="addClientForm" novalidate>
+       <div class="row">
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group">
+                <span class="plain-select">
+                    <select class="form-control" id="select3" formControlName="title">
+                        <option value="" selected>Select</option>
+                        <option>Mr</option>
+                        <option>Mrs</option>
+                        <option>Miss</option>
+                    </select>
+                    <label class="select-label">Title</label>
+                </span>
+                <div *ngIf="addClientForm.controls['title'].invalid && (addClientForm.controls['title'].dirty || addClientForm.controls['title'].touched)"
+                class="error-msg">
+                <div *ngIf="addClientForm.controls['title'].errors.required">
+                   Title is required.
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+                <input class="form-control" id="personName" type="text" placeholder="Person Name"
+                    formControlName="personName" />
+                <label for="personName">Person Name</label>
+                <div *ngIf="addClientForm.controls['personName'].invalid && (addClientForm.controls['personName'].dirty || addClientForm.controls['personName'].touched)"
+                    class="error-msg">
+                    <div *ngIf="addClientForm.controls['personName'].errors.required">
+                        Person name is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+                <input class="form-control" id="companyName" type="text" placeholder="Company Name"
+                    formControlName="companyName" />
+                <label for="companyName">Company Name</label>
+                <div *ngIf="addClientForm.controls['personName'].invalid && (addClientForm.controls['companyName'].dirty || addClientForm.controls['companyName'].touched)"
+                    class="error-msg">
+                    <div *ngIf="addClientForm.controls['companyName'].errors.required">
+                        Company name is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+                <input class="form-control" type="text" id="phoneNo" placeholder=" Phone Number"
+                    formControlName="phoneNo">
+                <label for="phoneNo"> Phone Number</label>
+                <div *ngIf="addClientForm.controls['phoneNo'].invalid && (addClientForm.controls['phoneNo'].dirty || addClientForm.controls['phoneNo'].touched)"
+                    class="error-msg">
+                    <div *ngIf="addClientForm.controls['phoneNo'].errors.required">
+                       Phone number is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group has-float-label">
+                <input class="form-control" type="text" id="address" placeholder="Address">
+                <label for="address">Address</label>
+              
+            </div>
+        </div>
+       </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="modal.close('Save click')">Save</button>
+        <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+</ng-template>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"><i class="icon-select"></i> Confirm</h4>
+    </div>
+    <div class="modal-body">
+        <p class="text-center">Are you sure, you want to delete?</p>
+    </div>
+    <div class="modal-footer no-top-border">
+        <button class="btn btn-primary" (click)="changeSuccessMessage(); modal.close('Save click')">OK</button>
+        <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+</ng-template>
+
