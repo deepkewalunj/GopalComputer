@@ -1,13 +1,17 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace Gopal.EntityFrameworkCore
 {
     public partial class GopalDbContext : DbContext
     {
-        public GopalDbContext()
+        private readonly IConfiguration _configuration;
+
+        public GopalDbContext( IConfiguration configuration)
         {
+            _configuration = configuration;
         }
 
         public GopalDbContext(DbContextOptions<GopalDbContext> options)
@@ -18,6 +22,7 @@ namespace Gopal.EntityFrameworkCore
         public virtual DbSet<TblClient> TblClient { get; set; }
         public virtual DbSet<TblUser> TblUser { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -26,6 +31,7 @@ namespace Gopal.EntityFrameworkCore
                 optionsBuilder.UseSqlServer(@"Server=gopalcomputer.database.windows.net;Initial Catalog=gopal_db;Persist Security Info=False;User ID=gopal;Password=Password@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
