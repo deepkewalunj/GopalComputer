@@ -4,6 +4,28 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import {Subject} from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
+
+class Customer {
+ clientId : number
+ clientTitleId   :number
+ clientName   :string
+ companyName  :string
+ clientAddress:string
+ ownerMobileNo:string
+ mobileNoFirst:string
+ telNoFirst   :string
+ telNoSecond  :string
+
+}
+
+class DataTablesResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
 
 
 @Component({
@@ -12,9 +34,9 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./client.component.scss']
 })
 export class ClientComponent implements OnInit {
-  title = 'angulardatatables';
   dtOptions: DataTables.Settings = {};
-  
+  customers: Customer[];
+
   searchFilter: boolean;
 
   private _success = new Subject<string>();
@@ -23,18 +45,18 @@ export class ClientComponent implements OnInit {
 
     // we used reactive forms and validations
     addClientForm: FormGroup;
-    constructor(private fb: FormBuilder, private modalService: NgbModal) {
+    constructor(private fb: FormBuilder, private modalService: NgbModal,private http: HttpClient) {
      this.createForm();
     }
-  
-    createForm() { 
+
+    createForm() {
       this.addClientForm = this.fb.group({
         title:      ['', Validators.required],
       personName: ['', Validators.required],
       companyName:          ['', Validators.required],
       phoneNo: ['', Validators.required],
       },
-     
+
       );
     }
 
@@ -50,12 +72,37 @@ export class ClientComponent implements OnInit {
   }
 
    /*succes message code here*/
- 
+
   ngOnInit(): void {
+
+
+
+    const that = this;
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 5,
-      processing: true
+      pageLength: 50,
+      serverSide: true,
+      processing: true,
+      ajax: (getCustomerListModel: any, callback) => {
+        that.http
+          .post<DataTablesResponse>(
+            environment.API_URL+"Customer/GetCustomerList",
+            {getCustomerListModel:getCustomerListModel},httpOptions
+          ).subscribe(resp => {
+            that.customers = resp.data;
+
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsFiltered,
+              data: []
+            });
+          });
+      },
+      columns: [{ data: 'clientId' }, { data: 'clientTitleId' }, { data: 'clientName' }]
     };
     setTimeout(() => this.staticAlertClosed = true, 20000);
 
@@ -72,7 +119,7 @@ export class ClientComponent implements OnInit {
   /*on click search filter hide show on mobile*/
 
   toggleSearch() {
-    this.searchFilter = !this.searchFilter;    
+    this.searchFilter = !this.searchFilter;
   }
 
 }

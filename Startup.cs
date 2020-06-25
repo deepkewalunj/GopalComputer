@@ -1,4 +1,6 @@
 using Gopal.EntityFrameworkCore;
+using Gopal.Models.Common;
+using Gopal.Services.Customer;
 using Gopal.Services.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using System.Text;
 
 namespace Gopal
@@ -46,10 +49,13 @@ namespace Gopal
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
         };
     });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options=> {
+                options.FormatterMappings.SetMediaTypeMappingForFormat
+           ("js", MediaTypeHeaderValue.Parse("application/json"));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<GopalDbContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
-            services.AddTransient<IUserServices, Services.User.UserService>();
-
+            services.AddTransient<IUserServices, UserService>();
+            services.AddTransient<ICustomerServices, CustomerService>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -60,6 +66,7 @@ namespace Gopal
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            ConnectionHelper.SetConnectionString(Configuration["ConnectionString"]);
             app.UseCors("Gopal_CORS");
             if (env.IsDevelopment())
             {

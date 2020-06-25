@@ -6,7 +6,7 @@
 <!--success message-->
     <div class="card mb-4">
         <div class="card-header">
-            <h4 class="float-left">Client Master</h4> 
+            <h4 class="float-left">Client Master</h4>
             <button class="btn btn-search btn-primary float-right d-sm-none"
                 (click)="toggleSearch()"><i class="icon-search"></i></button>
                 <button class="btn  btn-primary float-right" (click)="addClientPopup(clientPopup)">Add Client</button>
@@ -15,61 +15,30 @@
             <!--table listing statrt hover-->
             <div id="no-more-tables">
                 <!-- This id used for responsive table -->
-              <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions">
+
+              <table datatable [dtOptions]="dtOptions" class="row-border hover">
                 <thead>
                   <tr>
-                    <th scope="col" style="width:5%" class="cursor">
-                      <div class="d-flex align-items-center">
-                        <span>Title</span> <span>
-                          &#9660;
-                        </span>
-                      </div>
-                    </th>
-
-                    <th scope="col" style="width:20%" class="cursor">
-                      <div class="d-flex align-items-center">
-                        <span> Person Name</span> <span>
-                          &#9660;
-                        </span>
-                      </div>
-                    </th>
-                    <th scope="col" style="width:20%">
-                      <div class="d-flex align-items-center"><span>Company Name</span></div>
-                    </th>
-                    <th scope="col" style="width:30%">
-                      <div class="d-flex align-items-center"><span>Address</span></div>
-                    </th>
-                    <th scope="col" style="width:13%">
-                      <div class="d-flex align-items-center"><span>Phone</span></div>
-                    </th>
-
-                    <th scope="col" style="width:12%" class="text-center actions-td cursor">
-                      <div class="d-flex align-items-center justify-content-center">
-                        <span>Actions</span>
-                      </div>
-                    </th>
+                    <th>Client Id</th>
+                    <th>Title</th>
+                    <th>Customer Name</th>
+                    <th>Company Name</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td data-title="Title">Mr.</td>
-                    <td data-title="Person Name">Deepak123</td>
-                    <td data-title="Company Name">Advika Pvt. Ltd.</td>
-                    <td data-title="Address">406, Bhoomi Blessing, Rahatani, Pune-411034</td>
-                    <td data-title="Phone">9999999999</td>
-                    <td data-title="Actions" class="action text-center actions-td">
-                      <div class="d-flex justify-content-center">
-                        <a href="javascript:void(0)">
-                          <i class="icon-edit orange" placement="top"
-                             ngbTooltip="View" (click)="addClientPopup(clientPopup)"></i>
-                        </a>
-                        <a href="javascript:void(0)">
-                          <i class="icon-remove orange" placement="top" ngbTooltip="Delete" (click)="open(content)"></i>
-                        </a>
-                      </div>
-                    </td>
+                <tbody *ngIf="customers?.length != 0">
+                  <tr *ngFor="let customer of customers">
+                      <td>{{ customer.clientId }}</td>
+                      <td>{{ customer.clientTitleId==1?"Mr":"Ms" }}</td>
+                      <td>{{ customer.clientName }}</td>
+                      <td>{{ customer.companyName }}</td>
+
                   </tr>
                 </tbody>
+                <tbody *ngIf="customers?.length == 0">
+                <tr>
+                  <td colspan="3" class="no-data-available">No data!</td>
+                </tr>
+                <tbody>
               </table>
                 <!--table listing end-->
             </div>
@@ -147,7 +116,7 @@
             <div class="form-group has-float-label">
                 <input class="form-control" type="text" id="address" placeholder="Address">
                 <label for="address">Address</label>
-              
+
             </div>
         </div>
        </div>
