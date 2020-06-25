@@ -27,7 +27,7 @@ namespace Gopal.Services.Customer
 
         public DatatableResponseModel GetCustomerList(DatatableRequestModel customerDatatableRequestModel)
         {
-            DatatableResponseModel datatableResponseModel = new DatatableResponseModel();
+           DatatableResponseModel datatableResponseModel = new DatatableResponseModel();
             String strRequestModel= JsonConvert.SerializeObject(customerDatatableRequestModel);
             using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
             {
