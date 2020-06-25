@@ -7,11 +7,11 @@ import { AuthenticationService } from '../../services/authentication.service';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-  
-  constructor(private router: Router, private sharedService: SharedService, private authenticationService: AuthenticationService) { }
+
+  constructor(private router: Router, public sharedService: SharedService, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    
+
   }
 
 

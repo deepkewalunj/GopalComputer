@@ -26,6 +26,12 @@ namespace Gopal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy("Gopal_CORS", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -41,7 +47,7 @@ namespace Gopal
         };
     });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<GopalDbContext>(options => options.UseSqlServer(@"Server=gopalcomputer.database.windows.net;Initial Catalog=gopal_db;Persist Security Info=False;User ID=gopal;Password=Password@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
+            services.AddDbContext<GopalDbContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
             services.AddTransient<IUserServices, Services.User.UserService>();
 
             // In production, the Angular files will be served from this directory
@@ -54,6 +60,7 @@ namespace Gopal
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("Gopal_CORS");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -11,12 +11,12 @@ declare var jQuery: any;
 })
 
 export class SidebarComponent implements OnInit {
-  
-  constructor(private sharedService: SharedService) {
-   
+
+  constructor(public sharedService: SharedService) {
+
   }
   public ngOnInit() {
-    
+
     // jquery for side navigation
     $(() => {
       $('.side-nav .side-nav-menu li a').on('click', function(e) {
