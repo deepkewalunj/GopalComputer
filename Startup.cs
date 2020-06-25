@@ -41,7 +41,7 @@ namespace Gopal
         };
     });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<GopalDbContext>(options => options.UseSqlServer("Data Source = localhost; Initial Catalog = GopalDb; Persist Security Info = True; User ID = sa; Password = root"));
+            services.AddDbContext<GopalDbContext>(options => options.UseSqlServer(@"Server=gopalcomputer.database.windows.net;Initial Catalog=gopal_db;Persist Security Info=False;User ID=gopal;Password=Password@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
             services.AddTransient<IUserServices, Services.User.UserService>();
 
             // In production, the Angular files will be served from this directory
