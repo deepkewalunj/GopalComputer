@@ -11,14 +11,12 @@ declare var jQuery: any;
 })
 
 export class SidebarComponent implements OnInit {
-  userRole: number;
+  
   constructor(private sharedService: SharedService) {
    
   }
   public ngOnInit() {
-    if (this.sharedService.userRole) {
-      this.userRole = parseInt(this.sharedService.userRole);
-    }
+    
     // jquery for side navigation
     $(() => {
       $('.side-nav .side-nav-menu li a').on('click', function(e) {

@@ -1,38 +1,39 @@
 import { Injectable } from '@angular/core';
-import { jwt_decode } from 'jwt-decode';
-import { decode } from 'punycode';
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
 
-  firstName: string;
-  lastName: string;
-  userId: string;
-  userRole: string;
   constructor() {
-    this.firstName;
-    this.lastName;
-    this.userId;
-    this.userRole;
+    
   }
 
-  setUserInfo() {
+  getFullName() {
+    const helper = new JwtHelperService();
     if (localStorage.getItem('TokenInfo')) {
-      var decoded = jwt_decode(localStorage.getItem('TokenInfo'));
-      console.log(decoded);
-      this.firstName = decoded.firstName;
-      this.lastName = decoded.lastName;
-      this.userRole = decoded.userRole;
-      this.userId = decoded.userId;
-      return true;
+      var decoded = helper.decodeToken(localStorage.getItem('TokenInfo'));
+      return decoded.firstName + decoded.lastName;
     }
   }
-  removeUserInfo() {
-    this.firstName = "";
-    this.lastName = "";
-    this.userRole = "";
-    this.userId = "";
+
+  isLoggedIn() {
+    if (localStorage.getItem('TokenInfo')) {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
+  
+  getRoleId() {
+    const helper = new JwtHelperService();
+    if (localStorage.getItem('TokenInfo')) {
+      var decoded = helper.decodeToken(localStorage.getItem('TokenInfo'));
+      return parseInt(decoded.userRole);
+    }
+  }
+  
 }
