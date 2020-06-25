@@ -1,9 +1,9 @@
 <!-- sidebar should be hide on role base -->
 <!-- Side Nav START -->
 <!---menu backdrop div start-->
-<div class="overlay"></div>
+<div class="overlay" *ngIf="userRole == 1"></div>
 <!---menu backdrop div end-->
-<nav class="side-nav expand-lg">
+<nav class="side-nav expand-lg" *ngIf="userRole == 1">
   <div class="side-nav-inner">
     <ul class="side-nav-menu">
       <!-- <li class="nav-item dropdown">

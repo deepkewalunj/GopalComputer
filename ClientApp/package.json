@@ -28,6 +28,7 @@
     "datatables.net": "^1.10.21",
     "datatables.net-dt": "^1.10.21",
     "jquery": "^3.5.1",
+    "jwt-decode": "^2.2.0",
     "ngx-bootstrap": "^5.6.1",
     "popper": "^1.0.1",
     "rxjs": "^6.4.0",

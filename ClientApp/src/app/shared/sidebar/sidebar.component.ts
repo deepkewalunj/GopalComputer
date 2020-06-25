@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SharedService } from '../shared.service';
 //import * as $ from 'jquery';
 import { from } from 'rxjs';
 declare var $: any;
@@ -10,10 +11,14 @@ declare var jQuery: any;
 })
 
 export class SidebarComponent implements OnInit {
-  constructor() {
+  userRole: number;
+  constructor(private sharedService: SharedService) {
    
   }
   public ngOnInit() {
+    if (this.sharedService.userRole) {
+      this.userRole = parseInt(this.sharedService.userRole);
+    }
     // jquery for side navigation
     $(() => {
       $('.side-nav .side-nav-menu li a').on('click', function(e) {

@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
-    this.document.body.classList.remove('login-page-body');
+    
   }
 
 }

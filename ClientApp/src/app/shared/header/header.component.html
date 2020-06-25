@@ -1,7 +1,7 @@
 <!-- sidebar should be hide on role base -->
 
 <!-- header start -->
-<header class="header">
+<header class="header" *ngIf="firstName">
   <div class="header-container">
     <div class="nav-logo">
       <!-- <a class="sidenav-fold-toggler" href="javascript:void(0);">
@@ -24,11 +24,11 @@
           <li class="user-name-device">
             <img class="profile-img img-fluid" src="./assets/imgs/avatar/avatar.jpg" alt="User Profile Photograph">
             <div class="user-info">
-              <a href="javascript:void(0)" ngbDropdownItem title="User Name"> Gopal Shinde </a>
+              <a href="javascript:void(0)" ngbDropdownItem title="User Name"> {{firstName}} {{lastName}} </a>
               <!-- <div class="user-role">System Admin</div> -->
             </div>
           </li>
-          <li><a href="javascript:void(0)" routerLink="/login"><i class="icon-logout"></i> Logout</a>
+          <li><a (click)="DoLogout()"><i class="icon-logout"></i> Logout</a>
           </li>
         </ul>
       </li>
