@@ -1,10 +1,9 @@
 
-<form [formGroup]="addClientForm" novalidate >
-  <div class="container form-container">
-      <h3 class="text-center mb-4">{{customer.clientId > 0 ? 'Edit':'Add'}} Customer</h3>
+<form [formGroup]="addClientForm" novalidate class="form-custom-modal">
+  <div>
       <div class="card">
           <div class="card-header">
-              <h4>Customer Information</h4>
+              <h4>{{customer.clientId > 0 ? 'Edit':'Add'}} Customer</h4>
           </div>
           <div class="card-body">
               <div class="row">

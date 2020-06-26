@@ -38,14 +38,19 @@
         transition: all .3s ease-in-out;
     }
     .modal-header {
-        padding: 0.5rem 1rem;
+        padding: 0.7rem 1rem;
         border-color: $light-grey;
         i {
             color: $orange;
             margin-right: 0.3125rem;
         }
+        .modal-title {
+            font-size: 18px;
+            color: $black-blue;
+        }
     }
     .modal-body {
+        padding: 1.5rem 1rem 1rem 1rem;
         padding-bottom: 0 !important;
     }
     .modal-footer {
@@ -60,21 +65,37 @@
             justify-content: center !important;
         }
     }
-    &.sic-modal {
-        .modal-dialog {
-            width: 350px;
-        }
-        .modal-body {
-            max-height: 350px;
-            overflow: hidden;
-            overflow-y:auto;
-            padding: 0.5rem 2rem;
-            .sic-label {
-                border-bottom: 1px solid $grey
+    
+}
+
+.modal {
+    .modal-content {
+        .form-custom-modal {
+            .card-header {
+                padding: 0.7rem 1rem;
+    border-bottom: 1px solid #f2f3f8;
+    h4 {
+        font-size: 18px;
+        color: $black-blue;
+    }
             }
-            .custom-control {
-                padding: 0.875rem 1.7rem;
-                border-bottom: 1px solid $grey
+            .card-body {
+                padding: 1.5rem 1rem 0rem 1rem;
+            }
+            footer {
+                display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.75rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: calc(0.3rem - 1px);
+    border-bottom-left-radius: calc(0.3rem - 1px);
+    .btn {
+        min-width: 4rem;
+        padding: 0.25rem;
+        font-size: 0.8125rem;
+    }
             }
         }
     }
