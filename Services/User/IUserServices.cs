@@ -12,5 +12,6 @@ namespace Gopal.Services.User
         LoginModel AuthenticateUser(LoginModel login);
         List<TblUser> GetUsers();
         TblUser GetUserById(int userId);
+        object GetUserPermissionsById(int userId);
     }
 }

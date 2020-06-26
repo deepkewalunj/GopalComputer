@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import {Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { MustMatch } from 'src/app/services/password.match.validator';
 import { first } from 'rxjs/operators';
 import { UserService } from '../../../services/user.service';
+import { UserPermission } from '../../../models/user-permission';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
 })
 
- 
+
 export class UsersListComponent implements OnInit {
 
   user = {
@@ -22,10 +23,13 @@ export class UsersListComponent implements OnInit {
     userEmail: '',
     userPassword: '',
     userRole: null,
-    userId:null
+    userId: null
   }
+
+  modulePermission = Array<UserPermission>();
   
   
+
   title = 'angulardatatables';
   dtOptions: DataTables.Settings = {};
   searchFilter: boolean;
@@ -36,23 +40,24 @@ export class UsersListComponent implements OnInit {
   userList = [];
   dtTrigger: Subject<any> = new Subject();
 
-    // we used reactive forms and validations
-    userForm: FormGroup;
+  // we used reactive forms and validations
+  userForm: FormGroup;
   constructor(private fb: FormBuilder, private modalService: NgbModal, private userService: UserService) {
-     this.createForm();
+    this.createForm();
+  }
+
+  createForm() {
+    this.userForm = this.fb.group({
+      firstName: ['', Validators.required],
+      middleName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      userEmail: ['', [Validators.required, Validators.email, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{1,}[.]{1}[a-zA-Z]{1,}")]],
+      userPassword: ['', Validators.required],
+      userRole: ['', Validators.required],
+      permissions: ['']
     }
-  
-    createForm() { 
-      this.userForm = this.fb.group({
-        firstName: ['', Validators.required],
-        middleName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        userEmail: ['', [Validators.required, Validators.email, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{1,}[.]{1}[a-zA-Z]{1,}")]],
-        userPassword: ['', Validators.required],
-        userRole: ['', Validators.required],
-      }
-      );
-    }
+    );
+  }
 
 
   /*on click modal will be open*/
@@ -72,17 +77,29 @@ export class UsersListComponent implements OnInit {
         userEmail: '',
         userPassword: '',
         userRole: null,
-        userId : null
+        userId: null
       }
       this.modalService.open(content, { size: 'lg' });
     }
-      
-    
+
+
   }
 
-   /*succes message code here*/
- 
+  /*succes message code here*/
+
   ngOnInit(): void {
+    this.modulePermission.push({ isChecked: false, moduleId: 1, moduleName: "Master" });
+    this.modulePermission.push({ isChecked: false, moduleId: 2, moduleName: "Client Master" });
+    this.modulePermission.push({ isChecked: false, moduleId: 3, moduleName: "Client" });
+    this.modulePermission.push({ isChecked: false, moduleId: 4, moduleName: "Inward Material" });
+    this.modulePermission.push({ isChecked: false, moduleId: 5, moduleName: "Inward Master" });
+    this.modulePermission.push({ isChecked: false, moduleId: 6, moduleName: "Material Type" });
+    this.modulePermission.push({ isChecked: false, moduleId: 7, moduleName: "Material Company" });
+    this.modulePermission.push({ isChecked: false, moduleId: 8, moduleName: "Inward Accessories" });
+    this.modulePermission.push({ isChecked: false, moduleId: 9, moduleName: "Transaction" });
+    this.modulePermission.push({ isChecked: false, moduleId: 10, moduleName: "Report" });
+
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -136,7 +153,7 @@ export class UsersListComponent implements OnInit {
   /*on click search filter hide show on mobile*/
 
   toggleSearch() {
-    this.searchFilter = !this.searchFilter;    
+    this.searchFilter = !this.searchFilter;
   }
 
 }
