@@ -13,7 +13,7 @@
         </div>
         <div class="card-body">
             <!--table listing statrt hover-->
-            <div id="no-more-tables">
+            <div >
                 <!-- This id used for responsive table -->
 
               <table datatable [dtOptions]="dtOptions" class="row-border hover">
@@ -23,6 +23,9 @@
                     <th>Title</th>
                     <th>Customer Name</th>
                     <th>Company Name</th>
+                    <th>Mobile No</th>
+                    <th>Tel No.</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody *ngIf="customers?.length != 0">
@@ -31,6 +34,14 @@
                       <td>{{ customer.clientTitleId==1?"Mr":"Ms" }}</td>
                       <td>{{ customer.clientName }}</td>
                       <td>{{ customer.companyName }}</td>
+                      <td>{{ customer.ownerMobileNo }}</td>
+                      <td>{{ customer.telNoFirst }}</td>
+                      <td data-title="Actions" >
+                        <div>
+                            <button class="btn  btn-secondary float-right"  ngbTooltip="Edit" (click)="addClientPopup(clientPopup)">Edit</button>
+                            <button class="btn  btn-danger float-right" ngbTooltip="Delete" (click)="open(content)">Delete</button></div>
+                        </td>
+
 
                   </tr>
                 </tbody>
