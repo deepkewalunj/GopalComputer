@@ -183,21 +183,23 @@
         </div>
       </div>
 
-      <!--<div class="row">
+      <div class="row">
         <div class="col-12 col-md-6 col-lg-4">
-          <div class="form-group has-float-label">
-            <div class="checkbox" *ngFor="let permission of permissions; let i = index">
+          <div class="form-group">
+            <label for="permissions">Access rights</label>
+            <div class="checkbox" *ngFor="let permission of modulePermission; let i = index">
               <label>
                 <input type="checkbox"
-                       [name]="'permissions'+i"
-                       [(ngModel)]="permission.checked"
-                       value="{{permission.id}}">
-                              {{permission.name}}
+                       formControlName="permissions"
+                       [(ngModel)]="permission.isChecked"
+                       value="{{permission.moduleId}}">
+                {{permission.moduleName}}
               </label>
+              <br />
             </div>
           </div>
         </div>
-      </div>-->
+      </div>
     </form>
   </div>
   <div class="modal-footer">

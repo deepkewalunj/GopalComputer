@@ -53,7 +53,7 @@ namespace Gopal
                 options.FormatterMappings.SetMediaTypeMappingForFormat
            ("js", MediaTypeHeaderValue.Parse("application/json"));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<GopalDbContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
+            services.AddDbContext<gopal_dbContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
             services.AddTransient<IUserServices, UserService>();
             services.AddTransient<ICustomerServices, CustomerService>();
             // In production, the Angular files will be served from this directory

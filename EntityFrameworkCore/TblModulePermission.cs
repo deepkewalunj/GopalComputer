@@ -7,7 +7,7 @@ namespace Gopal.EntityFrameworkCore
     {
         public int ModulePermissionIdRef { get; set; }
         public int? ModuleIdRef { get; set; }
-        public int? UserRoleIdRef { get; set; }
+        public int? UserUserIdRef { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int? ModifiedBy { get; set; }

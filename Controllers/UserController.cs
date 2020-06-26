@@ -80,7 +80,7 @@ namespace Gopal.Controllers
         [Authorize]
         public IActionResult GetUserById(GetUserByIdModel model)
         {
-            return Ok(new { user = _services.GetUserById(model.userId) });
+            return Ok(new { user = _services.GetUserById(model.userId), userPermissions= _services.GetUserPermissionsById(model.userId) });
         }
 
 

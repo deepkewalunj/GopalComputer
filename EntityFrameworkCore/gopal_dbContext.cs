@@ -1,18 +1,21 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace Gopal.EntityFrameworkCore
 {
     public partial class gopal_dbContext : DbContext
     {
+        private readonly IConfiguration _configuration;
         public gopal_dbContext()
         {
         }
 
-        public gopal_dbContext(DbContextOptions<gopal_dbContext> options)
+        public gopal_dbContext(IConfiguration configuration, DbContextOptions<gopal_dbContext> options)
             : base(options)
         {
+            _configuration = configuration;
         }
 
         public virtual DbSet<TblClient> TblClient { get; set; }
@@ -25,8 +28,7 @@ namespace Gopal.EntityFrameworkCore
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=gopalcomputer.database.windows.net;Initial Catalog=gopal_db;Persist Security Info=False;User ID=gopal;Password=Password@123;MultipleActiveResultSets=False;Encrypt=True;");
+                optionsBuilder.UseSqlServer(_configuration["ConnectionString"]);
             }
         }
 
@@ -148,7 +150,7 @@ namespace Gopal.EntityFrameworkCore
 
                 entity.Property(e => e.ModuleIdRef).HasColumnName("moduleIdRef");
 
-                entity.Property(e => e.UserRoleIdRef).HasColumnName("userRoleIdRef");
+                entity.Property(e => e.UserUserIdRef).HasColumnName("userUserIdRef");
             });
 
             modelBuilder.Entity<TblUser>(entity =>
