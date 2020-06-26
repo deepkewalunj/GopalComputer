@@ -30,7 +30,7 @@
 
 <div class="side-nav-inner">
   <ul class="side-nav-menu">
-    <li class="nav-item"  (click)="deviceSidemenuCollapse()"  [ngClass]="{ 'active': sampleForm.isActive }">
+    <li class="nav-item" (click)="uiBasicCollapsed = false" (click)="deviceSidemenuCollapse()"  [ngClass]="{ 'active': sampleForm.isActive }">
       <a class="nav-link" routerLink="/sample-form" routerLinkActive #sampleForm="routerLinkActive">
         <i class="far fa-user"></i>
         <span class="menu-title">Sample Form</span>
@@ -44,7 +44,7 @@
     </li>
 
 <!--master-meenu-->
-    <li class="nav-item" [ngClass]="{'active' : clientMaster.isActive || inwardMaster.isActive}">
+    <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" (click)="uiBasicCollapsed = !uiBasicCollapsed" [attr.aria-expanded]="uiBasicCollapsed"
         aria-controls="ui-list">
         <i class="fab fa-buromobelexperte"></i>
@@ -54,7 +54,7 @@
       <div class="collapse" id="ui-list" [ngbCollapse]="!uiBasicCollapsed" [ngClass]="{ 'show': isShown }">
         <ul class="nav flex-column sub-menu">
           <!--client-menu-->
-          <li class="nav-item" (click)="uiBasicCollapsedIn = false" [ngClass]="{'subActive' : clientMaster.isActive}">
+          <li class="nav-item" (click)="uiBasicCollapsedIn = false" [routerLinkActive]="['subActive']">
             <a class="nav-link" (click)="uiBasicCollapsedr = !uiBasicCollapsedr"
               [attr.aria-expanded]="uiBasicCollapsedr" aria-controls="ui-list">
               <i class="far fa-circle"></i> <span class="menu-title"> Client Master</span>
@@ -62,7 +62,7 @@
             </a>
 
             <div class="collapse" id="ui-list" [ngbCollapse]="!uiBasicCollapsedr" [ngClass]="{ 'show': isShown }">
-              <ul class="nav flex-column sub-menu">
+              <ul class="nav flex-column sub-menu" [routerLinkActive]="['in']">
                 <li class="nav-item">
                   <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="master"
                     routerLinkActive="active" #clientMaster="routerLinkActive"><i class="fas fa-circle"></i> Client</a>
@@ -73,7 +73,7 @@
           </li>
  <!--client-menu-end-->
  <!--inward-menu-->
-          <li class="nav-item" (click)="uiBasicCollapsedr = false" [ngClass]="{'subActive' : inwardMaster.isActive || materialType.isActive || materialCompany.isActive || inwardAccessories.isActive}">
+          <li class="nav-item" (click)="uiBasicCollapsedr = false" [routerLinkActive]="['subActive']">
             <a class="nav-link" (click)="uiBasicCollapsedIn = !uiBasicCollapsedIn"
               [attr.aria-expanded]="uiBasicCollapsedIn" aria-controls="ui-list">
               <i class="far fa-circle"></i> <span class="menu-title">Inward Material</span>
@@ -81,7 +81,7 @@
             </a>
 
             <div class="collapse" id="ui-list" [ngbCollapse]="!uiBasicCollapsedIn" [ngClass]="{ 'show': isShown }">
-              <ul class="nav flex-column sub-menu">
+              <ul class="nav flex-column sub-menu" [routerLinkActive]="['in']">
                 <li class="nav-item">
                   <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/inward-master"
                     routerLinkActive="active" #inwardMaster="routerLinkActive"><i class="fas fa-circle"></i> Inward Master</a>
