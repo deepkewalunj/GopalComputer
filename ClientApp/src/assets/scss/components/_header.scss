@@ -2,7 +2,7 @@
 
 header {
     display: block;
-    height: 3.75rem;
+    height:60px;
     width: 100%;
     position: fixed;
     padding: 0px;
@@ -21,19 +21,21 @@ header {
             float: left;
             display: flex;
             margin-right: auto;
+            align-items: center;
             .logo {
                 //width:7.25rem;
+                margin-bottom: 0;
                 h4 {
                     font-weight: 700;
-            font-size: 38px;
+            font-size:2.375rem;
             letter-spacing: 3px;
             color: $black-blue;
             text-shadow: 1px 1px 3px rgba(150, 12, 251, 0.38);
                 }
                 p {
-                    font-size: 14px;
+                    font-size: 0.875rem;
                     line-height: 7px;
-                    letter-spacing: 6.5px;
+                    letter-spacing: 0.406rem;
                     text-transform: uppercase;
                     position: relative;
                     left: 3px;
@@ -47,8 +49,24 @@ header {
                 display: inline-block;
                 line-height: 3.75rem;
                 text-align: center;
+                margin-bottom: 0;
                 img {
                     width: 100%;
+                }
+            }
+            .sidenav-fold-toggler {
+               
+                height: 25px;
+                width: 29px;
+                background-color: $light-grey;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: 63px;
+                border-radius: 2px;
+                i {
+                    color: $black-blue;
+                    font-size: 16px;
                 }
             }
         }
@@ -66,7 +84,7 @@ header {
                 float: left;
                 display: flex;
                 align-items: center;
-                height: 3.75rem;
+                height: 60px;
                 > a {
                     padding: 0 0.375rem;
                     color: $dark-blue;
@@ -286,4 +304,27 @@ header {
         }
     }
 }
+
+@media only screen and (min-width: 1025px) {
+    .nav-open {
+        .sidenav-fold-toggler {
+            .fa-bars {
+                border-radius: 50% !important;
+                display: inline-flex !important;
+    align-items: center!important;
+    justify-content: center!important;
+                &::before {
+                    content: "\f00d"
+                }
+            }
+        }
+   .side-nav {
+    width: 3.5rem !important;
+   }
+   .page-container {
+    padding-left: 3.625rem !important;
+   }
+    }
+ }
+
 
