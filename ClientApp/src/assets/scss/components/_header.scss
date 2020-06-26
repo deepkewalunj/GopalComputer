@@ -15,7 +15,7 @@ header {
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     -ms-transition: all 0.2s ease;
-
+    box-shadow: 0 0 10px 1px rgba(68,102,242,.05);
     .header-container {
         .nav-logo {
             float: left;
@@ -245,10 +245,24 @@ header {
     }
     .side-nav-folded {
         .sidenav-fold-toggler {
-            .icon-menu {
+            .fa-bars {
                 border-radius: 50% !important;
                 &::before {
-                    content: "\e928"
+                    content: "\f00d"
+                }
+            }
+        }
+    }
+
+    .nav-open {
+        .sidenav-fold-toggler {
+            .fa-bars {
+                border-radius: 50% !important;
+                display: inline-flex !important;
+    align-items: center!important;
+    justify-content: center!important;
+                &::before {
+                    content: "\f00d"
                 }
             }
         }

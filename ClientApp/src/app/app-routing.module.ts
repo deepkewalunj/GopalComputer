@@ -41,6 +41,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'inward-material',
+    loadChildren: './modules/inward-material/inward-material.module#InwardMaterialModule',
+  },
+
+  {
     path: 'forgot-password',
     loadChildren: './modules/forgot-password/forgot-password.module#ForgotPasswordModule',
   },
