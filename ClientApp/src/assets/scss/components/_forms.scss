@@ -481,15 +481,16 @@ select:disabled {
     &.field-with-icon {
         i {
             position: absolute;
-            left: 0;
+            right: 0;
             top: 0.5625rem;
             color: #b9b8b8;
         }
         label {
-            left: 1.375rem;
+            left: 0;
+            // color: #8b8d9a;
         }
         .form-control {
-            padding-left: 1.375rem;
+            padding-left: 0;
         }
     }
 }
