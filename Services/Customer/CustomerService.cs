@@ -17,9 +17,9 @@ namespace Gopal.Services.Customer
     public class CustomerService : ICustomerServices
     {
         
-        private readonly GopalDbContext _dbContext;
+        private readonly gopal_dbContext _dbContext;
 
-        public CustomerService(GopalDbContext dbContext)
+        public CustomerService(gopal_dbContext dbContext)
         {
             _dbContext = dbContext;
             

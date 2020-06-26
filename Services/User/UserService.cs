@@ -10,9 +10,9 @@ namespace Gopal.Services.User
     public class UserService : IUserServices
     {
         
-        private readonly GopalDbContext _dbContext;
+        private readonly gopal_dbContext _dbContext;
 
-        public UserService(GopalDbContext dbContext)
+        public UserService(gopal_dbContext dbContext)
         {
             _dbContext = dbContext;
             
@@ -38,6 +38,12 @@ namespace Gopal.Services.User
         public TblUser GetUserById(int userId)
         {
             return _dbContext.TblUser.Where(x => x.IsDeleted != true && x.UserId == userId).FirstOrDefault();
+        }
+
+        public object GetUserPermissionsById(int userId)
+        {
+            return null;
+            
         }
 
         public List<TblUser> GetUsers()
