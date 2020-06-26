@@ -1,287 +1,221 @@
 
 
 <div class="container-fluid">
-    <!--success message-->
-<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
-<!--success message-->
-    <h3 class="text-center mb-4">User List</h3>
-  
-    <div class="card mb-4">
-        <div class="card-header">
-            <h4 class="float-left">Users</h4> 
-            <button class="btn btn-search btn-primary float-right d-sm-none"
-                (click)="toggleSearch()"><i class="icon-search"></i></button>
-                <button class="btn  btn-primary float-right" (click)="openUserPopup(contentUserPopup)">Add User</button>
-        </div>
-        <div class="card-body">
-            <!--table search filter start-->
-            <form class="search-filter d-none d-md-block" [ngClass]="searchFilter ? 'd-block' : 'd-none'">
-                <div class="row  mb-2">
-                    <div class="col-12 col-sm-3">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="searchName" placeholder="User Name">
-                            <label for="searchName">User Name</label>
-                        </div>
-                    </div>
-                   
-                    <div class="col-12 col-sm-3">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select1">
-                                    <option value="" selected>Select</option>
-                                    <option>Admin</option>
-                                    <option>Super Admin</option>
-                                    <option>User</option>
-                                    <option>Agent</option>
-                                </select>
-                                <label class="select-label">Access Rights</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-3 text-right">
-                        <div class="form-group mt-2">
-                            <button type="submit" class="btn btn-outline btn-outline-dark">Reset</button>
-                            <button type="submit" class="btn btn-outline btn-outline-primary">Search</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <!--table search filter end-->
-            <!--table listing statrt hover-->
-            <div id="no-more-tables">
-                <!-- This id used for responsive table -->
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col" style="width:18%" class="cursor">
-                                <div class="d-flex align-items-center"><span>User Name</span> <span>
-                                        &#9660;</span></div>
-                            </th>
-                           
-                            <th scope="col" style="width:21%" class="cursor">
-                                <div class="d-flex align-items-center"><span> Email</span> <span>&#9660;
-                                    </span></div>
-                            </th>
-                            <th scope="col" style="width:14%">
-                                <div class="d-flex align-items-center"><span>Access Rights</span></div>
-                            </th>
-                            
-                            <th scope="col" style="width:10%" class="text-center actions-td cursor">
-                                <div class="d-flex align-items-center justify-content-center"><span>Actions</span>
-                                    </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td data-title="User Name">Deepak123</td>
-                            <td data-title="Email">Deepak123@gmail.com</td>
-                            <td data-title="Access Rights">Admin</td>
-                            <td data-title="Actions" class="action text-center actions-td">
-                                <div class="d-flex justify-content-center">
-                                    <a href="javascript:void(0)"> <i class="icon-edit orange" placement="top"
-                                            ngbTooltip="View" (click)="openUserPopup(contentUserPopup)"></i></a>
-                                    <a href="javascript:void(0)">
-                                        <i class="icon-remove orange" placement="top" ngbTooltip="Delete" (click)="open(content)"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-title="User Name">Deepak123</td>
-                            <td data-title="Email">Deepak123@gmail.com</td>
-                            <td data-title="Access Rights">Admin</td>
-                            <td data-title="Actions" class="action text-center actions-td">
-                                <div class="d-flex justify-content-center">
-                                    <a href="javascript:void(0)"> <i class="icon-edit orange" placement="top"
-                                            ngbTooltip="View" (click)="openUserPopup(contentUserPopup)"></i></a>
-                                    <a href="javascript:void(0)">
-                                        <i class="icon-remove orange" placement="top" ngbTooltip="Delete" (click)="open(content)"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-title="User Name">Deepak123</td>
-                            <td data-title="Email">Deepak123@gmail.com</td>
-                            <td data-title="Access Rights">Admin</td>
-                            <td data-title="Actions" class="action text-center actions-td">
-                                <div class="d-flex justify-content-center">
-                                    <a href="javascript:void(0)"> <i class="icon-edit orange" placement="top"
-                                            ngbTooltip="View" (click)="openUserPopup(contentUserPopup)"></i></a>
-                                    <a href="javascript:void(0)">
-                                        <i class="icon-remove orange" placement="top" ngbTooltip="Delete" (click)="open(content)"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-title="User Name">Deepak123</td>
-                            <td data-title="Email">Deepak123@gmail.com</td>
-                            <td data-title="Access Rights">Admin</td>
-                            <td data-title="Actions" class="action text-center actions-td">
-                                <div class="d-flex justify-content-center">
-                                    <a href="javascript:void(0)"> <i class="icon-edit orange" placement="top"
-                                            ngbTooltip="View" (click)="openUserPopup(contentUserPopup)"></i></a>
-                                    <a href="javascript:void(0)">
-                                        <i class="icon-remove orange" placement="top" ngbTooltip="Delete" (click)="open(content)"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-title="User Name">Deepak1234</td>
-                            <td data-title="Email">Deepak123@gmail.com</td>
-                            <td data-title="Access Rights">Admin</td>
-                            <td data-title="Actions" class="action text-center actions-td">
-                                <div class="d-flex justify-content-center">
-                                    <a href="javascript:void(0)"> <i class="icon-edit orange" placement="top"
-                                            ngbTooltip="View" (click)="openUserPopup(contentUserPopup)"></i></a>
-                                    <a href="javascript:void(0)">
-                                        <i class="icon-remove orange" placement="top" ngbTooltip="Delete" (click)="open(content)"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="d-flex justify-content-between align-items-center table-pagination">
-                    <div class="d-flex align-items-center">
-                        Show <span class="plain-select">
-                            <select class="form-control ml-2 mr-2" id="select3">
-                                <option>10</option>
-                                <option>20</option>
-                                <option>25</option>
-                            </select>
-                        </span>
-                        Entries
-                    </div>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0)" tabindex="-1"><i
-                                        class="icon-left"></i></a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0)">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="javascript:void(0)">2</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="javascript:void(0)"><i class="icon-right"></i></a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <!--table listing end-->
-            </div>
-        </div>
+  <!--success message-->
+  <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+  <!--success message-->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h4 class="float-left">Users</h4>
+      <button class="btn btn-search btn-primary float-right d-sm-none"
+              (click)="toggleSearch()">
+        <i class="icon-search"></i>
+      </button>
+      <button class="btn  btn-primary float-right" (click)="openUserPopup(contentUserPopup,0)">Add User</button>
     </div>
+    <div class="card-body">
+      <!--table listing statrt hover-->
+      <div id="no-more-tables">
+        <!-- This id used for responsive table -->
+        <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+          <thead>
+            <tr>
+              <th scope="col" style="width:15%" class="cursor">
+                <div class="d-flex align-items-center">
+                  <span>First Name</span> <span>
+                    &#9660;
+                  </span>
+                </div>
+              </th>
+              <th scope="col" style="width:15%" class="cursor">
+                <div class="d-flex align-items-center">
+                  <span>Last Name</span> <span>
+                    &#9660;
+                  </span>
+                </div>
+              </th>
+
+              <th scope="col" style="width:25%" class="cursor">
+                <div class="d-flex align-items-center">
+                  <span> Email</span> <span>
+                    &#9660;
+                  </span>
+                </div>
+              </th>
+              <th scope="col" style="width:15%">
+                <div class="d-flex align-items-center"><span>Role</span></div>
+              </th>
+
+              <th scope="col" style="width:10%" class="text-center actions-td cursor">
+                <div class="d-flex align-items-center justify-content-center">
+                  <span>Actions</span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userList">
+              <td data-title="First Name">{{user.firstName}}</td>
+              <td data-title="Last Name">{{user.lastName}}</td>
+              <td data-title="Email">{{user.userEmail}}</td>
+              <td data-title="Role" *ngIf="user.userRole==1">Super Admin</td>
+              <td data-title="Role" *ngIf="user.userRole==2">Staff</td>
+              <td data-title="Role" *ngIf="user.userRole>2">Other</td>
+              <td data-title="Actions" class="action text-center actions-td">
+                <div class="d-flex justify-content-center">
+                  <a href="javascript:void(0)">
+                    <i class="fas fa-user-edit orange" placement="top"
+                       ngbTooltip="View" (click)="openUserPopup(contentUserPopup, user.userId)"></i>
+                  </a>
+                  <a href="javascript:void(0)">
+                    <i class="fas fa-trash orange" placement="top" ngbTooltip="Delete" (click)="open(content,user.userId)"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!--table listing end-->
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Ng modal window -->
 <ng-template #contentUserPopup let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title" ngbAutofocus> Add User</h4>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="userForm" novalidate>
-       <div class="row">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" ngbAutofocus> Add User</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="userForm" novalidate>
+      <!--<input type="hidden" [(ngModel)] ="user.userId"/>-->
+      <div class="row">
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="form-group has-float-label">
-                <input class="form-control" id="userName" type="text" placeholder="User Name"
-                    formControlName="userName" />
-                <label for="userName">User Name</label>
-                <div *ngIf="userForm.controls['userName'].invalid && (userForm.controls['userName'].dirty || userForm.controls['userName'].touched)"
-                    class="error-msg">
-                    <div *ngIf="userForm.controls['userName'].errors.required">
-                        User name is required.
-                    </div>
-                </div>
+          <div class="form-group has-float-label">
+            <input class="form-control" [(ngModel)]="user.firstName" id="firstName" type="text" placeholder="First Name"
+                   formControlName="firstName" />
+            <label for="firstName">First Name</label>
+            <div *ngIf="userForm.controls['firstName'].invalid && (userForm.controls['firstName'].dirty || userForm.controls['firstName'].touched)"
+                 class="error-msg">
+              <div *ngIf="userForm.controls['firstName'].errors.required">
+                First name is required.
+              </div>
             </div>
+          </div>
         </div>
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="form-group">
-                <span class="plain-select">
-                    <select class="form-control" id="select1">
-                        <option value="" selected>Select</option>
-                        <option>Admin</option>
-                        <option>Super Admin</option>
-                        <option>User</option>
-                        <option>Agent</option>
-                    </select>
-                    <label class="select-label">Access Rights</label>
-                </span>
+          <div class="form-group has-float-label">
+            <input class="form-control" [(ngModel)]="user.middleName" id="middleName" type="text" placeholder="Middle Name"
+                   formControlName="middleName" />
+            <label for="middleName">Middle Name</label>
+            <div *ngIf="userForm.controls['middleName'].invalid && (userForm.controls['middleName'].dirty || userForm.controls['middleName'].touched)"
+                 class="error-msg">
+              <div *ngIf="userForm.controls['middleName'].errors.required">
+                Middle name is required.
+              </div>
             </div>
+          </div>
         </div>
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="form-group has-float-label">
-                <input class="form-control" id="Email"
-                    placeholder="Email" type="text" >
-                <label for="Email">Email</label>
+          <div class="form-group has-float-label">
+            <input class="form-control" id="lastName" [(ngModel)]="user.lastName" type="text" placeholder="Last Name"
+                   formControlName="lastName" />
+            <label for="lastName">Last Name</label>
+            <div *ngIf="userForm.controls['lastName'].invalid && (userForm.controls['lastName'].dirty || userForm.controls['lastName'].touched)"
+                 class="error-msg">
+              <div *ngIf="userForm.controls['lastName'].errors.required">
+                Last name is required.
+              </div>
             </div>
+          </div>
         </div>
-       </div>
-       <div class="row">
-        <div class="col-12 col-md-6 col-lg-4">
-        <div class="form-group has-float-label">
-            <input class="form-control" id="newPassword" placeholder="New Password" type="password" formControlName="newPassword" appNfNoSpaces maxlength="128">
-            <label for="newPassword">New Password</label>
-            <div *ngIf="userForm.controls['newPassword'].invalid && (userForm.controls['newPassword'].dirty || userForm.controls['newPassword'].touched)" class="error-msg">
-                <div *ngIf="userForm.controls['newPassword'].errors.required || userForm.controls['newPassword'].errors.whitespace">
-                    Password is required.
-                </div>
-                <div class="alert alert-danger password-error"
-                *ngIf="userForm.controls['newPassword'].errors.pattern">
-                <ol>
-                    <li>
-                        A password should be of min 8 and max 128 characters.
-                    </li>
+      </div>
 
-                    <li>
-                        A password should have at least 1 number and 1 Special
-                        character.
-                    </li>
-                    <li>
-                        A password should consist of lowercase and uppercase
-                        alphabetic characters.
-                    </li>
-                    <li>
-                        The changed password cannot be similar to the last 10
-                        passwords.
-                    </li>
-                </ol>
+
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="form-group">
+            <span class="plain-select">
+              <select formControlName="userRole" [(ngModel)]="user.userRole" class="form-control" id="userRole">
+                <option value="">Select Role</option>
+                <option value="1">Super Admin</option>
+                <option value="2">Staff</option>
+              </select>
+              <label for="userRole" class="select-label">Select Role</label>
+            </span>
+            <div *ngIf="userForm.controls['userRole'].invalid && (userForm.controls['userRole'].dirty || userForm.controls['userRole'].touched)"
+                 class="error-msg">
+              <div *ngIf="userForm.controls['userRole'].errors.required">
+                User role is required.
+              </div>
             </div>
-            </div>
-        </div>
+          </div>
         </div>
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="form-group has-float-label">
-                <input class="form-control" id="confirmPassword" placeholder="Confirm Password" type="password" formControlName="confirmPassword" appNfNoSpaces>
-                <label for="confirmPassword">Confirm Password</label>
-                <div *ngIf="userForm.controls['confirmPassword'].invalid && (userForm.controls['confirmPassword'].dirty || userForm.controls['confirmPassword'].touched)" class="error-msg">
-                    <div *ngIf="userForm.controls['confirmPassword'].errors.required  || userForm.controls['confirmPassword'].errors.whitespace">
-                        Confirm password is required.
-                    </div>
-                    <div *ngIf="userForm.controls['confirmPassword'].errors.mustMatch">
-                        Passwords must match.
-                    </div>
-                </div>
+          <div class="form-group has-float-label">
+            <input class="form-control" [(ngModel)]="user.userEmail" id="userEmail" type="text" placeholder="User Email"
+                   formControlName="userEmail" />
+            <label for="userEmail">User Email</label>
+            <div *ngIf="userForm.controls['userEmail'].invalid && (userForm.controls['userEmail'].dirty || userForm.controls['userEmail'].touched)"
+                 class="error-msg">
+              <div *ngIf="userForm.controls['userEmail'].errors.required">
+                User email is required.
+              </div>
+              <div *ngIf="userForm.controls['userEmail'].errors.email || userForm.controls['userEmail'].errors.pattern">
+                User email must be a valid email address.
+              </div>
             </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="form-group has-float-label">
+            <input class="form-control" [(ngModel)]="user.userPassword" id="userPassword" type="text" placeholder="User Password"
+                   formControlName="userPassword" />
+            <label for="userPassword">User Password</label>
+            <div *ngIf="userForm.controls['userPassword'].invalid && (userForm.controls['userPassword'].dirty || userForm.controls['userPassword'].touched)"
+                 class="error-msg">
+              <div *ngIf="userForm.controls['userPassword'].errors.required">
+                User password is required.
+              </div>
             </div>
-       </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" (click)="modal.close('Save click')">Save</button>
-        <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
-    </div>
+          </div>
+        </div>
+      </div>
+
+      <!--<div class="row">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="form-group has-float-label">
+            <div class="checkbox" *ngFor="let permission of permissions; let i = index">
+              <label>
+                <input type="checkbox"
+                       [name]="'permissions'+i"
+                       [(ngModel)]="permission.checked"
+                       value="{{permission.id}}">
+                              {{permission.name}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>-->
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" (click)="modal.close('Save click')">Save</button>
+    <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+  </div>
 </ng-template>
 
 
 <ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title"><i class="icon-select"></i> Confirm</h4>
-    </div>
-    <div class="modal-body">
-        <p class="text-center">Are you sure, you want to delete?</p>
-    </div>
-    <div class="modal-footer no-top-border">
-        <button class="btn btn-primary" (click)="changeSuccessMessage(); modal.close('Save click')">OK</button>
-        <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"><i class="icon-select"></i> Confirm</h4>
+  </div>
+  <div class="modal-body">
+    <p class="text-center">Are you sure, you want to delete?</p>
+  </div>
+  <div class="modal-footer no-top-border">
+    <button class="btn btn-primary" (click)="changeSuccessMessage(); modal.close('Save click')">OK</button>
+    <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+  </div>
 </ng-template>

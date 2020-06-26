@@ -34,5 +34,15 @@ namespace Gopal.Services.User
             }
             return _loginModel;
         }
+
+        public TblUser GetUserById(int userId)
+        {
+            return _dbContext.TblUser.Where(x => x.IsDeleted != true && x.UserId == userId).FirstOrDefault();
+        }
+
+        public List<TblUser> GetUsers()
+        {
+            return _dbContext.TblUser.Where(x => x.IsDeleted != true).ToList();
+        }
     }
 }
