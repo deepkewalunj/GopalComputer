@@ -5,12 +5,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MasterRoutingModule } from './master-routing.module';
-import { ClientComponent } from './client/client.component';
-import { AddClientComponent } from './add-client/add-client.component';
-
+import { CustomerListComponent } from './customer/customer-list/customer-list.component';
+import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 
 @NgModule({
-  declarations: [ClientComponent, AddClientComponent],
+  declarations: [CustomerListComponent, AddEditCustomerComponent],
   imports: [
     CommonModule,
     DataTablesModule,

@@ -1,0 +1,77 @@
+
+
+<div class="container-fluid">
+    <!--success message-->
+<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+<!--success message-->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="float-left">Client Master</h4>
+            <button class="btn btn-search btn-primary float-right d-sm-none"
+                (click)="toggleSearch()"><i class="icon-search"></i></button>
+                <button class="btn  btn-primary float-right" (click)="addClientPopup(null)">Add Customer</button>
+        </div>
+        <div class="card-body">
+            <!--table listing statrt hover-->
+            <div >
+                <!-- This id used for responsive table -->
+
+              <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                <thead>
+                  <tr>
+                    <th>Client Id</th>
+                    <th>Title</th>
+                    <th>Customer Name</th>
+                    <th>Company Name</th>
+                    <th>Mobile No</th>
+                    <th>Tel No.</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="customers?.length != 0">
+                  <tr *ngFor="let customer of customers">
+                      <td>{{ customer.clientId }}</td>
+                      <td>{{ customer.clientTitleId==1?"Mr":"Ms" }}</td>
+                      <td>{{ customer.clientName }}</td>
+                      <td>{{ customer.companyName }}</td>
+                      <td>{{ customer.ownerMobileNo }}</td>
+                      <td>{{ customer.telNoFirst }}</td>
+                      <td data-title="Actions" >
+                        <div>
+                            <button class="btn  btn-secondary float-right"  ngbTooltip="Edit" (click)="addClientPopup(customer)">Edit</button>
+                            <button class="btn  btn-danger float-right" ngbTooltip="Delete" (click)="open(content)">Delete</button></div>
+                        </td>
+
+
+                  </tr>
+                </tbody>
+                <tbody *ngIf="customers?.length == 0">
+                <tr>
+                  <td colspan="3" class="no-data-available">No data!</td>
+                </tr>
+                <tbody>
+              </table>
+                <!--table listing end-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ng modal window -->
+<ng-template #clientPopup let-modal>
+
+</ng-template>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"><i class="icon-select"></i> Confirm</h4>
+    </div>
+    <div class="modal-body">
+        <p class="text-center">Are you sure, you want to delete?</p>
+    </div>
+    <div class="modal-footer no-top-border">
+        <button class="btn btn-primary" (click)="changeSuccessMessage(); modal.close('Save click')">OK</button>
+        <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+</ng-template>

@@ -17,6 +17,7 @@ import { httpInterceptor } from './interceptor/http-interceptor';
 import { ErrorInterceptor } from './interceptor/error-Interceptor';
 //import { AuthenticationService } from './services/authentication.service';
 import { AuthorizationCheck } from './services/authorization-Check';
+import { CustomerService } from './services/customer.service';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { AuthorizationCheck } from './services/authorization-Check';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    AuthorizationCheck],
+    AuthorizationCheck,CustomerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

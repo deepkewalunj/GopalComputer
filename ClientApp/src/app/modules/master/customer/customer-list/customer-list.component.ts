@@ -7,6 +7,7 @@ import { debounceTime } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { Customer } from 'src/app/models/Customer.model';
+import { AddEditCustomerComponent } from '../add-edit-customer/add-edit-customer.component';
 
 
 
@@ -20,10 +21,10 @@ class DataTablesResponse {
 
 @Component({
   selector: 'app-client',
-  templateUrl: './client.component.html',
-  styleUrls: ['./client.component.scss']
+  templateUrl: './customer-list.component.html',
+  styleUrls: ['./customer-list.component.scss']
 })
-export class ClientComponent implements OnInit {
+export class CustomerListComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   customers: Customer[];
 
@@ -57,8 +58,16 @@ export class ClientComponent implements OnInit {
     this.modalService.open(content);
   }
 
-  addClientPopup(content) {
-    this.modalService.open(content, { size: 'lg' });
+  addClientPopup(currentCustomer:Customer) {
+    let localCustomer=currentCustomer;
+    if(localCustomer==null)
+    {
+      localCustomer=new Customer();
+
+    }
+    const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg' });
+    modalRef.componentInstance.customer=localCustomer;
+    modalRef.componentInstance.modelRef=modalRef;
   }
 
    /*succes message code here*/

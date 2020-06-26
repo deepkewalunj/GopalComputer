@@ -1,0 +1,118 @@
+
+<form [formGroup]="addClientForm" novalidate >
+  <div class="container form-container">
+      <h3 class="text-center mb-4">{{customer.clientId > 0 ? 'Edit':'Add'}} Customer</h3>
+      <div class="card">
+          <div class="card-header">
+              <h4>Customer Information</h4>
+          </div>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-12 col-md-6 col-lg-4">
+                      <div class="form-group">
+                          <span class="plain-select">
+                              <select class="form-control" [(ngModel)]="customer.clientTitleId" id="titleSelect" formControlName="title">
+                                <option *ngFor="let c of titles" [ngValue]="c.id">{{c.name}}</option>
+                              </select>
+                              <label class="select-label">Title</label>
+                          </span>
+                          <div *ngIf="addClientForm.controls['title'].invalid && (addClientForm.controls['title'].dirty || addClientForm.controls['title'].touched)"
+                          class="error-msg">
+                          <div *ngIf="addClientForm.controls['title'].errors.required">
+                             Title is required.
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                      <div class="form-group has-float-label">
+                          <input class="form-control" id="customerName" type="text" placeholder="Customer Name"
+                              formControlName="customerName" [(ngModel)]="customer.clientName" />
+                          <label for="customerName">Customer Name</label>
+                          <div *ngIf="addClientForm.controls['customerName'].invalid && (addClientForm.controls['customerName'].dirty || addClientForm.controls['customerName'].touched)"
+                              class="error-msg">
+                              <div *ngIf="addClientForm.controls['customerName'].errors.required">
+                                  Customer name is required.
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                      <div class="form-group has-float-label">
+                          <input class="form-control" id="companyName" type="text" placeholder="Company Name"
+                              formControlName="companyName"  [(ngModel)]="customer.companyName" />
+                          <label for="companyName">Company Name</label>
+                          <div *ngIf="addClientForm.controls['companyName'].invalid && (addClientForm.controls['companyName'].dirty || addClientForm.controls['companyName'].touched)"
+                              class="error-msg">
+                              <div *ngIf="addClientForm.controls['companyName'].errors.required">
+                                  Company name is required.
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <div class="form-group has-float-label">
+                        <input class="form-control" id="clientAddress" type="text" placeholder="Customer Address"
+                            formControlName="clientAddress"  [(ngModel)]="customer.clientAddress" />
+                        <label for="clientAddress">Customer Address</label>
+                        <div *ngIf="addClientForm.controls['clientAddress'].invalid && (addClientForm.controls['clientAddress'].dirty || addClientForm.controls['clientAddress'].touched)"
+                            class="error-msg">
+                            <div *ngIf="addClientForm.controls['clientAddress'].errors.required">
+                                Customer Address is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                  <div class="col-12 col-md-6 col-lg-4">
+                      <div class="form-group has-float-label">
+                          <input class="form-control" type="text" id="mobileNo" placeholder="Mobile Number 1"
+                              formControlName="mobileNo" [(ngModel)]="customer.ownerMobileNo">
+                          <label for="mobileNo"> Mobile Number 1</label>
+                          <div *ngIf="addClientForm.controls['mobileNo'].invalid && (addClientForm.controls['mobileNo'].dirty || addClientForm.controls['mobileNo'].touched)"
+                              class="error-msg">
+                              <div *ngIf="addClientForm.controls['mobileNo'].errors.required">
+                                 Mobile number is required.
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <div class="form-group has-float-label">
+                        <input class="form-control" type="text" id="mobileNoFirst" placeholder="Mobile Number 2"
+                            formControlName="mobileNoFirst1" [(ngModel)]="customer.mobileNoFirst">
+                        <label for="mobileNoFirst"> Mobile Number </label>
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                  <div class="form-group has-float-label">
+                      <input class="form-control" type="text" id="telNoFirst" placeholder="Telephone Number 1"
+                          formControlName="telNoFirst1" [(ngModel)]="customer.telNoFirst">
+                      <label for="telNoFirst"> Telephone Number 1 </label>
+
+                  </div>
+              </div>
+
+              <div class="col-12 col-md-6 col-lg-4">
+                <div class="form-group has-float-label">
+                    <input class="form-control" type="text" id="telNoSecond" placeholder="Telephone Number 2"
+                        formControlName="telNoSecond2" [(ngModel)]="customer.telNoSecond">
+                    <label for="telNoSecond"> Telephone Number 2 </label>
+
+                </div>
+            </div>
+              </div>
+          </div>
+      </div>
+      <footer>
+          <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+          <button type="submit" (click)="addClientForm.valid && saveCustomer()" class="btn btn-primary">
+              Save
+          </button>
+      </footer>
+  </div>
+</form>

@@ -11,5 +11,6 @@ namespace Gopal.Services.Customer
     public interface ICustomerServices
     {
         DatatableResponseModel GetCustomerList(DatatableRequestModel getCustomerModel);
+        CustomerModel AddEditCustomer(CustomerModel customerModel);
     }
 }

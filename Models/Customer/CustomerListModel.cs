@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Gopal.Models.Customer
 {
-    public class CustomerListModel
+    public class CustomerModel
     {
         public int clientId         { get; set; }
         public int clientTitleId    { get; set; }
