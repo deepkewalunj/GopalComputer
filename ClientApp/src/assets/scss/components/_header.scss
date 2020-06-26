@@ -6,7 +6,7 @@ header {
     width: 100%;
     position: fixed;
     padding: 0px;
-    padding-left: 17.625rem;
+    padding-left: 15px;
     z-index: 4;
     background-color: $white;
     margin-bottom: 0px;
@@ -22,7 +22,24 @@ header {
             display: flex;
             margin-right: auto;
             .logo {
-                width:7.25rem;
+                //width:7.25rem;
+                h4 {
+                    font-weight: 700;
+            font-size: 38px;
+            letter-spacing: 3px;
+            color: $black-blue;
+            text-shadow: 1px 1px 3px rgba(150, 12, 251, 0.38);
+                }
+                p {
+                    font-size: 14px;
+                    line-height: 7px;
+                    letter-spacing: 6.5px;
+                    text-transform: uppercase;
+                    position: relative;
+                    left: 3px;
+                    color: $primary;
+                    font-weight: 600;
+            }
             }
             a {
                 color: $white;
@@ -94,7 +111,7 @@ header {
                             padding: 0 0.625rem;
                             border: none;
                             i {
-                                background-color:$orange;
+                                background-color:$black-blue;
                                 padding: 0.5rem;
                                 color: $white;
                                 border-radius: 0.125rem;
@@ -150,7 +167,7 @@ header {
                        }
                         }
                         &.user-name-device {
-                            background-color: $dark-blue;
+                            background-color: $black-blue;
                             display: flex;
                             align-items: center;
                             padding: 0.9375rem 1.25rem;
@@ -165,6 +182,7 @@ header {
                                     color: $white;
                                     padding: 0;
                                     font-size: $font16;
+                                    background: transparent;
                                 }
                                 .user-role {
                                     color:rgba(244, 246, 249, 0.57);
