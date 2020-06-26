@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -14,7 +14,7 @@ import { UserPermission } from '../../../models/user-permission';
 })
 
 
-export class UsersListComponent implements OnInit {
+export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   user = {
     firstName: '',
@@ -54,7 +54,7 @@ export class UsersListComponent implements OnInit {
       userEmail: ['', [Validators.required, Validators.email, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{1,}[.]{1}[a-zA-Z]{1,}")]],
       userPassword: ['', Validators.required],
       userRole: ['', Validators.required],
-      permissions: ['']
+      permissions: ['', Validators.required]
     }
     );
   }
@@ -79,6 +79,7 @@ export class UsersListComponent implements OnInit {
         userRole: null,
         userId: null
       }
+      this.bindPermission();
       this.modalService.open(content, { size: 'lg' });
     }
 
@@ -88,24 +89,11 @@ export class UsersListComponent implements OnInit {
   /*succes message code here*/
 
   ngOnInit(): void {
-    this.modulePermission.push({ isChecked: false, moduleId: 1, moduleName: "Master" });
-    this.modulePermission.push({ isChecked: false, moduleId: 2, moduleName: "Client Master" });
-    this.modulePermission.push({ isChecked: false, moduleId: 3, moduleName: "Client" });
-    this.modulePermission.push({ isChecked: false, moduleId: 4, moduleName: "Inward Material" });
-    this.modulePermission.push({ isChecked: false, moduleId: 5, moduleName: "Inward Master" });
-    this.modulePermission.push({ isChecked: false, moduleId: 6, moduleName: "Material Type" });
-    this.modulePermission.push({ isChecked: false, moduleId: 7, moduleName: "Material Company" });
-    this.modulePermission.push({ isChecked: false, moduleId: 8, moduleName: "Inward Accessories" });
-    this.modulePermission.push({ isChecked: false, moduleId: 9, moduleName: "Transaction" });
-    this.modulePermission.push({ isChecked: false, moduleId: 10, moduleName: "Report" });
-
-
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 5,
-      processing: true
+      pageLength: 5
+      
     };
-
     setTimeout(() => this.staticAlertClosed = true, 20000);
     this.getUsers();
     this._success.subscribe((message) => this.successMessage = message);
@@ -113,21 +101,35 @@ export class UsersListComponent implements OnInit {
       debounceTime(5000)
     ).subscribe(() => this.successMessage = null);
   }
+  
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+  ngAfterViewInit() {
+    this.bindPermission();
+  }
 
   getUsers() {
-    this.userService.getUsers()
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.userList = data.users;
-          this.dtTrigger.next();
-        },
-        error => {
-          this.error = error;
-        });
+    const that = this;
+    try {
+      this.userService.getUsers()
+        .subscribe(
+          data => {
+            that.userList = data.users;
+            that.dtTrigger.next();
+          },
+          error => {
+            that.error = error;
+          });
+    }
+    catch (e) {
+
+    }
   }
 
   getUsersById(userId, content) {
+    this.bindPermission();
     this.userService.GetUserById(userId)
       .pipe(first())
       .subscribe(
@@ -140,10 +142,47 @@ export class UsersListComponent implements OnInit {
           this.user.userRole = data.user.userRole;
           this.user.userId = data.user.userId;
           this.modalService.open(content, { size: 'lg' });
+          if (data.userPermissions) {
+            for (var i = 0; i < this.modulePermission.length; i++) {
+              for (var j = 0; j < data.userPermissions.length; j++) {
+                if (this.modulePermission[i].moduleName == data.userPermissions[j].moduleName) {
+                  this.modulePermission[i].isChecked = true;
+                }
+              }
+            }
+          }
+
+          
         },
         error => {
           this.error = error;
         });
+  }
+
+  saveData() {
+    this.userService.SaveUserData(this.user, this.modulePermission)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.getUsers();
+        },
+        error => {
+          this.error = error;
+        });
+  }
+
+  bindPermission() {
+    this.modulePermission = Array<UserPermission>();
+    this.modulePermission.push({ isChecked: false, moduleId: 1, moduleName: "Master" });
+    this.modulePermission.push({ isChecked: false, moduleId: 2, moduleName: "Client Master" });
+    this.modulePermission.push({ isChecked: false, moduleId: 3, moduleName: "Client" });
+    this.modulePermission.push({ isChecked: false, moduleId: 4, moduleName: "Inward Material" });
+    this.modulePermission.push({ isChecked: false, moduleId: 5, moduleName: "Inward Master" });
+    this.modulePermission.push({ isChecked: false, moduleId: 6, moduleName: "Material Type" });
+    this.modulePermission.push({ isChecked: false, moduleId: 7, moduleName: "Material Company" });
+    this.modulePermission.push({ isChecked: false, moduleId: 8, moduleName: "Inward Accessories" });
+    this.modulePermission.push({ isChecked: false, moduleId: 9, moduleName: "Transaction" });
+    this.modulePermission.push({ isChecked: false, moduleId: 10, moduleName: "Report" });
   }
 
   public changeSuccessMessage() {

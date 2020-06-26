@@ -83,6 +83,13 @@ namespace Gopal.Controllers
             return Ok(new { user = _services.GetUserById(model.userId), userPermissions= _services.GetUserPermissionsById(model.userId) });
         }
 
+        [HttpPost("[action]")]
+        [Authorize]
+        public IActionResult SaveUserData(UserDetailsInputModel model)
+        {
+
+            return Ok(new { user = _services.SaveUserData(model) });
+        }
 
     }
 }

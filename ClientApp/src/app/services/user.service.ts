@@ -11,13 +11,17 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUsers() {
-    return this.http.get<any>(environment.API_URL + 'User/GetUsers')
-      .pipe(map(users => {
-        return users;
-      }));
+    return this.http.get<any>(environment.API_URL + 'User/GetUsers');
   }
   GetUserById(userId: number) {
     return this.http.put<any>(environment.API_URL + 'User/GetUserById', { userId })
+      .pipe(map(user => {
+        return user;
+      }));
+  }
+
+  SaveUserData(user: any, modulePermission: any) {
+    return this.http.post<any>(environment.API_URL + 'User/SaveUserData', { user, modulePermission })
       .pipe(map(user => {
         return user;
       }));

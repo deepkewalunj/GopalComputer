@@ -13,5 +13,6 @@ namespace Gopal.Services.User
         List<TblUser> GetUsers();
         TblUser GetUserById(int userId);
         object GetUserPermissionsById(int userId);
+        object SaveUserData(UserDetailsInputModel model);
     }
 }

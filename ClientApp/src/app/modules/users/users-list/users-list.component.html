@@ -187,14 +187,14 @@
         <div class="col-12 col-md-6 col-lg-4">
           <div class="form-group">
             <label for="permissions">Access rights</label>
-            <div class="checkbox" *ngFor="let permission of modulePermission; let i = index">
-              <label>
-                <input type="checkbox"
-                       formControlName="permissions"
-                       [(ngModel)]="permission.isChecked"
-                       value="{{permission.moduleId}}">
-                {{permission.moduleName}}
-              </label>
+            
+            <input type="hidden" name="permissions" formControlName="permissions" [(ngModel)]="modulePermission">
+            <div *ngFor="let role of modulePermission">
+              <input type="checkbox"
+                     [value]="role.isChecked"
+                     [checked]="role.isChecked"
+                     (change)="$event.target.checked ? role.isChecked = true : role.isChecked = false">
+              {{role.moduleName}}
               <br />
             </div>
           </div>
@@ -203,7 +203,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary" (click)="modal.close('Save click')">Save</button>
+    <button class="btn btn-primary" (click)="saveData()">Save</button>
     <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
   </div>
 </ng-template>

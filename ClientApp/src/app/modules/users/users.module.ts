@@ -19,8 +19,7 @@ import { UsersListComponent } from './users-list/users-list.component';
     AngularMultiSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    UsersRoutingModule,
-    DataTablesModule
+    UsersRoutingModule
   ]
 })
 export class UsersModule { }
