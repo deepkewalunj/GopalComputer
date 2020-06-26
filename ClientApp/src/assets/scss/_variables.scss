@@ -16,7 +16,7 @@ $screen-xl: map-get($grid-breakpoints, 'xl');
 
 // colors
 $theme-colors: ( 
-    primary:    #ff0d5f , 
+    primary:    #FF4081 , 
     secondary:  #e8e8e8, // bootstrap default
     success:    #3cba54, // bootstrap default
     info:       #50a9e8, // bootstrap default
@@ -35,12 +35,12 @@ $brand-danger: map-get($theme-colors, danger);
 $brand-light: map-get($theme-colors, light);
 $brand-dark: map-get($theme-colors, dark);
 
-$primary:        #ff0d5f;
+$primary:        #FF4081;
 $grey:          #e8e8e8;
 $light-grey:    #f2f3f8;
 $dark-grey:     #222222;
 $green:         #5cb85c;
-$dark-blue:     #ff0d5f;
+$dark-blue:     #FF4081;
 $black-blue:    #1c0f3a;
 $blue:          #7d64f6;
 $white:         #ffffff;

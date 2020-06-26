@@ -421,7 +421,8 @@ input[type=number] {
 /* hide header and sidebar from login page and other css*/
 
 .login-page-body {
-    background-color: $light-grey;
+    //background-color: $light-grey;
+    background-image:url(./assets/imgs/body-bg.jpg);
      app-header,
      app-sidebar {
        display: none;
@@ -432,7 +433,7 @@ input[type=number] {
             height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            //align-items: center;
             padding: 0;
             app-signin,
             app-forgot-password {
@@ -466,10 +467,11 @@ text-shadow: 1px 1px 3px rgba(150, 12, 251, 0.38);
 }
 }
 .form-signin {
+    margin-top:3rem;
  form {
     background-color: $white;
     width: 100%;
-    width: 25rem;
+    width: 28rem;
     padding: 20px;
     margin: auto;
     border-radius: 4px;
