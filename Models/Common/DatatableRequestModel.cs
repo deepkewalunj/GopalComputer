@@ -31,7 +31,7 @@ public class DatatableRequestModel
     public Search search { get; set; }
 
 }
-public class Application
+public class DatatableRequestWrapper
 {
     public DatatableRequestModel getCustomerListModel { get; set; }
 

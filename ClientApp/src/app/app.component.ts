@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SharedService } from './shared/shared.service';
 import { AuthenticationService } from './services/authentication.service';
 import { Router } from '@angular/router';
+import { CustomerService } from './services/customer.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'sample';
 
-  constructor(private router: Router, public sharedService: SharedService,  private authenticationService: AuthenticationService) { }
+  constructor(private router: Router, public sharedService: SharedService,
+     private authenticationService: AuthenticationService) { }
 
 }

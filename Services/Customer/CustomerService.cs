@@ -35,13 +35,36 @@ namespace Gopal.Services.Customer
                     new { RequestModel = strRequestModel }, commandType: CommandType.StoredProcedure))
                 {
                     datatableResponseModel.recordsTotal = multi.Read<int>().First();
-                    datatableResponseModel.data  = multi.Read<CustomerListModel>()?.ToList();
+                    datatableResponseModel.data  = multi.Read<CustomerModel>()?.ToList();
                     datatableResponseModel.recordsFiltered = datatableResponseModel.recordsTotal;
                 }
             }
 
            
             return datatableResponseModel;
+        }
+
+        public CustomerModel AddEditCustomer(CustomerModel customerModel)
+        {
+            //usp_AddEditCustomer
+            String strRequestModel = JsonConvert.SerializeObject(customerModel);
+            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
+            {
+                customerModel.clientId= connection.Query<int>("usp_AddEditCustomer",
+                     new { RequestModel = strRequestModel }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+            return customerModel;
+        }
+
+        public int DeleteCustomer(int customerId) {
+           TblClient customer= _dbContext.TblClient.FirstOrDefault(x => x.ClientId == customerId);
+            if (customer != null)
+            {
+                customer.IsDeleted = true;
+                _dbContext.SaveChanges();
+                return customerId;
+            }
+            return 0;
         }
     }
 }

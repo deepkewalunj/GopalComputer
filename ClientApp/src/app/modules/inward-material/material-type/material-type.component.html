@@ -162,12 +162,12 @@
         </div> -->
         <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-                <input class="form-control" id="personName" type="text" placeholder="Material Type"
-                    formControlName="personName" />
-                <label for="personName">Material Type</label>
-                <div *ngIf="addMaterialTypeForm.controls['personName'].invalid && (addMaterialTypeForm.controls['personName'].dirty || addMaterialTypeForm.controls['personName'].touched)"
+                <input class="form-control" id="materialType" type="text" placeholder="Material Type"
+                    formControlName="materialType" />
+                <label for="materialType">Material Type</label>
+                <div *ngIf="addMaterialTypeForm.controls['materialType'].invalid && (addMaterialTypeForm.controls['materialType'].dirty || addMaterialTypeForm.controls['materialType'].touched)"
                     class="error-msg">
-                    <div *ngIf="addMaterialTypeForm.controls['personName'].errors.required">
+                    <div *ngIf="addMaterialTypeForm.controls['materialType'].errors.required">
                         Material type is required.
                     </div>
                 </div>

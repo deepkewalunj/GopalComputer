@@ -1,7 +1,64 @@
 /*table related css here*/
+table tr th, table tr td {
+    font-size: $font13;
+    line-height: 1rem;
+    padding: 8px 10px !important;
+
+}
+
+table.dataTable thead th, table.dataTable thead td, table.dataTable tbody td {
+	font-size: $font13;
+    line-height: 1rem;
+    padding: 8px 10px !important;
+}
+
+table.dataTable {
+	border-collapse: collapse;
+}
+
+.dataTables_wrapper {
+	.dataTables_filter {
+		input {
+			border: 1px solid #d7d7d7;
+			border-radius: 4px;
+			height: 30px;
+			padding-left: 5px;
+		}
+	}
+	.dataTables_paginate {
+		.paginate_button {
+			color:  $black-blue !important;
+			padding: 0.2rem 0.525rem;
+			font-size: 0.8125rem;
+			line-height: 1;
+			min-width: auto !important;
+			&.current, &:hover {
+				color: #fff !important;
+				border-radius: 0.25rem;
+    padding: 0.2rem 0.525rem;
+    border: 1px solid $black-blue!important;
+    background-color: $black-blue!important;
+    background: linear-gradient(to bottom, $black-blue 0%, $black-blue 100%)!important;
+			}
+
+			&.current {
+			&:hover {
+				color: #fff !important;
+				border-radius: 0.25rem;
+    padding: 0.2rem 0.525rem;
+    border: 1px solid $black-blue!important;
+    background-color: $black-blue!important;
+    background: linear-gradient(to bottom, $black-blue 0%, $black-blue 100%)!important;
+			}
+			}
+			
+		}
+	}
+}
 
 .table {
 	table-layout: fixed;
+	width: 100% !important;
     thead {
         th {
             border-top: none !important;
@@ -25,7 +82,7 @@
 					
 					i {
                         font-size:$font18;
-						margin: 0 0.3125rem;
+						margin: 0;
 						color:$dark-blue;
 						cursor: pointer;
 						&.disabled {
@@ -106,7 +163,21 @@
 // Resposnsive tables css
 
 @media only screen and (max-width: 800px) {
-    
+	.dataTables_wrapper {
+		.dataTables_length {
+			float: left;
+			select {
+				height: 30px;
+			}
+		}
+		.dataTables_filter {
+			margin-top: 0;
+			float: right;
+		}
+	}
+
+
+
     /* Force table to not be like tables anymore */
 	#no-more-tables table, 
 	#no-more-tables thead, 
@@ -128,16 +199,17 @@
 		}
 
 		tr { 
-			border-bottom: 0.0625rem solid $border;
+			//border-bottom: 0.0625rem solid $border;
+			border-bottom: 0;
 			padding: 0.625rem 0;
 			td { 
 				/* Behave  like a "row" */
 				border: none;
 				border-bottom: 0px solid $border; 
 				position: relative;
-				padding-left: 43%; 
+				padding-left: 43% !important; 
 				text-align:left;
-				min-height: 36px;
+				min-height: 20px;
 				&:before { 
 					/*Label the data*/
 					content: attr(data-title);
@@ -151,8 +223,13 @@
 					white-space: normal;
 					text-align:left;
 					font-weight: bold;
+					color: $black-blue !important;
 				}
 			}
+		}
+
+		tr:nth-child(even) {
+			background-color: $light-grey;
 		}
 		.editable-table {
 			tbody {

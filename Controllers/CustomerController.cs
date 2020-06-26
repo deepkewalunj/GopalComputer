@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Gopal.Controllers
 {
+    [Authorize]
     [Route("api/Customer")]
     [ApiController]
     public class CustomerController : ControllerBase
@@ -23,12 +24,26 @@ namespace Gopal.Controllers
             _customerServices = customerServices;
         }
 
-        [AllowAnonymous]
-        [HttpPost()]
+      
+        [HttpPost]
         [Route("GetCustomerList")]
-        public ActionResult GetCustomerList(Application application) {
+        public ActionResult GetCustomerList(DatatableRequestWrapper requestObjectWrapper) {
            
-            return Ok(_customerServices.GetCustomerList(application.getCustomerListModel)); 
+            return Ok(_customerServices.GetCustomerList(requestObjectWrapper.getCustomerListModel)); 
+        }
+
+        [HttpPost]
+        [Route("AddEditCustomer")]
+        public ActionResult AddEditCustomer(CustomerModel customer)
+        {
+
+            return Ok(_customerServices.AddEditCustomer(customer));
+        }
+
+        [HttpGet]
+        [Route("DeleteCustomer")]
+        public ActionResult DeleteCustomer(int customerId) {
+              return Ok(_customerServices.DeleteCustomer(customerId));
         }
     }
 }
