@@ -2,7 +2,7 @@
 <div class="layout">
 
     <!--top header and side navigation start here-->
-    <app-header *ngIf="sharedService.isLoggedIn()"></app-header> 
+    <app-header *ngIf="sharedService.isLoggedIn()"></app-header>
     <div class="side-nav expand-lg" *ngIf="sharedService.getRoleId()==1">
         <app-sidebar></app-sidebar>
       </div>
@@ -12,6 +12,10 @@
     <div class="page-container">
         <div class="main-content">
             <router-outlet></router-outlet>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+  </ngx-spinner>
         </div>
     </div>
     <!--page main content div end here-->
