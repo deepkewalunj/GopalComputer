@@ -30,13 +30,13 @@
 
 <div class="side-nav-inner">
   <ul class="side-nav-menu">
-    <li class="nav-item"  (click)="sidebarToggle()"  [ngClass]="{ 'active': sampleForm.isActive }">
+    <li class="nav-item"  (click)="deviceSidemenuCollapse()"  [ngClass]="{ 'active': sampleForm.isActive }">
       <a class="nav-link" routerLink="/sample-form" routerLinkActive #sampleForm="routerLinkActive">
         <i class="far fa-user"></i>
         <span class="menu-title">Sample Form</span>
       </a>
     </li>
-    <li class="nav-item"  (click)="sidebarToggle()" [ngClass]="{ 'active': users.isActive }">
+    <li class="nav-item"  (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': users.isActive }">
       <a class="nav-link" routerLink="/users" routerLinkActive #users="routerLinkActive">
         <i class="far fa-user"></i>
         <span class="menu-title">Users</span>
@@ -111,7 +111,7 @@
 
 
 
-    <li class="nav-item"  (click)="sidebarToggle()" [ngClass]="{ 'active': sampleList.isActive }">
+    <li class="nav-item"  (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': sampleList.isActive }">
       <a class="nav-link" routerLink="/sample-list" routerLinkActive #sampleList="routerLinkActive">
         <i class="far fa-user"></i>
         <span class="menu-title">Sample List</span>

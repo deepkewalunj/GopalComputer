@@ -58,6 +58,7 @@
           font-size: 1.125rem;
           line-height: 1;
           margin-left: auto;
+          margin-right: 8px;
           color: #b8c7ce;
           transition: all 0.3s ease;
           -webkit-transition: all 0.3s ease;
@@ -94,7 +95,7 @@
         }
         .menu-arrow {
           color: #fff;
-          margin-right: 8px;
+         
         }
         .collapse {
           &.show {
