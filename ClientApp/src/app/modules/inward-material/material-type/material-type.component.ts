@@ -26,10 +26,8 @@ export class MaterialTypeComponent implements OnInit {
   
     createForm() { 
       this.addMaterialTypeForm = this.fb.group({
-        title:      ['', Validators.required],
-      personName: ['', Validators.required],
-      companyName:          ['', Validators.required],
-      phoneNo: ['', Validators.required],
+        materialType:      ['', Validators.required],
+     
       },
      
       );
