@@ -14,7 +14,7 @@ export class SharedService {
     const helper = new JwtHelperService();
     if (localStorage.getItem('TokenInfo')) {
       var decoded = helper.decodeToken(localStorage.getItem('TokenInfo'));
-      return decoded.firstName + decoded.lastName;
+      return decoded.firstName + " " + decoded.lastName;
     }
   }
 

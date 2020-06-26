@@ -4,6 +4,7 @@ import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@an
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import { MustMatch } from 'src/app/services/password.match.validator';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users-list',
@@ -11,7 +12,8 @@ import { MustMatch } from 'src/app/services/password.match.validator';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-
+  title = 'angulardatatables';
+  dtOptions: DataTables.Settings = {};
   searchFilter: boolean;
 
   private _success = new Subject<string>();
@@ -51,6 +53,12 @@ export class UsersListComponent implements OnInit {
    /*succes message code here*/
  
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      processing: true
+    };
+
     setTimeout(() => this.staticAlertClosed = true, 20000);
 
     this._success.subscribe((message) => this.successMessage = message);
