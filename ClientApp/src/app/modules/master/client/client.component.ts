@@ -6,19 +6,9 @@ import {Subject} from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
+import { Customer } from 'src/app/models/Customer.model';
 
-class Customer {
- clientId : number
- clientTitleId   :number
- clientName   :string
- companyName  :string
- clientAddress:string
- ownerMobileNo:string
- mobileNoFirst:string
- telNoFirst   :string
- telNoSecond  :string
 
-}
 
 class DataTablesResponse {
   data: any[];
@@ -78,9 +68,7 @@ export class ClientComponent implements OnInit {
 
 
     const that = this;
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    }
+
 
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -91,7 +79,7 @@ export class ClientComponent implements OnInit {
         that.http
           .post<DataTablesResponse>(
             environment.API_URL+"Customer/GetCustomerList",
-            {getCustomerListModel:getCustomerListModel},httpOptions
+            {getCustomerListModel:getCustomerListModel},{}
           ).subscribe(resp => {
             that.customers = resp.data;
 
