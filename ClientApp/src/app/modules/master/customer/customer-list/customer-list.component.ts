@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { Customer } from 'src/app/models/Customer.model';
 import { AddEditCustomerComponent } from '../add-edit-customer/add-edit-customer.component';
+import { CustomerService } from 'src/app/services/customer.service';
 
 
 
@@ -36,7 +37,8 @@ export class CustomerListComponent implements OnInit {
 
     // we used reactive forms and validations
     addClientForm: FormGroup;
-    constructor(private fb: FormBuilder, private modalService: NgbModal,private http: HttpClient) {
+    constructor(private fb: FormBuilder, private modalService: NgbModal,private http: HttpClient,
+      private customerService:CustomerService) {
      this.createForm();
     }
 
@@ -54,8 +56,20 @@ export class CustomerListComponent implements OnInit {
 
   /*on click modal will be open*/
 
-  open(content) {
+  openDelete(content,customer:Customer) {
+    const that=this;
     this.modalService.open(content);
+
+    this.modalService.open(content).result.then((result) => {
+      if(result==true)
+      {
+
+
+        that.deleteCustomer(customer,that);
+      }
+    }, (reason) => {
+
+    });
   }
 
   addClientPopup(currentCustomer:Customer) {
@@ -68,6 +82,16 @@ export class CustomerListComponent implements OnInit {
     const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg' });
     modalRef.componentInstance.customer=localCustomer;
     modalRef.componentInstance.modelRef=modalRef;
+  }
+
+  deleteCustomer(customer:Customer,that){
+    that.customerService.deleteCustomer(customer.clientId).subscribe((data)=>{
+
+
+      },(error)=>{
+
+
+      })
   }
 
    /*succes message code here*/

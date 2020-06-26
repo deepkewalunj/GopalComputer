@@ -39,7 +39,7 @@
                       <td data-title="Actions" >
                         <div>
                             <button class="btn  btn-secondary float-right"  ngbTooltip="Edit" (click)="addClientPopup(customer)">Edit</button>
-                            <button class="btn  btn-danger float-right" ngbTooltip="Delete" (click)="open(content)">Delete</button></div>
+                            <button class="btn  btn-danger float-right" ngbTooltip="Delete" (click)="openDelete(content,customer)">Delete</button></div>
                         </td>
 
 
@@ -71,7 +71,7 @@
         <p class="text-center">Are you sure, you want to delete?</p>
     </div>
     <div class="modal-footer no-top-border">
-        <button class="btn btn-primary" (click)="changeSuccessMessage(); modal.close('Save click')">OK</button>
-        <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+        <button class="btn btn-primary" (click)="modal.close(true)">OK</button>
+        <button class="btn btn-secondary" (click)="modal.close(false)">Cancel</button>
     </div>
 </ng-template>

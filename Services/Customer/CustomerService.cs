@@ -55,5 +55,16 @@ namespace Gopal.Services.Customer
             }
             return customerModel;
         }
+
+        public int DeleteCustomer(int customerId) {
+           TblClient customer= _dbContext.TblClient.FirstOrDefault(x => x.ClientId == customerId);
+            if (customer != null)
+            {
+                customer.IsDeleted = true;
+                _dbContext.SaveChanges();
+                return customerId;
+            }
+            return 0;
+        }
     }
 }

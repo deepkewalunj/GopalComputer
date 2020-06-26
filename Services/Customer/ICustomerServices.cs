@@ -12,5 +12,6 @@ namespace Gopal.Services.Customer
     {
         DatatableResponseModel GetCustomerList(DatatableRequestModel getCustomerModel);
         CustomerModel AddEditCustomer(CustomerModel customerModel);
+        int DeleteCustomer(int customerId);
     }
 }

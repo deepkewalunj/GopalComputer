@@ -39,5 +39,11 @@ namespace Gopal.Controllers
 
             return Ok(_customerServices.AddEditCustomer(customer));
         }
+
+        [HttpGet]
+        [Route("DeleteCustomer")]
+        public ActionResult DeleteCustomer(int customerId) {
+              return Ok(_customerServices.DeleteCustomer(customerId));
+        }
     }
 }

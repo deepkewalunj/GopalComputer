@@ -15,4 +15,7 @@ export class CustomerService {
     return this.http.post<any>(environment.API_URL+'Customer/AddEditCustomer',customerModel);
 
   }
+  deleteCustomer(customerId:number){
+    return this.http.get<any>(environment.API_URL+'Customer/DeleteCustomer?customerId='+customerId);
+  }
 }
