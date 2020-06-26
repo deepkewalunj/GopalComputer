@@ -3,12 +3,14 @@
 html {
     overflow-x: inherit;
     font-size: 16px;
+    font-weight: 400;
 }
 
 html,
 body {
     height: 100%;
     font-family: $font-primary;
+    font-weight: 400;
 }
 
 body {
@@ -105,21 +107,21 @@ ol li a {
 }
 
 table tr th {
-    font-size: $font14;
+    font-size: $font13;
     /*14px*/
     line-height: 1rem;
 }
 
 table tr td {
-    font-size: $font14;
+    font-size: $font13;
     /*14px*/
     line-height: 1rem;
 }
 
 .form-control,
 input {
-    font-size: $font14;
-    color: $black;
+    font-size: $font13;
+    color: #6c7293;
     font-weight: 400;
 }
 
@@ -300,7 +302,8 @@ input[type=number] {
         }
         h4 {
             flex: 1;
-            font-weight: 600;
+            font-size: 18px;
+            color: #1c0f3a;
         }
 
         @media screen and (max-width:441px){
@@ -442,23 +445,57 @@ input[type=number] {
 
 
 /*login and forgot page css here*/
-
+.logo {
+    margin-bottom: 2rem;
+    h4 {
+        font-weight: 700;
+font-size: 48px;
+letter-spacing: 3px;
+color: #1c0f3a;
+text-shadow: 1px 1px 3px rgba(150, 12, 251, 0.38);
+    }
+    p {
+        font-size: 16px;
+        line-height: 7px;
+        letter-spacing: 9px;
+        text-transform: uppercase;
+        position: relative;
+        left: 4px;
+        color: $primary;
+        font-weight: 600;
+}
+}
 .form-signin {
+ form {
     background-color: $white;
     width: 100%;
     width: 30rem;
-    padding: 2rem;
+    padding: 20px;
     margin: auto;
     border-radius: 4px;
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.18), 1px 1px 4px 0 rgba(0, 0, 0, 0.24);
+ }
+    // box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.18), 1px 1px 4px 0 rgba(0, 0, 0, 0.24);
+    .title {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        color: #1c0f3a;
+    }
     .logo {
-        width: 15.625rem;
+      
         margin: auto;
         margin-bottom: 3rem;
-        margin-top: 1rem;
+        margin-top: 0;
+      
         img {
             width: 100%;
         }
+
+  
+    }
+
+    a {
+        color: #4a4a4a;
     }
     .unable-login-guidelines {
         ol {

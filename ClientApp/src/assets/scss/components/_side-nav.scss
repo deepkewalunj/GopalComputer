@@ -3,9 +3,9 @@
 .side-nav {
   // width: 4.0625rem;
   width: 15.625rem;
-  background-color:#2f3c4e;
+  background-color:#1c0f3a;
   z-index: 1050;
-  top:0;
+  top:60px;
   bottom: 0px;
   left: 0;
   position: fixed;
@@ -50,14 +50,15 @@
         i {
           font-size: 1.125rem;
           line-height: 1;
-          margin-left: 10px;
-          margin-right: 10px;
+          margin-left: 18px;
+    margin-right: 22px;
           color: #b8c7ce;
         }
         .menu-arrow {
           font-size: 1.125rem;
           line-height: 1;
           margin-left: auto;
+          margin-right: 8px;
           color: #b8c7ce;
           transition: all 0.3s ease;
           -webkit-transition: all 0.3s ease;
@@ -94,6 +95,7 @@
         }
         .menu-arrow {
           color: #fff;
+         
         }
         .collapse {
           &.show {
@@ -131,7 +133,7 @@
       .sub-menu {
         .nav-item {
           padding: 0;
-          padding-left: 10px;
+          padding-left: 22px;
           .nav-link {
             color: #b8c7ce;
             padding: 0.75rem 0 0.75rem 1rem;
@@ -146,6 +148,7 @@
             i {
               font-size: 10px;
               color: #b8c7ce;
+              margin-right: 10px;
             }
             &.active {
               color: #fff;
@@ -280,7 +283,7 @@
 
 
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width:1024px) {
   .side-nav {
     position: fixed;
     display: block;

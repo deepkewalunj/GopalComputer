@@ -16,6 +16,7 @@
             td {
 				border-bottom: 0.0625rem solid $border;
 				vertical-align: middle;
+				color: #6c7293;
                 &.action {
                     a {
                         font-size:$font18;
@@ -85,14 +86,14 @@
 			margin: 0 0.125rem;
 			.page-link {
 				border: 0;
-				color: $dark-blue;
+				color: $black-blue;
 				border-radius: 0.25rem;
 				padding: 0.200rem 0.525rem;
 			}
 			&.active {
 				.page-link {
-					background-color:  $dark-blue;
-					border-color:  $dark-blue;
+					background-color:  $black-blue;
+					border-color:  $black-blue;
 					color: $white;
 				}
 			}

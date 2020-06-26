@@ -471,8 +471,9 @@ select:disabled {
     }
     .form-control:placeholder-shown:not(:focus)+* {
         font-size: $font14;
-        opacity: 0.5;
+        //opacity: 0.5;
         top: 0.1875rem;
+        color: #6c7293;
     }
     .form-control:focus {
         outline: none;
@@ -481,15 +482,16 @@ select:disabled {
     &.field-with-icon {
         i {
             position: absolute;
-            left: 0;
+            right: 0;
             top: 0.5625rem;
-            color: #b9b8b8;
+            color: #6c7293;
         }
         label {
-            left: 1.375rem;
+            left: 0;
+            // color: #8b8d9a;
         }
         .form-control {
-            padding-left: 1.375rem;
+            padding-left: 0;
         }
     }
 }

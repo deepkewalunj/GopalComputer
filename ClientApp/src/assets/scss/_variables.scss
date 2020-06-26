@@ -16,7 +16,7 @@ $screen-xl: map-get($grid-breakpoints, 'xl');
 
 // colors
 $theme-colors: ( 
-    primary:    #4466f2 , 
+    primary:    #ff0d5f , 
     secondary:  #e8e8e8, // bootstrap default
     success:    #3cba54, // bootstrap default
     info:       #50a9e8, // bootstrap default
@@ -35,19 +35,19 @@ $brand-danger: map-get($theme-colors, danger);
 $brand-light: map-get($theme-colors, light);
 $brand-dark: map-get($theme-colors, dark);
 
-$orange:        #4466f2;
+$primary:        #ff0d5f;
 $grey:          #e8e8e8;
-$light-grey:    #f4f6f9;
+$light-grey:    #f2f3f8;
 $dark-grey:     #222222;
 $green:         #5cb85c;
-$dark-blue:     #4466f2;
-$black-blue:    #1a2138;
+$dark-blue:     #ff0d5f;
+$black-blue:    #1c0f3a;
 $blue:          #7d64f6;
 $white:         #ffffff;
 $black:         #000000;
 $border:        #d7d7d7;
 $danger:        #dd3237;
-$placeholder:   #a7a7a7;
+$placeholder:   #6c7293;
 $disabled:      #777777;
 $disabled-bg:      #e9ecef;
 $reset:         #c7c7c7;
@@ -57,7 +57,7 @@ $reset:         #c7c7c7;
 /* font-size */
 $font12:0.75rem;
 $font13:0.8125rem;
-$font14:0.875rem;
+$font14:0.8125rem;
 $font15:0.9375rem;
 $font16:1rem;
 $font17:1.0625rem;
@@ -68,7 +68,7 @@ $font24:1.5rem;
 $font30:1.875rem;
 $font34:2.125rem;
 
-$font-primary: 'Source Sans Pro', sans-serif; // body font
+$font-primary: 'Poppins', sans-serif; // body font
 $site-secondary-font: 'Aria',sans-serif;
 
 $site-font-features: sans;
