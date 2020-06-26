@@ -69,6 +69,20 @@ namespace Gopal.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-       
+        [HttpGet("[action]")]
+        [Authorize]
+        public IActionResult GetUsers()
+        {
+            return Ok(new { users = _services.GetUsers() });
+        }
+
+        [HttpPut("[action]")]
+        [Authorize]
+        public IActionResult GetUserById(GetUserByIdModel model)
+        {
+            return Ok(new { user = _services.GetUserById(model.userId) });
+        }
+
+
     }
 }

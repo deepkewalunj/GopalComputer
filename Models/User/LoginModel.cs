@@ -17,4 +17,9 @@ namespace Gopal.Models.User
         public string userEmail { get; set; }
         public bool isDeleted { get; set; }
     }
+
+    public class GetUserByIdModel
+    {
+        public int userId { get; set; }
+    }
 }
