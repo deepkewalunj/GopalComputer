@@ -16,7 +16,7 @@ import { HeaderInterceptor } from './interceptor/header-interceptor';
 import { ErrorInterceptor } from './interceptor/error-Interceptor';
 import { AuthorizationCheck } from './services/authorization-Check';
 import { CustomerService } from './services/customer.service';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -42,7 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    AuthorizationCheck,CustomerService],
+    AuthorizationCheck, CustomerService, NgxSpinnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
