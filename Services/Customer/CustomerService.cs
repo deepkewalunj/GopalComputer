@@ -3,6 +3,7 @@ using Gopal.EntityFrameworkCore;
 using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Models.User;
+using Gopal.Services.User;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
@@ -18,11 +19,11 @@ namespace Gopal.Services.Customer
     {
         
         private readonly gopal_dbContext _dbContext;
-
-        public CustomerService(gopal_dbContext dbContext)
+        private readonly IUserServices _userServices;
+        public CustomerService(gopal_dbContext dbContext, IUserServices userServices)
         {
             _dbContext = dbContext;
-            
+            _userServices = userServices;
         }
 
         public DatatableResponseModel GetCustomerList(DatatableRequestModel customerDatatableRequestModel)
@@ -46,7 +47,7 @@ namespace Gopal.Services.Customer
 
         public CustomerModel AddEditCustomer(CustomerModel customerModel)
         {
-            //usp_AddEditCustomer
+            customerModel.userId= _userServices.GetCurrentUserId();
             String strRequestModel = JsonConvert.SerializeObject(customerModel);
             using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
             {
@@ -61,6 +62,7 @@ namespace Gopal.Services.Customer
             if (customer != null)
             {
                 customer.IsDeleted = true;
+                customer.ModifiedDate = DateTime.Now;
                 _dbContext.SaveChanges();
                 return customerId;
             }

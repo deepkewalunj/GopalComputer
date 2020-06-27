@@ -62,7 +62,6 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
   /*on click modal will be open*/
 
   openDelete(content,customer:Customer) {
-    debugger;
 
     const that=this;
 
@@ -85,17 +84,28 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
     if(localCustomer==null)
     {
       localCustomer=new Customer();
-      localCustomer.clientTitleId=0;
+      localCustomer.clientTitleId='';
+
     }
     const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg' });
     modalRef.componentInstance.customer=localCustomer;
     modalRef.componentInstance.modelRef=modalRef;
+    modalRef.result.then((result) => {
+      if(result==true)
+      {
+        this.successMessage="Customer Saved Successfully.";
+      }
+
+    }, (reason) => {
+
+    });
   }
 
   deleteCustomer(customer:Customer,that){
     that.customerService.deleteCustomer(customer.clientId).subscribe((data)=>{
 
         that.rerender();
+        that.successMessage="Customer Deleted Successfully."
       },(error)=>{
 
 
@@ -130,9 +140,9 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
             });
           });
       },
-      columns: [{ data: 'clientId' }, { data: 'clientTitleId' }, { data: 'clientName' },
-                { data: 'companyName' },{ data: 'ownerMobileNo' },{ data: 'telNoFirst' },
-                {data:null}]
+      columns: [{ data: 'clientTitleId',searchable:true,orderable:true  }, { data: 'clientName',searchable:true,orderable:true  },
+                { data: 'companyName',searchable:true,orderable:true  },{ data: 'ownerMobileNo',searchable:false,orderable:false  },{ data: 'telNoFirst',searchable:false,orderable:false  },
+                {data:null,searchable:false,orderable:false }]
     };
     setTimeout(() => this.staticAlertClosed = true, 20000);
 
@@ -153,6 +163,7 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
   }
 
   rerender(): void {
+    debugger;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
       dtInstance.destroy();

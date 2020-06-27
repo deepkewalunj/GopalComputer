@@ -27,7 +27,6 @@ export class AddEditCustomerComponent implements OnInit {
 
 
   titles:Array<SelectList> = [
-    {id: 0, name: "Select Title"},
     {id: 1, name: "Mr."},
     {id: 2, name: "Mrs."},
     {id: 3, name: "Miss."}
@@ -48,13 +47,13 @@ export class AddEditCustomerComponent implements OnInit {
   ngOnInit(){}
 
   close(){
-      this.modelRef.close();
+      this.modelRef.close(false);
   }
 
   saveCustomer(){
       this.customerService.addEditCustomer(this.customer).subscribe((customer:Customer)=>{
           this.customer=customer;
-          this.modelRef.close();
+          this.modelRef.close(true);
       },(error)=>{
           console.log(error);
 

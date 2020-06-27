@@ -1,9 +1,11 @@
 ﻿using Gopal.EntityFrameworkCore;
 using Gopal.Models.User;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Gopal.Services.User
@@ -12,11 +14,14 @@ namespace Gopal.Services.User
     {
         
         private readonly gopal_dbContext _dbContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(gopal_dbContext dbContext)
+        public UserService(gopal_dbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
-            
+            _httpContextAccessor = httpContextAccessor;
+
+
         }
 
         public LoginModel AuthenticateUser(LoginModel login)
@@ -39,6 +44,16 @@ namespace Gopal.Services.User
         public TblUser GetUserById(int userId)
         {
             return _dbContext.TblUser.Where(x => x.IsDeleted != true && x.UserId == userId).FirstOrDefault();
+        }
+
+        public TblUser GetCurrentUser() {
+          
+            return GetUserById(GetCurrentUserId());
+        }
+
+        public int GetCurrentUserId() {
+            Int32.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("userId").Value, out int userId);
+            return userId;
         }
 
         public object GetUserPermissionsById(int userId)

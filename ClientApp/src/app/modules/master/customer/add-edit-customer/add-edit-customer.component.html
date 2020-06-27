@@ -11,6 +11,7 @@
                       <div class="form-group">
                           <span class="plain-select">
                               <select class="form-control" [(ngModel)]="customer.clientTitleId" id="titleSelect" formControlName="title">
+                                <option value="">Select Title</option>
                                 <option *ngFor="let c of titles" [ngValue]="c.id">{{c.name}}</option>
                               </select>
                               <label class="select-label">Title</label>

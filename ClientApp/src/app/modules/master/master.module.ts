@@ -15,7 +15,6 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
     CommonModule,
     DataTablesModule,
     MasterRoutingModule,
-    CommonModule,
     NgbModule,
     AngularMultiSelectModule,
     FormsModule,
