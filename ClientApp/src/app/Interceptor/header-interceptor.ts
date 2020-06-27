@@ -30,12 +30,10 @@ count = 0;
       (response) => {
         if (response instanceof HttpResponse) {
           this.count--;
-
+          debugger;
           if ( this.count == 0 )
           {
-            setTimeout(() => {
               this.SpinnerService.hide ();
-         }, 2000);
 
           }
         }

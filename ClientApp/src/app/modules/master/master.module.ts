@@ -8,6 +8,7 @@ import { MasterRoutingModule } from './master-routing.module';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 
+
 @NgModule({
   declarations: [CustomerListComponent, AddEditCustomerComponent],
   imports: [
@@ -19,6 +20,7 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
     AngularMultiSelectModule,
     FormsModule,
     ReactiveFormsModule
+
   ]
 })
 export class MasterModule { }

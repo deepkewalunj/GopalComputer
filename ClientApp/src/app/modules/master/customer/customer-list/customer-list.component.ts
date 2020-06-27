@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import {Subject} from 'rxjs';
@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment.prod';
 import { Customer } from 'src/app/models/Customer.model';
 import { AddEditCustomerComponent } from '../add-edit-customer/add-edit-customer.component';
 import { CustomerService } from 'src/app/services/customer.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { DataTableDirective } from 'angular-datatables';
 
 
 
@@ -25,7 +27,9 @@ class DataTablesResponse {
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.scss']
 })
-export class CustomerListComponent implements OnInit {
+export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   customers: Customer[];
 
@@ -35,6 +39,7 @@ export class CustomerListComponent implements OnInit {
   staticAlertClosed = false;
   successMessage: string;
 
+  dtTrigger: Subject<any> = new Subject();
     // we used reactive forms and validations
     addClientForm: FormGroup;
     constructor(private fb: FormBuilder, private modalService: NgbModal,private http: HttpClient,
@@ -57,8 +62,9 @@ export class CustomerListComponent implements OnInit {
   /*on click modal will be open*/
 
   openDelete(content,customer:Customer) {
+    debugger;
+
     const that=this;
-    this.modalService.open(content);
 
     this.modalService.open(content).result.then((result) => {
       if(result==true)
@@ -66,7 +72,9 @@ export class CustomerListComponent implements OnInit {
 
 
         that.deleteCustomer(customer,that);
+
       }
+
     }, (reason) => {
 
     });
@@ -77,7 +85,7 @@ export class CustomerListComponent implements OnInit {
     if(localCustomer==null)
     {
       localCustomer=new Customer();
-
+      localCustomer.clientTitleId=0;
     }
     const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg' });
     modalRef.componentInstance.customer=localCustomer;
@@ -87,7 +95,7 @@ export class CustomerListComponent implements OnInit {
   deleteCustomer(customer:Customer,that){
     that.customerService.deleteCustomer(customer.clientId).subscribe((data)=>{
 
-
+        that.rerender();
       },(error)=>{
 
 
@@ -105,7 +113,7 @@ export class CustomerListComponent implements OnInit {
 
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 50,
+      pageLength: 10,
       serverSide: true,
       processing: true,
       ajax: (getCustomerListModel: any, callback) => {
@@ -115,7 +123,6 @@ export class CustomerListComponent implements OnInit {
             {getCustomerListModel:getCustomerListModel},{}
           ).subscribe(resp => {
             that.customers = resp.data;
-
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsFiltered,
@@ -123,7 +130,9 @@ export class CustomerListComponent implements OnInit {
             });
           });
       },
-      columns: [{ data: 'clientId' }, { data: 'clientTitleId' }, { data: 'clientName' }]
+      columns: [{ data: 'clientId' }, { data: 'clientTitleId' }, { data: 'clientName' },
+                { data: 'companyName' },{ data: 'ownerMobileNo' },{ data: 'telNoFirst' },
+                {data:null}]
     };
     setTimeout(() => this.staticAlertClosed = true, 20000);
 
@@ -131,6 +140,25 @@ export class CustomerListComponent implements OnInit {
     this._success.pipe(
       debounceTime(5000)
     ).subscribe(() => this.successMessage = null);
+  }
+
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 
   public changeSuccessMessage() {

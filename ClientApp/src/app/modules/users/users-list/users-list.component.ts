@@ -27,8 +27,8 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   modulePermission = Array<UserPermission>();
-  
-  
+
+
 
   title = 'angulardatatables';
   dtOptions: DataTables.Settings = {};
@@ -92,7 +92,7 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5
-      
+
     };
     setTimeout(() => this.staticAlertClosed = true, 20000);
     this.getUsers();
@@ -101,7 +101,7 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
       debounceTime(5000)
     ).subscribe(() => this.successMessage = null);
   }
-  
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
@@ -152,7 +152,7 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           }
 
-          
+
         },
         error => {
           this.error = error;
