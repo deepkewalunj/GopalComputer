@@ -1,13 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import {Customer} from '../../../../models/Customer.model'
+import {Customer} from '../../../../models/customer.model'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {CustomerService} from '../../../../services/customer.service';
-export class SelectList{
-  name:string;
-  id:number;
+import { CommonModel } from 'src/app/models/common.model';
 
-}
 
 @Component({
   selector: 'app-add-edit-customer',
@@ -20,17 +17,14 @@ export class AddEditCustomerComponent implements OnInit {
   modelRef:any;
   customer: Customer;
   addClientForm: FormGroup;
+  titles= CommonModel.getTitles();
   constructor(private fb: FormBuilder,private modalService: NgbModal,
               private customerService:CustomerService) {
    this.createForm();
   }
 
 
-  titles:Array<SelectList> = [
-    {id: 1, name: "Mr."},
-    {id: 2, name: "Mrs."},
-    {id: 3, name: "Miss."}
-];
+
 
   createForm() {
     this.addClientForm = this.fb.group({

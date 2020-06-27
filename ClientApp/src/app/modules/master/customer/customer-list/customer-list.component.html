@@ -29,7 +29,7 @@
                 <tbody *ngIf="customers?.length != 0">
                   <tr *ngFor="let customer of customers">
 
-                      <td data-title="Title">{{ customer.clientTitleId=='1'?"Mr":"Ms" }}</td>
+                      <td data-title="Title">{{ getTitleNameById(customer.clientTitleId) }}</td>
                       <td data-title="Client Name">{{ customer.clientName }}</td>
                       <td data-title="Company Name">{{ customer.companyName }}</td>
                       <td data-title="Mobile #">{{ customer.ownerMobileNo }}</td>

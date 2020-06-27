@@ -6,11 +6,12 @@ import {Subject} from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
-import { Customer } from 'src/app/models/Customer.model';
+import { Customer } from 'src/app/models/customer.model';
 import { AddEditCustomerComponent } from '../add-edit-customer/add-edit-customer.component';
 import { CustomerService } from 'src/app/services/customer.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DataTableDirective } from 'angular-datatables';
+import { CommonModel } from 'src/app/models/common.model';
 
 
 
@@ -172,6 +173,18 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
     });
   }
 
+  public getTitleNameById(id:string){
+    let titles=CommonModel.getTitles();
+    let titleName:string =titles.find(x=>x.id==id).name;
+    if(titleName)
+    {
+      return titleName;
+    }
+    else
+    {
+      return "";
+    }
+  }
   public changeSuccessMessage() {
     this._success.next('Record deleted successfully.');
   }
