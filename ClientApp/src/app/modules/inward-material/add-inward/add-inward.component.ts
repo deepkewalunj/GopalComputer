@@ -18,10 +18,10 @@ export class AddInwardComponent implements OnInit {
 
   createForm() { 
     this.addInwardForm = this.fb.group({
-      inwardDate:      ['', Validators.required],
-      tax:          ['', Validators.required],
-      employerID:   ['', Validators.required],
-      contactName:  ['', Validators.required],
+      inwardDate:   ['', Validators.required],
+      companyName:  ['', Validators.required],
+      materialName:   ['', Validators.required],
+      barCode:  ['', Validators.required],
       contactEmail: ['', [Validators.required, Validators.email]],
       contactPhone: ['', Validators.required],
       zip:          ['', Validators.required],

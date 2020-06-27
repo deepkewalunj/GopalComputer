@@ -28,70 +28,92 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="taxId" placeholder="Tax ID"
-                                formControlName="tax">
-                            <label for="taxId">Tax ID</label>
-                            <div *ngIf="addInwardForm.controls['tax'].invalid && (addInwardForm.controls['tax'].dirty || addInwardForm.controls['tax'].touched)"
-                                class="error-msg">
-                                <div *ngIf="addInwardForm.controls['tax'].errors.required">
-                                    Tax ID is required.
-                                </div>
+                            <input class="form-control" type="text" id="jobNumber" placeholder="Job Number">
+                            <label for="jobNumber">Job Number</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-8 col-lg-8">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select1" formControlName="companyName">
+                                    <option value="" selected>Select</option>
+                                    <option>Alabama</option>
+                                    <option>California</option>
+                                    <option>Florida</option>
+                                    <option>Alaska</option>
+                                </select>
+                                <label class="select-label">Company Name</label>
+                            </span>
+                            <div *ngIf="addInwardForm.controls['companyName'].invalid && (addInwardForm.controls['companyName'].dirty || addInwardForm.controls['companyName'].touched)"
+                            class="error-msg">
+                            <div *ngIf="addInwardForm.controls['companyName'].errors.required">
+                                Company name is required.
                             </div>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4 pt-1">
+                        <button class="btn btn-sm btn-outline btn-outline-dark mt-2">Add <i class="ml-1 fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-8 col-lg-8">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select1" formControlName="materialName">
+                                    <option value="" selected>Select</option>
+                                    <option>Alabama</option>
+                                    <option>California</option>
+                                    <option>Florida</option>
+                                    <option>Alaska</option>
+                                </select>
+                                <label class="select-label">Material Name</label>
+                            </span>
+                            <div *ngIf="addInwardForm.controls['materialName'].invalid && (addInwardForm.controls['materialName'].dirty || addInwardForm.controls['materialName'].touched)"
+                            class="error-msg">
+                            <div *ngIf="addInwardForm.controls['materialName'].errors.required">
+                                Company name is required.
+                            </div>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4 pt-1">
+                        <button class="btn btn-sm btn-outline btn-outline-dark mt-2">Add <i class="ml-1 fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="barCode" placeholder="Bar Code" formContolName="barCode">
+                            <label for="barCode">Bar Code</label>
+                            <div *ngIf="addInwardForm.controls['barCode'].invalid && (addInwardForm.controls['barCode'].dirty || addInwardForm.controls['barCode'].touched)"
+                            class="error-msg">
+                            <div *ngIf="addInwardForm.controls['barCode'].errors.required">
+                                Bar code is required.
+                            </div>
+                           </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="employerID" placeholder="Employer ID"
-                                formControlName="employerID">
-                            <label for="employerID">Employer ID</label>
-                            <div *ngIf="addInwardForm.controls['employerID'].invalid && (addInwardForm.controls['employerID'].dirty || addInwardForm.controls['employerID'].touched)"
-                                class="error-msg">
-                                <div *ngIf="addInwardForm.controls['employerID'].errors.required">
-                                    Employer ID is required.
-                                </div>
-                            </div>
+                            <input class="form-control" type="text" id="serialNumber" placeholder="Serial Number">
+                            <label for="serialNumber">Serial Number</label>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="contactName" placeholder="Contact Name"
-                                formControlName="contactName">
-                            <label for="contactName">Contact Name</label>
-                            <div *ngIf="addInwardForm.controls['contactName'].invalid && (addInwardForm.controls['contactName'].dirty || addInwardForm.controls['contactName'].touched)"
-                                class="error-msg">
-                                <div *ngIf="addInwardForm.controls['contactName'].errors.required">
-                                    Contact name is required.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="contactEmail" placeholder="Contact Email"
-                                formControlName="contactEmail">
-                            <label for="contactEmail">Contact Email</label>
-                            <div *ngIf="addInwardForm.controls['contactEmail'].invalid && (addInwardForm.controls['contactEmail'].dirty || addInwardForm.controls['contactEmail'].touched)"
-                                class="error-msg">
-                                <div *ngIf="addInwardForm.controls['contactEmail'].errors.required">
-                                    Contact email is required.
-                                </div>
-                                <div *ngIf="addInwardForm.controls['contactEmail'].errors.email">
-                                    Contact email must be a valid email address.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="contactPhone" placeholder="Contact Phone"
-                                formControlName="contactPhone">
-                            <label for="contactPhone">Contact Phone</label>
-                            <div *ngIf="addInwardForm.controls['contactPhone'].invalid && (addInwardForm.controls['contactPhone'].dirty || addInwardForm.controls['contactPhone'].touched)"
-                                class="error-msg">
-                                <div *ngIf="addInwardForm.controls['contactPhone'].errors.required">
-                                    Contact phone is required.
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select1">
+                                    <option value="" selected>Select</option>
+                                    <option>Alabama</option>
+                                    <option>California</option>
+                                    <option>Florida</option>
+                                    <option>Alaska</option>
+                                </select>
+                                <label class="select-label">Problem Desc</label>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -127,19 +149,7 @@
                                 <label for="city">City</label>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="form-group">
-                                <span class="plain-select">
-                                    <select class="form-control" id="select1" formControlName="state">
-                                        <option value="" selected>State</option>
-                                        <option>Alabama</option>
-                                        <option>California</option>
-                                        <option>Florida</option>
-                                        <option>Alaska</option>
-                                    </select>
-                                </span>
-                            </div>
-                        </div>
+                        
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="form-group">
                                 <span class="plain-select">
