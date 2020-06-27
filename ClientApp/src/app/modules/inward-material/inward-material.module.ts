@@ -9,6 +9,8 @@ import { InwardMasterComponent } from './inward-master/inward-master.component';
 import { MaterialCompanyComponent } from './material-company/material-company.component';
 import { MaterialTypeComponent } from './material-type/material-type.component';
 import { InwardAccessoriesComponent } from './inward-accessories/inward-accessories.component';
+import { InwardComponent } from './inward/inward.component';
+import { AddInwardComponent } from './add-inward/add-inward.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { InwardAccessoriesComponent } from './inward-accessories/inward-accessor
     MaterialTypeComponent,
     MaterialCompanyComponent,
     InwardMasterComponent,
-    InwardAccessoriesComponent
+    InwardAccessoriesComponent,
+    InwardComponent,
+    AddInwardComponent
   ],
   imports: [
     CommonModule,
