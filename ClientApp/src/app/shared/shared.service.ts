@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { UserModule } from '../models/user-permission';
 
 @Injectable({
   providedIn: 'root'
@@ -7,15 +8,13 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 export class SharedService {
 
   constructor() {
-    
+
   }
 
-  getFullName() {
+
+  get AUTH_TOKEN(){
     const helper = new JwtHelperService();
-    if (localStorage.getItem('TokenInfo')) {
-      var decoded = helper.decodeToken(localStorage.getItem('TokenInfo'));
-      return decoded.firstName + " " + decoded.lastName;
-    }
+    return helper.decodeToken(localStorage.getItem('TokenInfo'));
   }
 
   isLoggedIn() {
@@ -27,13 +26,22 @@ export class SharedService {
       return false;
     }
   }
-  
-  getRoleId() {
-    const helper = new JwtHelperService();
-    if (localStorage.getItem('TokenInfo')) {
-      var decoded = helper.decodeToken(localStorage.getItem('TokenInfo'));
-      return parseInt(decoded.userRole);
+
+  getFullName() {
+  if (this.isLoggedIn()) {
+      return this.AUTH_TOKEN.firstName + ' ' + this.AUTH_TOKEN.lastName;
     }
   }
-  
+
+
+  getRoleId() {
+   if (this.isLoggedIn()) {
+      return parseInt(this.AUTH_TOKEN.userRole);
+    }
+  }
+
+  getPermissions():UserModule[]{
+    return JSON.parse(this.AUTH_TOKEN.modules);
+  }
+
 }

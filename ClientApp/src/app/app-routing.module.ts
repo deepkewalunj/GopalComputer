@@ -31,18 +31,19 @@ const routes: Routes = [
   {
     path: 'users',
     loadChildren: './modules/users/users.module#UsersModule',
-    canActivate: [AuthorizationCheck] 
+    canActivate: [AuthorizationCheck]
   },
 
   {
     path: 'master',
     loadChildren: './modules/master/master.module#MasterModule',
-    canActivate: [AuthorizationCheck] 
+    canActivate: [AuthorizationCheck]
   },
 
   {
     path: 'inward-material',
     loadChildren: './modules/inward-material/inward-material.module#InwardMaterialModule',
+    canActivate: [AuthorizationCheck]
   },
 
   {

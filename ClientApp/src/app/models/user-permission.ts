@@ -3,3 +3,8 @@ export class UserPermission {
   moduleId: number;
   isChecked: boolean;
 }
+
+export class UserModule{
+  ModuleName: string;
+  ModuleId: number;
+}

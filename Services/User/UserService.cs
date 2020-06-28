@@ -61,7 +61,7 @@ namespace Gopal.Services.User
             return (from per in _dbContext.TblModulePermission
                     join mod in _dbContext.TblModule on per.ModuleIdRef equals mod.ModuleId
                     where per.UserUserIdRef == userId && per.IsDeleted != true && mod.IsDeleted != true
-                    select mod
+                    select new { mod.ModuleId, mod.ModuleName }
                     ).ToList();
                 //_dbContext.TblModulePermission.Where(x => x.IsDeleted != true && x.UserUserIdRef == userId).ToList();
 
