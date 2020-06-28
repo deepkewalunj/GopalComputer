@@ -11,6 +11,13 @@ export  class  CommonModel{
 return titles;
 }
 
+static getRoles():Array<SelectList>{
+  let roles:Array<SelectList> =[{id:'1',name:'Super Admin'},
+  {id:'2',name:'Staff'},
+  {id:'3',name:'Other'}];
+return roles;
+}
+
 }
 export class SelectList{
   name:string;

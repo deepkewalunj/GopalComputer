@@ -1,12 +1,13 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { MustMatch } from 'src/app/services/password.match.validator';
 import { first } from 'rxjs/operators';
 import { UserService } from '../../../services/user.service';
 import { UserPermission } from '../../../models/user-permission';
+import { DataTableDirective } from 'angular-datatables';
+import { AddEditUserComponent } from '../add-edit-user/add-edit-user.component';
+import { CommonModel } from 'src/app/models/common.model';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
@@ -15,7 +16,8 @@ import { UserPermission } from '../../../models/user-permission';
 
 
 export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
-
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
   user = {
     firstName: '',
     middleName: '',
@@ -40,35 +42,39 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
   userList = [];
   dtTrigger: Subject<any> = new Subject();
 
-  // we used reactive forms and validations
-  userForm: FormGroup;
-  constructor(private fb: FormBuilder, private modalService: NgbModal, private userService: UserService) {
-    this.createForm();
+  constructor( private modalService: NgbModal, private userService: UserService
+   ) {
+
   }
 
-  createForm() {
-    this.userForm = this.fb.group({
-      firstName: ['', Validators.required],
-      middleName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      userEmail: ['', [Validators.required, Validators.email, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{1,}[.]{1}[a-zA-Z]{1,}")]],
-      userPassword: ['', Validators.required],
-      userRole: ['', Validators.required],
-      permissions: ['', Validators.required]
-    }
-    );
-  }
+
 
 
   /*on click modal will be open*/
 
   open(content, userId) {
-    this.modalService.open(content);
+    this.modalService.open(content).result.then((result) => {
+      if(result==true)
+      {
+
+
+
+
+      }
+
+    }, (reason) => {
+
+    });;
   }
 
-  openUserPopup(content, userId) {
+  openUserPopup(userId) {
+    this.bindPermission();
     if (userId > 0)
-      this.getUsersById(userId, content);
+    {
+
+      this.getUsersById(userId);
+    }
+
     else {
       this.user = {
         firstName: '',
@@ -76,30 +82,73 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
         lastName: '',
         userEmail: '',
         userPassword: '',
-        userRole: null,
-        userId: null
+        userRole: '',
+        userId: 0
       }
-      this.bindPermission();
-      this.modalService.open(content, { size: 'lg' });
+
+      this.openAddEditUserPopup(this.user ,this.modulePermission);
+
+
     }
 
 
   }
 
+  openAddEditUserPopup(user,modulepermission){
+    const modalRef = this.modalService.open(AddEditUserComponent, { size: 'lg' });
+    modalRef.componentInstance.user=user;
+    modalRef.componentInstance.modulePermission= modulepermission;
+    modalRef.componentInstance.modelRef=modalRef;
+    modalRef.result.then((result) => {
+      if(result==true)
+      {
+        this._success.next("User Saved Successfully.")
+        this.getUsers();
+      }
+
+    }, (reason) => {
+
+    });
+  }
+
   /*succes message code here*/
 
   ngOnInit(): void {
+    const that=this;
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 5
+      pageLength: 10,
+      columns: [{ data: 'firstName',searchable:true,orderable:true  }, { data: 'lastName',searchable:true,orderable:true  },
+      { data: 'userEmail',searchable:true,orderable:true  },{ data: 'userRole',searchable:true,orderable:true  },
+      {searchable:false,orderable:false}]
 
     };
+    this.getUsers(true);
     setTimeout(() => this.staticAlertClosed = true, 20000);
-    this.getUsers();
+
     this._success.subscribe((message) => this.successMessage = message);
     this._success.pipe(
       debounceTime(5000)
     ).subscribe(() => this.successMessage = null);
+  }
+
+
+
+  getuserRoleName(roleId){
+    if(roleId)
+    {
+      let lstRoles=CommonModel.getRoles();
+      let roleName=lstRoles.find(role=>role.id==roleId).name;
+      if(roleName)
+      {
+        return roleName;
+      }
+      else
+      {
+        return "";
+      }
+    }
+
   }
 
   ngOnDestroy(): void {
@@ -108,16 +157,33 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   ngAfterViewInit() {
     this.bindPermission();
+
   }
 
-  getUsers() {
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
+  getUsers(first=false) {
     const that = this;
     try {
       this.userService.getUsers()
         .subscribe(
           data => {
             that.userList = data.users;
-            that.dtTrigger.next();
+            if(first)
+            {
+              that.dtTrigger.next();
+            }
+            else
+            {
+              that.rerender();
+            }
           },
           error => {
             that.error = error;
@@ -128,8 +194,8 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  getUsersById(userId, content) {
-    this.bindPermission();
+  getUsersById(userId) {
+
     this.userService.GetUserById(userId)
       .pipe(first())
       .subscribe(
@@ -141,8 +207,7 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
           this.user.userPassword = data.user.userPassword;
           this.user.userRole = data.user.userRole;
           this.user.userId = data.user.userId;
-          this.modalService.open(content, { size: 'lg' });
-          if (data.userPermissions) {
+           if (data.userPermissions) {
             for (var i = 0; i < this.modulePermission.length; i++) {
               for (var j = 0; j < data.userPermissions.length; j++) {
                 if (this.modulePermission[i].moduleName == data.userPermissions[j].moduleName) {
@@ -151,7 +216,7 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
               }
             }
           }
-
+          this.openAddEditUserPopup(this.user ,this.modulePermission);
 
         },
         error => {
@@ -159,17 +224,7 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
         });
   }
 
-  saveData() {
-    this.userService.SaveUserData(this.user, this.modulePermission)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.getUsers();
-        },
-        error => {
-          this.error = error;
-        });
-  }
+
 
   bindPermission() {
     this.modulePermission = Array<UserPermission>();
@@ -185,14 +240,39 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.modulePermission.push({ isChecked: false, moduleId: 10, moduleName: "Report" });
   }
 
-  public changeSuccessMessage() {
-    this._success.next('Record deleted successfully.');
-  }
 
   /*on click search filter hide show on mobile*/
 
   toggleSearch() {
     this.searchFilter = !this.searchFilter;
+  }
+  openDelete(content,userId:number) {
+
+    const that=this;
+
+    this.modalService.open(content).result.then((result) => {
+      if(result==true)
+      {
+
+
+        that.deleteCustomer(userId,that);
+
+      }
+
+    }, (reason) => {
+
+    });
+  }
+
+  deleteCustomer(userId:number,that){
+    that.userService.deleteUser(userId).subscribe((data)=>{
+
+        that.getUsers();
+        that._success.next("Customer Deleted Successfully.");
+      },(error)=>{
+
+
+      })
   }
 
 }

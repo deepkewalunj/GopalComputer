@@ -26,4 +26,9 @@ export class UserService {
         return user;
       }));
   }
+
+
+  deleteUser(userId:number){
+    return this.http.get<any>(environment.API_URL+'User/DeleteUser?userId='+userId);
+  }
 }

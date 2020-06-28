@@ -7,11 +7,12 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
+import { AddEditUserComponent } from './add-edit-user/add-edit-user.component';
 
 
 
 @NgModule({
-  declarations: [UsersListComponent],
+  declarations: [UsersListComponent, AddEditUserComponent ],
   imports: [
     CommonModule,
     DataTablesModule,

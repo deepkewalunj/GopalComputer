@@ -44,20 +44,9 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
     // we used reactive forms and validations
     addClientForm: FormGroup;
     constructor(private fb: FormBuilder, private modalService: NgbModal,private http: HttpClient,
-      private customerService:CustomerService) {
-     this.createForm();
-    }
+      private customerService:CustomerService) {}
 
-    createForm() {
-      this.addClientForm = this.fb.group({
-        title:      ['', Validators.required],
-      personName: ['', Validators.required],
-      companyName:          ['', Validators.required],
-      phoneNo: ['', Validators.required],
-      },
 
-      );
-    }
 
 
   /*on click modal will be open*/
