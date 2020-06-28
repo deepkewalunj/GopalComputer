@@ -32,7 +32,7 @@ count = 0;
           this.count--;
           if ( this.count == 0 )
           {
-              this.SpinnerService.hide ();
+              this.SpinnerService.hide();
 
           }
         }

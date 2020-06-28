@@ -115,7 +115,6 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
       pagingType: 'full_numbers',
       pageLength: 10,
       serverSide: true,
-      processing: true,
       ajax: (getCustomerListModel: any, callback) => {
         that.http
           .post<DataTablesResponse>(
