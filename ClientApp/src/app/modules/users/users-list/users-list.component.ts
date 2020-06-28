@@ -205,7 +205,7 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
           this.user.lastName = data.user.lastName;
           this.user.userEmail = data.user.userEmail;
           this.user.userPassword = data.user.userPassword;
-          this.user.userRole = data.user.userRole;
+          this.user.userRole = String(data.user.userRole);
           this.user.userId = data.user.userId;
            if (data.userPermissions) {
             for (var i = 0; i < this.modulePermission.length; i++) {
