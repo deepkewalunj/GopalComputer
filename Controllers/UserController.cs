@@ -91,5 +91,12 @@ namespace Gopal.Controllers
             return Ok(new { user = _services.SaveUserData(model) });
         }
 
+        [HttpGet]
+        [Route("DeleteUser")]
+        public ActionResult DeleteUser(int userId)
+        {
+            return Ok(_services.DeleteUser(userId));
+        }
+
     }
 }

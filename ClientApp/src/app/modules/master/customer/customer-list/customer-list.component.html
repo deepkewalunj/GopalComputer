@@ -14,22 +14,22 @@
             <div id="no-more-tables">
                 <!-- This id used for responsive table -->
 
-              <table datatable [dtOptions]="dtOptions" class="table row-border hover">
+              <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
                 <thead>
                   <tr>
-                    <th style="width: 15%;">Client Id</th>
-                    <th style="width: 10%;">Title</th>
+
+                    <th style="width: 15%;">Title</th>
                     <th style="width: 20%;">Customer Name</th>
                     <th style="width: 15%;">Company Name</th>
                     <th style="width: 15%;">Mobile #</th>
                     <th style="width: 15%;">Tel #</th>
-                    <th style="width: 10%;" class="text-center actions-td cursor">Action</th>
+                    <th style="width: 20%;" class="text-center actions-td cursor">Action</th>
                   </tr>
                 </thead>
                 <tbody *ngIf="customers?.length != 0">
                   <tr *ngFor="let customer of customers">
-                      <td data-title="Client Id">{{ customer.clientId }}</td>
-                      <td data-title="Title">{{ customer.clientTitleId==1?"Mr":"Ms" }}</td>
+
+                      <td data-title="Title">{{ getTitleNameById(customer.clientTitleId) }}</td>
                       <td data-title="Client Name">{{ customer.clientName }}</td>
                       <td data-title="Company Name">{{ customer.companyName }}</td>
                       <td data-title="Mobile #">{{ customer.ownerMobileNo }}</td>
@@ -40,10 +40,11 @@
                             <a href="javascript:void(0)"> <i class="far fa-edit orange" placement="top"
                                     ngbTooltip="View/Edit" (click)="addClientPopup(customer)"></i></a>
                             <a href="javascript:void(0)">
-                                <i class="far fa-trash-alt orange" placement="top" ngbTooltip="Delete" (click)="openDelete(content,customer)"></i></a>
+                                <i class="far fa-trash-alt orange" placement="top"
+                                 ngbTooltip="Delete" (click)="openDelete(content,customer)"></i></a>
                         </div>
                     </td>
-                      
+
                       <!-- <td data-title="Actions" >
                         <div>
                             <button class="btn  btn-secondary float-right"  ngbTooltip="Edit" (click)="addClientPopup(customer)">Edit</button>
@@ -53,10 +54,10 @@
 
                   </tr>
                   <tr *ngIf="customers?.length == 0">
-                    <td colspan="12" class="no-data-available">No data!</td>
+                    <td colspan="12" class="no-data-available">No Records Found!</td>
                   </tr>
                 </tbody>
-             
+
               </table>
                 <!--table listing end-->
             </div>
@@ -64,10 +65,7 @@
     </div>
 </div>
 
-<!-- Ng modal window -->
-<ng-template #clientPopup let-modal>
 
-</ng-template>
 
 
 <ng-template #content let-modal>
@@ -78,7 +76,7 @@
         <p class="text-center">Are you sure, you want to delete?</p>
     </div>
     <div class="modal-footer no-top-border">
-        <button class="btn btn-primary" (click)="modal.close(true)">OK</button>
-        <button class="btn btn-secondary" (click)="modal.close(false)">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close(true)">OK</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.close(false)">Cancel</button>
     </div>
 </ng-template>

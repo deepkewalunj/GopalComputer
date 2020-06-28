@@ -23,7 +23,7 @@ $theme-colors: (
     warning:    #f4c20d, // bootstrap default
     danger:     #dd3237, // bootstrap default
     light:      #c7c7c7, // bootstrap default
-    dark:       #313131 // bootstrap default
+    dark:       #1c0f3a // bootstrap default
 );
 
 $brand-primary: map-get($theme-colors, primary);
@@ -40,7 +40,7 @@ $grey:          #e8e8e8;
 $light-grey:    #f2f3f8;
 $dark-grey:     #222222;
 $green:         #5cb85c;
-$dark-blue:     #FF4081;
+$pink:     #FF4081;
 $black-blue:    #1c0f3a;
 $blue:          #7d64f6;
 $white:         #ffffff;

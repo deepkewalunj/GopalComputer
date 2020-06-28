@@ -1,9 +1,11 @@
 ﻿using Gopal.EntityFrameworkCore;
 using Gopal.Models.User;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Gopal.Services.User
@@ -12,11 +14,14 @@ namespace Gopal.Services.User
     {
         
         private readonly gopal_dbContext _dbContext;
-
-        public UserService(gopal_dbContext dbContext)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        
+        public UserService(gopal_dbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
-            
+            _httpContextAccessor = httpContextAccessor;
+
+
         }
 
         public LoginModel AuthenticateUser(LoginModel login)
@@ -39,6 +44,16 @@ namespace Gopal.Services.User
         public TblUser GetUserById(int userId)
         {
             return _dbContext.TblUser.Where(x => x.IsDeleted != true && x.UserId == userId).FirstOrDefault();
+        }
+
+        public TblUser GetCurrentUser() {
+          
+            return GetUserById(GetCurrentUserId());
+        }
+
+        public int GetCurrentUserId() {
+            Int32.TryParse(_httpContextAccessor.HttpContext.User.FindFirst("userId").Value, out int userId);
+            return userId;
         }
 
         public object GetUserPermissionsById(int userId)
@@ -73,7 +88,7 @@ namespace Gopal.Services.User
                 user.UserRole = model.user.userRole;
                 user.UserPassword = model.user.userPassword;
                 user.UserEmail = model.user.userEmail;
-                user.ModifiedBy = 1;
+                user.ModifiedBy = GetCurrentUserId();
                 user.ModifiedDate = DateTime.Now;
                 if(user.UserId > 0)
                 {
@@ -91,7 +106,7 @@ namespace Gopal.Services.User
                 obj.UserRole = model.user.userRole;
                 obj.UserPassword = model.user.userPassword;
                 obj.UserEmail = model.user.userEmail;
-                obj.CreatedBy = 1;
+                obj.CreatedBy = GetCurrentUserId(); 
                 obj.CreatedDate = DateTime.Now;
                 _dbContext.Add(obj);
                 _dbContext.SaveChanges();
@@ -114,6 +129,20 @@ namespace Gopal.Services.User
                 }
             }
             return null;
+        }
+
+        public int DeleteUser(int userId)
+        {
+            TblUser user = _dbContext.TblUser.FirstOrDefault(x => x.UserId == userId);
+            if (user != null)
+            {
+                user.IsDeleted = true;
+                user.ModifiedDate = DateTime.Now;
+                user.ModifiedBy= GetCurrentUserId();
+                _dbContext.SaveChanges();
+                return userId;
+            }
+            return 0;
         }
     }
 }

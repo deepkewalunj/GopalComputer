@@ -1,14 +1,17 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import {Subject} from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
-import { Customer } from 'src/app/models/Customer.model';
+import { Customer } from 'src/app/models/customer.model';
 import { AddEditCustomerComponent } from '../add-edit-customer/add-edit-customer.component';
 import { CustomerService } from 'src/app/services/customer.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { DataTableDirective } from 'angular-datatables';
+import { CommonModel } from 'src/app/models/common.model';
 
 
 
@@ -25,7 +28,9 @@ class DataTablesResponse {
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.scss']
 })
-export class CustomerListComponent implements OnInit {
+export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   customers: Customer[];
 
@@ -35,30 +40,20 @@ export class CustomerListComponent implements OnInit {
   staticAlertClosed = false;
   successMessage: string;
 
+  dtTrigger: Subject<any> = new Subject();
     // we used reactive forms and validations
     addClientForm: FormGroup;
     constructor(private fb: FormBuilder, private modalService: NgbModal,private http: HttpClient,
-      private customerService:CustomerService) {
-     this.createForm();
-    }
+      private customerService:CustomerService) {}
 
-    createForm() {
-      this.addClientForm = this.fb.group({
-        title:      ['', Validators.required],
-      personName: ['', Validators.required],
-      companyName:          ['', Validators.required],
-      phoneNo: ['', Validators.required],
-      },
 
-      );
-    }
 
 
   /*on click modal will be open*/
 
   openDelete(content,customer:Customer) {
+
     const that=this;
-    this.modalService.open(content);
 
     this.modalService.open(content).result.then((result) => {
       if(result==true)
@@ -66,7 +61,9 @@ export class CustomerListComponent implements OnInit {
 
 
         that.deleteCustomer(customer,that);
+
       }
+
     }, (reason) => {
 
     });
@@ -77,17 +74,28 @@ export class CustomerListComponent implements OnInit {
     if(localCustomer==null)
     {
       localCustomer=new Customer();
+      localCustomer.clientTitleId='';
 
     }
     const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg' });
     modalRef.componentInstance.customer=localCustomer;
     modalRef.componentInstance.modelRef=modalRef;
+    modalRef.result.then((result) => {
+      if(result==true)
+      {
+        this.successMessage="Customer Saved Successfully.";
+      }
+
+    }, (reason) => {
+
+    });
   }
 
   deleteCustomer(customer:Customer,that){
     that.customerService.deleteCustomer(customer.clientId).subscribe((data)=>{
 
-
+        that.rerender();
+        that.successMessage="Customer Deleted Successfully."
       },(error)=>{
 
 
@@ -105,7 +113,7 @@ export class CustomerListComponent implements OnInit {
 
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 50,
+      pageLength: 10,
       serverSide: true,
       processing: true,
       ajax: (getCustomerListModel: any, callback) => {
@@ -115,7 +123,6 @@ export class CustomerListComponent implements OnInit {
             {getCustomerListModel:getCustomerListModel},{}
           ).subscribe(resp => {
             that.customers = resp.data;
-
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsFiltered,
@@ -123,7 +130,9 @@ export class CustomerListComponent implements OnInit {
             });
           });
       },
-      columns: [{ data: 'clientId' }, { data: 'clientTitleId' }, { data: 'clientName' }]
+      columns: [{ data: 'clientTitleId',searchable:true,orderable:true  }, { data: 'clientName',searchable:true,orderable:true  },
+                { data: 'companyName',searchable:true,orderable:true  },{ data: 'ownerMobileNo',searchable:false,orderable:false  },{ data: 'telNoFirst',searchable:false,orderable:false  },
+                {data:null,searchable:false,orderable:false }]
     };
     setTimeout(() => this.staticAlertClosed = true, 20000);
 
@@ -133,6 +142,38 @@ export class CustomerListComponent implements OnInit {
     ).subscribe(() => this.successMessage = null);
   }
 
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
+    debugger;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
+
+  public getTitleNameById(id:string){
+    let titles=CommonModel.getTitles();
+    let titleName:string =titles.find(x=>x.id==id).name;
+    if(titleName)
+    {
+      return titleName;
+    }
+    else
+    {
+      return "";
+    }
+  }
   public changeSuccessMessage() {
     this._success.next('Record deleted successfully.');
   }

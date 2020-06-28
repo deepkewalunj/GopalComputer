@@ -6,7 +6,7 @@ ngb-tabset {
 		padding: 2rem 0 0;
 	}
 	.nav-tabs {
-		border-bottom: 0.0625rem solid $orange;
+		border-bottom: 0.0625rem solid $pink;
 		.nav-item {
 			margin-bottom: 0;
 			.nav-link {
@@ -26,7 +26,7 @@ ngb-tabset {
 					pointer-events: none;
 				}
 				&.active:before {
-					border-top-color: $orange;
+					border-top-color: $pink;
 					border-width: 0.6875rem;
 					margin-left: -0.6875rem;
 				}
@@ -50,7 +50,7 @@ ngb-tabset {
 					padding: 0.3125rem 0.625rem;
 					margin-bottom:  0.3125rem;
 					&.active {
-						background-color: $orange;
+						background-color: $pink;
 						color: $white !important;
 						&:after, &:before {
 							display: none;

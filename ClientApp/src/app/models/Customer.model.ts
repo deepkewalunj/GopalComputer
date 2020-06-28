@@ -1,7 +1,7 @@
 export class Customer{
 
   clientId : number
- clientTitleId   :number
+ clientTitleId   :String
  clientName   :string
  companyName  :string
  clientAddress:string

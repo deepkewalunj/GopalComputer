@@ -57,7 +57,7 @@ select:disabled {
             }
         }
         .form-control + .input-group-append {
-            border-bottom: 0.0625rem solid $border !important;
+            border-bottom: 0 solid $border !important;
         }
         .form-control.ng-invalid  + .input-group-append,  .form-control.ng-touched  + .input-group-append {
             border-color: $danger !important;
@@ -70,15 +70,34 @@ select:disabled {
             border-color: $border !important;
         }
 
-        .btn {
-            padding: 0;
+        
+        .input-group-append {
+            border-bottom: 0 solid $border !important;
+            margin-left: -1px;
+            position: absolute;
+            right: -4px;
+            border: 0 !important;
+            bottom: 8px;
+            .btn {
+                padding: 0;
             background-color: transparent;
             border: none;
             margin: 0;
             min-width: 1.5rem;
-            i {
-                color: $border;
+                z-index: 9;
+                i {
+                    color: #6c7293;
+                }
             }
+        }
+        .ngb-dp-weekdays {
+            background-color: $black-blue;
+        }
+
+        .btn-light:not(:disabled):not(.disabled):active, .btn-light:not(:disabled):not(.disabled).active, .show > .btn-light.dropdown-toggle {
+            color: #fff;
+            background-color: $pink;
+            border-color: $pink;
         }
     }
     &.info-content {
@@ -103,7 +122,7 @@ select:disabled {
         // }
         .btn {
             i {
-                color: $dark-blue;
+                color: $pink;
             }
         }
     }
@@ -118,26 +137,34 @@ select:disabled {
 
 .datepicker {
     ngb-datepicker {
+        &.dropdown-menu {
+            border: 0;
+            box-shadow: 0px 0 12px 0px rgba(146, 172, 184, 0.46);
+        }
         .btn {
             min-width: 0px;
+            color: #fff;
         }
         .custom-select {
             margin: 0 0.0625rem;
+            border: 0;
         }
         .ngb-dp-header {
-            background-color: $dark-blue !important;
+            background-color: $pink !important;
+            padding-top: .25rem;
+            padding-bottom: .25rem;
         }
         .ngb-dp-week {
             &.bg-light {
-                background-color: $dark-blue !important;
+                background-color: $pink !important;
             }
             .ngb-dp-weekday {
                 color: $white;
             }
             .ngb-dp-day {
                 .btn-light:hover {
-                    background-color: $orange !important;
-                    border-color: $orange !important;
+                    background-color: $pink !important;
+                    border-color: $pink !important;
                     color: $white !important;
                 }
             }
@@ -212,7 +239,7 @@ select:disabled {
             .c-token {
                 width: initial;
                 max-width: 100%;
-                background: $dark-blue;
+                background: $pink;
                 padding: 0.3rem 1.5rem 0.3rem 0.4rem;
                 margin-top: 7px;
                 color: #fff;
@@ -239,11 +266,11 @@ select:disabled {
     .dropdown-list {
         .pure-checkbox {
             input[type="checkbox"]+label:before {
-                color: $dark-blue;
-                border: 2px solid $dark-blue;
+                color: $pink;
+                border: 2px solid $pink;
             }
             input[type="checkbox"]:checked+label:before {
-                background: $dark-blue;
+                background: $pink;
             }
         }
         .list-filter {
@@ -283,7 +310,7 @@ select:disabled {
 }
 
 .custom-control-input:checked~.custom-control-label::before {
-    color: $dark-blue;
+    color: $pink;
     border-color: $border;
     background-color: $white;
 }
@@ -354,7 +381,7 @@ select:disabled {
                 align-items: center;
                 i {
                     font-size: $font20;
-                    color: $orange;
+                    color: $pink;
                     margin: 0 0.75rem 0 0.5rem;
                 }
             }
@@ -395,7 +422,7 @@ select:disabled {
                 align-items: center;
                 i {
                     font-size: $font20;
-                    color: $orange;
+                    color: $pink;
                     margin: 0 0.75rem 0 0.5rem;
                 }
             }

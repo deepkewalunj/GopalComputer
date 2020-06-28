@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-//import { DataTablesModule } from 'angular-datatables';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
@@ -13,12 +12,12 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SampleFormComponent } from './sample-form/sample-form.component';
 import { SampleListComponent } from './sample-list/sample-list.component';
-import { httpInterceptor } from './interceptor/http-interceptor';
+import { HeaderInterceptor } from './interceptor/header-interceptor';
 import { ErrorInterceptor } from './interceptor/error-Interceptor';
-//import { AuthenticationService } from './services/authentication.service';
 import { AuthorizationCheck } from './services/authorization-Check';
 import { CustomerService } from './services/customer.service';
-
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,6 @@ import { CustomerService } from './services/customer.service';
   ],
   imports: [
     BrowserModule,
-  //  DataTablesModule,
     AppRoutingModule,
     RouterModule,
     NgbModule,
@@ -38,11 +36,13 @@ import { CustomerService } from './services/customer.service';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    AuthorizationCheck,CustomerService],
+    AuthorizationCheck, CustomerService, NgxSpinnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

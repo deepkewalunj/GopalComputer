@@ -6,6 +6,7 @@ using Gopal.EntityFrameworkCore;
 using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Services.Customer;
+using Gopal.Services.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +20,11 @@ namespace Gopal.Controllers
     {
         private readonly ICustomerServices _customerServices;
 
+       
 
         public CustomerController(ICustomerServices customerServices) {
             _customerServices = customerServices;
+            
         }
 
       

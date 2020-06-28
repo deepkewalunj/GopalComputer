@@ -33,6 +33,7 @@
     "jquery": "^3.5.1",
     "jwt-decode": "^2.2.0",
     "ngx-bootstrap": "^5.6.1",
+    "ngx-spinner": "^9.0.2",
     "popper": "^1.0.1",
     "rxjs": "^6.4.0",
     "rxjs-compat": "^6.5.4",

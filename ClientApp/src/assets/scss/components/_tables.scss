@@ -26,9 +26,10 @@ table.dataTable {
 		}
 	}
 	.dataTables_paginate {
+		padding-top: 10px;
 		.paginate_button {
 			color:  $black-blue !important;
-			padding: 0.2rem 0.525rem;
+			padding: 2px 7px !important;
 			font-size: 0.8125rem;
 			line-height: 1;
 			min-width: auto !important;
@@ -51,8 +52,28 @@ table.dataTable {
     background: linear-gradient(to bottom, $black-blue 0%, $black-blue 100%)!important;
 			}
 			}
+			&.disabled:hover {
+				color: #fff !important;
+			}
 			
 		}
+	}
+	.dataTables_processing {
+		position: fixed;
+top: 0px;
+left: 0;
+width: 100%;
+height: 100vh;
+margin-left: 0;
+margin-top: 0;
+padding-top: 20px;
+text-align: center;
+font-size: 1rem;
+line-height: 30;
+/* background-color: #fff; */
+background: linear-gradient(to right,#2a2929ab 0,#2a2929ab 25%,#2a2929ab 75%,#2a2929ab 100%);
+color: #fff;
+z-index: 1050;
 	}
 }
 
@@ -83,7 +104,7 @@ table.dataTable {
 					i {
                         font-size:$font18;
 						margin: 0;
-						color:$dark-blue;
+						color:$pink;
 						cursor: pointer;
 						&.disabled {
 							color:$disabled;

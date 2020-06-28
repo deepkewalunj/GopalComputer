@@ -87,7 +87,7 @@ header {
                 height: 60px;
                 > a {
                     padding: 0 0.375rem;
-                    color: $dark-blue;
+                    color: $pink;
                     display: block;
                     text-decoration: none;
                     border-right: 1.2px solid $light-grey;
@@ -104,7 +104,7 @@ header {
                         border-radius: 50%;
                         border: 0;
                         padding: 0.5rem;
-                        color: $dark-blue;
+                        color: $pink;
                         transition: all 0.3s ease-in-out;
                         -webkit-transition: all 0.3s ease-in-out;
                         -moz-transition: all 0.3s ease-in-out;
@@ -112,8 +112,8 @@ header {
                         -ms-transition: all 0.3s ease-in-out;
                         &:focus {
                             text-decoration: none;
-                            background-color: $orange;
-                            border-color: $orange;
+                            background-color: $pink;
+                            border-color: $pink;
                             color: $white;
                         }
                     }
@@ -227,7 +227,7 @@ header {
                             height: 1.875rem;
                             min-width: 0;
                             padding: 0;
-                            background-color: $dark-blue;
+                            background-color: $pink;
                             color: $white;
                             display: flex;
                             text-align: center;

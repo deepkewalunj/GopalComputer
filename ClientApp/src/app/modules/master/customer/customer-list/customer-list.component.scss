@@ -8,6 +8,7 @@
 /*
    src/styles.css (i.e. your global style)
 */
-.dataTables_empty {
+
+::ng-deep table.dataTable td.dataTables_empty {
   display: none;
 }

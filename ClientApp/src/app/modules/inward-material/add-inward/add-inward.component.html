@@ -1,0 +1,279 @@
+<form [formGroup]="addInwardForm" novalidate>
+    <div class="container form-container">
+        <!-- <h3 class="text-center mb-4">Employer Details</h3> -->
+        <div class="card">
+        
+            <div class="card-header">
+                <h4>Inward Details</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <div class="input-group datepicker">
+                                <input class="form-control" placeholder="Inward Date" name="dp" ngbDatepicker
+                                    #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="inwardDate">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
+                                        type="button"><i class="far fa-calendar-alt"></i></button>
+                                </div>
+                            </div>
+                            <div *ngIf="addInwardForm.controls['inwardDate'].invalid && (addInwardForm.controls['inwardDate'].dirty || addInwardForm.controls['inwardDate'].touched)"
+                                class="error-msg">
+                                <div *ngIf="addInwardForm.controls['inwardDate'].errors.required">
+                                   Inward date is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="jobNumber" placeholder="Job Number">
+                            <label for="jobNumber">Job Number</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-8 col-lg-8">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select1" formControlName="companyName">
+                                    <option value="" selected>Select</option>
+                                    <option>Alabama</option>
+                                    <option>California</option>
+                                    <option>Florida</option>
+                                    <option>Alaska</option>
+                                </select>
+                                <label class="select-label">Company Name</label>
+                            </span>
+                            <div *ngIf="addInwardForm.controls['companyName'].invalid && (addInwardForm.controls['companyName'].dirty || addInwardForm.controls['companyName'].touched)"
+                            class="error-msg">
+                            <div *ngIf="addInwardForm.controls['companyName'].errors.required">
+                                Company name is required.
+                            </div>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4 pt-1">
+                        <button class="btn btn-sm btn-outline btn-outline-dark mt-2">Add <i class="ml-1 fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-8 col-lg-8">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select1" formControlName="materialName">
+                                    <option value="" selected>Select</option>
+                                    <option>Alabama</option>
+                                    <option>California</option>
+                                    <option>Florida</option>
+                                    <option>Alaska</option>
+                                </select>
+                                <label class="select-label">Material Name</label>
+                            </span>
+                            <div *ngIf="addInwardForm.controls['materialName'].invalid && (addInwardForm.controls['materialName'].dirty || addInwardForm.controls['materialName'].touched)"
+                            class="error-msg">
+                            <div *ngIf="addInwardForm.controls['materialName'].errors.required">
+                                Company name is required.
+                            </div>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4 pt-1">
+                        <button class="btn btn-sm btn-outline btn-outline-dark mt-2">Add <i class="ml-1 fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="barCode" placeholder="Bar Code" formContolName="barCode">
+                            <label for="barCode">Bar Code</label>
+                            <div *ngIf="addInwardForm.controls['barCode'].invalid && (addInwardForm.controls['barCode'].dirty || addInwardForm.controls['barCode'].touched)"
+                            class="error-msg">
+                            <div *ngIf="addInwardForm.controls['barCode'].errors.required">
+                                Bar code is required.
+                            </div>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="serialNumber" placeholder="Serial Number">
+                            <label for="serialNumber">Serial Number</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select1">
+                                    <option value="" selected>Select</option>
+                                    <option>Alabama</option>
+                                    <option>California</option>
+                                    <option>Florida</option>
+                                    <option>Alaska</option>
+                                </select>
+                                <label class="select-label">Problem Desc</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- dynamic row added -->
+                <div formArrayName="employerAddress"
+                    *ngFor="let empAddress of addInwardForm.get('employerAddress')['controls']; let i = index">
+                    <div class="row" [formGroupName]="i">
+                        <div class="col-12 text-right" *ngIf="addInwardForm.get('employerAddress')['length']>1">
+                            <a href="javascript:void(0)" class="delete-row mb-3 d-inline-block danger"
+                                (click)="removeEmpAddressBtn(i)">
+                                <i class="icon-remove" ngbTooltip="Delete"></i>
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="form-group has-float-label">
+                                <input class="form-control" type="text" id="addressLine1" formControlName="addressLine1"
+                                    placeholder="Address Line 1">
+                                <label for="addressLine1">Address Line 1</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="form-group has-float-label">
+                                <input class="form-control" type="text" id="addressLine2" formControlName="addressLine2"
+                                    placeholder="Address Line 2">
+                                <label for="addressLine2">Address Line 2</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="form-group has-float-label">
+                                <input class="form-control" type="text" id="city" formControlName="city"
+                                    placeholder="Cifty" disabled="true">
+                                <label for="city">City</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="form-group">
+                                <span class="plain-select">
+                                    <select class="form-control" id="select2" formControlName="zip">
+                                        <option value="" selected>Zip</option>
+                                        <option>35801</option>
+                                        <option>94203 </option>
+                                        <option>33124 </option>
+                                        <option>99501 </option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="form-group">
+                                <span class="plain-select">
+                                    <select class="form-control" id="select3">
+                                        <option value="" selected>County</option>
+                                        <option>Huntsville</option>
+                                        <option>Los Angeles</option>
+                                        <option>Miami</option>
+                                        <option>Anchorage</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- dynamic row added end-->
+                <!-- dynamic row added btn div-->
+                <div class="row">
+                    <div class="col text-right">
+                        <button type="submit" class="btn btn-outline btn-outline-dark mb-2 mr-0"
+                            (click)="addEmployerClick()">Add Address</button>
+                    </div>
+                </div>
+                <!-- dynamic row added btn div end -->
+            </div>
+            <div class="card-header">
+                <h4>Other Details</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select2">
+                                    <option>Pay Period</option>
+                                    <option>60 days</option>
+                                    <option>30 days</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select3">
+                                    <option>Number of Employees</option>
+                                    <option>100</option>
+                                    <option>100</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <div class="input-group search-input">
+                                <input type="text" class="form-control" placeholder="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-secondary" type="button">
+                                        <i class="icon-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <div class="input-group datepicker">
+                                <input class="form-control" placeholder="Effective Date" name="dp" ngbDatepicker
+                                    #d="ngbDatepicker" (click)="d.toggle()" formControlName="date">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                        type="button"><i class="icon-calendar"></i></button>
+                                </div>
+                            </div>
+                            <div *ngIf="addInwardForm.controls['date'].invalid && (addInwardForm.controls['date'].dirty || addInwardForm.controls['date'].touched)"
+                                class="error-msg">
+                                <div *ngIf="addInwardForm.controls['date'].errors.required">
+                                    Date is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="form-group mb-0">
+                            <div class="btn-group btn-group-toggle" ngbRadioGroup>
+                                <label ngbButtonLabel class="btn-outline-dark">
+                                    <input ngbButton type="radio" value="true"> All
+                                </label>
+                                <label ngbButtonLabel class="btn-outline-dark">
+                                    <input ngbButton type="radio" [value]="false"> Favorite
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <button class="btn btn-secondary">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+                Save
+            </button>
+        </footer>
+    </div>
+</form>

@@ -14,5 +14,8 @@ namespace Gopal.Services.User
         TblUser GetUserById(int userId);
         object GetUserPermissionsById(int userId);
         object SaveUserData(UserDetailsInputModel model);
+        TblUser GetCurrentUser();
+        int GetCurrentUserId();
+        int DeleteUser(int userId);
     }
 }

@@ -80,7 +80,7 @@ a {
 
 a:hover {
     text-decoration: none;
-    color: $dark-blue;
+    color: $pink;
     cursor: pointer;
 }
 
@@ -90,6 +90,10 @@ input,
     outline: none !important;
     box-shadow: none !important;
     border-color: $border !important;
+}
+
+a.btn:focus {
+    border-color: $primary !important;
 }
 
 ul,
@@ -228,16 +232,16 @@ input[type=number] {
             /*bootstrap card css override here*/
             .card {
                 border: none;
-                padding: 1.875rem 2rem 0;
+                padding: 1rem 1rem 0;
                 .card-header {
                     background-color: transparent;
                     border: none;
-                    border-left: 0.1875rem solid $orange;
+                    //border-left: 0.1875rem solid $pink;
                     border-radius: 0;
                 }
-                .card-body {
-                padding-right: 0;
-                }
+                // .card-body {
+                // padding-right: 0;
+                // }
             }
         }
     }
@@ -253,7 +257,7 @@ input[type=number] {
                 .card-header {
                     background-color: transparent;
                     border: none;
-                    border-left: 0.1875rem solid $orange;
+                    border-left: 0.1875rem solid $pink;
                     border-radius: 0;
                 }
                 .card-body {
@@ -282,7 +286,7 @@ input[type=number] {
     .card-header {
         background-color: transparent;
         border: none;
-        //border-left: 0.1875rem solid $orange;
+        //border-left: 0.1875rem solid $pink;
         border-radius: 0;
         display: flex;
         align-items: center;

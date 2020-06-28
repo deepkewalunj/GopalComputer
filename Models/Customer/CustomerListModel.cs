@@ -16,5 +16,6 @@ namespace Gopal.Models.Customer
         public string mobileNoFirst   { get; set; }
         public string telNoFirst     { get; set; }
         public string telNoSecond    { get; set; }
+        public int userId { get; set; }
     }
 }

@@ -36,7 +36,7 @@
     }
     &.btn-sm {
         padding: 0.25rem 0.5rem;
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
         line-height: 1.5;
         border-radius: 0.2rem;
     }
@@ -93,7 +93,7 @@ footer {
         height: 0;
     }
     input:checked+.slider {
-        background-color: $dark-blue;
+        background-color: $pink;
     }
     input:focus+.slider {
         box-shadow: none;

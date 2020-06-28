@@ -35,6 +35,7 @@ namespace Gopal
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
+            services.AddHttpContextAccessor();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -49,10 +50,7 @@ namespace Gopal
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
         };
     });
-            services.AddMvc(options=> {
-                options.FormatterMappings.SetMediaTypeMappingForFormat
-           ("js", MediaTypeHeaderValue.Parse("application/json"));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<gopal_dbContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
             services.AddTransient<IUserServices, UserService>();
             services.AddTransient<ICustomerServices, CustomerService>();
