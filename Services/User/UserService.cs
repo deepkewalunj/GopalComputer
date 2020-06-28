@@ -36,7 +36,7 @@ namespace Gopal.Services.User
                 _loginModel.userEmail = user.UserEmail;
                 _loginModel.userId = user.UserId;
                 _loginModel.userRole = (int)user.UserRole;
-                _loginModel.userName = user.UserName;
+               // _loginModel.userName = user.UserName;
             }
             return _loginModel;
         }
