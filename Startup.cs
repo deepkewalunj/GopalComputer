@@ -54,6 +54,7 @@ namespace Gopal
             services.AddDbContext<gopal_dbContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
             services.AddTransient<IUserServices, UserService>();
             services.AddTransient<ICustomerServices, CustomerService>();
+            services.AddTransient<IInwardServices, InwardService>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
