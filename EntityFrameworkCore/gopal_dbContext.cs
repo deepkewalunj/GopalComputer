@@ -56,6 +56,11 @@ namespace Gopal.EntityFrameworkCore
                     .HasColumnName("clientAddress")
                     .IsUnicode(false);
 
+                entity.Property(e => e.ClientEmail)
+                    .HasColumnName("clientEmail")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.ClientName)
                     .HasColumnName("clientName")
                     .HasMaxLength(200)
@@ -110,53 +115,109 @@ namespace Gopal.EntityFrameworkCore
 
                 entity.ToTable("tblInward");
 
-                entity.Property(e => e.AccBarCode).HasMaxLength(200);
+                entity.Property(e => e.InwardId).HasColumnName("inwardId");
 
-                entity.Property(e => e.Accessories).IsUnicode(false);
-
-                entity.Property(e => e.BarCode).HasMaxLength(200);
-
-                entity.Property(e => e.ClientDc)
-                    .HasColumnName("ClientDC")
+                entity.Property(e => e.AccBarCode)
+                    .HasColumnName("accBarCode")
                     .HasMaxLength(200);
 
+                entity.Property(e => e.Accessories)
+                    .HasColumnName("accessories")
+                    .IsUnicode(false);
+
+                entity.Property(e => e.AdvanceAmount).HasColumnName("advanceAmount");
+
+                entity.Property(e => e.BarCode)
+                    .HasColumnName("barCode")
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.ClientDc)
+                    .HasColumnName("clientDC")
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.ClientRefId).HasColumnName("clientRefId");
+
                 entity.Property(e => e.CompanyName)
+                    .HasColumnName("companyName")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
 
-                entity.Property(e => e.DeliveryDate).HasColumnType("datetime");
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("createdDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.DeliveryDate)
+                    .HasColumnName("deliveryDate")
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.EnggName)
+                    .HasColumnName("enggName")
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.InwardDate).HasColumnType("datetime");
+                entity.Property(e => e.EstmRepairingAmount).HasColumnName("estmRepairingAmount");
+
+                entity.Property(e => e.InwardDate)
+                    .HasColumnName("inwardDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+
+                entity.Property(e => e.IsOwner).HasColumnName("isOwner");
+
+                entity.Property(e => e.IsProblemDetected).HasColumnName("isProblemDetected");
+
+                entity.Property(e => e.IsRepaired).HasColumnName("isRepaired");
+
+                entity.Property(e => e.IsSpecialJob).HasColumnName("isSpecialJob");
 
                 entity.Property(e => e.MaterialType)
+                    .HasColumnName("materialType")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.MobileNumber)
+                    .HasColumnName("mobileNumber")
                     .HasMaxLength(40)
                     .IsUnicode(false);
 
                 entity.Property(e => e.ModelNo)
+                    .HasColumnName("modelNo")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+                entity.Property(e => e.ModifiedBy).HasColumnName("modifiedBy");
 
-                entity.Property(e => e.ProblemDescription).IsUnicode(false);
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnName("modifiedDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.OutwardBillStatus).HasColumnName("outwardBillStatus");
+
+                entity.Property(e => e.PrintStatus).HasColumnName("printStatus");
+
+                entity.Property(e => e.ProblemDescription)
+                    .HasColumnName("problemDescription")
+                    .IsUnicode(false);
 
                 entity.Property(e => e.ReceiverName)
+                    .HasColumnName("receiverName")
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.RepeatJobDesc).IsUnicode(false);
+                entity.Property(e => e.RepeatJob).HasColumnName("repeatJob");
 
-                entity.Property(e => e.SerialNo).HasMaxLength(200);
+                entity.Property(e => e.RepeatJobDesc)
+                    .HasColumnName("repeatJobDesc")
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SerialNo)
+                    .HasColumnName("serialNo")
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.SmsStatus).HasColumnName("smsStatus");
             });
 
             modelBuilder.Entity<TblMaterialAccessory>(entity =>
@@ -166,17 +227,31 @@ namespace Gopal.EntityFrameworkCore
 
                 entity.ToTable("tblMaterialAccessory");
 
+                entity.Property(e => e.MaterialAccessoryId).HasColumnName("materialAccessoryId");
+
                 entity.Property(e => e.AccessoryName)
+                    .HasColumnName("accessoryName")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("createdDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
 
                 entity.Property(e => e.MaterialType)
+                    .HasColumnName("materialType")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+                entity.Property(e => e.ModifiedBy).HasColumnName("modifiedBy");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnName("modifiedDate")
+                    .HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TblModule>(entity =>
@@ -243,21 +318,36 @@ namespace Gopal.EntityFrameworkCore
 
                 entity.ToTable("tblSearchModelNoMaterialTypeCompanyName");
 
+                entity.Property(e => e.SearchId).HasColumnName("searchId");
+
                 entity.Property(e => e.CompanyName)
+                    .HasColumnName("companyName")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("createdDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
 
                 entity.Property(e => e.MaterialType)
+                    .HasColumnName("materialType")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.ModelNo)
+                    .HasColumnName("modelNo")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+                entity.Property(e => e.ModifiedBy).HasColumnName("modifiedBy");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnName("modifiedDate")
+                    .HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TblUser>(entity =>

@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" ngbAutofocus> {{searchModelNoMaterialTypeCompanyName.searchId>0?'Edit':'Add'}} Model Number / Material Type / Company Name</h4>
+</div>
+<div class="modal-body">
+    <form [formGroup]="addMaterialTypeForm" novalidate>
+   <div class="row">
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="form-group has-float-label">
+            <input class="form-control" [(ngModel)]="searchModelNoMaterialTypeCompanyName.modelNo"  id="modelNo" type="text" placeholder="Model No."
+                formControlName="modelNo" />
+            <label for="modelNo">Model No.</label>
+            <div *ngIf="addMaterialTypeForm.controls['modelNo'].invalid && (addMaterialTypeForm.controls['modelNo'].dirty || addMaterialTypeForm.controls['modelNo'].touched)"
+                class="error-msg">
+                <div *ngIf="addMaterialTypeForm.controls['modelNo'].errors.required">
+                    Model number is required.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="form-group has-float-label">
+            <input class="form-control"  [(ngModel)]="searchModelNoMaterialTypeCompanyName.materialType" id="materialType" type="text" placeholder="Material Type"
+                formControlName="materialType" />
+            <label for="materialType">Material Type</label>
+            <div *ngIf="addMaterialTypeForm.controls['materialType'].invalid && (addMaterialTypeForm.controls['materialType'].dirty || addMaterialTypeForm.controls['materialType'].touched)"
+                class="error-msg">
+                <div *ngIf="addMaterialTypeForm.controls['materialType'].errors.required">
+                    Material type is required.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="form-group has-float-label">
+            <input class="form-control"  [(ngModel)]="searchModelNoMaterialTypeCompanyName.companyName" id="companyName" type="text" placeholder="Company Name"
+                formControlName="companyName" />
+            <label for="companyName">Company Name</label>
+            <div *ngIf="addMaterialTypeForm.controls['companyName'].invalid && (addMaterialTypeForm.controls['companyName'].dirty || addMaterialTypeForm.controls['companyName'].touched)"
+                class="error-msg">
+                <div *ngIf="addMaterialTypeForm.controls['companyName'].errors.required">
+                    Company name is required.
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+   
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" (click)="addMaterialTypeForm.valid && saveMaterialData()">Save</button>
+    <button class="btn btn-secondary" (click)="close()">Cancel</button>
+</div>

@@ -5,6 +5,7 @@ import { InwardMasterComponent } from './inward-master/inward-master.component';
 import { InwardAccessoriesComponent } from './inward-accessories/inward-accessories.component';
 import { InwardComponent } from './inward/inward.component';
 import { AddInwardComponent } from './add-inward/add-inward.component';
+import { AddUpdateModelNoMaterialTypeComponent } from './add-update-model-no-material-type/add-update-model-no-material-type.component';
 
 
 const routes: Routes = [
@@ -24,7 +25,12 @@ const routes: Routes = [
   {
     path: 'inward-accessories', component: InwardAccessoriesComponent
   },
-
+  {
+    path: 'inward-accessories', component: InwardAccessoriesComponent
+  },
+  {
+    path: 'add-material-type', component: AddUpdateModelNoMaterialTypeComponent
+  },
   {
     path: '',
     redirectTo: '/inward',

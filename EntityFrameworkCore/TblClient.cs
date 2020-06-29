@@ -10,6 +10,7 @@ namespace Gopal.EntityFrameworkCore
         public string ClientName { get; set; }
         public string CompanyName { get; set; }
         public string ClientAddress { get; set; }
+        public string ClientEmail { get; set; }
         public string OwnerMobileNo { get; set; }
         public string MobileNoFirst { get; set; }
         public string TelNoFirst { get; set; }

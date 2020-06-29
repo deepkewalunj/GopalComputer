@@ -82,8 +82,8 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
         lastName: '',
         userEmail: '',
         userPassword: '',
-        userRole: '',
-        userId: 0
+        userRole: null,
+        userId: null
       }
 
       this.openAddEditUserPopup(this.user ,this.modulePermission);

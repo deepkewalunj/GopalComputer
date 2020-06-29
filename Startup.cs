@@ -1,6 +1,7 @@
 using Gopal.EntityFrameworkCore;
 using Gopal.Models.Common;
 using Gopal.Services.Customer;
+using Gopal.Services.MaterialType;
 using Gopal.Services.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -54,6 +55,7 @@ namespace Gopal
             services.AddDbContext<gopal_dbContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
             services.AddTransient<IUserServices, UserService>();
             services.AddTransient<ICustomerServices, CustomerService>();
+            services.AddTransient<IMaterialTypeServices, MaterialTypeService>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
