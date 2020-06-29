@@ -16,5 +16,6 @@ namespace Gopal.Services.User
         object SaveUserData(UserDetailsInputModel model);
         TblUser GetCurrentUser();
         int GetCurrentUserId();
+        int DeleteUser(int userId);
     }
 }

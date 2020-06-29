@@ -15,7 +15,7 @@ namespace Gopal.Services.User
         
         private readonly gopal_dbContext _dbContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
+        
         public UserService(gopal_dbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
@@ -36,7 +36,7 @@ namespace Gopal.Services.User
                 _loginModel.userEmail = user.UserEmail;
                 _loginModel.userId = user.UserId;
                 _loginModel.userRole = (int)user.UserRole;
-                _loginModel.userName = user.UserName;
+               // _loginModel.userName = user.UserName;
             }
             return _loginModel;
         }
@@ -61,7 +61,7 @@ namespace Gopal.Services.User
             return (from per in _dbContext.TblModulePermission
                     join mod in _dbContext.TblModule on per.ModuleIdRef equals mod.ModuleId
                     where per.UserUserIdRef == userId && per.IsDeleted != true && mod.IsDeleted != true
-                    select mod
+                    select new { mod.ModuleId, mod.ModuleName }
                     ).ToList();
                 //_dbContext.TblModulePermission.Where(x => x.IsDeleted != true && x.UserUserIdRef == userId).ToList();
 
@@ -88,7 +88,7 @@ namespace Gopal.Services.User
                 user.UserRole = model.user.userRole;
                 user.UserPassword = model.user.userPassword;
                 user.UserEmail = model.user.userEmail;
-                user.ModifiedBy = 1;
+                user.ModifiedBy = GetCurrentUserId();
                 user.ModifiedDate = DateTime.Now;
                 if(user.UserId > 0)
                 {
@@ -106,7 +106,7 @@ namespace Gopal.Services.User
                 obj.UserRole = model.user.userRole;
                 obj.UserPassword = model.user.userPassword;
                 obj.UserEmail = model.user.userEmail;
-                obj.CreatedBy = 1;
+                obj.CreatedBy = GetCurrentUserId(); 
                 obj.CreatedDate = DateTime.Now;
                 _dbContext.Add(obj);
                 _dbContext.SaveChanges();
@@ -129,6 +129,20 @@ namespace Gopal.Services.User
                 }
             }
             return null;
+        }
+
+        public int DeleteUser(int userId)
+        {
+            TblUser user = _dbContext.TblUser.FirstOrDefault(x => x.UserId == userId);
+            if (user != null)
+            {
+                user.IsDeleted = true;
+                user.ModifiedDate = DateTime.Now;
+                user.ModifiedBy= GetCurrentUserId();
+                _dbContext.SaveChanges();
+                return userId;
+            }
+            return 0;
         }
     }
 }

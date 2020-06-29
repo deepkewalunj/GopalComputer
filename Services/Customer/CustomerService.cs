@@ -62,6 +62,8 @@ namespace Gopal.Services.Customer
             if (customer != null)
             {
                 customer.IsDeleted = true;
+                customer.ModifiedBy= _userServices.GetCurrentUserId();
+                customer.ModifiedDate = DateTime.Now;
                 customer.ModifiedDate = DateTime.Now;
                 _dbContext.SaveChanges();
                 return customerId;
