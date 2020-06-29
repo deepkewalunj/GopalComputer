@@ -56,6 +56,8 @@ namespace Gopal
             services.AddTransient<IUserServices, UserService>();
             services.AddTransient<ICustomerServices, CustomerService>();
             services.AddTransient<IMaterialTypeServices, MaterialTypeService>();
+            services.AddTransient<IInwardServices, InwardService>();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
