@@ -1,17 +1,17 @@
 <form [formGroup]="addInwardForm" novalidate>
     <div class="container form-container">
-        <!-- <h3 class="text-center mb-4">Employer Details</h3> -->
+        <h3 class="text-center mb-4">Inward </h3> 
         <div class="card">
-        
             <div class="card-header">
-                <h4>Inward Details</h4>
+                <h4>Inward Date</h4>
             </div>
-            <div class="card-body">
+            <div class="card-body pb-0 mb-0">
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
                             <div class="input-group datepicker">
-                                <input class="form-control" placeholder="Inward Date" name="dp" ngbDatepicker
+                                <label class="date-label">Inward Date</label>
+                                <input class="form-control" placeholder="09-09-2020" name="dp" ngbDatepicker
                                     #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="inwardDate">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
@@ -26,25 +26,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="jobNumber" placeholder="Job Number">
-                            <label for="jobNumber">Job Number</label>
-                        </div>
-                    </div>
                 </div>
+            </div>
+        </div>
+        <div class="card mt-1">
+            <div class="card-header">
+                <h4>Inward Details</h4>
+            </div>
+            <div class="card-body pb-0 mb-0">
                 <div class="row">
                     <div class="col-12 col-md-8 col-lg-8">
                         <div class="form-group">
                             <span class="plain-select">
-                                <select class="form-control" id="select1" formControlName="companyName">
+                                <select class="form-control" id="companyName" formControlName="companyName">
                                     <option value="" selected>Select</option>
                                     <option>Alabama</option>
                                     <option>California</option>
                                     <option>Florida</option>
                                     <option>Alaska</option>
                                 </select>
-                                <label class="select-label">Company Name</label>
+                                <label for="companyName" class="select-label">Company Name</label>
                             </span>
                             <div *ngIf="addInwardForm.controls['companyName'].invalid && (addInwardForm.controls['companyName'].dirty || addInwardForm.controls['companyName'].touched)"
                             class="error-msg">
@@ -55,34 +56,54 @@
                         </div>
                     </div>
                     <div class="col-12 col-md-4 col-lg-4 pt-1">
-                        <button class="btn btn-sm btn-outline btn-outline-dark mt-2">Add <i class="ml-1 fas fa-plus"></i></button>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-outline btn-outline-dark mt-2" (click)="addCompanyPopup(companyPopup)">Add <i class="ml-1 fas fa-plus"></i></a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-md-8 col-lg-8">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select1" formControlName="materialName">
-                                    <option value="" selected>Select</option>
-                                    <option>Alabama</option>
-                                    <option>California</option>
-                                    <option>Florida</option>
-                                    <option>Alaska</option>
-                                </select>
-                                <label class="select-label">Material Name</label>
-                            </span>
-                            <div *ngIf="addInwardForm.controls['materialName'].invalid && (addInwardForm.controls['materialName'].dirty || addInwardForm.controls['materialName'].touched)"
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input id="modelNumber" type="text" class="form-control" placeholder="Model Number" [(ngModel)]="modelNumber" [ngbTypeahead]="search" [ngModelOptions]="{standalone: true}"/> 
+                            <label for="modelNumber">Model Number </label>
+                            <!-- <div *ngIf="addMaterialForm.controls['modelNumber'].invalid && (addMaterialForm.controls['modelNumber'].dirty || addMaterialForm.controls['modelNumber'].touched)"
                             class="error-msg">
-                            <div *ngIf="addInwardForm.controls['materialName'].errors.required">
-                                Company name is required.
+                            <div *ngIf="addMaterialForm.controls['modelNumber'].errors.required">
+                                Model Number is required.
                             </div>
-                           </div>
+                           </div> -->
                         </div>
                     </div>
-                    <div class="col-12 col-md-4 col-lg-4 pt-1">
-                        <button class="btn btn-sm btn-outline btn-outline-dark mt-2">Add <i class="ml-1 fas fa-plus"></i></button>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input id="materiaType" type="text" class="form-control" placeholder="Material Type" [(ngModel)]="materiaType" [ngbTypeahead]="search" [ngModelOptions]="{standalone: true}"/> 
+                            <label for="materiaType">Material Type</label>
+                            <!-- <div *ngIf="addMaterialForm.controls['materiaType'].invalid && (addMaterialForm.controls['materiaType'].dirty || addMaterialForm.controls['materiaType'].touched)"
+                            class="error-msg">
+                            <div *ngIf="addMaterialForm.controls['materiaType'].errors.required">
+                                Material type is required.
+                            </div>
+                           </div> -->
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input id="moreCompanyName" type="text" class="form-control" placeholder="Company Name" [(ngModel)]="moreCompanyName" [ngbTypeahead]="search" [ngModelOptions]="{standalone: true}"/> 
+                            <label for="moreCompanyName">Company Name </label>
+                            <!-- <div *ngIf="addMaterialForm.controls['moreCompanyName'].invalid && (addMaterialForm.controls['moreCompanyName'].dirty || addMaterialForm.controls['moreCompanyName'].touched)"
+                            class="error-msg">
+                            <div *ngIf="addMaterialForm.controls['moreCompanyName'].errors.required">
+                                Company name is required.
+                            </div>
+                           </div> -->
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="card mt-1">
+            <div class="card-header">
+                <h4>Other Details</h4>
+            </div>
+            <div class="card-body pb-0 mb-0">
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group has-float-label">
@@ -96,13 +117,13 @@
                            </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-md-4 col-lg-4">
                         <div class="form-group has-float-label">
                             <input class="form-control" type="text" id="serialNumber" placeholder="Serial Number">
                             <label for="serialNumber">Serial Number</label>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-md-4 col-lg-4">
                         <div class="form-group">
                             <span class="plain-select">
                                 <select class="form-control" id="select1">
@@ -116,157 +137,234 @@
                             </span>
                         </div>
                     </div>
-                </div>
-
-                <!-- dynamic row added -->
-                <div formArrayName="employerAddress"
-                    *ngFor="let empAddress of addInwardForm.get('employerAddress')['controls']; let i = index">
-                    <div class="row" [formGroupName]="i">
-                        <div class="col-12 text-right" *ngIf="addInwardForm.get('employerAddress')['length']>1">
-                            <a href="javascript:void(0)" class="delete-row mb-3 d-inline-block danger"
-                                (click)="removeEmpAddressBtn(i)">
-                                <i class="icon-remove" ngbTooltip="Delete"></i>
-                            </a>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="engineerName" placeholder="Engineer Name">
+                            <label for="engineerName">Engineer Name</label>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="form-group has-float-label">
-                                <input class="form-control" type="text" id="addressLine1" formControlName="addressLine1"
-                                    placeholder="Address Line 1">
-                                <label for="addressLine1">Address Line 1</label>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="form-group has-float-label">
-                                <input class="form-control" type="text" id="addressLine2" formControlName="addressLine2"
-                                    placeholder="Address Line 2">
-                                <label for="addressLine2">Address Line 2</label>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="form-group has-float-label">
-                                <input class="form-control" type="text" id="city" formControlName="city"
-                                    placeholder="Cifty" disabled="true">
-                                <label for="city">City</label>
-                            </div>
-                        </div>
-                        
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="form-group">
-                                <span class="plain-select">
-                                    <select class="form-control" id="select2" formControlName="zip">
-                                        <option value="" selected>Zip</option>
-                                        <option>35801</option>
-                                        <option>94203 </option>
-                                        <option>33124 </option>
-                                        <option>99501 </option>
-                                    </select>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="form-group">
-                                <span class="plain-select">
-                                    <select class="form-control" id="select3">
-                                        <option value="" selected>County</option>
-                                        <option>Huntsville</option>
-                                        <option>Los Angeles</option>
-                                        <option>Miami</option>
-                                        <option>Anchorage</option>
-                                    </select>
-                                </span>
+                       
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox mt-3">
+                                <input type="checkbox" class="custom-control-input" id="check4">
+                                <label class="custom-control-label" for="check4">Owner</label>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- dynamic row added end-->
-                <!-- dynamic row added btn div-->
                 <div class="row">
-                    <div class="col text-right">
-                        <button type="submit" class="btn btn-outline btn-outline-dark mb-2 mr-0"
-                            (click)="addEmployerClick()">Add Address</button>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="mobileNumber" placeholder="Mobile Number">
+                            <label for="mobileNumber">Mobile Number</label>
+                        </div>
                     </div>
-                </div>
-                <!-- dynamic row added btn div end -->
-            </div>
-            <div class="card-header">
-                <h4>Other Details</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-md-4 col-lg-4">
                         <div class="form-group">
                             <span class="plain-select">
-                                <select class="form-control" id="select2">
-                                    <option>Pay Period</option>
-                                    <option>60 days</option>
-                                    <option>30 days</option>
+                                <select class="form-control" id="smsStatus">
+                                    <option value="" selected>Select</option>
+                                    <option>Sent</option>
+                                    <option>Not Sent</option>
                                 </select>
+                                <label for="smsStatus" class="select-label">SMS Status</label>
                             </span>
+                           
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select3">
-                                    <option>Number of Employees</option>
-                                    <option>100</option>
-                                    <option>100</option>
-                                </select>
-                            </span>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="receiverName" placeholder="Receiver Name" formControlName="receiverName">
+                            <label for="receiverName">Receiver Name</label>
+                            <div *ngIf="addInwardForm.controls['receiverName'].invalid && (addInwardForm.controls['receiverName'].dirty || addInwardForm.controls['receiverName'].touched)"
+                            class="error-msg">
+                            <div *ngIf="addInwardForm.controls['receiverName'].errors.required">
+                                Receiver name is required.
+                            </div>
+                           </div>
                         </div>
+                      
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <div class="input-group search-input">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-secondary" type="button">
-                                        <i class="icon-search"></i>
-                                    </button>
-                                </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div>
+                            <label class="radio-btns-label d-block">Problem Detected</label>
+                            <div class="custom-control custom-radio d-inline-block mt-3">
+                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio2">Yes</label>
+                            </div>
+                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                                <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio3">No</label>
+                            </div>
+                            <div class="custom-control custom-checkbox d-inline-block mt-3 ml-5">
+                                <input type="checkbox" class="custom-control-input" id="check4">
+                                <label class="custom-control-label" for="check4">Special Job</label>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-md-4 col-lg-4">
                         <div class="form-group">
                             <div class="input-group datepicker">
-                                <input class="form-control" placeholder="Effective Date" name="dp" ngbDatepicker
-                                    #d="ngbDatepicker" (click)="d.toggle()" formControlName="date">
+                                <label class="date-label">Delivery Date</label>
+                                <input class="form-control" placeholder="09-09-2020" name="dp" ngbDatepicker
+                                    #d2="ngbDatepicker" (click)="d2.toggle()" formControlName="deliveryDate">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
-                                        type="button"><i class="icon-calendar"></i></button>
+                                    <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
+                                        type="button"><i class="far fa-calendar-alt"></i></button>
                                 </div>
                             </div>
-                            <div *ngIf="addInwardForm.controls['date'].invalid && (addInwardForm.controls['date'].dirty || addInwardForm.controls['date'].touched)"
+                            <div *ngIf="addInwardForm.controls['deliveryDate'].invalid && (addInwardForm.controls['deliveryDate'].dirty || addInwardForm.controls['deliveryDate'].touched)"
                                 class="error-msg">
-                                <div *ngIf="addInwardForm.controls['date'].errors.required">
-                                    Date is required.
+                                <div *ngIf="addInwardForm.controls['deliveryDate'].errors.required">
+                                   Delivery date is required.
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="card mt-1">
+                <div class="card-header">
+                    <h4>Payment Details</h4>
+                </div>
+                <div class="card-body pb-0 mb-0">
                 <div class="row">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label class="switch">
-                                <input type="checkbox" checked>
-                                <span class="slider round"></span>
-                            </label>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="advAmount" placeholder="Advance Amount">
+                            <label for="advAmount">Advance Amount</label>
                         </div>
-                        <div class="form-group mb-0">
-                            <div class="btn-group btn-group-toggle" ngbRadioGroup>
-                                <label ngbButtonLabel class="btn-outline-dark">
-                                    <input ngbButton type="radio" value="true"> All
-                                </label>
-                                <label ngbButtonLabel class="btn-outline-dark">
-                                    <input ngbButton type="radio" [value]="false"> Favorite
-                                </label>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" type="text" id="estAmount" placeholder="Estimate Repearimg Amount">
+                            <label for="estAmount">Estimate Repearimg Amount</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="paymentStatus">
+                                    <option value="" selected>Select</option>
+                                    <option>Paid</option>
+                                    <option>Unpaid</option>
+                                </select>
+                                <label for="paymentStatus" class="select-label">Outward/Bill Status</label>
+                            </span>
+                           
+                        </div>
+                    </div>
+                </div>
+              
+                </div>
+        </div>
+       <div class="card mt-1">
+        <div class="card-header">
+            <h4>Job Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-4 col-lg-4">
+                    <div>
+                        <label class="radio-btns-label d-block">Repaired</label>
+                        <div class="custom-control custom-radio d-inline-block mt-3">
+                            <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio4">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                            <input type="radio" id="customRadio5" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio5">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <span class="plain-select">
+                            <select class="form-control" id="printStatus">
+                                <option value="" selected>Select</option>
+                                <option>Printed</option>
+                                <option>Not Printed</option>
+                            </select>
+                            <label for="printStatus" class="select-label">Print Status</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <span class="plain-select">
+                            <select class="form-control" id="repeatJob">
+                                <option value="" selected>Select</option>
+                                <option>Printed</option>
+                                <option>Not Printed</option>
+                            </select>
+                            <label for="repeatJob" class="select-label">Repeat Job</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="form-group has-float-label">
+                        <input class="form-control" type="text" id="clientDc" placeholder="Client DC">
+                        <label for="clientDc">Client DC</label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="form-group has-float-label">
+                        <input class="form-control" type="text" id="accountBarcode" placeholder="Account Barcode">
+                        <label for="accountBarcode">Account Barcode</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </div>
+        <div class="card mt-1">
+            <div class="card-header">
+                <h5>Accessories Given</h5>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="d-flex flex-wrap align-items-end col-auto">
+                            <ng-container *ngIf="hideTag">
+                                <span class="badge badge-dark mr-1" *ngFor="let tag of tags let i = index">{{tag}}
+                                    <i class="far fa-times-circle" (click)="deleteTag(i)"></i>
+                                </span>
+                            </ng-container>
+                            <div class="d-flex align-items-end">
+                                <input class="form-control" #newTag
+                                    (keyup.enter)="addTags(newTag.value); newTag.value=''"
+                                    (blur)="addTags(newTag.value); newTag.value='' "  [(ngModel)]="addAccessories" [ngbTypeahead]="search" [ngModelOptions]="{standalone: true}">
+                               <a href="javascript:void(0)" class="btn btn-sm  btn-outline btn-outline-dark ml-2  add-accessories-btn cursor"  (click)="addTags(newTag.value)">Add <i class="fas fa-plus ml-1"></i></a> 
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="card mt-1 mb-2">
+            <div class="card-header">
+                <h5>Upload Photo</h5>
+            </div>
+            <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-3 col-lg-4 profile-content">
+                    <div class="profile-photo mb-2">
+                        <img alt="image" src="./assets/imgs/upload-thumb.png">
+                        <div class="upload-btn-wrapper">
+                            <button class="btn"><i class="fas fa-cloud-upload-alt"></i></button>
+                            <input formcontrolname="imageLogo" name="imageLogo" type="file"
+                                class="ng-untouched ng-pristine ng-valid">
+                        </div>
+                    </div>
+                    <p class="img-upload-note">The image can be of png,<br> jpg, bmp, jpeg type and<br> up to 5mb.
+                    </p>
+                </div>
+            </div>
             </div>
         </div>
         <footer>
@@ -277,3 +375,88 @@
         </footer>
     </div>
 </form>
+
+<!--Modal-window-company-->
+<ng-template #companyPopup let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title" ngbAutofocus> Add Company</h4>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="addCompanyForm" novalidate>
+       <div class="row">
+         <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group">
+                <span class="plain-select">
+                    <select class="form-control" id="select3">
+                        <option value="" selected>Select</option>
+                        <option>Mr</option>
+                        <option>Mrs</option>
+                        <option>Miss</option>
+                    </select>
+                    <label class="select-label">Title</label>
+                </span>
+            </div>
+        </div> 
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+                <input class="form-control" id="personName" type="text" placeholder="Person Name"
+                    formControlName="personName" />
+                <label for="personName">Person Name</label>
+                <div *ngIf="addCompanyForm.controls['personName'].invalid && (addCompanyForm.controls['personName'].dirty || addCompanyForm.controls['personName'].touched)"
+                    class="error-msg">
+                    <div *ngIf="addCompanyForm.controls['personName'].errors.required">
+                        Person name is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+                <input class="form-control" id="companyName" type="text" placeholder="Company Name"
+                    formControlName="companyName" />
+                <label for="companyName">Company Name</label>
+                <div *ngIf="addCompanyForm.controls['companyName'].invalid && (addCompanyForm.controls['companyName'].dirty || addCompanyForm.controls['companyName'].touched)"
+                    class="error-msg">
+                    <div *ngIf="addCompanyForm.controls['companyName'].errors.required">
+                        Company name is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+                <input class="form-control" type="text" id="address" placeholder="Address">
+                <label for="address">Address </label>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+                <input class="form-control" id="ownerNumber" type="text" placeholder="Owner Number"
+                    formControlName="ownerNumber" />
+                <label for="ownerNumber">Owner Number</label>
+                <div *ngIf="addCompanyForm.controls['ownerNumber'].invalid && (addCompanyForm.controls['ownerNumber'].dirty || addCompanyForm.controls['ownerNumber'].touched)"
+                    class="error-msg">
+                    <div *ngIf="addCompanyForm.controls['ownerNumber'].errors.required">
+                    Owner Number is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+                <input class="form-control" type="text" id="Mobile" placeholder="Mobile">
+                <label for="Mobile">Mobile </label>
+            </div>
+        </div>
+       </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+        <button class="btn btn-primary" (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template>
+<!--End-Modal-window-company-->
+
+
+

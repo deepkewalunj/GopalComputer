@@ -93,7 +93,7 @@ input,
 }
 
 a.btn:focus {
-    border-color: $primary !important;
+    border-color: inherit !important;
 }
 
 ul,
@@ -114,7 +114,7 @@ ol li a {
 .form-control,
 input {
     font-size: $font13;
-    color: #6c7293;
+    color: #000;
     font-weight: 400;
 }
 
@@ -170,7 +170,7 @@ input[type=number] {
     font-weight: normal;
     border-radius: 2px;
     i {
-        font-size: 0.5rem;
+        font-size: 14px;
         margin-left: .1rem;
         cursor: pointer;
     }
@@ -295,7 +295,12 @@ input[type=number] {
         }
         h4 {
             flex: 1;
-            font-size: 18px;
+            font-size: 1rem;
+            color: #1c0f3a;
+        }
+
+        h5{
+            flex: 1;
             color: #1c0f3a;
         }
 
@@ -345,9 +350,11 @@ input[type=number] {
         .upload-btn-wrapper {
             position: absolute;
             overflow: hidden;
-            display: inline-block;
+            display: inline-flex;
+            justify-content: center;
+            top: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.76);
+            background-color: rgb(193, 193, 196);
             width: 100%;
             left: 0;
             .btn {
@@ -357,8 +364,8 @@ input[type=number] {
                 min-width: 0;
                 line-height: 1rem;
                 i {
-                    color: $white;
-                    font-size: $font18;
+                    color: #6c7293;
+                    font-size: 3rem;
                 }
             }
             input[type="file"] {

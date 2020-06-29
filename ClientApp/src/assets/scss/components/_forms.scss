@@ -1,4 +1,7 @@
 /* forms related all css here*/
+label {
+    color: #6c7293 !important;
+}
 
 .form-control {
     &:read-only::placeholder {
@@ -84,7 +87,7 @@ select:disabled {
             border: none;
             margin: 0;
             min-width: 1.5rem;
-                z-index: 9;
+                z-index: 3;
                 i {
                     color: #6c7293;
                 }
@@ -140,6 +143,7 @@ select:disabled {
         &.dropdown-menu {
             border: 0;
             box-shadow: 0px 0 12px 0px rgba(146, 172, 184, 0.46);
+            z-index: 1;
         }
         .btn {
             min-width: 0px;
@@ -183,10 +187,24 @@ select:disabled {
             position: absolute;
             pointer-events: none;
             left: 0px;
-            top: -0.875rem;
+            top: -15px;
             transition: 0.2s ease all;
             -moz-transition: 0.2s ease all;
             -webkit-transition: 0.2s ease all;
+        }
+    }
+}
+
+
+/* auto search typehead*/
+
+ngb-typeahead-window {
+    &.dropdown-menu  {
+        max-height: 350px;
+        overflow-y: auto;
+        .dropdown-item {
+            font-size: 0.875rem;
+            padding: 0.25rem 1rem;
         }
     }
 }
@@ -308,7 +326,9 @@ select:disabled {
 .custom-control {
     padding-left: 1.7rem;
 }
-
+.custom-control-label {
+   color: #000 !important;
+}
 .custom-control-input:checked~.custom-control-label::before {
     color: $pink;
     border-color: $border;
@@ -604,7 +624,7 @@ select:disabled {
     margin-top: 0px;
     height: 0;
     width: 0;
-    border-top: 6px solid $black;
+    border-top: 6px solid #6c7293;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     pointer-events: none;
@@ -641,10 +661,31 @@ select:disabled {
     }
 }
 
+// .radio-btns-label {
+//     position: absolute;
+//     top: -15px;
+//     font-size: $font13;
+// }
+
 .radio-btns-label {
-    position: absolute;
-    top: -15px;
-    font-size: $font13;
+    color:#000;
+    font-size:.8125rem;
+    font-weight:400;
+    position:absolute;
+    pointer-events:none;
+    top:-15px;
+}
+
+.radio-labels{
+    position:relative;
+    .radio-btns-label {
+        color:#000;
+        font-size:.8125rem;
+        font-weight:400;
+        position:absolute;
+        pointer-events:none;
+        top:-1rem;
+    }
 }
 
 @media (max-width: 575.98px) {
