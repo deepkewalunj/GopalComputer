@@ -5,7 +5,6 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { InwardMaterialRoutingModule } from './inward-material-routing.module';
-import { InwardMasterComponent } from './inward-master/inward-master.component';
 import { MaterialTypeComponent } from './material-type/material-type.component';
 import { InwardAccessoriesComponent } from './inward-accessories/inward-accessories.component';
 import { InwardComponent } from './inward/inward.component';
@@ -15,7 +14,6 @@ import { AddInwardComponent } from './add-inward/add-inward.component';
 @NgModule({
   declarations: [
     MaterialTypeComponent,
-    InwardMasterComponent,
     InwardAccessoriesComponent,
     InwardComponent,
     AddInwardComponent
@@ -27,7 +25,7 @@ import { AddInwardComponent } from './add-inward/add-inward.component';
     AngularMultiSelectModule,
     FormsModule,
     ReactiveFormsModule
-    
+
   ]
 })
 export class InwardMaterialModule { }
