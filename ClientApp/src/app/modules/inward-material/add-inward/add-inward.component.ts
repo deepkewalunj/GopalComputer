@@ -1,17 +1,27 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map, filter} from 'rxjs/operators';
+import { Inward } from 'src/app/models/inward.model';
+import { TypeAheadSelect } from 'src/app/models/common.model';
+import { AddEditCustomerComponent } from '../../master/customer/add-edit-customer/add-edit-customer.component';
+import { Customer } from 'src/app/models/customer.model';
 
-const models = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
-  'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
-  'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-  'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
-  'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-  'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
-  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
-  'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+
+const states: TypeAheadSelect[] = [
+  {id: 0, name: 'Alabama'},
+  {id: 1, name: 'Alaska'},
+  {id: 2, name: 'American Samoa'},
+  {id: 3, name: 'Arizona'},
+  {id: 4, name: 'Arkansas'},
+  {id: 5, name: 'California'},
+  {id: 6, name: 'Colorado'},
+  {id: 7, name: 'Connecticut'},
+  {id: 8, name: 'Delaware'},
+  {id: 9, name: 'District Of Columbia'},
+  {id: 10, name: 'Federated States Of Micronesia'},
+];
 
 @Component({
   selector: 'app-add-inward',
@@ -24,7 +34,12 @@ export class AddInwardComponent implements OnInit {
   public moreCompanyName: any;
   public materiaType: any;
   public addAccessories: any;
-  
+
+  private _success = new Subject<string>();
+  staticAlertClosed = false;
+  successMessage: string;
+
+  formatter = (customer: TypeAheadSelect) => customer.name;
 
   hideTag = true;
   tags = [];
@@ -48,46 +63,65 @@ export class AddInwardComponent implements OnInit {
 //add material form
   addMaterialForm: FormGroup;
 
+  inward:Inward;
+
   constructor(private fb: FormBuilder, private modalService: NgbModal) {
    this.createForm();
   }
 
-  createForm() { 
+  createForm() {
     this.addInwardForm = this.fb.group({
       inwardDate:   ['', Validators.required],
-      companyName:  ['', Validators.required],
-      materialName:   ['', Validators.required],
-      barCode:  ['', Validators.required],
-      receiverName: ['', Validators.required],
-      deliveryDate:          ['', Validators.required],
-    });
-
-    //add company form form-builder
-    this.addCompanyForm = this.fb.group({
-      personName:      ['', Validators.required],
-      companyName:      ['', Validators.required],
-      ownerNumber:['', Validators.required],
-    });
-
-    //add materil form form-builder
-    this.addMaterialForm = this.fb.group({
-      moreCompanyName:      ['', Validators.required],
-      materiaType:      ['', Validators.required],
+      customerName:  ['', Validators.required],
       modelNumber:['', Validators.required],
-    })
-   
+      materialType:['',Validators.required],
+      companyName:['',Validators.required],
+      barCode:  ['', Validators.required],
+      serialNumber:['',Validators.required],
+      ProblemDescription:['',Validators.required],
+      EnggName:['',Validators.required],
+      receiverName: ['', Validators.required],
+      deliveryDate: ['', Validators.required],
+
+    });
+
+
+
+
+
   }
 
- 
+
 
   /*on click modal will be open*/
   open(content) {
     this.modalService.open(content);
   }
 
-  addCompanyPopup(content) {
-    this.modalService.open(content, { size: 'lg' });
+
+
+  addClientPopup(currentCustomer:Customer) {
+    let localCustomer=currentCustomer;
+    if(localCustomer==null)
+    {
+      localCustomer=new Customer();
+      localCustomer.clientTitleId='';
+
+    }
+    const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg' });
+    modalRef.componentInstance.customer=localCustomer;
+    modalRef.componentInstance.modelRef=modalRef;
+    modalRef.result.then((result) => {
+      if(result==true)
+      {
+        this._success.next("Customer Added Successfully.");
+      }
+
+    }, (reason) => {
+
+    });
   }
+
 
   addMaterialPopup(content) {
     this.modalService.open(content, { size: 'lg' });
@@ -96,22 +130,27 @@ export class AddInwardComponent implements OnInit {
 
 
   // multiselect dropdown code here
-  
+
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
 
   ngOnInit(){
-                 
+      this.inward=new Inward();
+      setTimeout(() => this.staticAlertClosed = true, 20000);
+
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.successMessage = null);
   }
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term.length < 2 ? []
-        : models.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+  search = (text$: Observable<string>) => text$.pipe(
+    debounceTime(200),
+    distinctUntilChanged(),
+    filter(term => term.length >= 2),
+    map(term => states.filter(state => new RegExp(term, 'mi').test(state.name)).slice(0, 10))
+  )
 
   // add-tags
 

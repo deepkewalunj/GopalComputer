@@ -1,462 +1,448 @@
 <form [formGroup]="addInwardForm" novalidate>
-    <div class="container form-container">
-        <h3 class="text-center mb-4">Inward </h3> 
-        <div class="card">
-            <div class="card-header">
-                <h4>Inward Date</h4>
-            </div>
-            <div class="card-body pb-0 mb-0">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <div class="input-group datepicker">
-                                <label class="date-label">Inward Date</label>
-                                <input class="form-control" placeholder="09-09-2020" name="dp" ngbDatepicker
-                                    #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="inwardDate">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
-                                        type="button"><i class="far fa-calendar-alt"></i></button>
-                                </div>
-                            </div>
-                            <div *ngIf="addInwardForm.controls['inwardDate'].invalid && (addInwardForm.controls['inwardDate'].dirty || addInwardForm.controls['inwardDate'].touched)"
-                                class="error-msg">
-                                <div *ngIf="addInwardForm.controls['inwardDate'].errors.required">
-                                   Inward date is required.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mt-1">
-            <div class="card-header">
-                <h4>Inward Details</h4>
-            </div>
-            <div class="card-body pb-0 mb-0">
-                <div class="row">
-                    <div class="col-12 col-md-8 col-lg-8">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="companyName" formControlName="companyName">
-                                    <option value="" selected>Select</option>
-                                    <option>Alabama</option>
-                                    <option>California</option>
-                                    <option>Florida</option>
-                                    <option>Alaska</option>
-                                </select>
-                                <label for="companyName" class="select-label">Company Name</label>
-                            </span>
-                            <div *ngIf="addInwardForm.controls['companyName'].invalid && (addInwardForm.controls['companyName'].dirty || addInwardForm.controls['companyName'].touched)"
-                            class="error-msg">
-                            <div *ngIf="addInwardForm.controls['companyName'].errors.required">
-                                Company name is required.
-                            </div>
-                           </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4 pt-1">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-outline btn-outline-dark mt-2" (click)="addCompanyPopup(companyPopup)">Add <i class="ml-1 fas fa-plus"></i></a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input id="modelNumber" type="text" class="form-control" placeholder="Model Number" [(ngModel)]="modelNumber" [ngbTypeahead]="search" [ngModelOptions]="{standalone: true}"/> 
-                            <label for="modelNumber">Model Number </label>
-                            <!-- <div *ngIf="addMaterialForm.controls['modelNumber'].invalid && (addMaterialForm.controls['modelNumber'].dirty || addMaterialForm.controls['modelNumber'].touched)"
-                            class="error-msg">
-                            <div *ngIf="addMaterialForm.controls['modelNumber'].errors.required">
-                                Model Number is required.
-                            </div>
-                           </div> -->
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input id="materiaType" type="text" class="form-control" placeholder="Material Type" [(ngModel)]="materiaType" [ngbTypeahead]="search" [ngModelOptions]="{standalone: true}"/> 
-                            <label for="materiaType">Material Type</label>
-                            <!-- <div *ngIf="addMaterialForm.controls['materiaType'].invalid && (addMaterialForm.controls['materiaType'].dirty || addMaterialForm.controls['materiaType'].touched)"
-                            class="error-msg">
-                            <div *ngIf="addMaterialForm.controls['materiaType'].errors.required">
-                                Material type is required.
-                            </div>
-                           </div> -->
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input id="moreCompanyName" type="text" class="form-control" placeholder="Company Name" [(ngModel)]="moreCompanyName" [ngbTypeahead]="search" [ngModelOptions]="{standalone: true}"/> 
-                            <label for="moreCompanyName">Company Name </label>
-                            <!-- <div *ngIf="addMaterialForm.controls['moreCompanyName'].invalid && (addMaterialForm.controls['moreCompanyName'].dirty || addMaterialForm.controls['moreCompanyName'].touched)"
-                            class="error-msg">
-                            <div *ngIf="addMaterialForm.controls['moreCompanyName'].errors.required">
-                                Company name is required.
-                            </div>
-                           </div> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mt-1">
-            <div class="card-header">
-                <h4>Other Details</h4>
-            </div>
-            <div class="card-body pb-0 mb-0">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="barCode" placeholder="Bar Code" formContolName="barCode">
-                            <label for="barCode">Bar Code</label>
-                            <div *ngIf="addInwardForm.controls['barCode'].invalid && (addInwardForm.controls['barCode'].dirty || addInwardForm.controls['barCode'].touched)"
-                            class="error-msg">
-                            <div *ngIf="addInwardForm.controls['barCode'].errors.required">
-                                Bar code is required.
-                            </div>
-                           </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="serialNumber" placeholder="Serial Number">
-                            <label for="serialNumber">Serial Number</label>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select1">
-                                    <option value="" selected>Select</option>
-                                    <option>Alabama</option>
-                                    <option>California</option>
-                                    <option>Florida</option>
-                                    <option>Alaska</option>
-                                </select>
-                                <label class="select-label">Problem Desc</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="engineerName" placeholder="Engineer Name">
-                            <label for="engineerName">Engineer Name</label>
-                        </div>
-                       
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <div class="custom-control custom-checkbox mt-3">
-                                <input type="checkbox" class="custom-control-input" id="check4">
-                                <label class="custom-control-label" for="check4">Owner</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="mobileNumber" placeholder="Mobile Number">
-                            <label for="mobileNumber">Mobile Number</label>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="smsStatus">
-                                    <option value="" selected>Select</option>
-                                    <option>Sent</option>
-                                    <option>Not Sent</option>
-                                </select>
-                                <label for="smsStatus" class="select-label">SMS Status</label>
-                            </span>
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="receiverName" placeholder="Receiver Name" formControlName="receiverName">
-                            <label for="receiverName">Receiver Name</label>
-                            <div *ngIf="addInwardForm.controls['receiverName'].invalid && (addInwardForm.controls['receiverName'].dirty || addInwardForm.controls['receiverName'].touched)"
-                            class="error-msg">
-                            <div *ngIf="addInwardForm.controls['receiverName'].errors.required">
-                                Receiver name is required.
-                            </div>
-                           </div>
-                        </div>
-                      
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div>
-                            <label class="radio-btns-label d-block">Problem Detected</label>
-                            <div class="custom-control custom-radio d-inline-block mt-3">
-                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio2">Yes</label>
-                            </div>
-                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
-                                <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio3">No</label>
-                            </div>
-                            <div class="custom-control custom-checkbox d-inline-block mt-3 ml-5">
-                                <input type="checkbox" class="custom-control-input" id="check4">
-                                <label class="custom-control-label" for="check4">Special Job</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <div class="input-group datepicker">
-                                <label class="date-label">Delivery Date</label>
-                                <input class="form-control" placeholder="09-09-2020" name="dp" ngbDatepicker
-                                    #d2="ngbDatepicker" (click)="d2.toggle()" formControlName="deliveryDate">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
-                                        type="button"><i class="far fa-calendar-alt"></i></button>
-                                </div>
-                            </div>
-                            <div *ngIf="addInwardForm.controls['deliveryDate'].invalid && (addInwardForm.controls['deliveryDate'].dirty || addInwardForm.controls['deliveryDate'].touched)"
-                                class="error-msg">
-                                <div *ngIf="addInwardForm.controls['deliveryDate'].errors.required">
-                                   Delivery date is required.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mt-1">
-                <div class="card-header">
-                    <h4>Payment Details</h4>
-                </div>
-                <div class="card-body pb-0 mb-0">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="advAmount" placeholder="Advance Amount">
-                            <label for="advAmount">Advance Amount</label>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" type="text" id="estAmount" placeholder="Estimate Repearimg Amount">
-                            <label for="estAmount">Estimate Repearimg Amount</label>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="paymentStatus">
-                                    <option value="" selected>Select</option>
-                                    <option>Paid</option>
-                                    <option>Unpaid</option>
-                                </select>
-                                <label for="paymentStatus" class="select-label">Outward/Bill Status</label>
-                            </span>
-                           
-                        </div>
-                    </div>
-                </div>
-              
-                </div>
-        </div>
-       <div class="card mt-1">
-        <div class="card-header">
-            <h4>Job Details</h4>
-        </div>
-        <div class="card-body">
+  <div class="container form-container">
+      <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+
+      <h3 class="text-center mb-4">{{inward.InwardId>0?'Edit':'Add'}} Inward </h3>
+      <div class="card">
+          <div class="card-header">
+              <h4>Inward Date</h4>
+          </div>
+          <div class="card-body pb-0 mb-0">
+              <div class="row">
+                  <div class="col-12 col-md-6 col-lg-4">
+                      <div class="form-group">
+                          <div class="input-group datepicker">
+                              <label class="date-label">Inward Date</label>
+                              <input class="form-control"  placeholder="dd-mm-yyyy" [(ngModel)]="inward.InwardDate" name="dp"
+                              ngbDatepicker
+                                  #d1="ngbDatepicker" (click)="d1.toggle()"  formControlName="inwardDate">
+                              <div class="input-group-append">
+                                  <button  class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
+                                      type="button" ><i class="far fa-calendar-alt"></i></button>
+                              </div>
+                          </div>
+                          <div *ngIf="addInwardForm.controls['inwardDate'].invalid &&
+                          (addInwardForm.controls['inwardDate'].dirty || addInwardForm.controls['inwardDate'].touched)"
+                              class="error-msg">
+                              <div *ngIf="addInwardForm.controls['inwardDate'].errors.required">
+                                 Inward date is required.
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="card mt-1">
+          <div class="card-header">
+              <h4>Inward Details</h4>
+          </div>
+          <div class="card-body pb-0 mb-0">
+              <div class="row">
+                  <div class="col-12 col-md-8 col-lg-8">
+                      <div class="form-group">
+                          <span class="plain-select">
+                              <input id="customerName" type="text" class="form-control"
+                               formControlName="customerName"
+                               [(ngModel)]="inward.CustomerTypeAhead" [inputFormatter]="formatter"
+                               [resultFormatter]="formatter"
+                               [editable]='false' [ngbTypeahead]="search"/>
+
+
+                              <label for="CustomerName" class="select-label">Customer Name</label>
+                          </span>
+                          <div *ngIf="addInwardForm.controls['customerName'].invalid && (addInwardForm.controls['customerName'].dirty || addInwardForm.controls['customerName'].touched)"
+                          class="error-msg">
+                          <div *ngIf="addInwardForm.controls['customerName'].errors.required">
+                            Customer name is required.
+                          </div>
+                         </div>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-4 col-lg-4 pt-1">
+                      <a href="javascript:void(0)"  class="btn btn-sm btn-outline btn-outline-dark mt-2" (click)="addClientPopup(null)">Add Customer<i class="ml-1 fas fa-plus"></i></a>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-12 col-md-6 col-lg-4">
+                      <div class="form-group has-float-label">
+                         <input id="modelNumber" type="text" class="form-control"
+                         formControlName="modelNumber"
+                               [(ngModel)]="inward.ModelNoTypeAhead" [inputFormatter]="formatter"
+                               [resultFormatter]="formatter"
+                               [ngbTypeahead]="search"/>
+                          <label for="modelNumber">Model Number </label>
+                          <div *ngIf="addInwardForm.controls['modelNumber'].invalid &&
+                           (addInwardForm.controls['modelNumber'].dirty
+                          || addInwardForm.controls['modelNumber'].touched)"
+                          class="error-msg">
+                          <div *ngIf="addInwardForm.controls['modelNumber'].errors.required">
+                              Model Number is required.
+                          </div>
+                         </div>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                      <div class="form-group has-float-label">
+                          <input id="materialType" type="text" class="form-control" formControlName="materialType"
+                               [(ngModel)]="inward.MaterialTypeAhead" [inputFormatter]="formatter"
+                               [resultFormatter]="formatter"
+                               [ngbTypeahead]="search"/>
+                          <label for="materialType">Material Type</label>
+                          <div *ngIf="addInwardForm.controls['materialType'].invalid &&
+                          (addInwardForm.controls['materialType'].dirty ||
+                          addInwardForm.controls['materialType'].touched)"
+                          class="error-msg">
+                          <div *ngIf="addInwardForm.controls['materialType'].errors.required">
+                              Material type is required.
+                          </div>
+                         </div>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                      <div class="form-group has-float-label">
+                        <input id="companyName" type="text"  class="form-control"
+                        formControlName="companyName"
+                          [(ngModel)]="inward.CompanyNameTypeAhead" [inputFormatter]="formatter"
+                          [resultFormatter]="formatter"
+                          [ngbTypeahead]="search"/>
+                          <label for="companyName">Company Name </label>
+                          <div *ngIf="addInwardForm.controls['companyName'].invalid &&
+                          (addInwardForm.controls['companyName'].dirty ||
+                          addInwardForm.controls['companyName'].touched)"
+                          class="error-msg">
+                          <div *ngIf="addInwardForm.controls['companyName'].errors.required">
+                              Company name is required.
+                          </div>
+                         </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="card mt-1">
+          <div class="card-header">
+              <h4>Other Details</h4>
+          </div>
+          <div class="card-body pb-0 mb-0">
             <div class="row">
-                <div class="col-12 col-md-4 col-lg-4">
-                    <div>
-                        <label class="radio-btns-label d-block">Repaired</label>
-                        <div class="custom-control custom-radio d-inline-block mt-3">
-                            <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio4">Yes</label>
-                        </div>
-                        <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
-                            <input type="radio" id="customRadio5" name="customRadio" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio5">No</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 col-lg-4">
-                    <div class="form-group">
-                        <span class="plain-select">
-                            <select class="form-control" id="printStatus">
-                                <option value="" selected>Select</option>
-                                <option>Printed</option>
-                                <option>Not Printed</option>
-                            </select>
-                            <label for="printStatus" class="select-label">Print Status</label>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-md-4 col-lg-4">
-                    <div class="form-group">
-                        <span class="plain-select">
-                            <select class="form-control" id="repeatJob">
-                                <option value="" selected>Select</option>
-                                <option>Printed</option>
-                                <option>Not Printed</option>
-                            </select>
-                            <label for="repeatJob" class="select-label">Repeat Job</label>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-group has-float-label">
-                        <input class="form-control" type="text" id="clientDc" placeholder="Client DC">
-                        <label for="clientDc">Client DC</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-group has-float-label">
-                        <input class="form-control" type="text" id="accountBarcode" placeholder="Account Barcode">
-                        <label for="accountBarcode">Account Barcode</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-       </div>
-        <div class="card mt-1">
-            <div class="card-header">
-                <h5>Accessories Given</h5>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="d-flex flex-wrap align-items-end col-auto">
-                            <ng-container *ngIf="hideTag">
-                                <span class="badge badge-dark mr-1" *ngFor="let tag of tags let i = index">{{tag}}
-                                    <i class="far fa-times-circle" (click)="deleteTag(i)"></i>
-                                </span>
-                            </ng-container>
-                            <div class="d-flex align-items-end">
-                                <input class="form-control" #newTag
-                                    (keyup.enter)="addTags(newTag.value); newTag.value=''"
-                                    (blur)="addTags(newTag.value); newTag.value='' "  [(ngModel)]="addAccessories" [ngbTypeahead]="search" [ngModelOptions]="{standalone: true}">
-                               <a href="javascript:void(0)" class="btn btn-sm  btn-outline btn-outline-dark ml-2  add-accessories-btn cursor"  (click)="addTags(newTag.value)">Add <i class="fas fa-plus ml-1"></i></a> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mt-1 mb-2">
-            <div class="card-header">
-                <h5>Upload Photo</h5>
-            </div>
-            <div class="card-body">
-            <div class="row">
-                <div class="col-12 col-md-3 col-lg-4 profile-content">
-                    <div class="profile-photo mb-2">
-                        <img alt="image" src="./assets/imgs/upload-thumb.png">
-                        <div class="upload-btn-wrapper">
-                            <button class="btn"><i class="fas fa-cloud-upload-alt"></i></button>
-                            <input formcontrolname="imageLogo" name="imageLogo" type="file"
-                                class="ng-untouched ng-pristine ng-valid">
-                        </div>
-                    </div>
-                    <p class="img-upload-note">The image can be of png,<br> jpg, bmp, jpeg type and<br> up to 5mb.
-                    </p>
-                </div>
-            </div>
-            </div>
-        </div>
-        <footer>
-            <button class="btn btn-secondary">Cancel</button>
-            <button type="submit" class="btn btn-primary">
-                Save
-            </button>
-        </footer>
-    </div>
+              <div class="col-12 col-md-6 col-lg-4">
+                  <div class="form-group has-float-label">
+                      <input class="form-control" type="text" [(ngModel)]="inward.BarCode"
+                      id="barCode" placeholder="Bar Code" formControlName="barCode">
+                      <label for="barCode">Bar Code</label>
+                      <div *ngIf="addInwardForm.controls['barCode'].invalid &&
+                      (addInwardForm.controls['barCode'].dirty ||
+                      addInwardForm.controls['barCode'].touched)"
+                      class="error-msg">
+                      <div *ngIf="addInwardForm.controls['barCode'].errors.required">
+                          Bar code is required.
+                      </div>
+                     </div>
+                  </div>
+              </div>
+              <div class="col-12 col-md-4 col-lg-4">
+                  <div class="form-group has-float-label">
+                      <input class="form-control" type="text" id="serialNumber"
+                      [(ngModel)]="inward.SerialNo"  formControlName="serialNumber"
+                       placeholder="Serial Number">
+                      <label for="serialNumber">Serial Number</label>
+                      <div *ngIf="addInwardForm.controls['serialNumber'].invalid &&
+                      (addInwardForm.controls['serialNumber'].dirty
+                      || addInwardForm.controls['serialNumber'].touched)"
+                      class="error-msg">
+                      <div *ngIf="addInwardForm.controls['serialNumber'].errors.required">
+                          Serial Number is required.
+                      </div>
+                     </div>
+                  </div>
+              </div>
+
+              <div class="col-12 col-md-4 col-lg-4">
+                  <div class="form-group has-float-label">
+                      <input class="form-control" type="text" id="ProblemDescription"
+                      [(ngModel)]="inward.ProblemDescription"  formControlName="ProblemDescription"
+                       placeholder="Problem Description">
+                      <label for="ProblemDescription">Problem Description</label>
+                      <div *ngIf="addInwardForm.controls['ProblemDescription'].invalid &&
+                      (addInwardForm.controls['ProblemDescription'].dirty
+                      || addInwardForm.controls['ProblemDescription'].touched)"
+                      class="error-msg">
+                      <div *ngIf="addInwardForm.controls['ProblemDescription'].errors.required">
+                          Problem Description is required.
+                      </div>
+                     </div>
+                  </div>
+              </div>
+
+              <div class="col-12 col-md-4 col-lg-4">
+                  <div class="form-group has-float-label">
+                      <input class="form-control" type="text" id="EnggName"
+                      [(ngModel)]="inward.EnggName" placeholder="Engineer Name"
+                      formControlName="EnggName" >
+                      <label for="EnggName">Engineer Name</label>
+                      <div *ngIf="addInwardForm.controls['EnggName'].invalid &&
+                      (addInwardForm.controls['EnggName'].dirty
+                      || addInwardForm.controls['EnggName'].touched)"
+                      class="error-msg">
+                      <div *ngIf="addInwardForm.controls['EnggName'].errors.required">
+                          Engineer Name is required.
+                      </div>
+                     </div>
+                  </div>
+              </div>
+              <div class="col-12 col-md-4 col-lg-4">
+                  <div class="form-group">
+                      <div class="custom-control custom-checkbox mt-3">
+                          <input type="checkbox"  [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="inward.IsOwner"
+                           class="custom-control-input" id="IsOwner" >
+                          <label class="custom-control-label" for="IsOwner">Owner</label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+              <div class="row">
+                  <div class="col-12 col-md-4 col-lg-4">
+                      <div class="form-group has-float-label">
+                          <input class="form-control" type="text"  id="mobileNumber"
+                          [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="inward.MobileNumber" placeholder="Mobile Number">
+                          <label for="mobileNumber">Mobile Number</label>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-4 col-lg-4">
+                      <div class="form-group">
+                          <span class="plain-select">
+                              <select class="form-control"  [ngModelOptions]="{standalone: true}"
+                              [(ngModel)]="inward.SmsStatus"  id="smsStatus">
+                                  <option value="" selected>Select</option>
+                                  <option>Sent</option>
+                                  <option>Not Sent</option>
+                              </select>
+                              <label for="smsStatus" class="select-label">SMS Status</label>
+                          </span>
+
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-12 col-md-4 col-lg-4">
+                      <div class="form-group has-float-label">
+                          <input class="form-control" type="text"
+                          [(ngModel)]="inward.ReceiverName" id="receiverName" placeholder="Receiver Name" formControlName="receiverName">
+                          <label for="receiverName">Receiver Name</label>
+                          <div *ngIf="addInwardForm.controls['receiverName'].invalid && (addInwardForm.controls['receiverName'].dirty || addInwardForm.controls['receiverName'].touched)"
+                          class="error-msg">
+                          <div *ngIf="addInwardForm.controls['receiverName'].errors.required">
+                              Receiver name is required.
+                          </div>
+                         </div>
+                      </div>
+
+                  </div>
+                  <div class="col-12 col-md-4 col-lg-4">
+                      <div>
+                          <label class="radio-btns-label d-block">Problem Detected</label>
+                          <div class="custom-control custom-radio d-inline-block mt-3">
+                              <input type="radio" [ngModelOptions]="{standalone: true}"
+                              [(ngModel)]="inward.IsProblemDetected"  id="customRadio2"
+                              name="customRadio" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadio2">Yes</label>
+                          </div>
+                          <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                              <input type="radio" [ngModelOptions]="{standalone: true}"
+                              [(ngModel)]="inward.IsProblemDetected" id="customRadio3" name="customRadio" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadio3">No</label>
+                          </div>
+                          <div class="custom-control custom-checkbox d-inline-block mt-3 ml-5">
+                              <input type="checkbox" [ngModelOptions]="{standalone: true}"
+                              [(ngModel)]="inward.IsSpecialJob" class="custom-control-input" id="check4">
+                              <label class="custom-control-label" for="check4">Special Job</label>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-4 col-lg-4">
+                      <div class="form-group">
+                          <div class="input-group datepicker">
+                              <label class="date-label">Delivery Date</label>
+                              <input class="form-control" placeholder="09-09-2020" name="dp" ngbDatepicker
+                                  #d2="ngbDatepicker"
+                                  [(ngModel)]="inward.DeliveryDate" (click)="d2.toggle()" formControlName="deliveryDate">
+                              <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
+                                      type="button"><i class="far fa-calendar-alt"></i></button>
+                              </div>
+                          </div>
+                          <div *ngIf="addInwardForm.controls['deliveryDate'].invalid && (addInwardForm.controls['deliveryDate'].dirty || addInwardForm.controls['deliveryDate'].touched)"
+                              class="error-msg">
+                              <div *ngIf="addInwardForm.controls['deliveryDate'].errors.required">
+                                 Delivery date is required.
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="card mt-1">
+              <div class="card-header">
+                  <h4>Payment Details</h4>
+              </div>
+              <div class="card-body pb-0 mb-0">
+              <div class="row">
+                  <div class="col-12 col-md-6 col-lg-4">
+                      <div class="form-group has-float-label">
+                          <input class="form-control" type="text"  [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="inward.AdvanceAmount"  id="advAmount" placeholder="Advance Amount">
+                          <label for="advAmount">Advance Amount</label>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                      <div class="form-group has-float-label">
+                          <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="inward.EstmRepairingAmount"  id="estAmount" placeholder="Estimate Repearimg Amount">
+                          <label for="estAmount">Estimate Repearimg Amount</label>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-4 col-lg-4">
+                      <div class="form-group">
+                          <span class="plain-select">
+                              <select class="form-control" [ngModelOptions]="{standalone: true}"
+                              [(ngModel)]="inward.OutwardBillStatus"  id="paymentStatus">
+                                  <option value="" selected>Select</option>
+                                  <option>Paid</option>
+                                  <option>Unpaid</option>
+                              </select>
+                              <label for="paymentStatus" class="select-label">Outward/Bill Status</label>
+                          </span>
+
+                      </div>
+                  </div>
+              </div>
+
+              </div>
+      </div>
+     <div class="card mt-1">
+      <div class="card-header">
+          <h4>Job Details</h4>
+      </div>
+      <div class="card-body">
+          <div class="row">
+              <div class="col-12 col-md-4 col-lg-4">
+                  <div>
+                      <label class="radio-btns-label d-block">Repaired</label>
+                      <div class="custom-control custom-radio d-inline-block mt-3">
+                          <input type="radio" [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="inward.IsRepaired"  id="customRadio4" name="customRadio" class="custom-control-input">
+                          <label class="custom-control-label" for="customRadio4">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                          <input type="radio" [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="inward.IsRepaired"  id="customRadio5" name="customRadio" class="custom-control-input">
+                          <label class="custom-control-label" for="customRadio5">No</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-12 col-md-4 col-lg-4">
+                  <div class="form-group">
+                      <span class="plain-select">
+                          <select class="form-control" [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="inward.PrintStatus"  id="printStatus">
+                              <option value="" selected>Select</option>
+                              <option>Printed</option>
+                              <option>Not Printed</option>
+                          </select>
+                          <label for="printStatus" class="select-label">Print Status</label>
+                      </span>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-12 col-md-4 col-lg-4">
+                  <div class="form-group">
+                      <span class="plain-select">
+                          <select class="form-control" [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="inward.RepeatJob"  id="repeatJob">
+                              <option value="" selected>Select</option>
+                              <option>Printed</option>
+                              <option>Not Printed</option>
+                          </select>
+                          <label for="repeatJob" class="select-label">Repeat Job</label>
+                      </span>
+                  </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4">
+                  <div class="form-group has-float-label">
+                      <input class="form-control" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="inward.ClientDc" type="text" id="clientDc" placeholder="Client DC">
+                      <label for="clientDc">Client DC</label>
+                  </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4">
+                  <div class="form-group has-float-label">
+                      <input class="form-control" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="inward.AccBarCode" type="text" id="accountBarcode" placeholder="Account Barcode">
+                      <label for="accountBarcode">Account Barcode</label>
+                  </div>
+              </div>
+          </div>
+      </div>
+     </div>
+      <div class="card mt-1">
+          <div class="card-header">
+              <h5>Accessories Given</h5>
+          </div>
+          <div class="card-body">
+              <div class="form-group">
+                  <div class="row">
+                      <div class="d-flex flex-wrap align-items-end col-auto">
+                          <ng-container *ngIf="hideTag">
+                              <span class="badge badge-dark mr-1" *ngFor="let tag of tags let i = index">{{tag}}
+                                  <i class="far fa-times-circle" (click)="deleteTag(i)"></i>
+                              </span>
+                          </ng-container>
+                          <div class="d-flex align-items-end">
+                              <input class="form-control" #newTag
+                                  (keyup.enter)="addTags(newTag.value); newTag.value=''"
+                                  (blur)="addTags(newTag.value); newTag.value='' "  [(ngModel)]="addAccessories" [ngbTypeahead]="search" [ngModelOptions]="{standalone: true}">
+                             <a href="javascript:void(0)" class="btn btn-sm  btn-outline btn-outline-dark ml-2  add-accessories-btn cursor"  (click)="addTags(newTag.value)">Add <i class="fas fa-plus ml-1"></i></a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="card mt-1 mb-2">
+          <div class="card-header">
+              <h5>Upload Photo</h5>
+          </div>
+          <div class="card-body">
+          <div class="row">
+              <div class="col-12 col-md-3 col-lg-4 profile-content">
+                  <div class="profile-photo mb-2">
+                      <img alt="image" src="./assets/imgs/upload-thumb.png">
+                      <div class="upload-btn-wrapper">
+                          <button class="btn"><i class="fas fa-cloud-upload-alt"></i></button>
+                          <input formcontrolname="imageLogo" name="imageLogo" type="file"
+                              class="ng-untouched ng-pristine ng-valid">
+                      </div>
+                  </div>
+                  <p class="img-upload-note">The image can be of png,<br> jpg, bmp, jpeg type and<br> up to 5mb.
+                  </p>
+              </div>
+          </div>
+          </div>
+      </div>
+      <footer>
+          <button class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+              Save
+          </button>
+      </footer>
+  </div>
 </form>
 
-<!--Modal-window-company-->
-<ng-template #companyPopup let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title" ngbAutofocus> Add Company</h4>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="addCompanyForm" novalidate>
-       <div class="row">
-         <div class="col-12 col-md-6 col-lg-4">
-            <div class="form-group">
-                <span class="plain-select">
-                    <select class="form-control" id="select3">
-                        <option value="" selected>Select</option>
-                        <option>Mr</option>
-                        <option>Mrs</option>
-                        <option>Miss</option>
-                    </select>
-                    <label class="select-label">Title</label>
-                </span>
-            </div>
-        </div> 
-        <div class="col-12 col-md-6 col-lg-4">
-            <div class="form-group has-float-label">
-                <input class="form-control" id="personName" type="text" placeholder="Person Name"
-                    formControlName="personName" />
-                <label for="personName">Person Name</label>
-                <div *ngIf="addCompanyForm.controls['personName'].invalid && (addCompanyForm.controls['personName'].dirty || addCompanyForm.controls['personName'].touched)"
-                    class="error-msg">
-                    <div *ngIf="addCompanyForm.controls['personName'].errors.required">
-                        Person name is required.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-            <div class="form-group has-float-label">
-                <input class="form-control" id="companyName" type="text" placeholder="Company Name"
-                    formControlName="companyName" />
-                <label for="companyName">Company Name</label>
-                <div *ngIf="addCompanyForm.controls['companyName'].invalid && (addCompanyForm.controls['companyName'].dirty || addCompanyForm.controls['companyName'].touched)"
-                    class="error-msg">
-                    <div *ngIf="addCompanyForm.controls['companyName'].errors.required">
-                        Company name is required.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-            <div class="form-group has-float-label">
-                <input class="form-control" type="text" id="address" placeholder="Address">
-                <label for="address">Address </label>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-            <div class="form-group has-float-label">
-                <input class="form-control" id="ownerNumber" type="text" placeholder="Owner Number"
-                    formControlName="ownerNumber" />
-                <label for="ownerNumber">Owner Number</label>
-                <div *ngIf="addCompanyForm.controls['ownerNumber'].invalid && (addCompanyForm.controls['ownerNumber'].dirty || addCompanyForm.controls['ownerNumber'].touched)"
-                    class="error-msg">
-                    <div *ngIf="addCompanyForm.controls['ownerNumber'].errors.required">
-                    Owner Number is required.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-            <div class="form-group has-float-label">
-                <input class="form-control" type="text" id="Mobile" placeholder="Mobile">
-                <label for="Mobile">Mobile </label>
-            </div>
-        </div>
-       </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
-        <button class="btn btn-primary" (click)="modal.close('Save click')">Save</button>
-    </div>
-</ng-template>
-<!--End-Modal-window-company-->
 
 
 

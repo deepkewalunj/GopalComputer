@@ -24,3 +24,9 @@ export class SelectList{
   id:string;
 
 }
+
+export class TypeAheadSelect{
+  name:string;
+  id:number;
+
+}

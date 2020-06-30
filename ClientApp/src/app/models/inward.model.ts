@@ -1,3 +1,5 @@
+import { TypeAheadSelect } from './common.model';
+
 export class Inward {
   InwardId: number;
   InwardDate?: string
@@ -5,6 +7,10 @@ export class Inward {
   ModelNo: string
   MaterialType: string
   CompanyName: string
+  CustomerTypeAhead:TypeAheadSelect;
+  ModelNoTypeAhead:TypeAheadSelect;
+  MaterialTypeAhead:TypeAheadSelect;
+  CompanyNameTypeAhead:TypeAheadSelect;
   BarCode: string
   SerialNo: string
   ProblemDescription: string

@@ -10,6 +10,8 @@ import { InwardAccessoriesComponent } from './inward-accessories/inward-accessor
 import { InwardComponent } from './inward/inward.component';
 import { AddInwardComponent } from './add-inward/add-inward.component';
 import { AddUpdateModelNoMaterialTypeComponent } from './add-update-model-no-material-type/add-update-model-no-material-type.component';
+import { AddEditCustomerComponent } from '../master/customer/add-edit-customer/add-edit-customer.component';
+import { MasterModule } from '../master/master.module';
 
 
 @NgModule({
@@ -19,6 +21,7 @@ import { AddUpdateModelNoMaterialTypeComponent } from './add-update-model-no-mat
     InwardComponent,
     AddInwardComponent,
     AddUpdateModelNoMaterialTypeComponent
+
   ],
   imports: [
     CommonModule,
@@ -27,8 +30,9 @@ import { AddUpdateModelNoMaterialTypeComponent } from './add-update-model-no-mat
     AngularMultiSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    DataTablesModule
-    
+    DataTablesModule,
+    MasterModule
+
   ]
 })
 export class InwardMaterialModule { }
