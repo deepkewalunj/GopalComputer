@@ -12,6 +12,7 @@ import { AddInwardComponent } from './add-inward/add-inward.component';
 import { AddUpdateModelNoMaterialTypeComponent } from './add-update-model-no-material-type/add-update-model-no-material-type.component';
 import { AddEditCustomerComponent } from '../master/customer/add-edit-customer/add-edit-customer.component';
 import { MasterModule } from '../master/master.module';
+import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accessory.component';
 
 
 @NgModule({
@@ -20,8 +21,8 @@ import { MasterModule } from '../master/master.module';
     InwardAccessoriesComponent,
     InwardComponent,
     AddInwardComponent,
-    AddUpdateModelNoMaterialTypeComponent
-
+    AddUpdateModelNoMaterialTypeComponent,
+    AddEditAccessoryComponent
   ],
   imports: [
     CommonModule,
