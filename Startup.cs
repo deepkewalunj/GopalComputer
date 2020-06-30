@@ -1,6 +1,7 @@
 using Gopal.EntityFrameworkCore;
 using Gopal.Models.Common;
 using Gopal.Services.Accessory;
+using Gopal.Services.Common;
 using Gopal.Services.Customer;
 using Gopal.Services.MaterialType;
 using Gopal.Services.User;
@@ -59,7 +60,8 @@ namespace Gopal
             services.AddTransient<IMaterialTypeServices, MaterialTypeService>();
             services.AddTransient<IInwardServices, InwardService>();
             services.AddTransient<IAccessoryServices, AccessoryService>();
-
+            services.AddTransient<ITypeAheadService, TypeAheadService>();
+            
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

@@ -13,5 +13,6 @@ namespace Gopal.Services.Customer
         DatatableResponseModel GetInwardList(DatatableRequestModel getInwardModel);
         InwardModel AddEditInward(InwardModel inwardModel);
         int DeleteInward(int inwardId);
+        
     }
 }

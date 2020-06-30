@@ -1,5 +1,6 @@
 import { TypeAheadSelect } from './common.model';
 
+import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/typeahead.model';
 export class Inward {
   InwardId: number;
   InwardDate?: string
@@ -7,10 +8,10 @@ export class Inward {
   ModelNo: string
   MaterialType: string
   CompanyName: string
-  CustomerTypeAhead:TypeAheadSelect;
-  ModelNoTypeAhead:TypeAheadSelect;
-  MaterialTypeAhead:TypeAheadSelect;
-  CompanyNameTypeAhead:TypeAheadSelect;
+  CustomerTypeAhead:TypeAheadResponseModel;
+  ModelNoTypeAhead:TypeAheadResponseModel;
+  MaterialTypeAhead:TypeAheadResponseModel;
+  CompanyNameTypeAhead:TypeAheadResponseModel;
   BarCode: string
   SerialNo: string
   ProblemDescription: string

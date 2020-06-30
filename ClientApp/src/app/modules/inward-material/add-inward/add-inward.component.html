@@ -46,10 +46,12 @@
                                formControlName="customerName"
                                [(ngModel)]="inward.CustomerTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
-                               [editable]='false' [ngbTypeahead]="search"/>
+                               [editable]='false' [ngbTypeahead]="searchCustomer"/>
 
+                               <small *ngIf="searching" class="form-text text-muted">searching...</small>
+                               <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
 
-                              <label for="CustomerName" class="select-label">Customer Name</label>
+                               <label for="CustomerName" class="select-label">Customer Name</label>
                           </span>
                           <div *ngIf="addInwardForm.controls['customerName'].invalid && (addInwardForm.controls['customerName'].dirty || addInwardForm.controls['customerName'].touched)"
                           class="error-msg">
@@ -70,7 +72,11 @@
                          formControlName="modelNumber"
                                [(ngModel)]="inward.ModelNoTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
-                               [ngbTypeahead]="search"/>
+                               [ngbTypeahead]="searchModel"
+                               (selectItem)="materialTypeAheadSelected($event)"/>
+                               <small *ngIf="searching" class="form-text text-muted">searching...</small>
+                               <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+
                           <label for="modelNumber">Model Number </label>
                           <div *ngIf="addInwardForm.controls['modelNumber'].invalid &&
                            (addInwardForm.controls['modelNumber'].dirty
@@ -87,7 +93,11 @@
                           <input id="materialType" type="text" class="form-control" formControlName="materialType"
                                [(ngModel)]="inward.MaterialTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
-                               [ngbTypeahead]="search"/>
+                               [ngbTypeahead]="searchMaterialType"
+                               (selectItem)="materialTypeAheadSelected($event)"/>
+                               <small *ngIf="searching" class="form-text text-muted">searching...</small>
+                               <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+
                           <label for="materialType">Material Type</label>
                           <div *ngIf="addInwardForm.controls['materialType'].invalid &&
                           (addInwardForm.controls['materialType'].dirty ||
@@ -105,7 +115,11 @@
                         formControlName="companyName"
                           [(ngModel)]="inward.CompanyNameTypeAhead" [inputFormatter]="formatter"
                           [resultFormatter]="formatter"
-                          [ngbTypeahead]="search"/>
+                          [ngbTypeahead]="searchCompanyName"
+                          (selectItem)="materialTypeAheadSelected($event)"/>
+                          <small *ngIf="searching" class="form-text text-muted">searching...</small>
+                          <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+
                           <label for="companyName">Company Name </label>
                           <div *ngIf="addInwardForm.controls['companyName'].invalid &&
                           (addInwardForm.controls['companyName'].dirty ||
@@ -405,7 +419,7 @@
                           <div class="d-flex align-items-end">
                               <input class="form-control" #newTag
                                   (keyup.enter)="addTags(newTag.value); newTag.value=''"
-                                  (blur)="addTags(newTag.value); newTag.value='' "  [(ngModel)]="addAccessories" [ngbTypeahead]="search" [ngModelOptions]="{standalone: true}">
+                                  (blur)="addTags(newTag.value); newTag.value='' "  [(ngModel)]="addAccessories" [ngbTypeahead]="searchCustomer" [ngModelOptions]="{standalone: true}">
                              <a href="javascript:void(0)" class="btn btn-sm  btn-outline btn-outline-dark ml-2  add-accessories-btn cursor"  (click)="addTags(newTag.value)">Add <i class="fas fa-plus ml-1"></i></a>
                           </div>
                       </div>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Services.Customer;
 using Microsoft.AspNetCore.Http;
@@ -44,5 +45,7 @@ namespace Gopal.Controllers
         {
             return Ok(_inwardServices.DeleteInward(inwardId));
         }
+
+        
     }
 }
