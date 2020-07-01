@@ -3,7 +3,8 @@ import { TypeAheadSelect } from './common.model';
 import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/typeahead.model';
 export class Inward {
   InwardId: number;
-  InwardDate?: string
+  InwardDate: string
+  NgbInwardDate:any
   ClientRefId?: number
   ModelNo: string
   MaterialType: string
@@ -18,19 +19,21 @@ export class Inward {
   EnggName: string
   IsOwner: boolean
   MobileNumber: string
-  SmsStatus: boolean
+  SmsStatus: string
   ReceiverName: string
-  IsProblemDetected: boolean
+  IsProblemDetected: string;
   IsSpecialJob: boolean
-  DeliveryDate?: string
+  DeliveryDate: string
+  NgbDeliveryDate : any;
   AdvanceAmount?: number
-  OutwardBillStatus?: number
+  OutwardBillStatus: string;
   EstmRepairingAmount?: number
-  IsRepaired: boolean
-  PrintStatus: boolean
-  RepeatJob: boolean
+  IsRepaired: string
+  PrintStatus: string;
+  RepeatJob: string;
   RepeatJobDesc: string
   ClientDc: string
   AccBarCode: string
   Accessories: string
+  lstAccessories:TypeAheadResponseModel[]
 }

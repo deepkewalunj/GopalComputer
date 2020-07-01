@@ -18,6 +18,36 @@ static getRoles():Array<SelectList>{
 return roles;
 }
 
+static getInwardOutwardBillStatuses():Array<SelectList>{
+  let statuses:Array<SelectList> =[{id:'1',name:'Paid'},
+  {id:'2',name:'Unpaid'},
+ ];
+return statuses;
+}
+
+
+static getInwardOutwardPrintStatuses():Array<SelectList>{
+  let statuses:Array<SelectList> =[{id:'1',name:'Printed'},
+  {id:'2',name:'Not Printed'},
+ ];
+return statuses;
+}
+
+
+static getInwardRepeatJobs():Array<SelectList>{
+  let statuses:Array<SelectList> =[{id:'1',name:'Yes'},
+  {id:'2',name:'No'},
+ ];
+return statuses;
+}
+
+static getInwardSmsStatuses():Array<SelectList>{
+  let statuses:Array<SelectList> =[{id:'1',name:'Yes'},
+  {id:'2',name:'No'},
+ ];
+return statuses;
+}
+
 }
 export class SelectList{
   name:string;

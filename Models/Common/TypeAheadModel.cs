@@ -21,6 +21,7 @@ namespace Gopal.Models.Common
     public enum TYPEAHEAD_LIST{
         TYPEAHEAD_CUSTOMER=1,
         TYPEAHEAD_MATERIAL=2,
+        TYPEAHEAD_INVENTORY=3
 
 
     }

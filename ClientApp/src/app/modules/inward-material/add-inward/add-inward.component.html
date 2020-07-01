@@ -13,7 +13,7 @@
                       <div class="form-group">
                           <div class="input-group datepicker">
                               <label class="date-label">Inward Date</label>
-                              <input class="form-control"  placeholder="dd-mm-yyyy" [(ngModel)]="inward.InwardDate" name="dp"
+                              <input class="form-control"  placeholder="dd-mm-yyyy" [(ngModel)]="inward.NgbInwardDate" name="dp"
                               ngbDatepicker
                                   #d1="ngbDatepicker" (click)="d1.toggle()"  formControlName="inwardDate">
                               <div class="input-group-append">
@@ -231,8 +231,8 @@
                               <select class="form-control"  [ngModelOptions]="{standalone: true}"
                               [(ngModel)]="inward.SmsStatus"  id="smsStatus">
                                   <option value="" selected>Select</option>
-                                  <option>Sent</option>
-                                  <option>Not Sent</option>
+                                  <option *ngFor="let c of smsStatuses" [ngValue]="c.id">{{c.name}}</option>
+
                               </select>
                               <label for="smsStatus" class="select-label">SMS Status</label>
                           </span>
@@ -259,14 +259,16 @@
                       <div>
                           <label class="radio-btns-label d-block">Problem Detected</label>
                           <div class="custom-control custom-radio d-inline-block mt-3">
-                              <input type="radio" [ngModelOptions]="{standalone: true}"
-                              [(ngModel)]="inward.IsProblemDetected"  id="customRadio2"
-                              name="customRadio" class="custom-control-input">
+                              <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                              [(ngModel)]="inward.IsProblemDetected"
+                               id="customRadio2"
+                              name="customRadioIsProblemDetected" class="custom-control-input">
                               <label class="custom-control-label" for="customRadio2">Yes</label>
                           </div>
                           <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
-                              <input type="radio" [ngModelOptions]="{standalone: true}"
-                              [(ngModel)]="inward.IsProblemDetected" id="customRadio3" name="customRadio" class="custom-control-input">
+                              <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                              [(ngModel)]="inward.IsProblemDetected"
+                              id="customRadio3" name="customRadioIsProblemDetected" class="custom-control-input">
                               <label class="custom-control-label" for="customRadio3">No</label>
                           </div>
                           <div class="custom-control custom-checkbox d-inline-block mt-3 ml-5">
@@ -282,7 +284,7 @@
                               <label class="date-label">Delivery Date</label>
                               <input class="form-control" placeholder="09-09-2020" name="dp" ngbDatepicker
                                   #d2="ngbDatepicker"
-                                  [(ngModel)]="inward.DeliveryDate" (click)="d2.toggle()" formControlName="deliveryDate">
+                                  [(ngModel)]="inward.NgbDeliveryDate" (click)="d2.toggle()" formControlName="deliveryDate">
                               <div class="input-group-append">
                                   <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
                                       type="button"><i class="far fa-calendar-alt"></i></button>
@@ -325,8 +327,7 @@
                               <select class="form-control" [ngModelOptions]="{standalone: true}"
                               [(ngModel)]="inward.OutwardBillStatus"  id="paymentStatus">
                                   <option value="" selected>Select</option>
-                                  <option>Paid</option>
-                                  <option>Unpaid</option>
+                                  <option *ngFor="let c of billStatuses" [ngValue]="c.id">{{c.name}}</option>
                               </select>
                               <label for="paymentStatus" class="select-label">Outward/Bill Status</label>
                           </span>
@@ -347,13 +348,13 @@
                   <div>
                       <label class="radio-btns-label d-block">Repaired</label>
                       <div class="custom-control custom-radio d-inline-block mt-3">
-                          <input type="radio" [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="inward.IsRepaired"  id="customRadio4" name="customRadio" class="custom-control-input">
+                          <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="inward.IsRepaired"  id="customRadio4" name="customRadioIsRepaired" class="custom-control-input">
                           <label class="custom-control-label" for="customRadio4">Yes</label>
                       </div>
                       <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
-                          <input type="radio" [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="inward.IsRepaired"  id="customRadio5" name="customRadio" class="custom-control-input">
+                          <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="inward.IsRepaired"  id="customRadio5" name="customRadioIsRepaired" class="custom-control-input">
                           <label class="custom-control-label" for="customRadio5">No</label>
                       </div>
                   </div>
@@ -364,8 +365,8 @@
                           <select class="form-control" [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.PrintStatus"  id="printStatus">
                               <option value="" selected>Select</option>
-                              <option>Printed</option>
-                              <option>Not Printed</option>
+                              <option *ngFor="let c of printStatuses" [ngValue]="c.id">{{c.name}}</option>
+
                           </select>
                           <label for="printStatus" class="select-label">Print Status</label>
                       </span>
@@ -379,8 +380,8 @@
                           <select class="form-control" [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.RepeatJob"  id="repeatJob">
                               <option value="" selected>Select</option>
-                              <option>Printed</option>
-                              <option>Not Printed</option>
+                              <option *ngFor="let c of repeatJobs" [ngValue]="c.id">{{c.name}}</option>
+
                           </select>
                           <label for="repeatJob" class="select-label">Repeat Job</label>
                       </span>
@@ -412,15 +413,17 @@
                   <div class="row">
                       <div class="d-flex flex-wrap align-items-end col-auto">
                           <ng-container *ngIf="hideTag">
-                              <span class="badge badge-dark mr-1" *ngFor="let tag of tags let i = index">{{tag}}
-                                  <i class="far fa-times-circle" (click)="deleteTag(i)"></i>
+                              <span class="badge badge-dark mr-1" *ngFor="let tag of inward.lstAccessories">{{tag.searchValue}}
+                                  <i class="far fa-times-circle" (click)="deleteTag(tag)"></i>
                               </span>
                           </ng-container>
                           <div class="d-flex align-items-end">
-                              <input class="form-control" #newTag
-                                  (keyup.enter)="addTags(newTag.value); newTag.value=''"
-                                  (blur)="addTags(newTag.value); newTag.value='' "  [(ngModel)]="addAccessories" [ngbTypeahead]="searchCustomer" [ngModelOptions]="{standalone: true}">
-                             <a href="javascript:void(0)" class="btn btn-sm  btn-outline btn-outline-dark ml-2  add-accessories-btn cursor"  (click)="addTags(newTag.value)">Add <i class="fas fa-plus ml-1"></i></a>
+                              <input class="form-control"
+                                 [resultFormatter]="formatter" [inputFormatter]="formatter"
+                                  [(ngModel)]="inward.Accessories" [ngbTypeahead]="searchInventory"
+                                  [ngModelOptions]="{standalone: true}" #inputAccessories
+                                  (selectItem)="selectedInventory($event)" autofocus placeholder="Select Inventory">
+
                           </div>
                       </div>
                   </div>
@@ -450,7 +453,7 @@
       </div>
       <footer>
           <button class="btn btn-secondary">Cancel</button>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" (click)="addInwardForm.valid && SaveInward()" class="btn btn-primary">
               Save
           </button>
       </footer>

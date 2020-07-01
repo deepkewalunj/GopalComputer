@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Observable, Subject,of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, tap, switchMap} from 'rxjs/operators';
 
 import { Inward } from 'src/app/models/inward.model';
-import { TypeAheadSelect } from 'src/app/models/common.model';
+import { TypeAheadSelect, CommonModel } from 'src/app/models/common.model';
 import { AddEditCustomerComponent } from '../../master/customer/add-edit-customer/add-edit-customer.component';
 import { Customer } from 'src/app/models/customer.model';
 import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/typeahead.model';
@@ -20,10 +20,12 @@ import { TypeAheadService } from 'src/app/services/type-ahead.service';
 })
 export class AddInwardComponent implements OnInit {
 
+
+  @ViewChild('inputAccessories',{static: false}) inputAccessories;
+
   public modelNumber: any;
   public moreCompanyName: any;
   public materiaType: any;
-  public addAccessories: any;
 
   searching = false;
   searchFailed = false;
@@ -57,6 +59,13 @@ export class AddInwardComponent implements OnInit {
   addMaterialForm: FormGroup;
 
   inward:Inward;
+
+
+
+billStatuses=CommonModel.getInwardOutwardBillStatuses();
+printStatuses=CommonModel.getInwardOutwardPrintStatuses();
+repeatJobs=CommonModel.getInwardRepeatJobs();
+smsStatuses=CommonModel.getInwardSmsStatuses();
 
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private inwardService:InwardService,private typeAheadService:TypeAheadService) {
@@ -129,8 +138,16 @@ export class AddInwardComponent implements OnInit {
   selectedItems = [];
   dropdownSettings = {};
 
+
   ngOnInit(){
       this.inward=new Inward();
+      this.inward.lstAccessories=[];
+      this.inward.OutwardBillStatus='';
+      this.inward.PrintStatus='';
+      this.inward.RepeatJob='';
+      this.inward.SmsStatus='';
+      this.inward.IsProblemDetected='2';
+      this.inward.IsRepaired='2';
       setTimeout(() => this.staticAlertClosed = true, 20000);
 
     this._success.subscribe((message) => this.successMessage = message);
@@ -208,7 +225,22 @@ export class AddInwardComponent implements OnInit {
       ),
       tap(() => this.searching = false)
     )
-
+    searchInventory = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap(term =>term.length < 2 ? []:
+        this.typeAheadService.GetTypeAheadList(1,term,3)
+        .pipe(
+          tap(() => this.searchFailed = false),
+          catchError(() => {
+            this.searchFailed = true;
+            return of([]);
+          }))
+      ),
+      tap(() => this.searching = false)
+    )
 materialTypeAheadSelected(selectedElement){
   selectedElement.preventDefault();
   let selectedElementArray=selectedElement.item.splitValue.split('|');
@@ -225,17 +257,30 @@ materialTypeAheadSelected(selectedElement){
   this.inward.CompanyNameTypeAhead={searchId: selectedElement.item.searchId,
     searchValue:selectedElementArray[2],splitValue:selectedElement.item.splitValue};
 }
-  // add-tags
 
-  addTags(newTag: string) {
-    if (newTag) {
-      this.tags.push(newTag);
-    }
+selectedInventory(inventory){
+  inventory.preventDefault();
+  this.inward.lstAccessories.push(inventory.item);
+  this.inputAccessories.nativeElement.value = '';
+}
+
+
+
+deleteTag(item) {
+    this.inward.lstAccessories.splice(this.inward.lstAccessories.indexOf(item), 1);
+    this.inputAccessories.nativeElement.focus();
   }
-// delets-tags
-  deleteTag(index) {
-    this.tags.splice(index, 1);
+
+  SaveInward(){
+    this.inwardService.addEditInward(this.inward).subscribe(data=>{
+          this._success.next("Inward Saved Successfully.")
+
+    },error=>{
+
+
+    })
   }
+
 
 
 }
