@@ -1,10 +1,11 @@
 import { TypeAheadSelect } from './common.model';
 
 import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/typeahead.model';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 export class Inward {
   InwardId: number;
   InwardDate: string
-  NgbInwardDate:any
+  NgbInwardDate:NgbDate
   ClientRefId?: number
   ModelNo: string
   MaterialType: string
@@ -24,7 +25,7 @@ export class Inward {
   IsProblemDetected: string;
   IsSpecialJob: boolean
   DeliveryDate: string
-  NgbDeliveryDate : any;
+  NgbDeliveryDate : NgbDate;
   AdvanceAmount?: number
   OutwardBillStatus: string;
   EstmRepairingAmount?: number

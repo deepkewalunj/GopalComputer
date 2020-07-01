@@ -33,10 +33,17 @@ namespace Gopal.Controllers
 
         [HttpPost]
         [Route("AddEditInWard")]
-        public ActionResult AddEditCustomer(InwardModel inward)
+        public ActionResult AddEditCustomer(InwardTypeScriptModel inward)
         {
 
             return Ok(_inwardServices.AddEditInward(inward));
+        }
+
+        [HttpGet]
+        [Route("GetInwardById")]
+        public ActionResult DeleteInWard(int inwardId)
+        {
+            return Ok(_inwardServices.GetInwardById(inwardId));
         }
 
         [HttpGet]

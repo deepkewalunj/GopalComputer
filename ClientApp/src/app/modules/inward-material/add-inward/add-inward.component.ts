@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import {Observable, Subject,of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, tap, switchMap} from 'rxjs/operators';
 
@@ -148,6 +148,11 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
       this.inward.SmsStatus='';
       this.inward.IsProblemDetected='2';
       this.inward.IsRepaired='2';
+      let today=new Date();
+      let fourAheadToday=this.addDays( new Date(),4);
+      debugger;
+      this.inward.NgbInwardDate=new NgbDate(today.getFullYear(),today.getMonth(),today.getDate());
+      this.inward.NgbDeliveryDate=new NgbDate(fourAheadToday.getFullYear(),fourAheadToday.getMonth(),fourAheadToday.getDate());
       setTimeout(() => this.staticAlertClosed = true, 20000);
 
     this._success.subscribe((message) => this.successMessage = message);
@@ -155,6 +160,11 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
       debounceTime(5000)
     ).subscribe(() => this.successMessage = null);
   }
+
+  addDays(date: Date, days: number): Date {
+    date.setDate(date.getDate() + days);
+    return date;
+}
 
 
 
