@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InwardMasterComponent } from './inward-master.component';
+import { AddEditAccessoryComponent } from './add-edit-accessory.component';
 
-describe('InwardMasterComponent', () => {
-  let component: InwardMasterComponent;
-  let fixture: ComponentFixture<InwardMasterComponent>;
+describe('AddEditAccessoryComponent', () => {
+  let component: AddEditAccessoryComponent;
+  let fixture: ComponentFixture<AddEditAccessoryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InwardMasterComponent ]
+      declarations: [ AddEditAccessoryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InwardMasterComponent);
+    fixture = TestBed.createComponent(AddEditAccessoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

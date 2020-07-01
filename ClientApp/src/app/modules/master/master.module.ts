@@ -20,6 +20,6 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
     FormsModule,
     ReactiveFormsModule
 
-  ]
+  ],exports:[AddEditCustomerComponent]
 })
 export class MasterModule { }

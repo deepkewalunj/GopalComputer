@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialTypeComponent } from './material-type/material-type.component';
-import { MaterialCompanyComponent } from './material-company/material-company.component';
-import { InwardMasterComponent } from './inward-master/inward-master.component';
 import { InwardAccessoriesComponent } from './inward-accessories/inward-accessories.component';
 import { InwardComponent } from './inward/inward.component';
 import { AddInwardComponent } from './add-inward/add-inward.component';
+import { AddUpdateModelNoMaterialTypeComponent } from './add-update-model-no-material-type/add-update-model-no-material-type.component';
+import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accessory.component';
 
 
 const routes: Routes = [
@@ -17,18 +17,20 @@ const routes: Routes = [
   path: 'add-inward', component: AddInwardComponent
 },
   {
-    path: 'inward-master', component: InwardMasterComponent
-  },
-  {
-    path: 'material-company', component: MaterialCompanyComponent
-  },
-  {
     path: 'material-type', component: MaterialTypeComponent
   },
   {
     path: 'inward-accessories', component: InwardAccessoriesComponent
   },
-
+  {
+    path: 'inward-accessories', component: InwardAccessoriesComponent
+  },
+  {
+    path: 'add-material-type', component: AddUpdateModelNoMaterialTypeComponent
+  },
+  {
+    path: 'add-accessory', component: AddEditAccessoryComponent
+  },
   {
     path: '',
     redirectTo: '/inward',

@@ -1,17 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {Observable, Subject,of} from 'rxjs';
+import {catchError, debounceTime, distinctUntilChanged, map, tap, switchMap} from 'rxjs/operators';
 
-const models = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
-  'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
-  'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-  'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
-  'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-  'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
-  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
-  'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+import { Inward } from 'src/app/models/inward.model';
+import { TypeAheadSelect } from 'src/app/models/common.model';
+import { AddEditCustomerComponent } from '../../master/customer/add-edit-customer/add-edit-customer.component';
+import { Customer } from 'src/app/models/customer.model';
+import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/typeahead.model';
+import { InwardService } from 'src/app/services/inward.service';
+import { TypeAheadService } from 'src/app/services/type-ahead.service';
+
 
 @Component({
   selector: 'app-add-inward',
@@ -24,7 +24,15 @@ export class AddInwardComponent implements OnInit {
   public moreCompanyName: any;
   public materiaType: any;
   public addAccessories: any;
-  
+
+  searching = false;
+  searchFailed = false;
+
+  private _success = new Subject<string>();
+  staticAlertClosed = false;
+  successMessage: string;
+
+  formatter = (typeAhead: TypeAheadResponseModel) => typeAhead.searchValue;
 
   hideTag = true;
   tags = [];
@@ -48,46 +56,66 @@ export class AddInwardComponent implements OnInit {
 //add material form
   addMaterialForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private modalService: NgbModal) {
+  inward:Inward;
+
+  constructor(private fb: FormBuilder, private modalService: NgbModal,
+    private inwardService:InwardService,private typeAheadService:TypeAheadService) {
    this.createForm();
   }
 
-  createForm() { 
+  createForm() {
     this.addInwardForm = this.fb.group({
       inwardDate:   ['', Validators.required],
-      companyName:  ['', Validators.required],
-      materialName:   ['', Validators.required],
-      barCode:  ['', Validators.required],
-      receiverName: ['', Validators.required],
-      deliveryDate:          ['', Validators.required],
-    });
-
-    //add company form form-builder
-    this.addCompanyForm = this.fb.group({
-      personName:      ['', Validators.required],
-      companyName:      ['', Validators.required],
-      ownerNumber:['', Validators.required],
-    });
-
-    //add materil form form-builder
-    this.addMaterialForm = this.fb.group({
-      moreCompanyName:      ['', Validators.required],
-      materiaType:      ['', Validators.required],
+      customerName:  ['', Validators.required],
       modelNumber:['', Validators.required],
-    })
-   
+      materialType:['',Validators.required],
+      companyName:['',Validators.required],
+      barCode:  ['', Validators.required],
+      serialNumber:['',Validators.required],
+      ProblemDescription:['',Validators.required],
+      EnggName:['',Validators.required],
+      receiverName: ['', Validators.required],
+      deliveryDate: ['', Validators.required],
+
+    });
+
+
+
+
+
   }
 
- 
+
 
   /*on click modal will be open*/
   open(content) {
     this.modalService.open(content);
   }
 
-  addCompanyPopup(content) {
-    this.modalService.open(content, { size: 'lg' });
+
+
+  addClientPopup(currentCustomer:Customer) {
+    let localCustomer=currentCustomer;
+    if(localCustomer==null)
+    {
+      localCustomer=new Customer();
+      localCustomer.clientTitleId='';
+
+    }
+    const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg' });
+    modalRef.componentInstance.customer=localCustomer;
+    modalRef.componentInstance.modelRef=modalRef;
+    modalRef.result.then((result) => {
+      if(result==true)
+      {
+        this._success.next("Customer Added Successfully.");
+      }
+
+    }, (reason) => {
+
+    });
   }
+
 
   addMaterialPopup(content) {
     this.modalService.open(content, { size: 'lg' });
@@ -96,23 +124,107 @@ export class AddInwardComponent implements OnInit {
 
 
   // multiselect dropdown code here
-  
+
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
 
   ngOnInit(){
-                 
+      this.inward=new Inward();
+      setTimeout(() => this.staticAlertClosed = true, 20000);
+
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.successMessage = null);
   }
 
-  search = (text$: Observable<string>) =>
+
+
+  searchCustomer = (text$: Observable<string>) =>
     text$.pipe(
-      debounceTime(200),
+      debounceTime(300),
       distinctUntilChanged(),
-      map(term => term.length < 2 ? []
-        : models.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+      tap(() => this.searching = true),
+      switchMap(term =>term.length < 2 ? []:
+        this.typeAheadService.GetTypeAheadList(1,term,1)
+        .pipe(
+          tap(() => this.searchFailed = false),
+          catchError(() => {
+            this.searchFailed = true;
+            return of([]);
+          }))
+      ),
+      tap(() => this.searching = false)
     )
 
+    searchModel = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap(term =>term.length < 2 ? []:
+        this.typeAheadService.GetTypeAheadList(1,term,2)
+        .pipe(
+          tap(() => this.searchFailed = false),
+          catchError(() => {
+            this.searchFailed = true;
+            return of([]);
+          }))
+      ),
+      tap(() => this.searching = false)
+    )
+
+    searchMaterialType = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap(term =>term.length < 2 ? []:
+        this.typeAheadService.GetTypeAheadList(2,term,2)
+        .pipe(
+          tap(() => this.searchFailed = false),
+          catchError(() => {
+            this.searchFailed = true;
+            return of([]);
+          }))
+      ),
+      tap(() => this.searching = false)
+    )
+
+    searchCompanyName = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap(term =>term.length < 2 ? []:
+        this.typeAheadService.GetTypeAheadList(3,term,2)
+        .pipe(
+          tap(() => this.searchFailed = false),
+          catchError(() => {
+            this.searchFailed = true;
+            return of([]);
+          }))
+      ),
+      tap(() => this.searching = false)
+    )
+
+materialTypeAheadSelected(selectedElement){
+  selectedElement.preventDefault();
+  let selectedElementArray=selectedElement.item.splitValue.split('|');
+  this.inward.ModelNoTypeAhead=null;
+  this.inward.MaterialTypeAhead=null;
+  this.inward.CompanyNameTypeAhead=null;
+
+  this.inward.ModelNoTypeAhead={searchId: selectedElement.item.searchId,
+    searchValue:selectedElementArray[0],splitValue:selectedElement.item.splitValue};
+
+  this.inward.MaterialTypeAhead={searchId: selectedElement.item.searchId,
+    searchValue:selectedElementArray[1],splitValue:selectedElement.item.splitValue};
+
+  this.inward.CompanyNameTypeAhead={searchId: selectedElement.item.searchId,
+    searchValue:selectedElementArray[2],splitValue:selectedElement.item.splitValue};
+}
   // add-tags
 
   addTags(newTag: string) {

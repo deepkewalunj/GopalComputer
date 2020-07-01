@@ -1,1 +1,73 @@
-<p>inward-accessories works!</p>
+<div class="container-fluid">
+    <!--success message-->
+    <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+    <!--success message-->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4 class="float-left">Accessory</h4>
+  
+        <button class="btn  btn-primary float-right" (click)="openAccessoryPopup(0)">Add Accessory</button>
+      </div>
+      <div class="card-body">
+        <!--table listing statrt hover-->
+        <div id="no-more-tables">
+          <!-- This id used for responsive table -->
+          <table class="table row-border hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <thead>
+              <tr>
+                <th scope="col" style="width:15%" class="cursor">
+                  <div class="d-flex align-items-center">
+                    <span>Material Type</span>
+                  </div>
+                </th>
+                <th scope="col" style="width:15%" class="cursor">
+                  <div class="d-flex align-items-center">
+                    <span>Accessory Name</span>
+                  </div>
+                </th>
+                <th scope="col" style="width:10%" class="text-center actions-td cursor">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <span>Actions</span>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let acc of materialAccessoriesList">
+                <td data-title="Material Type">{{acc.materialType}}</td>
+                <td data-title="Accessory Name">{{acc.accessoryName}}</td>
+                <td data-title="Actions" class="action text-center actions-td">
+                  <div class="d-flex justify-content-center">
+                    <a href="javascript:void(0)">
+                      <i class="far fa-edit orange" placement="top"
+                         ngbTooltip="Edit" (click)="openAccessoryPopup(acc.materialAccessoryId)"></i>
+                    </a>
+                    <a href="javascript:void(0)">
+                      <i class="far fa-trash-alt orange" placement="top" ngbTooltip="Delete" (click)="openDelete(content,acc.materialAccessoryId)"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+  
+          <!--table listing end-->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"><i class="icon-select"></i> Confirm</h4>
+    </div>
+    <div class="modal-body">
+      <p class="text-center">Are you sure, you want to delete?</p>
+    </div>
+    <div class="modal-footer no-top-border">
+      <button class="btn btn-primary" (click)="modal.close(true)">OK</button>
+      <button class="btn btn-secondary" (click)="modal.close(false)">Cancel</button>
+    </div>
+  </ng-template>
+  
