@@ -16,6 +16,9 @@ const routes: Routes = [
  {
   path: 'add-inward', component: AddInwardComponent
 },
+{
+  path: 'add-inward/:inwardId', component: AddInwardComponent
+},
   {
     path: 'material-type', component: MaterialTypeComponent
   },

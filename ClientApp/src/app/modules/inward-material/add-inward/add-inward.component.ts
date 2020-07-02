@@ -11,7 +11,7 @@ import { Customer } from 'src/app/models/customer.model';
 import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/typeahead.model';
 import { InwardService } from 'src/app/services/inward.service';
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
-
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-add-inward',
@@ -60,6 +60,8 @@ export class AddInwardComponent implements OnInit {
 
   inward:Inward;
 
+  inwardId:number;
+
 
 
 billStatuses=CommonModel.getInwardOutwardBillStatuses();
@@ -68,7 +70,8 @@ repeatJobs=CommonModel.getInwardRepeatJobs();
 smsStatuses=CommonModel.getInwardSmsStatuses();
 
   constructor(private fb: FormBuilder, private modalService: NgbModal,
-    private inwardService:InwardService,private typeAheadService:TypeAheadService) {
+    private inwardService:InwardService,private typeAheadService:TypeAheadService,
+    private route: ActivatedRoute) {
    this.createForm();
   }
 
@@ -140,19 +143,27 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
 
 
   ngOnInit(){
+
+    this.route.params.subscribe(data =>{
+        this.inwardId=data.inwardId;
+    });
       this.inward=new Inward();
       this.inward.lstAccessories=[];
-      this.inward.OutwardBillStatus='';
-      this.inward.PrintStatus='';
-      this.inward.RepeatJob='';
-      this.inward.SmsStatus='';
-      this.inward.IsProblemDetected='2';
-      this.inward.IsRepaired='2';
+      this.inward.outwardBillStatus='';
+      this.inward.printStatus='';
+      this.inward.repeatJob='';
+      this.inward.smsStatus='';
+      this.inward.isProblemDetected='2';
+      this.inward.isRepaired='2';
       let today=new Date();
       let fourAheadToday=this.addDays( new Date(),4);
-      debugger;
-      this.inward.NgbInwardDate=new NgbDate(today.getFullYear(),today.getMonth(),today.getDate());
-      this.inward.NgbDeliveryDate=new NgbDate(fourAheadToday.getFullYear(),fourAheadToday.getMonth(),fourAheadToday.getDate());
+      this.inward.ngbInwardDate=new NgbDate(today.getFullYear(),today.getMonth(),today.getDate());
+      this.inward.ngbDeliveryDate=new NgbDate(fourAheadToday.getFullYear(),fourAheadToday.getMonth(),fourAheadToday.getDate());
+
+      if(this.inwardId)
+      {
+        this.getInwardById(this.inwardId);
+      }
       setTimeout(() => this.staticAlertClosed = true, 20000);
 
     this._success.subscribe((message) => this.successMessage = message);
@@ -164,6 +175,16 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
   addDays(date: Date, days: number): Date {
     date.setDate(date.getDate() + days);
     return date;
+}
+
+getInwardById(inwardId)
+{
+  this.inwardService.getInward(inwardId).subscribe(data=>{
+    debugger;
+      this.inward=data;
+  },error=>{
+
+  });
 }
 
 
@@ -254,17 +275,17 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
 materialTypeAheadSelected(selectedElement){
   selectedElement.preventDefault();
   let selectedElementArray=selectedElement.item.splitValue.split('|');
-  this.inward.ModelNoTypeAhead=null;
-  this.inward.MaterialTypeAhead=null;
-  this.inward.CompanyNameTypeAhead=null;
+  this.inward.modelNoTypeAhead=null;
+  this.inward.materialTypeAhead=null;
+  this.inward.companyNameTypeAhead=null;
 
-  this.inward.ModelNoTypeAhead={searchId: selectedElement.item.searchId,
+  this.inward.modelNoTypeAhead={searchId: selectedElement.item.searchId,
     searchValue:selectedElementArray[0],splitValue:selectedElement.item.splitValue};
 
-  this.inward.MaterialTypeAhead={searchId: selectedElement.item.searchId,
+  this.inward.materialTypeAhead={searchId: selectedElement.item.searchId,
     searchValue:selectedElementArray[1],splitValue:selectedElement.item.splitValue};
 
-  this.inward.CompanyNameTypeAhead={searchId: selectedElement.item.searchId,
+  this.inward.companyNameTypeAhead={searchId: selectedElement.item.searchId,
     searchValue:selectedElementArray[2],splitValue:selectedElement.item.splitValue};
 }
 

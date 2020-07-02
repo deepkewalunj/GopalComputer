@@ -19,45 +19,45 @@ namespace Gopal.Models.Customer
     public class InwardModel
     {
         public int userId { get; set; }
-        public int InwardId { get; set; }
-        public DateTime? InwardDate { get; set; }
+        public int inwardId { get; set; }
+        public DateTime? inwardDate { get; set; }
         public int clientRefId { get; set; }
-        public string ModelNo { get; set; }
-        public string MaterialType { get; set; }
-        public string CompanyName { get; set; }
-        public string OutwardBillStatus { get; set; }
-        public string PrintStatus { get; set; }
-        public string RepeatJob { get; set; }
+        public string modelNo { get; set; }
+        public string materialType { get; set; }
+        public string companyName { get; set; }
+        public string outwardBillStatus { get; set; }
+        public string printStatus { get; set; }
+        public string repeatJob { get; set; }
         public string repeatJobDesc { get; set; }
-        public string SmsStatus { get; set; }
-        public string IsProblemDetected { get; set; }
-        public string IsRepaired { get; set; }
-        public string BarCode { get; set; }
-        public string SerialNo { get; set; }
-        public string ProblemDescription { get; set; }
-        public string EnggName { get; set; }
-        public string ReceiverName { get; set; }
-        public bool IsOwner { get; set; }
-        public string MobileNumber { get; set; }
-        public bool IsSpecialJob { get; set; }
-        public DateTime? DeliveryDate { get; set; }
-        public string AdvanceAmount { get; set; }
-        public string EstmRepairingAmount { get; set; }
-        public string ClientDc { get; set; }
-        public string AccBarCode { get; set; }
-        public string Accessories { get; set; }
+        public string smsStatus { get; set; }
+        public string isProblemDetected { get; set; }
+        public string isRepaired { get; set; }
+        public string barCode { get; set; }
+        public string serialNo { get; set; }
+        public string problemDescription { get; set; }
+        public string enggName { get; set; }
+        public string receiverName { get; set; }
+        public bool isOwner { get; set; }
+        public string mobileNumber { get; set; }
+        public bool isSpecialJob { get; set; }
+        public DateTime? deliveryDate { get; set; }
+        public string advanceAmount { get; set; }
+        public string estmRepairingAmount { get; set; }
+        public string clientDc { get; set; }
+        public string accBarCode { get; set; }
+        public string accessories { get; set; }
     }
     public class InwardTypeScriptModel:InwardModel
     {
        
         public List<TypeAheadResponseModel> lstAccessories { get; set; }
        
-        public NgbDateModel NgbInwardDate { get; set; }
-        public TypeAheadResponseModel CustomerTypeAhead { get; set; }
-        public TypeAheadResponseModel ModelNoTypeAhead { get; set; }
-        public TypeAheadResponseModel MaterialTypeAhead { get; set; }
-        public TypeAheadResponseModel CompanyNameTypeAhead { get; set; }
-        public NgbDateModel NgbDeliveryDate { get; set; }
+        public NgbDateModel ngbInwardDate { get; set; }
+        public TypeAheadResponseModel customerTypeAhead { get; set; }
+        public TypeAheadResponseModel modelNoTypeAhead { get; set; }
+        public TypeAheadResponseModel materialTypeAhead { get; set; }
+        public TypeAheadResponseModel companyNameTypeAhead { get; set; }
+        public NgbDateModel ngbDeliveryDate { get; set; }
        
 
     }

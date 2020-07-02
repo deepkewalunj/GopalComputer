@@ -16,8 +16,8 @@ export class InwardService {
     return this.http.post<any>(environment.API_URL+'Inward/AddEditInward',inwardModel);
 
   }
-  getInward(inwardId:number) {
-    return this.http.get<any>(environment.API_URL+'Inward/GetInward?inwardId='+inwardId);
+  getInward(inwardId) {
+    return this.http.get<any>(environment.API_URL+'Inward/GetInwardById?inwardId='+inwardId);
 
   }
   deleteInward(inwardId:number){

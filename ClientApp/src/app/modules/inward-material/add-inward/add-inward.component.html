@@ -2,7 +2,7 @@
   <div class="container form-container">
       <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
 
-      <h3 class="text-center mb-4">{{inward.InwardId>0?'Edit':'Add'}} Inward </h3>
+      <h3 class="text-center mb-4">{{inward.inwardId>0?'Edit':'Add'}} Inward </h3>
       <div class="card">
           <div class="card-header">
               <h4>Inward Date</h4>
@@ -13,7 +13,7 @@
                       <div class="form-group">
                           <div class="input-group datepicker">
                               <label class="date-label">Inward Date</label>
-                              <input class="form-control"  placeholder="dd-mm-yyyy" [(ngModel)]="inward.NgbInwardDate" name="dp"
+                              <input class="form-control"  placeholder="dd-mm-yyyy" [(ngModel)]="inward.ngbInwardDate" name="dp"
                               ngbDatepicker
                                   #d1="ngbDatepicker" (click)="d1.toggle()"  formControlName="inwardDate">
                               <div class="input-group-append">
@@ -44,7 +44,7 @@
                           <span class="plain-select">
                               <input id="customerName" type="text" class="form-control"
                                formControlName="customerName"
-                               [(ngModel)]="inward.CustomerTypeAhead" [inputFormatter]="formatter"
+                               [(ngModel)]="inward.customerTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
                                [editable]='false' [ngbTypeahead]="searchCustomer"/>
 
@@ -70,7 +70,7 @@
                       <div class="form-group has-float-label">
                          <input id="modelNumber" type="text" class="form-control"
                          formControlName="modelNumber"
-                               [(ngModel)]="inward.ModelNoTypeAhead" [inputFormatter]="formatter"
+                               [(ngModel)]="inward.modelNoTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
                                [ngbTypeahead]="searchModel"
                                (selectItem)="materialTypeAheadSelected($event)"/>
@@ -91,7 +91,7 @@
                   <div class="col-12 col-md-6 col-lg-4">
                       <div class="form-group has-float-label">
                           <input id="materialType" type="text" class="form-control" formControlName="materialType"
-                               [(ngModel)]="inward.MaterialTypeAhead" [inputFormatter]="formatter"
+                               [(ngModel)]="inward.materialTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
                                [ngbTypeahead]="searchMaterialType"
                                (selectItem)="materialTypeAheadSelected($event)"/>
@@ -113,7 +113,7 @@
                       <div class="form-group has-float-label">
                         <input id="companyName" type="text"  class="form-control"
                         formControlName="companyName"
-                          [(ngModel)]="inward.CompanyNameTypeAhead" [inputFormatter]="formatter"
+                          [(ngModel)]="inward.companyNameTypeAhead" [inputFormatter]="formatter"
                           [resultFormatter]="formatter"
                           [ngbTypeahead]="searchCompanyName"
                           (selectItem)="materialTypeAheadSelected($event)"/>
@@ -142,7 +142,7 @@
             <div class="row">
               <div class="col-12 col-md-6 col-lg-4">
                   <div class="form-group has-float-label">
-                      <input class="form-control" type="text" [(ngModel)]="inward.BarCode"
+                      <input class="form-control" type="text" [(ngModel)]="inward.barCode"
                       id="barCode" placeholder="Bar Code" formControlName="barCode">
                       <label for="barCode">Bar Code</label>
                       <div *ngIf="addInwardForm.controls['barCode'].invalid &&
@@ -158,7 +158,7 @@
               <div class="col-12 col-md-4 col-lg-4">
                   <div class="form-group has-float-label">
                       <input class="form-control" type="text" id="serialNumber"
-                      [(ngModel)]="inward.SerialNo"  formControlName="serialNumber"
+                      [(ngModel)]="inward.serialNo"  formControlName="serialNumber"
                        placeholder="Serial Number">
                       <label for="serialNumber">Serial Number</label>
                       <div *ngIf="addInwardForm.controls['serialNumber'].invalid &&
@@ -175,7 +175,7 @@
               <div class="col-12 col-md-4 col-lg-4">
                   <div class="form-group has-float-label">
                       <input class="form-control" type="text" id="ProblemDescription"
-                      [(ngModel)]="inward.ProblemDescription"  formControlName="ProblemDescription"
+                      [(ngModel)]="inward.problemDescription"  formControlName="ProblemDescription"
                        placeholder="Problem Description">
                       <label for="ProblemDescription">Problem Description</label>
                       <div *ngIf="addInwardForm.controls['ProblemDescription'].invalid &&
@@ -192,7 +192,7 @@
               <div class="col-12 col-md-4 col-lg-4">
                   <div class="form-group has-float-label">
                       <input class="form-control" type="text" id="EnggName"
-                      [(ngModel)]="inward.EnggName" placeholder="Engineer Name"
+                      [(ngModel)]="inward.enggName" placeholder="Engineer Name"
                       formControlName="EnggName" >
                       <label for="EnggName">Engineer Name</label>
                       <div *ngIf="addInwardForm.controls['EnggName'].invalid &&
@@ -209,7 +209,7 @@
                   <div class="form-group">
                       <div class="custom-control custom-checkbox mt-3">
                           <input type="checkbox"  [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="inward.IsOwner"
+                          [(ngModel)]="inward.isOwner"
                            class="custom-control-input" id="IsOwner" >
                           <label class="custom-control-label" for="IsOwner">Owner</label>
                       </div>
@@ -221,7 +221,7 @@
                       <div class="form-group has-float-label">
                           <input class="form-control" type="text"  id="mobileNumber"
                           [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="inward.MobileNumber" placeholder="Mobile Number">
+                          [(ngModel)]="inward.mobileNumber" placeholder="Mobile Number">
                           <label for="mobileNumber">Mobile Number</label>
                       </div>
                   </div>
@@ -229,7 +229,7 @@
                       <div class="form-group">
                           <span class="plain-select">
                               <select class="form-control"  [ngModelOptions]="{standalone: true}"
-                              [(ngModel)]="inward.SmsStatus"  id="smsStatus">
+                              [(ngModel)]="inward.smsStatus"  id="smsStatus">
                                   <option value="" selected>Select</option>
                                   <option *ngFor="let c of smsStatuses" [ngValue]="c.id">{{c.name}}</option>
 
@@ -244,7 +244,7 @@
                   <div class="col-12 col-md-4 col-lg-4">
                       <div class="form-group has-float-label">
                           <input class="form-control" type="text"
-                          [(ngModel)]="inward.ReceiverName" id="receiverName" placeholder="Receiver Name" formControlName="receiverName">
+                          [(ngModel)]="inward.receiverName" id="receiverName" placeholder="Receiver Name" formControlName="receiverName">
                           <label for="receiverName">Receiver Name</label>
                           <div *ngIf="addInwardForm.controls['receiverName'].invalid && (addInwardForm.controls['receiverName'].dirty || addInwardForm.controls['receiverName'].touched)"
                           class="error-msg">
@@ -260,20 +260,20 @@
                           <label class="radio-btns-label d-block">Problem Detected</label>
                           <div class="custom-control custom-radio d-inline-block mt-3">
                               <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
-                              [(ngModel)]="inward.IsProblemDetected"
+                              [(ngModel)]="inward.isProblemDetected"
                                id="customRadio2"
                               name="customRadioIsProblemDetected" class="custom-control-input">
                               <label class="custom-control-label" for="customRadio2">Yes</label>
                           </div>
                           <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
                               <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
-                              [(ngModel)]="inward.IsProblemDetected"
+                              [(ngModel)]="inward.isProblemDetected"
                               id="customRadio3" name="customRadioIsProblemDetected" class="custom-control-input">
                               <label class="custom-control-label" for="customRadio3">No</label>
                           </div>
                           <div class="custom-control custom-checkbox d-inline-block mt-3 ml-5">
                               <input type="checkbox" [ngModelOptions]="{standalone: true}"
-                              [(ngModel)]="inward.IsSpecialJob" class="custom-control-input" id="check4">
+                              [(ngModel)]="inward.isSpecialJob" class="custom-control-input" id="check4">
                               <label class="custom-control-label" for="check4">Special Job</label>
                           </div>
                       </div>
@@ -284,7 +284,7 @@
                               <label class="date-label">Delivery Date</label>
                               <input class="form-control" placeholder="09-09-2020" name="dp" ngbDatepicker
                                   #d2="ngbDatepicker"
-                                  [(ngModel)]="inward.NgbDeliveryDate" (click)="d2.toggle()" formControlName="deliveryDate">
+                                  [(ngModel)]="inward.ngbDeliveryDate" (click)="d2.toggle()" formControlName="deliveryDate">
                               <div class="input-group-append">
                                   <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
                                       type="button"><i class="far fa-calendar-alt"></i></button>
@@ -310,14 +310,14 @@
                   <div class="col-12 col-md-6 col-lg-4">
                       <div class="form-group has-float-label">
                           <input class="form-control" type="text"  [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="inward.AdvanceAmount"  id="advAmount" placeholder="Advance Amount">
+                          [(ngModel)]="inward.advanceAmount"  id="advAmount" placeholder="Advance Amount">
                           <label for="advAmount">Advance Amount</label>
                       </div>
                   </div>
                   <div class="col-12 col-md-6 col-lg-4">
                       <div class="form-group has-float-label">
                           <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="inward.EstmRepairingAmount"  id="estAmount" placeholder="Estimate Repearimg Amount">
+                          [(ngModel)]="inward.estmRepairingAmount"  id="estAmount" placeholder="Estimate Repearimg Amount">
                           <label for="estAmount">Estimate Repearimg Amount</label>
                       </div>
                   </div>
@@ -325,7 +325,7 @@
                       <div class="form-group">
                           <span class="plain-select">
                               <select class="form-control" [ngModelOptions]="{standalone: true}"
-                              [(ngModel)]="inward.OutwardBillStatus"  id="paymentStatus">
+                              [(ngModel)]="inward.outwardBillStatus"  id="paymentStatus">
                                   <option value="" selected>Select</option>
                                   <option *ngFor="let c of billStatuses" [ngValue]="c.id">{{c.name}}</option>
                               </select>
@@ -349,12 +349,12 @@
                       <label class="radio-btns-label d-block">Repaired</label>
                       <div class="custom-control custom-radio d-inline-block mt-3">
                           <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="inward.IsRepaired"  id="customRadio4" name="customRadioIsRepaired" class="custom-control-input">
+                          [(ngModel)]="inward.isRepaired"  id="customRadio4" name="customRadioIsRepaired" class="custom-control-input">
                           <label class="custom-control-label" for="customRadio4">Yes</label>
                       </div>
                       <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
                           <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="inward.IsRepaired"  id="customRadio5" name="customRadioIsRepaired" class="custom-control-input">
+                          [(ngModel)]="inward.isRepaired"  id="customRadio5" name="customRadioIsRepaired" class="custom-control-input">
                           <label class="custom-control-label" for="customRadio5">No</label>
                       </div>
                   </div>
@@ -363,7 +363,7 @@
                   <div class="form-group">
                       <span class="plain-select">
                           <select class="form-control" [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="inward.PrintStatus"  id="printStatus">
+                          [(ngModel)]="inward.printStatus"  id="printStatus">
                               <option value="" selected>Select</option>
                               <option *ngFor="let c of printStatuses" [ngValue]="c.id">{{c.name}}</option>
 
@@ -378,7 +378,7 @@
                   <div class="form-group">
                       <span class="plain-select">
                           <select class="form-control" [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="inward.RepeatJob"  id="repeatJob">
+                          [(ngModel)]="inward.repeatJob"  id="repeatJob">
                               <option value="" selected>Select</option>
                               <option *ngFor="let c of repeatJobs" [ngValue]="c.id">{{c.name}}</option>
 
@@ -390,14 +390,14 @@
               <div class="col-12 col-md-6 col-lg-4">
                   <div class="form-group has-float-label">
                       <input class="form-control" [ngModelOptions]="{standalone: true}"
-                      [(ngModel)]="inward.ClientDc" type="text" id="clientDc" placeholder="Client DC">
+                      [(ngModel)]="inward.clientDc" type="text" id="clientDc" placeholder="Client DC">
                       <label for="clientDc">Client DC</label>
                   </div>
               </div>
               <div class="col-12 col-md-6 col-lg-4">
                   <div class="form-group has-float-label">
                       <input class="form-control" [ngModelOptions]="{standalone: true}"
-                      [(ngModel)]="inward.AccBarCode" type="text" id="accountBarcode" placeholder="Account Barcode">
+                      [(ngModel)]="inward.accBarCode" type="text" id="accountBarcode" placeholder="Account Barcode">
                       <label for="accountBarcode">Account Barcode</label>
                   </div>
               </div>
@@ -420,7 +420,7 @@
                           <div class="d-flex align-items-end">
                               <input class="form-control"
                                  [resultFormatter]="formatter" [inputFormatter]="formatter"
-                                  [(ngModel)]="inward.Accessories" [ngbTypeahead]="searchInventory"
+                                  [(ngModel)]="inward.accessories" [ngbTypeahead]="searchInventory"
                                   [ngModelOptions]="{standalone: true}" #inputAccessories
                                   (selectItem)="selectedInventory($event)" autofocus placeholder="Select Inventory">
 

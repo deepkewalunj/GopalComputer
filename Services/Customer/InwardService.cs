@@ -53,7 +53,7 @@ namespace Gopal.Services.Customer
             String strRequestModel = JsonConvert.SerializeObject(inwardModel);
             using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
             {
-                inwardModel.InwardId = connection.Query<int>("usp_AddEditInward",
+                inwardModel.inwardId = connection.Query<int>("usp_AddEditInward",
                      new { RequestModel = strRequestModel }, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
             
@@ -115,32 +115,32 @@ namespace Gopal.Services.Customer
         private InwardModel PreProcessInward(InwardTypeScriptModel inwardModel)
         {
             //Process Inward Date
-            inwardModel.InwardDate = new DateTime(inwardModel.NgbInwardDate.year, 
-                                         inwardModel.NgbInwardDate.month, 
-                                         inwardModel.NgbInwardDate.day);
+            inwardModel.inwardDate = new DateTime(inwardModel.ngbInwardDate.year, 
+                                         inwardModel.ngbInwardDate.month, 
+                                         inwardModel.ngbInwardDate.day);
 
             //Process Customer Information
-            inwardModel.clientRefId = inwardModel.CustomerTypeAhead.searchId;
+            inwardModel.clientRefId = inwardModel.customerTypeAhead.searchId;
 
             //Search Inward Details
-            bool isMaterialExist = IsMaterialExist(inwardModel.ModelNoTypeAhead.searchValue,
-                inwardModel.MaterialTypeAhead.searchValue, inwardModel.CompanyNameTypeAhead.searchValue);
+            bool isMaterialExist = IsMaterialExist(inwardModel.modelNoTypeAhead.searchValue,
+                inwardModel.materialTypeAhead.searchValue, inwardModel.companyNameTypeAhead.searchValue);
             if (!isMaterialExist)
             {
                 //Insert it for Search
-                InsertintoTblSearchMaterialType(inwardModel.ModelNoTypeAhead.searchValue,
-                inwardModel.MaterialTypeAhead.searchValue, inwardModel.CompanyNameTypeAhead.searchValue);
+                InsertintoTblSearchMaterialType(inwardModel.modelNoTypeAhead.searchValue,
+                inwardModel.materialTypeAhead.searchValue, inwardModel.companyNameTypeAhead.searchValue);
             }
 
-            inwardModel.ModelNo = inwardModel.ModelNoTypeAhead.searchValue;
-            inwardModel.MaterialType = inwardModel.MaterialTypeAhead.searchValue;
-            inwardModel.CompanyName = inwardModel.CompanyNameTypeAhead.searchValue;
+            inwardModel.modelNo = inwardModel.modelNoTypeAhead.searchValue;
+            inwardModel.materialType = inwardModel.materialTypeAhead.searchValue;
+            inwardModel.companyName = inwardModel.companyNameTypeAhead.searchValue;
 
 
             //Process Delivery Date
-            inwardModel.DeliveryDate = new DateTime(inwardModel.NgbDeliveryDate.year,
-                                        inwardModel.NgbDeliveryDate.month,
-                                        inwardModel.NgbDeliveryDate.day);
+            inwardModel.deliveryDate = new DateTime(inwardModel.ngbDeliveryDate.year,
+                                        inwardModel.ngbDeliveryDate.month,
+                                        inwardModel.ngbDeliveryDate.day);
 
             //Process Accessories
             
@@ -149,13 +149,13 @@ namespace Gopal.Services.Customer
                 List<String> lstAccessories = new List<String>();
                 inwardModel.lstAccessories.ForEach(accesory =>
                 {
-                    if (!IsAccessoriesExist(inwardModel.MaterialTypeAhead.searchValue, accesory.searchValue))
+                    if (!IsAccessoriesExist(inwardModel.materialTypeAhead.searchValue, accesory.searchValue))
                     {
-                        InsertintoTblMaterialAccessories(inwardModel.MaterialTypeAhead.searchValue, accesory.searchValue);
+                        InsertintoTblMaterialAccessories(inwardModel.materialTypeAhead.searchValue, accesory.searchValue);
                     }
                     lstAccessories.Add(accesory.searchValue);
                 });
-                inwardModel.Accessories = String.Join('|', lstAccessories);
+                inwardModel.accessories = String.Join('|', lstAccessories);
             }
            
 
@@ -188,62 +188,62 @@ namespace Gopal.Services.Customer
         private InwardModel PostProcessInward(InwardTypeScriptModel inwardModel)
         {
             //Process Inward Date
-            if (inwardModel.InwardDate != null)
+            if (inwardModel.inwardDate != null)
             {
 
-                inwardModel.NgbInwardDate = new NgbDateModel
+                inwardModel.ngbInwardDate = new NgbDateModel
                 {
-                    year = inwardModel.InwardDate.Value.Year,
-                    month = inwardModel.InwardDate.Value.Month,
-                    day = inwardModel.InwardDate.Value.Day
+                    year = inwardModel.inwardDate.Value.Year,
+                    month = inwardModel.inwardDate.Value.Month,
+                    day = inwardModel.inwardDate.Value.Day
                 };
             }
 
             //Process Customer Information
-            inwardModel.CustomerTypeAhead = new TypeAheadResponseModel { searchId= inwardModel.clientRefId,
+            inwardModel.customerTypeAhead = new TypeAheadResponseModel { searchId= inwardModel.clientRefId,
                                                        searchValue= GetCustomerNameById(inwardModel.clientRefId)};
 
             
-            inwardModel.ModelNoTypeAhead = new TypeAheadResponseModel
+            inwardModel.modelNoTypeAhead = new TypeAheadResponseModel
             {
-                searchValue = inwardModel.ModelNo,
-                searchId = inwardModel.InwardId
+                searchValue = inwardModel.modelNo,
+                searchId = inwardModel.inwardId
             };
-            inwardModel.MaterialTypeAhead = new TypeAheadResponseModel
+            inwardModel.materialTypeAhead = new TypeAheadResponseModel
             {
-                searchValue = inwardModel.MaterialType,
-                searchId = inwardModel.InwardId
+                searchValue = inwardModel.materialType,
+                searchId = inwardModel.inwardId
             };
-            inwardModel.CompanyNameTypeAhead = new TypeAheadResponseModel
+            inwardModel.companyNameTypeAhead = new TypeAheadResponseModel
             {
-                searchValue = inwardModel.CompanyName,
-                searchId = inwardModel.InwardId
+                searchValue = inwardModel.companyName,
+                searchId = inwardModel.inwardId
             };
 
-            if (inwardModel.DeliveryDate != null)
+            if (inwardModel.deliveryDate != null)
             {
 
-                inwardModel.NgbDeliveryDate = new NgbDateModel
+                inwardModel.ngbDeliveryDate = new NgbDateModel
                 {
-                    year = inwardModel.DeliveryDate.Value.Year,
-                    month = inwardModel.DeliveryDate.Value.Month,
-                    day = inwardModel.DeliveryDate.Value.Day
+                    year = inwardModel.deliveryDate.Value.Year,
+                    month = inwardModel.deliveryDate.Value.Month,
+                    day = inwardModel.deliveryDate.Value.Day
                 };
             }
 
             //Process Accessories
 
-            if (inwardModel.Accessories != null)
+            if (inwardModel.accessories != null)
             {
                 inwardModel.lstAccessories = new List<TypeAheadResponseModel>();
-                string[] accessories =inwardModel.Accessories.Split("|");
+                string[] accessories =inwardModel.accessories.Split("|");
                 if (accessories != null && accessories.Count() > 0)
                 {
                     for (int i = 0; i < accessories.Count(); i++)
                     {
                         inwardModel.lstAccessories.Add(new TypeAheadResponseModel
                         {
-                            searchId = inwardModel.InwardId,
+                            searchId = inwardModel.inwardId,
                             searchValue = accessories[i]
                         });
                     }
