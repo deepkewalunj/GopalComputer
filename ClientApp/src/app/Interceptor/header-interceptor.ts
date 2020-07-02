@@ -9,11 +9,21 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class HeaderInterceptor implements HttpInterceptor {
 constructor( private SpinnerService: NgxSpinnerService){}
 count = 0;
+showLoader=false;
 
   intercept(request: HttpRequest<any>, newRequest: HttpHandler): Observable<HttpEvent<any>> {
+
+    if(request.url.indexOf('GetTypeAheadList')=== -1)
+    {
+        this.showLoader=true;
+    }
     // add authorization header to request
+    if(this.showLoader)
+    {
+
       this.SpinnerService.show();
       this.count++;
+    }
     //Get Token data from local storage
     let tokenInfo = JSON.parse(localStorage.getItem('TokenInfo'));
 
@@ -29,20 +39,28 @@ count = 0;
     return newRequest.handle(request).do(
       (response) => {
         if (response instanceof HttpResponse) {
-          this.count--;
-          if ( this.count == 0 )
+          if(this.showLoader)
           {
-              this.SpinnerService.hide();
+             this.count--;
+             if ( this.count == 0 )
+             {
+                 this.SpinnerService.hide();
 
+             }
           }
+
         }
       },
       (error) => {
-        this.count--;
-        if ( this.count == 0 )
+        if(this.showLoader)
         {
-          this.SpinnerService.hide ();
+          this.count--;
+          if ( this.count == 0 )
+          {
+            this.SpinnerService.hide ();
+          }
         }
+
       });
 
 

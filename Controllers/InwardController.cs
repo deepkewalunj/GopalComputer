@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Services.Customer;
 using Microsoft.AspNetCore.Http;
@@ -32,10 +33,17 @@ namespace Gopal.Controllers
 
         [HttpPost]
         [Route("AddEditInWard")]
-        public ActionResult AddEditCustomer(InwardModel inward)
+        public ActionResult AddEditCustomer(InwardTypeScriptModel inward)
         {
 
             return Ok(_inwardServices.AddEditInward(inward));
+        }
+
+        [HttpGet]
+        [Route("GetInwardById")]
+        public ActionResult GetInwardById(int inwardId)
+        {
+            return Ok(_inwardServices.GetInwardById(inwardId));
         }
 
         [HttpGet]
@@ -44,5 +52,7 @@ namespace Gopal.Controllers
         {
             return Ok(_inwardServices.DeleteInward(inwardId));
         }
+
+        
     }
 }

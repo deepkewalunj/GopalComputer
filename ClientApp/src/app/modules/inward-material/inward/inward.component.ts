@@ -4,6 +4,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
+import { Inward } from 'src/app/models/inward.model';
 
 @Component({
   selector: 'app-inward',
@@ -13,6 +14,8 @@ import {debounceTime} from 'rxjs/operators';
 export class InwardComponent implements OnInit {
 
   searchFilter: boolean;
+
+  inwardList: Inward[];
 
   private _success = new Subject<string>();
   staticAlertClosed = false;
@@ -29,7 +32,7 @@ export class InwardComponent implements OnInit {
   }
 
    /*succes message code here*/
- 
+
   ngOnInit(): void {
     setTimeout(() => this.staticAlertClosed = true, 20000);
 
@@ -46,7 +49,7 @@ export class InwardComponent implements OnInit {
   /*on click search filter hide show on mobile*/
 
   toggleSearch() {
-    this.searchFilter = !this.searchFilter;    
+    this.searchFilter = !this.searchFilter;
   }
 
 }

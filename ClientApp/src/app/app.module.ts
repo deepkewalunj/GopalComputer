@@ -19,6 +19,8 @@ import { CustomerService } from './services/customer.service';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { TypeAheadService } from 'src/app/services/type-ahead.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    AuthorizationCheck, CustomerService,NgxSpinnerService],
+    AuthorizationCheck, CustomerService,NgxSpinnerService,TypeAheadService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
