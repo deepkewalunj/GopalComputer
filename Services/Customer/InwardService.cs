@@ -36,7 +36,7 @@ namespace Gopal.Services.Customer
                     new { RequestModel = strRequestModel }, commandType: CommandType.StoredProcedure))
                 {
                     datatableResponseModel.recordsTotal = multi.Read<int>().First();
-                    datatableResponseModel.data  = multi.Read<InwardModel>()?.ToList();
+                    datatableResponseModel.data  = multi.Read<InwardListModel>()?.ToList();
                     datatableResponseModel.recordsFiltered = datatableResponseModel.recordsTotal;
                 }
             }
@@ -258,8 +258,7 @@ namespace Gopal.Services.Customer
             return inwardModel;
         }
 
-
-
+       
 
         public int DeleteInward(int inwardId) {
            TblInward inward= _dbContext.TblInward.FirstOrDefault(x => x.InwardId == inwardId);

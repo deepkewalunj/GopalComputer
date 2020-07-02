@@ -180,7 +180,7 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
 getInwardById(inwardId)
 {
   this.inwardService.getInward(inwardId).subscribe(data=>{
-    debugger;
+
       this.inward=data;
   },error=>{
 

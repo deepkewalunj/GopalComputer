@@ -28,7 +28,7 @@ namespace Gopal.Controllers
         public ActionResult GetInwardList(DatatableRequestWrapper requestObjectWrapper)
         {
 
-            return Ok(_inwardServices.GetInwardList(requestObjectWrapper.getCustomerListModel));
+            return Ok(_inwardServices.GetInwardList(requestObjectWrapper.getListModel));
         }
 
         [HttpPost]

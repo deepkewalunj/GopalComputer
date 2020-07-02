@@ -1,26 +1,16 @@
 
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormGroup,  FormBuilder} from '@angular/forms';
 import {Subject} from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { Customer } from 'src/app/models/customer.model';
 import { AddEditCustomerComponent } from '../add-edit-customer/add-edit-customer.component';
 import { CustomerService } from 'src/app/services/customer.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { DataTableDirective } from 'angular-datatables';
-import { CommonModel } from 'src/app/models/common.model';
-
-
-
-class DataTablesResponse {
-  data: any[];
-  draw: number;
-  recordsFiltered: number;
-  recordsTotal: number;
-}
+import { CommonModel, DataTablesResponse } from 'src/app/models/common.model';
 
 
 @Component({
@@ -119,7 +109,7 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
         that.http
           .post<DataTablesResponse>(
             environment.API_URL+"Customer/GetCustomerList",
-            {getCustomerListModel:getCustomerListModel},{}
+            {getListModel:getCustomerListModel},{}
           ).subscribe(resp => {
             that.customers = resp.data;
             callback({

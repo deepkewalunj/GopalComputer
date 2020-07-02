@@ -21,7 +21,7 @@ export class InwardService {
 
   }
   deleteInward(inwardId:number){
-    return this.http.get<any>(environment.API_URL+'Inward/DeleteInward?inwardId='+inwardId);
+    return this.http.get<any>(environment.API_URL+'Inward/DeleteInWard?inwardId='+inwardId);
   }
 
 }

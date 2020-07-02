@@ -60,3 +60,10 @@ export class TypeAheadSelect{
   id:number;
 
 }
+
+export class DataTablesResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}

@@ -41,3 +41,12 @@ export class Inward {
   accBarCode: string;
   accessories: string;
 }
+
+export class InwardListModel{
+  inwardId:string
+   clientName:string
+   enggName:string
+   inwardDate:string
+   deliveryDate:string
+   outwardBillStatus: string
+}
