@@ -41,7 +41,7 @@ namespace Gopal.Controllers
 
         [HttpGet]
         [Route("GetInwardById")]
-        public ActionResult DeleteInWard(int inwardId)
+        public ActionResult GetInwardById(int inwardId)
         {
             return Ok(_inwardServices.GetInwardById(inwardId));
         }
