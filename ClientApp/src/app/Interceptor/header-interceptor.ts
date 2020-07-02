@@ -13,10 +13,16 @@ showLoader=false;
 
   intercept(request: HttpRequest<any>, newRequest: HttpHandler): Observable<HttpEvent<any>> {
 
+
     if(request.url.indexOf('GetTypeAheadList')=== -1)
     {
         this.showLoader=true;
     }
+    else
+    {
+      this.showLoader=false;
+    }
+
     // add authorization header to request
     if(this.showLoader)
     {

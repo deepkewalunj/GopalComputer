@@ -11,7 +11,7 @@ import { Customer } from 'src/app/models/customer.model';
 import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/typeahead.model';
 import { InwardService } from 'src/app/services/inward.service';
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-add-inward',
@@ -71,7 +71,7 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
 
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private inwardService:InwardService,private typeAheadService:TypeAheadService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,private router:Router) {
    this.createForm();
   }
 
@@ -304,7 +304,7 @@ deleteTag(item) {
 
   SaveInward(){
     this.inwardService.addEditInward(this.inward).subscribe(data=>{
-          this._success.next("Inward Saved Successfully.")
+      this.router.navigate(['inward-material/inward']);
 
     },error=>{
 

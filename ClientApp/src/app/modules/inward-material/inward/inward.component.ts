@@ -77,11 +77,11 @@ export class InwardComponent implements OnInit {
   {
     if(inwardId>0)
     {
-      this.router.navigate(['../add-inward',inwardId],{relativeTo: this.route});
+      this.router.navigate(['inward-material/add-inward',inwardId]);
     }
     else
     {
-      this.router.navigate(['../add-inward'],{relativeTo: this.route});
+      this.router.navigate(['inward-material/add-inward']);
     }
 
 
