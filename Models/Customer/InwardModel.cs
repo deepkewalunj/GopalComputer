@@ -58,8 +58,17 @@ namespace Gopal.Models.Customer
         public Object materialTypeAhead { get; set; }
         public Object companyNameTypeAhead { get; set; }
         public NgbDateModel ngbDeliveryDate { get; set; }
-       
+        public List<FilePOCO> inwardFiles { get; set; }
 
+    }
+    public class FilePOCO {
+
+            public int documentId { get; set; }
+            public string originalFilename { get; set; }
+            public object file { get; set; }
+            public string uniqueFilename { get; set; }
+
+        
     }
 
     public class InwardListModel

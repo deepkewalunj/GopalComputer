@@ -1,4 +1,4 @@
-import { TypeAheadSelect } from './common.model';
+import { TypeAheadSelect, FilePoco } from './common.model';
 
 import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/typeahead.model';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
@@ -40,6 +40,7 @@ export class Inward {
   clientDc: string;
   accBarCode: string;
   accessories: string;
+  inwardFiles:FilePoco[];
 }
 
 export class InwardListModel{

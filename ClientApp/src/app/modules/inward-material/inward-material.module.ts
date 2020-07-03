@@ -12,6 +12,7 @@ import { AddInwardComponent } from './add-inward/add-inward.component';
 import { AddUpdateModelNoMaterialTypeComponent } from './add-update-model-no-material-type/add-update-model-no-material-type.component';
 import { MasterModule } from '../master/master.module';
 import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accessory.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accesso
     InwardComponent,
     AddInwardComponent,
     AddUpdateModelNoMaterialTypeComponent,
-    AddEditAccessoryComponent
+    AddEditAccessoryComponent,
   ],
   imports: [
     CommonModule,
@@ -31,8 +32,8 @@ import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accesso
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
-    MasterModule
-
+    MasterModule,
+NgxDropzoneModule
   ]
 })
 export class InwardMaterialModule { }

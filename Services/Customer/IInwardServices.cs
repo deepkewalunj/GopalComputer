@@ -14,6 +14,8 @@ namespace Gopal.Services.Customer
         InwardTypeScriptModel AddEditInward(InwardTypeScriptModel inwardModel);
         InwardTypeScriptModel GetInwardById(int inwardId);
         int DeleteInward(int inwardId);
-        
+        List<String> GetAccessories(int inwardId);
+        void UpdateBarCodePathByInwardId(int inwardId, string barCodePath);
+
     }
 }

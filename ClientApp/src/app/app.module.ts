@@ -38,10 +38,9 @@ import { TypeAheadService } from 'src/app/services/type-ahead.service';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
-
     NgxSpinnerModule,
     BrowserAnimationsModule,
-  ],schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

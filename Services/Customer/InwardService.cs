@@ -262,13 +262,29 @@ namespace Gopal.Services.Customer
                 }
             }
 
-
-
+            //Get Inward files
+            List<FilePOCO> lstFiles= GetInwardFiles(inwardModel.inwardId);
+            if (lstFiles != null && lstFiles.Count() > 0)
+            {
+                inwardModel.inwardFiles = lstFiles;
+            }
 
             return inwardModel;
         }
 
-       
+        public List<FilePOCO> GetInwardFiles(int inwardId) {
+            List<FilePOCO> filePOCOs = null;
+            string sql = @"SELECT inwardDocumentId as documentId,documentName as originalFilename,
+                            documentPath as documentPath
+                          FROM tblInwardDocument where inwardRefId=@inwardId and ISNULL(isDeleted,0)<>1;";
+
+            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
+            {
+                filePOCOs= connection.Query<FilePOCO>(sql, new { inwardId })?.ToList();
+
+            }
+            return filePOCOs;
+        }
 
         public int DeleteInward(int inwardId) {
            TblInward inward= _dbContext.TblInward.FirstOrDefault(x => x.InwardId == inwardId);
@@ -284,6 +300,36 @@ namespace Gopal.Services.Customer
             return 0;
         }
 
+
+        public List<String> GetAccessories(int inwardId) {
+            List<String> lstAccessories = null;
+            string sql = @"SELECT accessories
+                          FROM tblInward where inwardId=@inwardId and ISNULL(isDeleted,0)<>1;";
+
+            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
+            {
+                string accessory= connection.QueryFirst<string>(sql, new { inwardId });
+                if (accessory != null)
+                {
+                    lstAccessories = accessory.Split("|")?.ToList();
+                }
+
+            }
+            return lstAccessories;
+        }
         
+
+
+        public void UpdateBarCodePathByInwardId(int inwardId,string barCodePath) {
+            string sql = @"UPDATE tblInward SET barCode=@barCodePath WHERE inwardId=@inwardId;";
+            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
+            {
+                 connection.ExecuteScalar<int>(sql, new { inwardId, barCodePath });
+               
+
+            }
+        }
+
+
     }
 }
