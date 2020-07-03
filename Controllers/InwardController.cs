@@ -33,6 +33,7 @@ namespace Gopal.Controllers
 
         [HttpPost]
         [Route("AddEditInWard")]
+        [DisableRequestSizeLimit]
         public ActionResult AddEditCustomer(InwardTypeScriptModel inward)
         {
 

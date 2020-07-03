@@ -73,7 +73,9 @@
                                [(ngModel)]="inward.modelNoTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
                                [ngbTypeahead]="searchModel"
-                               (selectItem)="materialTypeAheadSelected($event)"/>
+                               (selectItem)="materialTypeAheadSelected($event)"
+
+                               />
                                <small *ngIf="searching" class="form-text text-muted">searching...</small>
                                <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
 
@@ -94,7 +96,8 @@
                                [(ngModel)]="inward.materialTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
                                [ngbTypeahead]="searchMaterialType"
-                               (selectItem)="materialTypeAheadSelected($event)"/>
+                               (selectItem)="materialTypeAheadSelected($event)"
+                                />
                                <small *ngIf="searching" class="form-text text-muted">searching...</small>
                                <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
 
@@ -116,7 +119,8 @@
                           [(ngModel)]="inward.companyNameTypeAhead" [inputFormatter]="formatter"
                           [resultFormatter]="formatter"
                           [ngbTypeahead]="searchCompanyName"
-                          (selectItem)="materialTypeAheadSelected($event)"/>
+                          (selectItem)="materialTypeAheadSelected($event)"
+                           />
                           <small *ngIf="searching" class="form-text text-muted">searching...</small>
                           <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
 

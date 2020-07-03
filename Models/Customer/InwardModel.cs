@@ -54,9 +54,9 @@ namespace Gopal.Models.Customer
        
         public NgbDateModel ngbInwardDate { get; set; }
         public TypeAheadResponseModel customerTypeAhead { get; set; }
-        public TypeAheadResponseModel modelNoTypeAhead { get; set; }
-        public TypeAheadResponseModel materialTypeAhead { get; set; }
-        public TypeAheadResponseModel companyNameTypeAhead { get; set; }
+        public Object modelNoTypeAhead { get; set; }
+        public Object materialTypeAhead { get; set; }
+        public Object companyNameTypeAhead { get; set; }
         public NgbDateModel ngbDeliveryDate { get; set; }
        
 

@@ -262,7 +262,7 @@ getInwardById(inwardId)
       distinctUntilChanged(),
       tap(() => this.searching = true),
       switchMap(term =>term.length < 2 ? []:
-        this.typeAheadService.GetTypeAheadList(1,term,3)
+        this.typeAheadService.GetTypeAheadList(this.inward.materialTypeAhead,term,3)
         .pipe(
           tap(() => this.searchFailed = false),
           catchError(() => {
@@ -287,7 +287,15 @@ materialTypeAheadSelected(selectedElement){
 
   this.inward.companyNameTypeAhead={searchId: selectedElement.item.searchId,
     searchValue:selectedElementArray[2],splitValue:selectedElement.item.splitValue};
+
+  this.inward.lstAccessories=[];
+  this.inward.lstAccessories.push({searchId: 0,
+    searchValue:selectedElementArray[1],splitValue:''});
 }
+
+
+
+
 
 selectedInventory(inventory){
   inventory.preventDefault();

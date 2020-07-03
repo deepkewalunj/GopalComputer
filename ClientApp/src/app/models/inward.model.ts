@@ -8,9 +8,9 @@ export class Inward {
   lstAccessories: TypeAheadResponseModel[];
   ngbInwardDate: NgbDate;
   customerTypeAhead: TypeAheadResponseModel;
-  modelNoTypeAhead: TypeAheadResponseModel;
-  materialTypeAhead: TypeAheadResponseModel;
-  companyNameTypeAhead: TypeAheadResponseModel;
+  modelNoTypeAhead: any;
+  materialTypeAhead: any;
+  companyNameTypeAhead: any;
   ngbDeliveryDate: NgbDate;
   userId: number;
   inwardId: number;

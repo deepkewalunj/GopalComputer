@@ -47,7 +47,7 @@ namespace Gopal.Services.Common
             {
 
                 lstTypeAheadResponseModel = connection.Query<TypeAheadResponseModel>("usp_GetTypeAheadAccessories",
-                new { searchText = request.searchText },
+                new {  request.searchText,request.searchType },
                 commandType: CommandType.StoredProcedure)?.ToList();
 
 

@@ -6,6 +6,7 @@ using Gopal.Models.User;
 using Gopal.Services.User;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -112,6 +113,15 @@ namespace Gopal.Services.Customer
             return tblMaterialAccessory.MaterialAccessoryId;
         }
 
+        
+        private String GetSearchValue(Object searchModel) {
+            Type modelType = searchModel.GetType();
+            if (modelType == typeof(string)) {
+                return (String)searchModel;
+            }
+            return ((JObject)searchModel).ToObject<TypeAheadResponseModel>().searchValue;
+        }
+
         private InwardModel PreProcessInward(InwardTypeScriptModel inwardModel)
         {
             //Process Inward Date
@@ -123,18 +133,18 @@ namespace Gopal.Services.Customer
             inwardModel.clientRefId = inwardModel.customerTypeAhead.searchId;
 
             //Search Inward Details
-            bool isMaterialExist = IsMaterialExist(inwardModel.modelNoTypeAhead.searchValue,
-                inwardModel.materialTypeAhead.searchValue, inwardModel.companyNameTypeAhead.searchValue);
+            bool isMaterialExist = IsMaterialExist(GetSearchValue(inwardModel.modelNoTypeAhead) ,
+             GetSearchValue(inwardModel.materialTypeAhead)   , GetSearchValue(inwardModel.companyNameTypeAhead));
             if (!isMaterialExist)
             {
                 //Insert it for Search
-                InsertintoTblSearchMaterialType(inwardModel.modelNoTypeAhead.searchValue,
-                inwardModel.materialTypeAhead.searchValue, inwardModel.companyNameTypeAhead.searchValue);
+                InsertintoTblSearchMaterialType(GetSearchValue(inwardModel.modelNoTypeAhead) ,
+              GetSearchValue(inwardModel.materialTypeAhead)  , GetSearchValue(inwardModel.companyNameTypeAhead));
             }
 
-            inwardModel.modelNo = inwardModel.modelNoTypeAhead.searchValue;
-            inwardModel.materialType = inwardModel.materialTypeAhead.searchValue;
-            inwardModel.companyName = inwardModel.companyNameTypeAhead.searchValue;
+            inwardModel.modelNo = GetSearchValue(inwardModel.modelNoTypeAhead);
+            inwardModel.materialType = GetSearchValue(inwardModel.materialTypeAhead);
+            inwardModel.companyName = GetSearchValue(inwardModel.companyNameTypeAhead);
 
 
             //Process Delivery Date
@@ -149,9 +159,9 @@ namespace Gopal.Services.Customer
                 List<String> lstAccessories = new List<String>();
                 inwardModel.lstAccessories.ForEach(accesory =>
                 {
-                    if (!IsAccessoriesExist(inwardModel.materialTypeAhead.searchValue, accesory.searchValue))
+                    if (!IsAccessoriesExist(GetSearchValue(inwardModel.materialTypeAhead) , accesory.searchValue))
                     {
-                        InsertintoTblMaterialAccessories(inwardModel.materialTypeAhead.searchValue, accesory.searchValue);
+                        InsertintoTblMaterialAccessories(GetSearchValue(inwardModel.materialTypeAhead), accesory.searchValue);
                     }
                     lstAccessories.Add(accesory.searchValue);
                 });
