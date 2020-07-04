@@ -32,6 +32,7 @@ namespace Gopal.Models.Customer
         public string smsStatus { get; set; }
         public string isProblemDetected { get; set; }
         public string isRepaired { get; set; }
+        public string repairedRemark { get; set; }
         public string barCode { get; set; }
         public string serialNo { get; set; }
         public string problemDescription { get; set; }

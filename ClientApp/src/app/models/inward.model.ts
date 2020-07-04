@@ -41,6 +41,7 @@ export class Inward {
   accBarCode: string;
   accessories: string;
   inwardFiles:FilePoco[];
+  repairedRemark:string;
 }
 
 export class InwardListModel{

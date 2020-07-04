@@ -317,7 +317,7 @@
                       <div class="form-group has-float-label">
                           <input class="form-control" type="text" mask="0*.00"  [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.estmRepairingAmount"  id="estAmount" placeholder="Estimate Repearimg Amount">
-                          <label for="estAmount">Estimate Repearimg Amount</label>
+                          <label for="estAmount">Estimate Repairing Amount</label>
                       </div>
                   </div>
                   <div class="col-12 col-md-4 col-lg-4">
@@ -358,6 +358,14 @@
                       </div>
                   </div>
               </div>
+              <div class="col-12 col-md-6 col-lg-4">
+                <div class="form-group has-float-label">
+                  <textarea class="form-control"    [ngModelOptions]="{standalone: true}"
+                  [(ngModel)]="inward.repairedRemark"  id="repairedRemark" placeholder="Repaired Remark"></textarea>
+
+                    <label for="repairedRemark">Enter Repaired Remark</label>
+                </div>
+            </div>
               <div class="col-12 col-md-4 col-lg-4">
                   <div class="form-group">
                       <span class="plain-select">
@@ -384,6 +392,14 @@
                           </select>
                           <label for="repeatJob" class="select-label">Repeat Job</label>
                       </span>
+                  </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4">
+                  <div class="form-group has-float-label">
+                    <textarea class="form-control"    [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="inward.repeatJobDesc"  id="repeatJobDesc" placeholder="Enter Repeat Job Description"></textarea>
+
+                      <label for="repeatJobDesc">Repeat Job Description</label>
                   </div>
               </div>
               <div class="col-12 col-md-6 col-lg-4">
