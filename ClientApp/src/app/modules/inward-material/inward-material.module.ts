@@ -17,6 +17,8 @@ import { CustomDateParserFormatter } from 'src/app/services/custom-date-parser-f
 
 import { InwardPrintComponent } from './inward-print/inward-print.component';
 import { NgxPrintModule } from 'ngx-print';
+import { BillGenerationComponent } from './bill-generation/bill-generation.component';
+import { OutwardComponent } from './outward/outward.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { NgxPrintModule } from 'ngx-print';
     AddInwardComponent,
     AddUpdateModelNoMaterialTypeComponent,
     AddEditAccessoryComponent,
-    InwardPrintComponent
+    InwardPrintComponent,
+    BillGenerationComponent,
+    OutwardComponent
   ],
   imports: [
     CommonModule,

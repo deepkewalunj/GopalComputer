@@ -1,0 +1,180 @@
+<form [formGroup]="billGenerationForm" novalidate>
+    <div class="container form-container">
+        <h3 class="text-center mb-4">Bill Generation</h3>
+        <div class="card">
+            
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <div class="input-group datepicker">
+                            <label class="date-label">Bill Date</label>
+                            <input class="form-control"  placeholder="dd-mm-yyyy"  name="dp"
+                            ngbDatepicker
+                                #d1="ngbDatepicker" (click)="d1.toggle()"  formControlName="billDate">
+                            <div class="input-group-append">
+                                <button  class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
+                                    type="button" ><i class="far fa-calendar-alt"></i></button>
+                            </div>
+                        </div>
+                        <div *ngIf="billGenerationForm.controls['billDate'].invalid &&
+                        (billGenerationForm.controls['billDate'].dirty || billGenerationForm.controls['billDate'].touched)"
+                            class="error-msg">
+                            <div *ngIf="billGenerationForm.controls['billDate'].errors.required">
+                               Bill date is required.
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" id="billNumber" type="text" placeholder="Bill Number" />
+                            <label for="billNumber">Bill Number</label>
+                           
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" id="jobNumber" type="text" placeholder="Job Number" />
+                            <label for="jobNumber">Job Number</label>
+                           
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select1">
+                                    <option value="" selected>Select</option>
+                                    <option>Alabama</option>
+                                    <option>California</option>
+                                    <option>Florida</option>
+                                    <option>Alaska</option>
+                                </select>
+                                <label class="select-label">Engg. Name</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div>
+                            <label class="radio-btns-label d-block">Tested Ok</label>
+                            <div class="custom-control custom-radio d-inline-block mt-3">
+                                <input type="radio" value="1" id="customRadio2" name="customRadioIsProblemDetected" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio2">Yes</label>
+                            </div>
+                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                                <input type="radio" value="2" id="customRadio3" name="customRadioIsProblemDetected" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio3">No</label>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div>
+                            <label class="radio-btns-label d-block">Material Used</label>
+                            <div class="custom-control custom-radio d-inline-block mt-3">
+                                <input type="radio" value="5" id="customRadio5" name="customRadioIsProblemDetected" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio5">Yes</label>
+                            </div>
+                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                                <input type="radio" value="6" id="customRadio6" name="customRadioIsProblemDetected" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio6">No</label>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" id="serviceAmount" type="text" placeholder="Service Amount" />
+                            <label for="serviceAmount">Service Amount</label>
+                           
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" id="advanceAmount" type="text" placeholder="Advance Amount" />
+                            <label for="advanceAmount">Advance Amount</label>
+                           
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group has-float-label">
+                            <input class="form-control" id="oustandingAmount" type="text" placeholder="Oustanding Amount" />
+                            <label for="oustandingAmount">Oustanding Amount</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select1">
+                                    <option value="" selected>Select</option>
+                                    <option>Printed</option>
+                                    <option>Not Printed</option>
+                                </select>
+                                <label class="select-label">Printed Status</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div>
+                            <label class="radio-btns-label d-block">Material Added</label>
+                            <div class="custom-control custom-radio d-inline-block mt-3">
+                                <input type="radio" value="8" id="customRadio8" name="customRadioIsProblemDetected" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio8">Yes</label>
+                            </div>
+                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                                <input type="radio" value="9" id="customRadio9" name="customRadioIsProblemDetected" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio9">No</label>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select1">
+                                    <option value="" selected>Select</option>
+                                    <option>Sent</option>
+                                    <option>Not Send</option>
+                                </select>
+                                <label class="select-label">SMS Status</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div>
+                            <label class="radio-btns-label d-block">Cash/Cheque</label>
+                            <div class="custom-control custom-radio d-inline-block mt-3">
+                                <input type="radio" value="10" id="customRadio10" name="customRadioIsProblemDetected" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio10">Cash</label>
+                            </div>
+                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                                <input type="radio" value="11" id="customRadio11" name="customRadioIsProblemDetected" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio11">Cheque</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <span class="plain-select">
+                                <select class="form-control" id="select1">
+                                    <option value="" selected>Select</option>
+                                    <option>Nitn</option>
+                                    <option>Deepak</option>
+                                </select>
+                                <label class="select-label">Cash/Cheque Recieved by</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+           
+            </div>
+           
+        </div>
+        <footer>
+            <button class="btn btn-secondary">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+                Save
+            </button>
+        </footer>
+    </div>
+</form>
