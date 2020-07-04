@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { TextMaskModule } from 'angular2-text-mask';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -13,11 +12,13 @@ import { TextMaskModule } from 'angular2-text-mask';
     TextMaskModule,
     AngularMultiSelectModule,
     NgbModule,
+
   ],
-  declarations: [ ],
+
 
   exports: [
     CommonModule,
+
   ]
 
 })

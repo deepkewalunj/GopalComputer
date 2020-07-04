@@ -54,15 +54,32 @@ namespace Gopal.Models.Customer
        
         public NgbDateModel ngbInwardDate { get; set; }
         public TypeAheadResponseModel customerTypeAhead { get; set; }
-        public TypeAheadResponseModel modelNoTypeAhead { get; set; }
-        public TypeAheadResponseModel materialTypeAhead { get; set; }
-        public TypeAheadResponseModel companyNameTypeAhead { get; set; }
+        public Object modelNoTypeAhead { get; set; }
+        public Object materialTypeAhead { get; set; }
+        public Object companyNameTypeAhead { get; set; }
         public NgbDateModel ngbDeliveryDate { get; set; }
-       
+        public List<FilePOCO> inwardFiles { get; set; }
 
     }
-    
+    public class FilePOCO {
 
+            public int documentId { get; set; }
+            public string originalFilename { get; set; }
+            public object file { get; set; }
+            public string uniqueFilename { get; set; }
 
+        
+    }
+
+    public class InwardListModel
+    {
+        public int inwardId { get; set; }
+        public string clientName { get; set; }
+        public string enggName { get; set; }
+        public DateTime? inwardDate { get; set; }
+        public DateTime? deliveryDate { get; set; }
+        public int outwardBillStatus { get; set; }
+
+    }
     
 }

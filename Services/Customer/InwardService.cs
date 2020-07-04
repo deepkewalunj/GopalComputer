@@ -6,6 +6,7 @@ using Gopal.Models.User;
 using Gopal.Services.User;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -36,7 +37,7 @@ namespace Gopal.Services.Customer
                     new { RequestModel = strRequestModel }, commandType: CommandType.StoredProcedure))
                 {
                     datatableResponseModel.recordsTotal = multi.Read<int>().First();
-                    datatableResponseModel.data  = multi.Read<InwardModel>()?.ToList();
+                    datatableResponseModel.data  = multi.Read<InwardListModel>()?.ToList();
                     datatableResponseModel.recordsFiltered = datatableResponseModel.recordsTotal;
                 }
             }
@@ -112,6 +113,15 @@ namespace Gopal.Services.Customer
             return tblMaterialAccessory.MaterialAccessoryId;
         }
 
+        
+        private String GetSearchValue(Object searchModel) {
+            Type modelType = searchModel.GetType();
+            if (modelType == typeof(string)) {
+                return (String)searchModel;
+            }
+            return ((JObject)searchModel).ToObject<TypeAheadResponseModel>().searchValue;
+        }
+
         private InwardModel PreProcessInward(InwardTypeScriptModel inwardModel)
         {
             //Process Inward Date
@@ -123,18 +133,18 @@ namespace Gopal.Services.Customer
             inwardModel.clientRefId = inwardModel.customerTypeAhead.searchId;
 
             //Search Inward Details
-            bool isMaterialExist = IsMaterialExist(inwardModel.modelNoTypeAhead.searchValue,
-                inwardModel.materialTypeAhead.searchValue, inwardModel.companyNameTypeAhead.searchValue);
+            bool isMaterialExist = IsMaterialExist(GetSearchValue(inwardModel.modelNoTypeAhead) ,
+             GetSearchValue(inwardModel.materialTypeAhead)   , GetSearchValue(inwardModel.companyNameTypeAhead));
             if (!isMaterialExist)
             {
                 //Insert it for Search
-                InsertintoTblSearchMaterialType(inwardModel.modelNoTypeAhead.searchValue,
-                inwardModel.materialTypeAhead.searchValue, inwardModel.companyNameTypeAhead.searchValue);
+                InsertintoTblSearchMaterialType(GetSearchValue(inwardModel.modelNoTypeAhead) ,
+              GetSearchValue(inwardModel.materialTypeAhead)  , GetSearchValue(inwardModel.companyNameTypeAhead));
             }
 
-            inwardModel.modelNo = inwardModel.modelNoTypeAhead.searchValue;
-            inwardModel.materialType = inwardModel.materialTypeAhead.searchValue;
-            inwardModel.companyName = inwardModel.companyNameTypeAhead.searchValue;
+            inwardModel.modelNo = GetSearchValue(inwardModel.modelNoTypeAhead);
+            inwardModel.materialType = GetSearchValue(inwardModel.materialTypeAhead);
+            inwardModel.companyName = GetSearchValue(inwardModel.companyNameTypeAhead);
 
 
             //Process Delivery Date
@@ -149,9 +159,9 @@ namespace Gopal.Services.Customer
                 List<String> lstAccessories = new List<String>();
                 inwardModel.lstAccessories.ForEach(accesory =>
                 {
-                    if (!IsAccessoriesExist(inwardModel.materialTypeAhead.searchValue, accesory.searchValue))
+                    if (!IsAccessoriesExist(GetSearchValue(inwardModel.materialTypeAhead) , accesory.searchValue))
                     {
-                        InsertintoTblMaterialAccessories(inwardModel.materialTypeAhead.searchValue, accesory.searchValue);
+                        InsertintoTblMaterialAccessories(GetSearchValue(inwardModel.materialTypeAhead), accesory.searchValue);
                     }
                     lstAccessories.Add(accesory.searchValue);
                 });
@@ -252,14 +262,29 @@ namespace Gopal.Services.Customer
                 }
             }
 
-
-
+            //Get Inward files
+            List<FilePOCO> lstFiles= GetInwardFiles(inwardModel.inwardId);
+            if (lstFiles != null && lstFiles.Count() > 0)
+            {
+                inwardModel.inwardFiles = lstFiles;
+            }
 
             return inwardModel;
         }
 
+        public List<FilePOCO> GetInwardFiles(int inwardId) {
+            List<FilePOCO> filePOCOs = null;
+            string sql = @"SELECT inwardDocumentId as documentId,documentName as originalFilename,
+                            documentPath as documentPath
+                          FROM tblInwardDocument where inwardRefId=@inwardId and ISNULL(isDeleted,0)<>1;";
 
+            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
+            {
+                filePOCOs= connection.Query<FilePOCO>(sql, new { inwardId })?.ToList();
 
+            }
+            return filePOCOs;
+        }
 
         public int DeleteInward(int inwardId) {
            TblInward inward= _dbContext.TblInward.FirstOrDefault(x => x.InwardId == inwardId);
@@ -275,6 +300,36 @@ namespace Gopal.Services.Customer
             return 0;
         }
 
+
+        public List<String> GetAccessories(int inwardId) {
+            List<String> lstAccessories = null;
+            string sql = @"SELECT accessories
+                          FROM tblInward where inwardId=@inwardId and ISNULL(isDeleted,0)<>1;";
+
+            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
+            {
+                string accessory= connection.QueryFirst<string>(sql, new { inwardId });
+                if (accessory != null)
+                {
+                    lstAccessories = accessory.Split("|")?.ToList();
+                }
+
+            }
+            return lstAccessories;
+        }
         
+
+
+        public void UpdateBarCodePathByInwardId(int inwardId,string barCodePath) {
+            string sql = @"UPDATE tblInward SET barCode=@barCodePath WHERE inwardId=@inwardId;";
+            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
+            {
+                 connection.ExecuteScalar<int>(sql, new { inwardId, barCodePath });
+               
+
+            }
+        }
+
+
     }
 }

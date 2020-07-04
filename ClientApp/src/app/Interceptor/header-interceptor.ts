@@ -13,10 +13,16 @@ showLoader=false;
 
   intercept(request: HttpRequest<any>, newRequest: HttpHandler): Observable<HttpEvent<any>> {
 
+
     if(request.url.indexOf('GetTypeAheadList')=== -1)
     {
         this.showLoader=true;
     }
+    else
+    {
+      this.showLoader=false;
+    }
+
     // add authorization header to request
     if(this.showLoader)
     {
@@ -31,9 +37,17 @@ showLoader=false;
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${tokenInfo.token}`,
-          'Content-Type': 'application/json'
+
         }
       });
+      if(request.url.indexOf('AddEditInward')=== -1)
+      {
+
+        request.headers.append('Content-Type','application/json')
+      }else
+      {
+        request.headers.append('Content-Type',undefined)
+      }
     }
 
     return newRequest.handle(request).do(

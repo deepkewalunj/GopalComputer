@@ -73,7 +73,9 @@
                                [(ngModel)]="inward.modelNoTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
                                [ngbTypeahead]="searchModel"
-                               (selectItem)="materialTypeAheadSelected($event)"/>
+                               (selectItem)="materialTypeAheadSelected($event)"
+
+                               />
                                <small *ngIf="searching" class="form-text text-muted">searching...</small>
                                <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
 
@@ -94,7 +96,8 @@
                                [(ngModel)]="inward.materialTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
                                [ngbTypeahead]="searchMaterialType"
-                               (selectItem)="materialTypeAheadSelected($event)"/>
+                               (selectItem)="materialTypeAheadSelected($event)"
+                                />
                                <small *ngIf="searching" class="form-text text-muted">searching...</small>
                                <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
 
@@ -116,7 +119,8 @@
                           [(ngModel)]="inward.companyNameTypeAhead" [inputFormatter]="formatter"
                           [resultFormatter]="formatter"
                           [ngbTypeahead]="searchCompanyName"
-                          (selectItem)="materialTypeAheadSelected($event)"/>
+                          (selectItem)="materialTypeAheadSelected($event)"
+                           />
                           <small *ngIf="searching" class="form-text text-muted">searching...</small>
                           <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
 
@@ -140,19 +144,13 @@
           </div>
           <div class="card-body pb-0 mb-0">
             <div class="row">
-              <div class="col-12 col-md-6 col-lg-4">
+              <div class="col-12 col-md-6 col-lg-4" *ngIf="inward.inwardId>0 && inward.barCode">
                   <div class="form-group has-float-label">
-                      <input class="form-control" type="text" [(ngModel)]="inward.barCode"
-                      id="barCode" placeholder="Bar Code" formControlName="barCode">
+
+                      <img  [src]="APIURL+'Uploads/'+inward.barCode"  id="barCode"   />
+
                       <label for="barCode">Bar Code</label>
-                      <div *ngIf="addInwardForm.controls['barCode'].invalid &&
-                      (addInwardForm.controls['barCode'].dirty ||
-                      addInwardForm.controls['barCode'].touched)"
-                      class="error-msg">
-                      <div *ngIf="addInwardForm.controls['barCode'].errors.required">
-                          Bar code is required.
-                      </div>
-                     </div>
+
                   </div>
               </div>
               <div class="col-12 col-md-4 col-lg-4">
@@ -230,7 +228,7 @@
                           <span class="plain-select">
                               <select class="form-control"  [ngModelOptions]="{standalone: true}"
                               [(ngModel)]="inward.smsStatus"  id="smsStatus">
-                                  <option value="" selected>Select</option>
+
                                   <option *ngFor="let c of smsStatuses" [ngValue]="c.id">{{c.name}}</option>
 
                               </select>
@@ -326,7 +324,7 @@
                           <span class="plain-select">
                               <select class="form-control" [ngModelOptions]="{standalone: true}"
                               [(ngModel)]="inward.outwardBillStatus"  id="paymentStatus">
-                                  <option value="" selected>Select</option>
+
                                   <option *ngFor="let c of billStatuses" [ngValue]="c.id">{{c.name}}</option>
                               </select>
                               <label for="paymentStatus" class="select-label">Outward/Bill Status</label>
@@ -364,7 +362,7 @@
                       <span class="plain-select">
                           <select class="form-control" [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.printStatus"  id="printStatus">
-                              <option value="" selected>Select</option>
+
                               <option *ngFor="let c of printStatuses" [ngValue]="c.id">{{c.name}}</option>
 
                           </select>
@@ -379,7 +377,7 @@
                       <span class="plain-select">
                           <select class="form-control" [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.repeatJob"  id="repeatJob">
-                              <option value="" selected>Select</option>
+
                               <option *ngFor="let c of repeatJobs" [ngValue]="c.id">{{c.name}}</option>
 
                           </select>
@@ -435,24 +433,20 @@
               <h5>Upload Photo</h5>
           </div>
           <div class="card-body">
-          <div class="row">
-              <div class="col-12 col-md-3 col-lg-4 profile-content">
-                  <div class="profile-photo mb-2">
-                      <img alt="image" src="./assets/imgs/upload-thumb.png">
-                      <div class="upload-btn-wrapper">
-                          <button class="btn"><i class="fas fa-cloud-upload-alt"></i></button>
-                          <input formcontrolname="imageLogo" name="imageLogo" type="file"
-                              class="ng-untouched ng-pristine ng-valid">
-                      </div>
-                  </div>
-                  <p class="img-upload-note">The image can be of png,<br> jpg, bmp, jpeg type and<br> up to 5mb.
-                  </p>
-              </div>
-          </div>
+
+         <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'" [expandable]="true">
+          <ngx-dropzone-label>Upload Files</ngx-dropzone-label>
+          <ngx-dropzone-preview *ngFor="let f of inward.inwardFiles" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.originalFilename }}</ngx-dropzone-label>
+          </ngx-dropzone-preview>
+        </ngx-dropzone>
           </div>
       </div>
       <footer>
           <button class="btn btn-secondary">Cancel</button>
+          <button type="submit" (click)="GetInwardBarcode()" *ngIf="inward.inwardId>0" class="btn btn-success">
+            Generate BarCode
+        </button>
           <button type="submit" (click)="addInwardForm.valid && SaveInward()" class="btn btn-primary">
               Save
           </button>

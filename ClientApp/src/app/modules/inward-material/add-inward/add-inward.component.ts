@@ -5,13 +5,14 @@ import {Observable, Subject,of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, tap, switchMap} from 'rxjs/operators';
 
 import { Inward } from 'src/app/models/inward.model';
-import { TypeAheadSelect, CommonModel } from 'src/app/models/common.model';
+import { TypeAheadSelect, CommonModel, FilePoco, Guid } from 'src/app/models/common.model';
 import { AddEditCustomerComponent } from '../../master/customer/add-edit-customer/add-edit-customer.component';
 import { Customer } from 'src/app/models/customer.model';
 import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/typeahead.model';
 import { InwardService } from 'src/app/services/inward.service';
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-add-inward',
@@ -23,6 +24,7 @@ export class AddInwardComponent implements OnInit {
 
   @ViewChild('inputAccessories',{static: false}) inputAccessories;
 
+  APIURL=environment.API_URL;
   public modelNumber: any;
   public moreCompanyName: any;
   public materiaType: any;
@@ -71,7 +73,7 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
 
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private inwardService:InwardService,private typeAheadService:TypeAheadService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,private router:Router) {
    this.createForm();
   }
 
@@ -82,7 +84,6 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
       modelNumber:['', Validators.required],
       materialType:['',Validators.required],
       companyName:['',Validators.required],
-      barCode:  ['', Validators.required],
       serialNumber:['',Validators.required],
       ProblemDescription:['',Validators.required],
       EnggName:['',Validators.required],
@@ -149,17 +150,17 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
     });
       this.inward=new Inward();
       this.inward.lstAccessories=[];
-      this.inward.outwardBillStatus='';
-      this.inward.printStatus='';
-      this.inward.repeatJob='';
-      this.inward.smsStatus='';
+      this.inward.outwardBillStatus='2';
+      this.inward.printStatus='2';
+      this.inward.repeatJob='2';
+      this.inward.smsStatus='2';
       this.inward.isProblemDetected='2';
       this.inward.isRepaired='2';
       let today=new Date();
       let fourAheadToday=this.addDays( new Date(),4);
       this.inward.ngbInwardDate=new NgbDate(today.getFullYear(),today.getMonth(),today.getDate());
       this.inward.ngbDeliveryDate=new NgbDate(fourAheadToday.getFullYear(),fourAheadToday.getMonth(),fourAheadToday.getDate());
-
+      this.inward.inwardFiles=[];
       if(this.inwardId)
       {
         this.getInwardById(this.inwardId);
@@ -180,8 +181,13 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
 getInwardById(inwardId)
 {
   this.inwardService.getInward(inwardId).subscribe(data=>{
-    debugger;
+
       this.inward=data;
+      if(!this.inward.inwardFiles)
+      {
+        this.inward.inwardFiles=[];
+      }
+
   },error=>{
 
   });
@@ -262,7 +268,7 @@ getInwardById(inwardId)
       distinctUntilChanged(),
       tap(() => this.searching = true),
       switchMap(term =>term.length < 2 ? []:
-        this.typeAheadService.GetTypeAheadList(1,term,3)
+        this.typeAheadService.GetTypeAheadList(this.inward.materialTypeAhead,term,3)
         .pipe(
           tap(() => this.searchFailed = false),
           catchError(() => {
@@ -287,7 +293,15 @@ materialTypeAheadSelected(selectedElement){
 
   this.inward.companyNameTypeAhead={searchId: selectedElement.item.searchId,
     searchValue:selectedElementArray[2],splitValue:selectedElement.item.splitValue};
+
+  this.inward.lstAccessories=[];
+  this.inward.lstAccessories.push({searchId: 0,
+    searchValue:selectedElementArray[1],splitValue:''});
 }
+
+
+
+
 
 selectedInventory(inventory){
   inventory.preventDefault();
@@ -303,8 +317,25 @@ deleteTag(item) {
   }
 
   SaveInward(){
-    this.inwardService.addEditInward(this.inward).subscribe(data=>{
-          this._success.next("Inward Saved Successfully.")
+
+  const formData = new FormData();
+
+    if (this.inward.inwardFiles.length>0)
+    {
+      for (let uploadFile of this.inward.inwardFiles)
+      {
+        if(uploadFile.file)
+        {
+          uploadFile.uniqueFilename=Guid.newGuid();
+          formData.append(uploadFile.uniqueFilename, uploadFile.file);
+        }
+      }
+
+    }
+    formData.append("inward",JSON.stringify(this.inward) )
+
+      this.inwardService.addEditInward(formData).subscribe(data=>{
+      this.router.navigate(['inward-material/inward']);
 
     },error=>{
 
@@ -312,6 +343,37 @@ deleteTag(item) {
     })
   }
 
+
+
+	onSelect(event) {
+    for(let i=0;i<event.addedFiles.length;i++)
+    {
+      let uploadedFile:File=event.addedFiles[i];
+      let filePocoObject=new FilePoco();
+      filePocoObject.originalFilename=uploadedFile.name;
+      filePocoObject.file=uploadedFile;
+      this.inward.inwardFiles.push(filePocoObject);
+      console.log(this.inward.inwardFiles);
+    }
+
+
+
+	}
+
+	onRemove(event) {
+
+		this.inward.inwardFiles.splice(this.inward.inwardFiles.indexOf(event), 1);
+	}
+
+
+  GetInwardBarcode()
+  {
+    this.inwardService.GetInwardBarcode(this.inward.inwardId).subscribe(data=>{
+          this.inward.barCode=data;
+    },error=>{
+
+    })
+  }
 
 
 }

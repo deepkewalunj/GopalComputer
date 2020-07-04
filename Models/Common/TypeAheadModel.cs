@@ -15,7 +15,7 @@ namespace Gopal.Models.Common
     {
         public TYPEAHEAD_LIST listType;
         public string searchText { get; set; }
-        public int searchType { get; set; }
+        public object searchType { get; set; }
     }
 
     public enum TYPEAHEAD_LIST{

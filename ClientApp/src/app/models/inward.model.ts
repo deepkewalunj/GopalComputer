@@ -1,4 +1,4 @@
-import { TypeAheadSelect } from './common.model';
+import { TypeAheadSelect, FilePoco } from './common.model';
 
 import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/typeahead.model';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
@@ -8,9 +8,9 @@ export class Inward {
   lstAccessories: TypeAheadResponseModel[];
   ngbInwardDate: NgbDate;
   customerTypeAhead: TypeAheadResponseModel;
-  modelNoTypeAhead: TypeAheadResponseModel;
-  materialTypeAhead: TypeAheadResponseModel;
-  companyNameTypeAhead: TypeAheadResponseModel;
+  modelNoTypeAhead: any;
+  materialTypeAhead: any;
+  companyNameTypeAhead: any;
   ngbDeliveryDate: NgbDate;
   userId: number;
   inwardId: number;
@@ -40,4 +40,14 @@ export class Inward {
   clientDc: string;
   accBarCode: string;
   accessories: string;
+  inwardFiles:FilePoco[];
+}
+
+export class InwardListModel{
+  inwardId:string
+   clientName:string
+   enggName:string
+   inwardDate:string
+   deliveryDate:string
+   outwardBillStatus: string
 }

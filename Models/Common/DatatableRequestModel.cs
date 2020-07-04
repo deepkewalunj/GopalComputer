@@ -33,6 +33,6 @@ public class DatatableRequestModel
 }
 public class DatatableRequestWrapper
 {
-    public DatatableRequestModel getCustomerListModel { get; set; }
+    public DatatableRequestModel getListModel { get; set; }
 
 }
