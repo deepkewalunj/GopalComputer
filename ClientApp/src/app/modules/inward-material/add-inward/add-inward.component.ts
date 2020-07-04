@@ -1,17 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import {Observable, Subject,of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, tap, switchMap} from 'rxjs/operators';
 
 import { Inward } from 'src/app/models/inward.model';
-import { TypeAheadSelect } from 'src/app/models/common.model';
+import { TypeAheadSelect, CommonModel, FilePoco, Guid } from 'src/app/models/common.model';
 import { AddEditCustomerComponent } from '../../master/customer/add-edit-customer/add-edit-customer.component';
 import { Customer } from 'src/app/models/customer.model';
 import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/typeahead.model';
 import { InwardService } from 'src/app/services/inward.service';
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
-
+import { ActivatedRoute, Router } from '@angular/router'
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-add-inward',
@@ -20,10 +21,13 @@ import { TypeAheadService } from 'src/app/services/type-ahead.service';
 })
 export class AddInwardComponent implements OnInit {
 
+
+  @ViewChild('inputAccessories',{static: false}) inputAccessories;
+
+  APIURL=environment.API_URL;
   public modelNumber: any;
   public moreCompanyName: any;
   public materiaType: any;
-  public addAccessories: any;
 
   searching = false;
   searchFailed = false;
@@ -58,8 +62,18 @@ export class AddInwardComponent implements OnInit {
 
   inward:Inward;
 
+  inwardId:number;
+
+
+
+billStatuses=CommonModel.getInwardOutwardBillStatuses();
+printStatuses=CommonModel.getInwardOutwardPrintStatuses();
+repeatJobs=CommonModel.getInwardRepeatJobs();
+smsStatuses=CommonModel.getInwardSmsStatuses();
+
   constructor(private fb: FormBuilder, private modalService: NgbModal,
-    private inwardService:InwardService,private typeAheadService:TypeAheadService) {
+    private inwardService:InwardService,private typeAheadService:TypeAheadService,
+    private route: ActivatedRoute,private router:Router) {
    this.createForm();
   }
 
@@ -70,7 +84,6 @@ export class AddInwardComponent implements OnInit {
       modelNumber:['', Validators.required],
       materialType:['',Validators.required],
       companyName:['',Validators.required],
-      barCode:  ['', Validators.required],
       serialNumber:['',Validators.required],
       ProblemDescription:['',Validators.required],
       EnggName:['',Validators.required],
@@ -129,8 +142,29 @@ export class AddInwardComponent implements OnInit {
   selectedItems = [];
   dropdownSettings = {};
 
+
   ngOnInit(){
+
+    this.route.params.subscribe(data =>{
+        this.inwardId=data.inwardId;
+    });
       this.inward=new Inward();
+      this.inward.lstAccessories=[];
+      this.inward.outwardBillStatus='2';
+      this.inward.printStatus='2';
+      this.inward.repeatJob='2';
+      this.inward.smsStatus='2';
+      this.inward.isProblemDetected='2';
+      this.inward.isRepaired='2';
+      let today=new Date();
+      let fourAheadToday=this.addDays( new Date(),4);
+      this.inward.ngbInwardDate=new NgbDate(today.getFullYear(),today.getMonth(),today.getDate());
+      this.inward.ngbDeliveryDate=new NgbDate(fourAheadToday.getFullYear(),fourAheadToday.getMonth(),fourAheadToday.getDate());
+      this.inward.inwardFiles=[];
+      if(this.inwardId)
+      {
+        this.getInwardById(this.inwardId);
+      }
       setTimeout(() => this.staticAlertClosed = true, 20000);
 
     this._success.subscribe((message) => this.successMessage = message);
@@ -138,6 +172,26 @@ export class AddInwardComponent implements OnInit {
       debounceTime(5000)
     ).subscribe(() => this.successMessage = null);
   }
+
+  addDays(date: Date, days: number): Date {
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+getInwardById(inwardId)
+{
+  this.inwardService.getInward(inwardId).subscribe(data=>{
+
+      this.inward=data;
+      if(!this.inward.inwardFiles)
+      {
+        this.inward.inwardFiles=[];
+      }
+
+  },error=>{
+
+  });
+}
 
 
 
@@ -208,33 +262,117 @@ export class AddInwardComponent implements OnInit {
       ),
       tap(() => this.searching = false)
     )
-
+    searchInventory = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap(term =>term.length < 2 ? []:
+        this.typeAheadService.GetTypeAheadList(this.inward.materialTypeAhead,term,3)
+        .pipe(
+          tap(() => this.searchFailed = false),
+          catchError(() => {
+            this.searchFailed = true;
+            return of([]);
+          }))
+      ),
+      tap(() => this.searching = false)
+    )
 materialTypeAheadSelected(selectedElement){
   selectedElement.preventDefault();
   let selectedElementArray=selectedElement.item.splitValue.split('|');
-  this.inward.ModelNoTypeAhead=null;
-  this.inward.MaterialTypeAhead=null;
-  this.inward.CompanyNameTypeAhead=null;
+  this.inward.modelNoTypeAhead=null;
+  this.inward.materialTypeAhead=null;
+  this.inward.companyNameTypeAhead=null;
 
-  this.inward.ModelNoTypeAhead={searchId: selectedElement.item.searchId,
+  this.inward.modelNoTypeAhead={searchId: selectedElement.item.searchId,
     searchValue:selectedElementArray[0],splitValue:selectedElement.item.splitValue};
 
-  this.inward.MaterialTypeAhead={searchId: selectedElement.item.searchId,
+  this.inward.materialTypeAhead={searchId: selectedElement.item.searchId,
     searchValue:selectedElementArray[1],splitValue:selectedElement.item.splitValue};
 
-  this.inward.CompanyNameTypeAhead={searchId: selectedElement.item.searchId,
+  this.inward.companyNameTypeAhead={searchId: selectedElement.item.searchId,
     searchValue:selectedElementArray[2],splitValue:selectedElement.item.splitValue};
-}
-  // add-tags
 
-  addTags(newTag: string) {
-    if (newTag) {
-      this.tags.push(newTag);
-    }
+  this.inward.lstAccessories=[];
+  this.inward.lstAccessories.push({searchId: 0,
+    searchValue:selectedElementArray[1],splitValue:''});
+}
+
+
+
+
+
+selectedInventory(inventory){
+  inventory.preventDefault();
+  this.inward.lstAccessories.push(inventory.item);
+  this.inputAccessories.nativeElement.value = '';
+}
+
+
+
+deleteTag(item) {
+    this.inward.lstAccessories.splice(this.inward.lstAccessories.indexOf(item), 1);
+    this.inputAccessories.nativeElement.focus();
   }
-// delets-tags
-  deleteTag(index) {
-    this.tags.splice(index, 1);
+
+  SaveInward(){
+
+  const formData = new FormData();
+
+    if (this.inward.inwardFiles.length>0)
+    {
+      for (let uploadFile of this.inward.inwardFiles)
+      {
+        if(uploadFile.file)
+        {
+          uploadFile.uniqueFilename=Guid.newGuid();
+          formData.append(uploadFile.uniqueFilename, uploadFile.file);
+        }
+      }
+
+    }
+    formData.append("inward",JSON.stringify(this.inward) )
+
+      this.inwardService.addEditInward(formData).subscribe(data=>{
+      this.router.navigate(['inward-material/inward']);
+
+    },error=>{
+
+
+    })
+  }
+
+
+
+	onSelect(event) {
+    for(let i=0;i<event.addedFiles.length;i++)
+    {
+      let uploadedFile:File=event.addedFiles[i];
+      let filePocoObject=new FilePoco();
+      filePocoObject.originalFilename=uploadedFile.name;
+      filePocoObject.file=uploadedFile;
+      this.inward.inwardFiles.push(filePocoObject);
+      console.log(this.inward.inwardFiles);
+    }
+
+
+
+	}
+
+	onRemove(event) {
+
+		this.inward.inwardFiles.splice(this.inward.inwardFiles.indexOf(event), 1);
+	}
+
+
+  GetInwardBarcode()
+  {
+    this.inwardService.GetInwardBarcode(this.inward.inwardId).subscribe(data=>{
+          this.inward.barCode=data;
+    },error=>{
+
+    })
   }
 
 

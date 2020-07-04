@@ -1,36 +1,53 @@
-import { TypeAheadSelect } from './common.model';
+import { TypeAheadSelect, FilePoco } from './common.model';
 
 import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/typeahead.model';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 export class Inward {
-  InwardId: number;
-  InwardDate?: string
-  ClientRefId?: number
-  ModelNo: string
-  MaterialType: string
-  CompanyName: string
-  CustomerTypeAhead:TypeAheadResponseModel;
-  ModelNoTypeAhead:TypeAheadResponseModel;
-  MaterialTypeAhead:TypeAheadResponseModel;
-  CompanyNameTypeAhead:TypeAheadResponseModel;
-  BarCode: string
-  SerialNo: string
-  ProblemDescription: string
-  EnggName: string
-  IsOwner: boolean
-  MobileNumber: string
-  SmsStatus: boolean
-  ReceiverName: string
-  IsProblemDetected: boolean
-  IsSpecialJob: boolean
-  DeliveryDate?: string
-  AdvanceAmount?: number
-  OutwardBillStatus?: number
-  EstmRepairingAmount?: number
-  IsRepaired: boolean
-  PrintStatus: boolean
-  RepeatJob: boolean
-  RepeatJobDesc: string
-  ClientDc: string
-  AccBarCode: string
-  Accessories: string
+
+
+  lstAccessories: TypeAheadResponseModel[];
+  ngbInwardDate: NgbDate;
+  customerTypeAhead: TypeAheadResponseModel;
+  modelNoTypeAhead: any;
+  materialTypeAhead: any;
+  companyNameTypeAhead: any;
+  ngbDeliveryDate: NgbDate;
+  userId: number;
+  inwardId: number;
+  inwardDate: string;
+  clientRefId: number;
+  modelNo: string;
+  materialType: string;
+  companyName: string;
+  outwardBillStatus: string;
+  printStatus: string;
+  repeatJob: string;
+  repeatJobDesc?: any;
+  smsStatus: string;
+  isProblemDetected: string;
+  isRepaired: string;
+  barCode: string;
+  serialNo: string;
+  problemDescription: string;
+  enggName: string;
+  receiverName: string;
+  isOwner: boolean;
+  mobileNumber: string;
+  isSpecialJob: boolean;
+  deliveryDate: Date;
+  advanceAmount: string;
+  estmRepairingAmount: string;
+  clientDc: string;
+  accBarCode: string;
+  accessories: string;
+  inwardFiles:FilePoco[];
+}
+
+export class InwardListModel{
+  inwardId:string
+   clientName:string
+   enggName:string
+   inwardDate:string
+   deliveryDate:string
+   outwardBillStatus: string
 }

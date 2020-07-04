@@ -17,6 +17,7 @@ namespace Gopal.EntityFrameworkCore
 
         public virtual DbSet<TblClient> TblClient { get; set; }
         public virtual DbSet<TblInward> TblInward { get; set; }
+        public virtual DbSet<TblInwardDocument> TblInwardDocument { get; set; }
         public virtual DbSet<TblMaterialAccessory> TblMaterialAccessory { get; set; }
         public virtual DbSet<TblModule> TblModule { get; set; }
         public virtual DbSet<TblModulePermission> TblModulePermission { get; set; }
@@ -207,10 +208,16 @@ namespace Gopal.EntityFrameworkCore
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+                entity.Property(e => e.RepairedRemark)
+                    .HasColumnName("repairedRemark")
+                    .HasMaxLength(2000)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.RepeatJob).HasColumnName("repeatJob");
 
                 entity.Property(e => e.RepeatJobDesc)
                     .HasColumnName("repeatJobDesc")
+                    .HasMaxLength(2000)
                     .IsUnicode(false);
 
                 entity.Property(e => e.SerialNo)
@@ -218,6 +225,42 @@ namespace Gopal.EntityFrameworkCore
                     .HasMaxLength(200);
 
                 entity.Property(e => e.SmsStatus).HasColumnName("smsStatus");
+            });
+
+            modelBuilder.Entity<TblInwardDocument>(entity =>
+            {
+                entity.HasKey(e => e.InwardDocumentId)
+                    .HasName("PK__tblInwar__C2055DA5ACEEE590");
+
+                entity.ToTable("tblInwardDocument");
+
+                entity.Property(e => e.InwardDocumentId).HasColumnName("inwardDocumentId");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("createdDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.DocumentName)
+                    .HasColumnName("documentName")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DocumentPath)
+                    .HasColumnName("documentPath")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.InwardRefId).HasColumnName("inwardRefId");
+
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+
+                entity.Property(e => e.ModifiedBy).HasColumnName("modifiedBy");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnName("modifiedDate")
+                    .HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TblMaterialAccessory>(entity =>

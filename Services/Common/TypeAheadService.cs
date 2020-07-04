@@ -40,5 +40,19 @@ namespace Gopal.Services.Common
             }
             return lstTypeAheadResponseModel;
         }
+
+        public List<TypeAheadResponseModel> GetTypeAheadInventory(TypeAheadRequestModel request) {
+            List<TypeAheadResponseModel> lstTypeAheadResponseModel = new List<TypeAheadResponseModel>();
+            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
+            {
+
+                lstTypeAheadResponseModel = connection.Query<TypeAheadResponseModel>("usp_GetTypeAheadAccessories",
+                new {  request.searchText,request.searchType },
+                commandType: CommandType.StoredProcedure)?.ToList();
+
+
+            }
+            return lstTypeAheadResponseModel;
+        }
     }
 }

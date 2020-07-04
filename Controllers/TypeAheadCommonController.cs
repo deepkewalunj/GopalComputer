@@ -32,6 +32,9 @@ namespace Gopal.Controllers
                 case TYPEAHEAD_LIST.TYPEAHEAD_MATERIAL:
                     lstTypeAheadResponseModel = _typeaheadService.GetTypeAheadModelMaterial(request);
                     break;
+                case TYPEAHEAD_LIST.TYPEAHEAD_INVENTORY:
+                    lstTypeAheadResponseModel = _typeaheadService.GetTypeAheadInventory(request);
+                    break;
             }
 
             return Ok(lstTypeAheadResponseModel);

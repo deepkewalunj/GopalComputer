@@ -11,8 +11,11 @@ namespace Gopal.Services.Customer
     public interface IInwardServices
     {
         DatatableResponseModel GetInwardList(DatatableRequestModel getInwardModel);
-        InwardModel AddEditInward(InwardModel inwardModel);
+        InwardTypeScriptModel AddEditInward(InwardTypeScriptModel inwardModel);
+        InwardTypeScriptModel GetInwardById(int inwardId);
         int DeleteInward(int inwardId);
-        
+        List<String> GetAccessories(int inwardId);
+        void UpdateBarCodePathByInwardId(int inwardId, string barCodePath);
+
     }
 }

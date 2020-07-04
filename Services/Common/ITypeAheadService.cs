@@ -10,5 +10,7 @@ namespace Gopal.Services.Common
     {
         List<TypeAheadResponseModel> GetTypeAheadModelMaterial(TypeAheadRequestModel request);
         List<TypeAheadResponseModel> GetTypeAheadCustomer(TypeAheadRequestModel request);
+
+        List<TypeAheadResponseModel> GetTypeAheadInventory(TypeAheadRequestModel request);
     }
 }

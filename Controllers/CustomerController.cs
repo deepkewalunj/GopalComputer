@@ -32,7 +32,7 @@ namespace Gopal.Controllers
         [Route("GetCustomerList")]
         public ActionResult GetCustomerList(DatatableRequestWrapper requestObjectWrapper) {
            
-            return Ok(_customerServices.GetCustomerList(requestObjectWrapper.getCustomerListModel)); 
+            return Ok(_customerServices.GetCustomerList(requestObjectWrapper.getListModel)); 
         }
 
         [HttpPost]
