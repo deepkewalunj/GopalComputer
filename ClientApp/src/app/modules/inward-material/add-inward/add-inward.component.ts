@@ -43,7 +43,8 @@ export class AddInwardComponent implements OnInit {
 
 
     /*phone masking*/
-    public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+    //public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
     /*phone validation*/
     @Input()
     maxlength: number;
