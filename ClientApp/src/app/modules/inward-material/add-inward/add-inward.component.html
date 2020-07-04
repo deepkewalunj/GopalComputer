@@ -434,10 +434,11 @@
                           </ng-container>
                           <div class="d-flex align-items-end">
                               <input class="form-control"
-                                 [resultFormatter]="formatter" [inputFormatter]="formatter"
+
                                   [(ngModel)]="inward.accessories" [ngbTypeahead]="searchInventory"
                                   [ngModelOptions]="{standalone: true}" #inputAccessories
-                                  (selectItem)="selectedInventory($event)" autofocus placeholder="Select Inventory">
+                                  (selectItem)="selectedInventory($event)"
+                                   autofocus placeholder="Select Inventory"  (dblclick)="AddTag()">
 
                           </div>
                       </div>
@@ -450,6 +451,7 @@
               <h5>Upload Photo</h5>
           </div>
           <div class="card-body">
+              <app-camera (pictureTaken)="handleImage($event)"></app-camera>
 
          <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'" [expandable]="true">
           <ngx-dropzone-label>Upload Files</ngx-dropzone-label>

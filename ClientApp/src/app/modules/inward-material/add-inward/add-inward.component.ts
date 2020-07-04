@@ -13,6 +13,7 @@ import { InwardService } from 'src/app/services/inward.service';
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
 import { ActivatedRoute, Router } from '@angular/router'
 import { environment } from 'src/environments/environment.prod';
+import {WebcamImage} from 'ngx-webcam';
 
 @Component({
   selector: 'app-add-inward',
@@ -188,6 +189,7 @@ getInwardById(inwardId)
       {
         this.inward.inwardFiles=[];
       }
+      this.inward.accessories="";
 
   },error=>{
 
@@ -310,7 +312,19 @@ selectedInventory(inventory){
   this.inputAccessories.nativeElement.value = '';
 }
 
-
+AddTag(){
+  debugger;
+  if(this.inward.accessories)
+  {
+    let responseModel=new TypeAheadResponseModel();
+    responseModel.searchId=0;
+    responseModel.searchValue=this.inward.accessories;
+    responseModel.splitValue="";
+    this.inward.lstAccessories.push(responseModel);
+    this.inputAccessories="";
+    this.inputAccessories.nativeElement.value = '';
+  }
+}
 
 deleteTag(item) {
     this.inward.lstAccessories.splice(this.inward.lstAccessories.indexOf(item), 1);
@@ -336,6 +350,7 @@ deleteTag(item) {
     formData.append("inward",JSON.stringify(this.inward) )
 
       this.inwardService.addEditInward(formData).subscribe(data=>{
+      this.inward=data;
       this.GoToInwardList();
     },error=>{
 
@@ -344,7 +359,13 @@ deleteTag(item) {
   }
 
 GoToInwardList(){
-  this.router.navigate(['inward-material/inward']);
+  if(this.inwardId>0){
+    this.router.navigate(['inward-material/inward']);
+  }
+  else{
+    this.router.navigate(['inward-material/add-inward',this.inward.inwardId]);
+  }
+
 
 }
 
@@ -356,7 +377,7 @@ GoToInwardList(){
       filePocoObject.originalFilename=uploadedFile.name;
       filePocoObject.file=uploadedFile;
       this.inward.inwardFiles.push(filePocoObject);
-      console.log(this.inward.inwardFiles);
+
     }
 
 
@@ -377,6 +398,32 @@ GoToInwardList(){
 
     })
   }
+
+  // latest snapshot
+  public webcamImage: WebcamImage = null;
+
+  handleImage(webcamImage: WebcamImage) {
+    this.webcamImage = webcamImage;
+const that=this;
+//Usage example:
+this.urltoFile(this.webcamImage.imageAsDataUrl,Guid.newGuid()+".jpeg",'text/plain')
+.then(function(uploadedFile){
+
+       let filePocoObject=new FilePoco();
+      filePocoObject.originalFilename=uploadedFile.name;
+      filePocoObject.file=uploadedFile;
+      that.inward.inwardFiles.push(filePocoObject);
+
+});
+
+}
+  //return a promise that resolves with a File instance
+   urltoFile(url, filename, mimeType){
+    return (fetch(url)
+        .then(function(res){return res.arrayBuffer();})
+        .then(function(buf){return new File([buf], filename,{type:mimeType});})
+    );
+}
 
 
 }

@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
 import { CustomDateParserFormatter } from './services/custom-date-parser-formatter.service';
+import { WebcamModule } from 'ngx-webcam';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CustomDateParserFormatter } from './services/custom-date-parser-formatt
     HttpClientModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     NgxSpinnerModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },

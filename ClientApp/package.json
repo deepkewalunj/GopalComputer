@@ -37,6 +37,7 @@
     "ngx-mask": "^8.1.6",
     "ngx-print": "^1.2.0-beta.5",
     "ngx-spinner": "^9.0.2",
+    "ngx-webcam": "^0.2.6",
     "popper": "^1.0.1",
     "rxjs": "^6.4.0",
     "rxjs-compat": "^6.5.4",

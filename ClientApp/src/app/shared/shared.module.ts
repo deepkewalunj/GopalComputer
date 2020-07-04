@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { TextMaskModule } from 'angular2-text-mask';
+import {WebcamModule} from 'ngx-webcam';
+import { CameraComponent } from './camera/camera.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -11,7 +13,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     TextMaskModule,
     AngularMultiSelectModule,
-    NgbModule,
+    NgbModule
 
   ],
 
@@ -19,7 +21,10 @@ import { TextMaskModule } from 'angular2-text-mask';
   exports: [
     CommonModule,
 
-  ]
+  ],
+
+
+
 
 })
 export class SharedModule { }
