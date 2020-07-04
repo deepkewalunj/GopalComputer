@@ -309,13 +309,13 @@
                   <div class="col-12 col-md-6 col-lg-4">
                       <div class="form-group has-float-label">
                           <input class="form-control" type="text"  [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="inward.advanceAmount"  id="advAmount" placeholder="Advance Amount">
+                          [(ngModel)]="inward.advanceAmount" mask="0*.00"   id="advAmount" placeholder="Advance Amount">
                           <label for="advAmount">Advance Amount</label>
                       </div>
                   </div>
                   <div class="col-12 col-md-6 col-lg-4">
                       <div class="form-group has-float-label">
-                          <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                          <input class="form-control" type="text" mask="0*.00"  [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.estmRepairingAmount"  id="estAmount" placeholder="Estimate Repearimg Amount">
                           <label for="estAmount">Estimate Repearimg Amount</label>
                       </div>

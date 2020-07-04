@@ -13,10 +13,13 @@ import { AddUpdateModelNoMaterialTypeComponent } from './add-update-model-no-mat
 import { MasterModule } from '../master/master.module';
 import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accessory.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
-import { CustomDateParserFormatter } from 'src/app/services/custom-date-parser-formatter.service';
-
 import { InwardPrintComponent } from './inward-print/inward-print.component';
 import { NgxPrintModule } from 'ngx-print';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import { NgxPrintModule } from 'ngx-print';
     DataTablesModule,
     MasterModule,
     NgxDropzoneModule,
-    NgxPrintModule
+    NgxPrintModule,
+    NgxMaskModule.forRoot(maskConfig),
   ]
 })
 export class InwardMaterialModule { }

@@ -28,7 +28,7 @@ getSearchType(searchType){
   GetTypeAheadList(searchType:any,searchText:string,listType:number) {
 if(searchType){
   return this.http.post<any>(environment.API_URL+'TypeAheadCommon/GetTypeAheadList',
-    {searchType:searchType,searchText:searchText,listType:listType});
+    {searchType:this.getSearchType(searchType),searchText:searchText,listType:listType});
 }
 return of([]);
 
