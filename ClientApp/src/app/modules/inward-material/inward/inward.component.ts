@@ -105,7 +105,7 @@ export class InwardComponent implements OnInit {
   }
 
   openAddEditSearchModelNoMaterialTypeCompanyNamePopup(inward) {
-    const modalRef = this.modalService.open(InwardPrintComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(InwardPrintComponent, { size: 'lg', windowClass: 'print-modal' });
     modalRef.componentInstance.inward = inward;
     modalRef.componentInstance.modelRef = modalRef;
     modalRef.result.then((result) => {

@@ -101,6 +101,14 @@
     }
 }
 
+.modal {
+    &.print-modal {
+        .modal-content {
+            padding: 0 10px;
+        }
+    }
+}
+
 /* media css for modal */
 
 @media (max-width: 768px) {
