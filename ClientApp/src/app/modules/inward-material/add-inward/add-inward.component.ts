@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { NgbModal, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDate, NgbCalendar ,NgbPeriod} from '@ng-bootstrap/ng-bootstrap';
 import {Observable, Subject,of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, tap, switchMap} from 'rxjs/operators';
 
@@ -73,7 +73,8 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
 
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private inwardService:InwardService,private typeAheadService:TypeAheadService,
-    private route: ActivatedRoute,private router:Router) {
+    private route: ActivatedRoute,private router:Router,
+    private ngbCalendar: NgbCalendar) {
    this.createForm();
   }
 
@@ -156,10 +157,9 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
       this.inward.smsStatus='2';
       this.inward.isProblemDetected='2';
       this.inward.isRepaired='2';
-      let today=new Date();
-      let fourAheadToday=this.addDays( new Date(),4);
-      this.inward.ngbInwardDate=new NgbDate(today.getFullYear(),today.getMonth(),today.getDate());
-      this.inward.ngbDeliveryDate=new NgbDate(fourAheadToday.getFullYear(),fourAheadToday.getMonth(),fourAheadToday.getDate());
+
+      this.inward.ngbInwardDate=this.ngbCalendar.getToday();
+      this.inward.ngbDeliveryDate=this.ngbCalendar.getNext(this.inward.ngbInwardDate,'d',4);
       this.inward.inwardFiles=[];
       if(this.inwardId)
       {
@@ -335,15 +335,17 @@ deleteTag(item) {
     formData.append("inward",JSON.stringify(this.inward) )
 
       this.inwardService.addEditInward(formData).subscribe(data=>{
-      this.router.navigate(['inward-material/inward']);
-
+      this.GoToInwardList();
     },error=>{
 
 
     })
   }
 
+GoToInwardList(){
+  this.router.navigate(['inward-material/inward']);
 
+}
 
 	onSelect(event) {
     for(let i=0;i<event.addedFiles.length;i++)
@@ -366,9 +368,9 @@ deleteTag(item) {
 	}
 
 
-  GetInwardBarcode()
+  PrintInwardBarcode()
   {
-    this.inwardService.GetInwardBarcode(this.inward.inwardId).subscribe(data=>{
+    this.inwardService.PrintInwardBarcode(this.inward.inwardId).subscribe(data=>{
           this.inward.barCode=data;
     },error=>{
 

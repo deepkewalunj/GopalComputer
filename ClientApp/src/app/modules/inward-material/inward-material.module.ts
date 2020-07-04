@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
@@ -13,6 +13,7 @@ import { AddUpdateModelNoMaterialTypeComponent } from './add-update-model-no-mat
 import { MasterModule } from '../master/master.module';
 import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accessory.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { CustomDateParserFormatter } from 'src/app/services/custom-date-parser-formatter.service';
 
 
 @NgModule({
@@ -34,6 +35,6 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     DataTablesModule,
     MasterModule,
 NgxDropzoneModule
-  ]
+  ],
 })
 export class InwardMaterialModule { }

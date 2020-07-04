@@ -185,7 +185,7 @@ namespace Gopal.Services.Customer
             return inwardTypeScriptModel;
         }
         private string GetCustomerNameById(int customerId) {
-            string sql = @"SELECT CONCAT(ISNULL(clientName,''),'     ',ISNULL(companyName,'')) as searchValue  
+            string sql = @"SELECT CONCAT(ISNULL(companyName,''),'     ', ISNULL(clientName,'')) as searchValue  
                           FROM tblClient where clientId=@customerId and ISNULL(isDeleted,0)<>1;";
 
             using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
@@ -195,6 +195,17 @@ namespace Gopal.Services.Customer
             }
         }
 
+        public string GetCustomerNameByIdForBarcode(int customerId)
+        {
+            string sql = @"SELECT CONCAT(ISNULL(companyName,''),' ',ISNULL(clientName,'')) as searchValue  
+                          FROM tblClient where clientId=@customerId and ISNULL(isDeleted,0)<>1;";
+
+            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
+            {
+                return connection.QueryFirst<string>(sql, new { customerId });
+
+            }
+        }
         private InwardModel PostProcessInward(InwardTypeScriptModel inwardModel)
         {
             //Process Inward Date

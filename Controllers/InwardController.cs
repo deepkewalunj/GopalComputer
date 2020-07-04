@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -21,11 +22,18 @@ namespace Gopal.Controllers
     {
         private IHostingEnvironment _hostingEnvironment;
         private IInwardServices _inwardServices;
+        public string UPLOAD_PATH;
         public InwardController(IHostingEnvironment hostingEnvironment,IInwardServices inwardServices)
         {
             _hostingEnvironment = hostingEnvironment;
             _inwardServices = inwardServices;
+            
+        }
 
+        private string GetUploadFolderPath() {
+            string folderName = "Uploads";
+            string webRootPath = _hostingEnvironment.WebRootPath;
+           return Path.Combine(webRootPath, folderName);
         }
 
 
@@ -40,23 +48,36 @@ namespace Gopal.Controllers
         [HttpPost]
         [Route("AddEditInWard")]
         [DisableRequestSizeLimit]
-        public ActionResult AddEditCustomer()
+        public ActionResult AddEditInWard()
         {
             InwardTypeScriptModel inwardModel = JsonConvert.DeserializeObject<InwardTypeScriptModel>(Request.Form["inward"]);
-
+           
             IFormFileCollection files = Request.Form.Files;
             if (files?.Count() > 0)
             {
                 ProcessInwardFiles(files, inwardModel);
             }
-            return Ok(_inwardServices.AddEditInward(inwardModel));
+            inwardModel=  _inwardServices.AddEditInward(inwardModel);
+            if (!(String.IsNullOrEmpty(inwardModel.barCode) || String.IsNullOrWhiteSpace(inwardModel.barCode)))
+            {
+                DeletePreviousBarCode(inwardModel.barCode);
+            }
+            SaveInwardBarcode(inwardModel);
+            return Ok(inwardModel);
+        }
+        public void DeletePreviousBarCode(string barCodePath)
+        {
+            
+            string filePath = Path.Combine(GetUploadFolderPath(), barCodePath);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
         }
 
         private void ProcessInwardFiles(IFormFileCollection files, InwardTypeScriptModel inwardModel)
         {
-            string folderName = "Uploads";
-            string webRootPath = _hostingEnvironment.WebRootPath;
-            string newPath = Path.Combine(webRootPath, folderName);
+            string newPath = GetUploadFolderPath();
             if (!Directory.Exists(newPath))
             {
                 Directory.CreateDirectory(newPath);
@@ -94,34 +115,77 @@ namespace Gopal.Controllers
             return Ok(_inwardServices.GetInwardById(inwardId));
         }
 
-        [HttpGet]
-        [Route("GetInwardBarcode")]
-        public ActionResult GetInwardBarcode(int inwardId)
+        
+        public void SaveInwardBarcode(InwardTypeScriptModel inwardModel)
         {
-            string folderName = "Uploads";
-            string webRootPath = _hostingEnvironment.WebRootPath;
-            string newPath = Path.Combine(webRootPath, folderName);
+            
+            string newPath = GetUploadFolderPath();
             if (!Directory.Exists(newPath))
             {
                 Directory.CreateDirectory(newPath);
             }
-            List<String> lstAccessories= _inwardServices.GetAccessories(inwardId);
-            string accessories= lstAccessories != null && lstAccessories.Count() > 0 ? String.Join(",", lstAccessories) : String.Empty;
+            List<String> lstAccessories= _inwardServices.GetAccessories(inwardModel.inwardId);
+            string customerName = _inwardServices.GetCustomerNameByIdForBarcode(inwardModel.clientRefId);
+            string accessories  = String.Join(",", lstAccessories);
             string savePath= $"{Guid.NewGuid()}.jpg";
             newPath = $"{newPath}/{savePath}";
             BarcodeLib.Barcode b = new BarcodeLib.Barcode();
-            b.AlternateLabel = accessories;
-            b.LabelPosition = BarcodeLib.LabelPositions.BOTTOMRIGHT;
-            b.IncludeLabel = true;
+            
+            b.ImageFormat = System.Drawing.Imaging.ImageFormat.Png;
+
+            Image image= b.Encode(BarcodeLib.TYPE.CODE39, $"{inwardModel.inwardId}", Color.Black, Color.White,200,40);
            
-            b.Encode(BarcodeLib.TYPE.CODE39, $"{inwardId}", Color.Black, Color.White, 290, 120)
-                .Save(newPath);
-            _inwardServices.UpdateBarCodePathByInwardId(inwardId, savePath);
+
+           // image.Save(newPath);
+            var fnt= new Font(FontFamily.GenericMonospace,(float) 12, FontStyle.Regular);
+            InwardBarCodeModel barCodeModel = new InwardBarCodeModel {accessory=accessories,
+                                                 customerName=customerName,enggName=inwardModel.enggName,
+                                                 inwardId=inwardModel.inwardId};
+            Image img = DrawText(barCodeModel, fnt,Color.Black,Color.White, image);
+
+            img.Save(newPath);
+            _inwardServices.UpdateBarCodePathByInwardId(inwardModel.inwardId, savePath);
            
-            return Ok(newPath);
+            
+        }
+
+        private Image DrawText(InwardBarCodeModel barcodeModel, Font font, Color textColor, Color backColor,Image barCode)
+        {
+            //first, create a dummy bitmap just to get a graphics object
+            Image img = new Bitmap(barCode.Width+49,barCode.Height+54);
+            Graphics drawing = Graphics.FromImage(img);
+            drawing.DrawImageUnscaledAndClipped(barCode, new Rectangle { X=0, Y=0,Height= barCode.Height, Width= barCode.Width, });
+            
+
+            //create a brush for the text
+            Brush textBrush = new SolidBrush(textColor);
+
+            drawing.DrawString(barcodeModel.customerName, font, textBrush, 0, barCode.Height + 5);
+            drawing.DrawString(barcodeModel.accessory, font, textBrush, 0, barCode.Height + 15);
+            drawing.DrawString(barcodeModel.enggName, font, textBrush, 0, barCode.Height + 25);
+            drawing.DrawString("REPAIRED :", font, textBrush, 0, barCode.Height + 35);
+            drawing.DrawString("YES :", font, textBrush, 100, barCode.Height + 35);
+            drawing.DrawString("NO :", font, textBrush, 175, barCode.Height + 35);
+            drawing.DrawString($"{barcodeModel.inwardId}", font, textBrush, barCode.Width+5, barCode.Height - 25);
+            drawing.Save();
+
+            textBrush.Dispose();
+            drawing.Dispose();
+
+            return img;
+
+        }
+
+        [HttpGet]
+        [Route("PrintInwardBarcode")]
+        public ActionResult PrintInwardBarcode(int inwardId)
+        {
+           
+            return Ok();
         }
 
 
+      
 
         [HttpGet]
         [Route("DeleteInWard")]

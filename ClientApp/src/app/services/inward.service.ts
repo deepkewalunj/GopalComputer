@@ -25,8 +25,8 @@ export class InwardService {
     return this.http.get<any>(environment.API_URL+'Inward/DeleteInWard?inwardId='+inwardId);
   }
 
-  GetInwardBarcode(inwardId:number){
-    return this.http.get<any>(environment.API_URL+'Inward/GetInwardBarcode?inwardId='+inwardId);
+  PrintInwardBarcode(inwardId:number){
+    return this.http.get<any>(environment.API_URL+'Inward/PrintInwardBarcode?inwardId='+inwardId);
   }
 
 }

@@ -81,5 +81,10 @@ namespace Gopal.Models.Customer
         public int outwardBillStatus { get; set; }
 
     }
-    
+    public class InwardBarCodeModel {
+        public string customerName { get; set; }
+        public string accessory { get; set; }
+        public string enggName { get; set; }
+        public int inwardId { get; set; }
+    }
 }

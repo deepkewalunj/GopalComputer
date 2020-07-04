@@ -16,6 +16,7 @@ namespace Gopal.Services.Customer
         int DeleteInward(int inwardId);
         List<String> GetAccessories(int inwardId);
         void UpdateBarCodePathByInwardId(int inwardId, string barCodePath);
+        string GetCustomerNameByIdForBarcode(int customerId);
 
     }
 }

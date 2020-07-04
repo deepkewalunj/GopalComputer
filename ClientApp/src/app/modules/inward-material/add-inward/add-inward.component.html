@@ -30,6 +30,15 @@
                           </div>
                       </div>
                   </div>
+                  <div class="col-12 col-md-6 col-lg-4" *ngIf="inward.inwardId>0">
+                    <div class="form-group has-float-label">
+
+                         <input value="{{inward.inwardId}}" disabled class="form-control" readonly />
+
+                        <label for="barCode">Bar Code</label>
+
+                    </div>
+                </div>
               </div>
           </div>
       </div>
@@ -144,15 +153,7 @@
           </div>
           <div class="card-body pb-0 mb-0">
             <div class="row">
-              <div class="col-12 col-md-6 col-lg-4" *ngIf="inward.inwardId>0 && inward.barCode">
-                  <div class="form-group has-float-label">
 
-                      <img  [src]="APIURL+'Uploads/'+inward.barCode"  id="barCode"   />
-
-                      <label for="barCode">Bar Code</label>
-
-                  </div>
-              </div>
               <div class="col-12 col-md-4 col-lg-4">
                   <div class="form-group has-float-label">
                       <input class="form-control" type="text" id="serialNumber"
@@ -443,9 +444,9 @@
           </div>
       </div>
       <footer>
-          <button class="btn btn-secondary">Cancel</button>
-          <button type="submit" (click)="GetInwardBarcode()" *ngIf="inward.inwardId>0" class="btn btn-success">
-            Generate BarCode
+          <button class="btn btn-secondary" (click)="GoToInwardList()" >Cancel</button>
+          <button type="submit" (click)="PrintInwardBarcode()" *ngIf="inward.inwardId>0" class="btn btn-success">
+            Print BarCode
         </button>
           <button type="submit" (click)="addInwardForm.valid && SaveInward()" class="btn btn-primary">
               Save

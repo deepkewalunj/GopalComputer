@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -20,6 +20,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
+import { CustomDateParserFormatter } from './services/custom-date-parser-formatter.service';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { TypeAheadService } from 'src/app/services/type-ahead.service';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter},
     AuthorizationCheck, CustomerService,NgxSpinnerService,TypeAheadService],
   bootstrap: [AppComponent]
 })
