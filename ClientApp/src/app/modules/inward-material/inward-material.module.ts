@@ -15,6 +15,8 @@ import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accesso
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CustomDateParserFormatter } from 'src/app/services/custom-date-parser-formatter.service';
 
+import { InwardPrintComponent } from './inward-print/inward-print.component';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { CustomDateParserFormatter } from 'src/app/services/custom-date-parser-f
     AddInwardComponent,
     AddUpdateModelNoMaterialTypeComponent,
     AddEditAccessoryComponent,
+    InwardPrintComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +37,8 @@ import { CustomDateParserFormatter } from 'src/app/services/custom-date-parser-f
     ReactiveFormsModule,
     DataTablesModule,
     MasterModule,
-NgxDropzoneModule
-  ],
+    NgxDropzoneModule,
+    NgxPrintModule
+  ]
 })
 export class InwardMaterialModule { }

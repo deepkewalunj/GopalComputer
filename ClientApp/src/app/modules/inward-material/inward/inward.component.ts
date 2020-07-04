@@ -11,6 +11,8 @@ import { InwardService } from 'src/app/services/inward.service';
 import { DataTableDirective } from 'angular-datatables';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import { InwardPrintComponent } from '../inward-print/inward-print.component';
+
 
 @Component({
   selector: 'app-inward',
@@ -23,7 +25,7 @@ export class InwardComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   inwards: InwardListModel[];
-
+  inward: Inward;
   searchFilter: boolean;
 
   private _success = new Subject<string>();
@@ -85,6 +87,35 @@ export class InwardComponent implements OnInit {
     }
 
 
+  }
+
+  printInward(inwardId) {
+    if (inwardId > 0) {
+      this.givePrint(inwardId);
+    }
+  }
+
+  givePrint(inwardId) {
+    this.inwardService.getInward(inwardId).subscribe(data => {
+      this.inward = data;
+      this.openAddEditSearchModelNoMaterialTypeCompanyNamePopup(this.inward);
+    }, error => {
+
+    });
+  }
+
+  openAddEditSearchModelNoMaterialTypeCompanyNamePopup(inward) {
+    const modalRef = this.modalService.open(InwardPrintComponent, { size: 'lg', windowClass: 'print-modal' });
+    modalRef.componentInstance.inward = inward;
+    modalRef.componentInstance.modelRef = modalRef;
+    modalRef.result.then((result) => {
+      if (result == true) {
+        this._success.next("Print done.")
+      }
+
+    }, (reason) => {
+
+    });
   }
 
   ngOnInit(): void {
