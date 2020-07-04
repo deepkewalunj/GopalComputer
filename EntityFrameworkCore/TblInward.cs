@@ -28,6 +28,7 @@ namespace Gopal.EntityFrameworkCore
         public bool IsRepaired { get; set; }
         public bool PrintStatus { get; set; }
         public bool RepeatJob { get; set; }
+        public string RepairedRemark { get; set; }
         public string RepeatJobDesc { get; set; }
         public string ClientDc { get; set; }
         public string AccBarCode { get; set; }

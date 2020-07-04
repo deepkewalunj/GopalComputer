@@ -208,10 +208,16 @@ namespace Gopal.EntityFrameworkCore
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+                entity.Property(e => e.RepairedRemark)
+                    .HasColumnName("repairedRemark")
+                    .HasMaxLength(2000)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.RepeatJob).HasColumnName("repeatJob");
 
                 entity.Property(e => e.RepeatJobDesc)
                     .HasColumnName("repeatJobDesc")
+                    .HasMaxLength(2000)
                     .IsUnicode(false);
 
                 entity.Property(e => e.SerialNo)
