@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en"  id="print-section">
+<head>
+  <meta charset="utf-8">
+  <title>Example 1</title>
+  <!--<link rel="stylesheet" href="style.css" media="all" />-->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+    .clearfix:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    a {
+      color: #5D6975;
+      text-decoration: underline;
+    }
+
+    body {
+      position: relative;
+      width: 21cm;
+      height: auto;
+      margin: 0 auto;
+      color: #001028;
+      background: #FFFFFF;
+      /*font-family: Arial, sans-serif; */
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+    }
+
+    header {
+      padding: 0px 0;
+      margin-bottom: 10px;
+      border: 0px solid #ccc;
+      margin-top: 10px;
+    }
+
+    #logo {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+      #logo img {
+        width: 30%;
+        margin-right: 7px;
+      }
+
+    #logo {
+      margin-bottom: 0;
+    }
+
+      #logo h4 {
+        font-weight: 700;
+        font-size: 2.375rem;
+        letter-spacing: 3px;
+        color: #1c0f3a;
+        margin: 0;
+        text-align: left;
+      }
+
+      #logo p {
+        font-size: 0.875rem;
+        line-height: 7px;
+        letter-spacing: 0.406rem;
+        text-transform: uppercase;
+        position: relative;
+        left: 3px;
+        color: #FF4081;
+        font-weight: 600;
+        margin: 0 0 10px 0;
+        text-align: left;
+      }
+
+    .address {
+      border-top: 1px solid #C1CED9;
+      border-bottom: 1px solid #C1CED9;
+      margin: 0 0 0px 0;
+      padding: 7px;
+      background: #f5f5f5;
+    }
+
+
+    .bill-table {
+      background: transparent;
+      margin-bottom: 0;
+      border: 1px solid #ccc;
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      margin-bottom: 20px;
+    }
+
+
+      .bill-table tr th, .bill-table tr td {
+        padding: 7px;
+        background: transparent;
+        font-size: 13px;
+        line-height: 27px;
+      }
+
+      .bill-table tr th {
+        background: #F5F5F5;
+        color: #000;
+        border-bottom: 1px solid #C1CED9;
+        font-size: 18px;
+        white-space: nowrap;
+        font-weight: 600;
+      }
+
+      .bill-table tr td {
+        vertical-align: top;
+      }
+
+    #project {
+      float: left;
+    }
+
+      #project span {
+        color: #000;
+        text-align: left;
+        width: 160px;
+        margin-right: 10px;
+        display: inline-block;
+        font-weight: 600;
+      }
+
+    #company {
+      float: right;
+      text-align: right;
+    }
+
+      #project div,
+      #company div {
+        white-space: nowrap;
+        color: #605c5c;
+        font-weight: 500;
+      }
+
+
+    #notices ul {
+      padding: 0 13px;
+      margin: 5px;
+    }
+
+    footer {
+      color: #5D6975;
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      bottom: 0;
+      border-top: 1px solid #C1CED9;
+      padding: 8px 0;
+      text-align: center;
+      margin: 30px 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="clearfix">
+    <div id="logo">
+      <table style="background:transparent; margin-bottom:0">
+        <tr>
+          <td style="padding:0; background: transparent">
+            <h4>GOPAL</h4>
+            <p>Computers</p>
+          </td>
+          <td style="padding:0; background: transparent; text-align: right;"><img [src]="APIURL+'Uploads/'+inward.barCode" id="barCode" /></td>
+        </tr>
+      </table>
+    </div>
+    <div class="address">
+      <p style="margin:0; font-weight:500; font-size: 14px;">
+        Flat No 4, B Wing, Viththal Park, Samant Vadi, Near Ashok Stambh, Kashiba Medical Back side, Gangapur Road, Nashik - 422002.
+        <strong>Contact</strong>: 9867545678, 9867545678
+      </p>
+    </div>
+  </header>
+  <main>
+    <table class="bill-table">
+      <thead>
+        <tr>
+          <th style="text-align:left">Inward Slip</th>
+          <th style="text-align:right">Customer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div id="project">
+              <div><span>Job Number</span>: {{inward.inwardId}}</div>
+              <div><span>Inward Date</span>: {{inward.inwardDate | date:'dd/MM/yyyy'}}</div>
+              <div><span>Client Name</span>: {{inward.companyName}}</div>
+              <div><span>Client Phone #</span>: {{inward.mobileNumber}}</div>
+              <div><span>Material Name</span>: {{inward.modelNo}}, {{inward.materialType}}, {{inward.companyName}}</div>
+              <div><span>Accessories Recieved</span>: {{inward.accessories != '' ? 'YES' : 'NO'}}</div>
+              <div><span>Serial No</span>: {{inward.serialNo}}</div>
+              <div><span>Problem Description</span>: {{inward.problemDescription}}</div>
+              <div><span>Engg. Name</span>: {{inward.enggName}}</div>
+              <div><span>Problem Detected</span>: {{inward.isProblemDetected == '1' ? 'YES' : 'NO'}}</div>
+              <div><span>Advanced Amount</span>: {{inward.advanceAmount}}/-</div>
+            </div>
+          </td>
+          <td>
+            <div id="project" class="clearfix" style="float: right;">
+              <div><span>Delivery Date</span>: {{inward.deliveryDate | date:'dd/MM/yyyy'}}</div>
+              <div><span>Est. LAbour Charges</span>: {{inward.estmRepairingAmount}}/-</div>
+
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="notices">
+      <div><strong>NOTICE:</strong></div>
+      <ul>
+        <li>A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+        <li>A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+      </ul>
+    </div>
+    <table style="margin-top:160px; margin-bottom:30px; width: 100%">
+      <tr>
+        <td style="padding:7px; text-align:left">
+          <strong>Customer Signature</strong>
+        <td style="padding:0; text-align:right">
+          <strong>Authorized Signature</strong>
+        </td>
+      </tr>
+    </table>
+  </main>
+
+</body>
+</html>
+<button printSectionId="print-section" ngxPrint>print</button>

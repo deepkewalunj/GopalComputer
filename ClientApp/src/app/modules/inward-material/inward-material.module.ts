@@ -13,7 +13,8 @@ import { AddUpdateModelNoMaterialTypeComponent } from './add-update-model-no-mat
 import { MasterModule } from '../master/master.module';
 import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accessory.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
-
+import { InwardPrintComponent } from './inward-print/inward-print.component';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     AddInwardComponent,
     AddUpdateModelNoMaterialTypeComponent,
     AddEditAccessoryComponent,
+    InwardPrintComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     ReactiveFormsModule,
     DataTablesModule,
     MasterModule,
-NgxDropzoneModule
+    NgxDropzoneModule,
+    NgxPrintModule
   ]
 })
 export class InwardMaterialModule { }

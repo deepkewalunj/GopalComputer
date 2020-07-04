@@ -6,6 +6,7 @@ import { InwardComponent } from './inward/inward.component';
 import { AddInwardComponent } from './add-inward/add-inward.component';
 import { AddUpdateModelNoMaterialTypeComponent } from './add-update-model-no-material-type/add-update-model-no-material-type.component';
 import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accessory.component';
+import { InwardPrintComponent } from './inward-print/inward-print.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,9 @@ const routes: Routes = [
   },
   {
     path: 'add-accessory', component: AddEditAccessoryComponent
+  },
+  {
+    path: 'inward-print', component: InwardPrintComponent
   },
   {
     path: '',
