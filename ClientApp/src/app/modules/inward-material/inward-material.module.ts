@@ -15,6 +15,8 @@ import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accesso
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { InwardPrintComponent } from './inward-print/inward-print.component';
 import { NgxPrintModule } from 'ngx-print';
+import { BillGenerationComponent } from './bill-generation/bill-generation.component';
+import { OutwardComponent } from './outward/outward.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 const maskConfig: Partial<IConfig> = {
@@ -29,7 +31,9 @@ const maskConfig: Partial<IConfig> = {
     AddInwardComponent,
     AddUpdateModelNoMaterialTypeComponent,
     AddEditAccessoryComponent,
-    InwardPrintComponent
+    InwardPrintComponent,
+    BillGenerationComponent,
+    OutwardComponent
   ],
   imports: [
     CommonModule,

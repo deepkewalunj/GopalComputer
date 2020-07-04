@@ -363,13 +363,13 @@ ngb-typeahead-window {
 
 .custom-checkbox .custom-control-input:checked~.custom-control-label::after {
   
-    background: #5cb85c no-repeat 55% / 60% 60% !important;
+    background: $black-blue no-repeat 55% / 60% 60% !important;
     background-image: url("src/assets/imgs/check.svg") !important;
     border-radius: 4px;
 }
 
 .custom-radio .custom-control-input:checked~.custom-control-label::after {
-    background: #5cb85c no-repeat 55% / 60% 60% !important;
+    background: $black-blue no-repeat 55% / 60% 60% !important;
     background-image: url("src/assets/imgs/radio.svg") !important;
     border-radius: 100%;
 }
