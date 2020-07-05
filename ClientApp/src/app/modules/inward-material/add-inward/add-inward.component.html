@@ -465,6 +465,9 @@
       </div>
       <footer>
           <button class="btn btn-secondary" (click)="GoToInwardList()" >Cancel</button>
+          <button type="submit" (click)="PrintInward()" *ngIf="inward.inwardId>0" class="btn btn-success">
+            Print Inward
+        </button>
           <button type="submit" (click)="PrintInwardBarcode()" *ngIf="inward.inwardId>0" class="btn btn-success">
             Print BarCode
         </button>

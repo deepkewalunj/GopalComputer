@@ -1,6 +1,6 @@
 export class Customer{
 
-  clientId : string
+  clientId : number
  clientTitleId   :String
  clientName   :string
  companyName  :string

@@ -98,13 +98,13 @@ export class InwardComponent implements OnInit {
   givePrint(inwardId) {
     this.inwardService.getInward(inwardId).subscribe(data => {
       this.inward = data;
-      this.openAddEditSearchModelNoMaterialTypeCompanyNamePopup(this.inward);
+      this.openInwardPrintPopup(this.inward);
     }, error => {
 
     });
   }
 
-  openAddEditSearchModelNoMaterialTypeCompanyNamePopup(inward) {
+  openInwardPrintPopup(inward) {
     const modalRef = this.modalService.open(InwardPrintComponent, { size: 'lg', windowClass: 'print-modal' });
     modalRef.componentInstance.inward = inward;
     modalRef.componentInstance.modelRef = modalRef;
