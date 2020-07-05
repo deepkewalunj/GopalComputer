@@ -8,7 +8,7 @@ namespace Gopal.Models.Customer
     public class CustomerModel
     {
         public int clientId         { get; set; }
-        public int clientTitleId    { get; set; }
+        public string clientTitleId    { get; set; }
         public string clientName    { get; set; }
         public string companyName    { get; set; }
         public string clientAddress   { get; set; }

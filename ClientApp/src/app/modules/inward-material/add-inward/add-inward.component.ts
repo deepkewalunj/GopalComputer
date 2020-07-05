@@ -313,12 +313,11 @@ selectedInventory(inventory){
 }
 
 AddTag(){
-  debugger;
-  if(this.inward.accessories)
+  if( this.inputAccessories.nativeElement.value != '')
   {
     let responseModel=new TypeAheadResponseModel();
     responseModel.searchId=0;
-    responseModel.searchValue=this.inward.accessories;
+    responseModel.searchValue=this.inputAccessories.nativeElement.value;
     responseModel.splitValue="";
     this.inward.lstAccessories.push(responseModel);
     this.inputAccessories="";

@@ -435,9 +435,11 @@
                           <div class="d-flex align-items-end">
                               <input class="form-control"
 
-                                  [(ngModel)]="inward.accessories" [ngbTypeahead]="searchInventory"
-                                  [ngModelOptions]="{standalone: true}" #inputAccessories
+                                  [ngbTypeahead]="searchInventory"
+                                   #inputAccessories
                                   (selectItem)="selectedInventory($event)"
+                                  [inputFormatter]="formatter"
+                                  [resultFormatter]="formatter"
                                    autofocus placeholder="Select Inventory"  (dblclick)="AddTag()">
 
                           </div>

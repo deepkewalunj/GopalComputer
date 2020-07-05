@@ -67,6 +67,7 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
       localCustomer.clientTitleId='';
 
     }
+    debugger;
     const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg' });
     modalRef.componentInstance.customer=localCustomer;
     modalRef.componentInstance.modelRef=modalRef;
@@ -110,8 +111,8 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
           .post<DataTablesResponse>(
             environment.API_URL+"Customer/GetCustomerList",
             {getListModel:getCustomerListModel},{}
-          ).subscribe(resp => {
-            that.customers = resp.data;
+          ).subscribe(resp=> {
+            that.customers =resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsFiltered,
