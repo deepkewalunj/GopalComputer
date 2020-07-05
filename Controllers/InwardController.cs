@@ -69,9 +69,15 @@ namespace Gopal.Controllers
         {
             
             string filePath = Path.Combine(GetUploadFolderPath(), barCodePath);
+            
             if (System.IO.File.Exists(filePath))
             {
                 System.IO.File.Delete(filePath);
+            }
+            string simpleFilePath = Path.Combine(GetUploadFolderPath(), $"simple_{barCodePath}");
+            if (System.IO.File.Exists(simpleFilePath))
+            {
+                System.IO.File.Delete(simpleFilePath);
             }
         }
 
@@ -128,25 +134,42 @@ namespace Gopal.Controllers
             string customerName = _inwardServices.GetCustomerNameByIdForBarcode(inwardModel.clientRefId);
             string accessories  = String.Join(",", lstAccessories);
             string savePath= $"{Guid.NewGuid()}.jpg";
-            newPath = $"{newPath}/{savePath}";
-            BarcodeLib.Barcode b = new BarcodeLib.Barcode();
-            
-            b.ImageFormat = System.Drawing.Imaging.ImageFormat.Png;
+            string saveSimplePath = $"simple_{savePath}";
 
-            Image image= b.Encode(BarcodeLib.TYPE.CODE39, $"{inwardModel.inwardId}", Color.Black, Color.White,200,40);
-           
+            //Save Simple BarCode
+            string simpleBarCodePath = $"{newPath}/{saveSimplePath}";
+            Image image = GetBarCodeImage(inwardModel.inwardId, true, $"{inwardModel.inwardId}",249,94);
+            image.Save(simpleBarCodePath);
 
-           // image.Save(newPath);
-            var fnt= new Font(FontFamily.GenericMonospace,(float) 12, FontStyle.Regular);
+            //Save Named BarCode
+            string namedBarCodePath = $"{newPath}/{savePath}";
+            image = GetBarCodeImage(inwardModel.inwardId);
+
+            // image.Save(newPath);
+            var fnt= new Font(FontFamily.GenericSansSerif, (float)8, FontStyle.Regular);
             InwardBarCodeModel barCodeModel = new InwardBarCodeModel {accessory=accessories,
                                                  customerName=customerName,enggName=inwardModel.enggName,
                                                  inwardId=inwardModel.inwardId};
-            Image img = DrawText(barCodeModel, fnt,Color.Black,Color.White, image);
-
-            img.Save(newPath);
+             image = DrawText(barCodeModel, fnt,Color.Black,Color.White, image);
+             image.Save(namedBarCodePath);
             _inwardServices.UpdateBarCodePathByInwardId(inwardModel.inwardId, savePath);
            
             
+        }
+
+        private Image GetBarCodeImage(int inwardId,bool isAlternateText=false,string alternateText=null,int width=200,int height=40) {
+            BarcodeLib.Barcode b = new BarcodeLib.Barcode();
+
+            b.ImageFormat = System.Drawing.Imaging.ImageFormat.Png;
+            if (isAlternateText)
+            {
+                b.AlternateLabel = $"{alternateText}";
+                b.IncludeLabel = true;
+                b.LabelPosition = BarcodeLib.LabelPositions.BOTTOMLEFT;
+            }
+           
+            Image image = b.Encode(BarcodeLib.TYPE.CODE39, $"{inwardId}", Color.Black, Color.White, width, height);
+            return image;
         }
 
         private Image DrawText(InwardBarCodeModel barcodeModel, Font font, Color textColor, Color backColor,Image barCode)

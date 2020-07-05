@@ -14,6 +14,7 @@ import { TypeAheadService } from 'src/app/services/type-ahead.service';
 import { ActivatedRoute, Router } from '@angular/router'
 import { environment } from 'src/environments/environment.prod';
 import {WebcamImage} from 'ngx-webcam';
+import { InwardPrintComponent } from '../inward-print/inward-print.component';
 
 @Component({
   selector: 'app-add-inward',
@@ -43,10 +44,6 @@ export class AddInwardComponent implements OnInit {
   tags = [];
 
 
-    /*phone masking*/
-    //public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-
-    /*phone validation*/
     @Input()
     maxlength: number;
 
@@ -396,6 +393,26 @@ GoToInwardList(){
     },error=>{
 
     })
+  }
+
+
+  openInwardPrintPopup(inward) {
+    const modalRef = this.modalService.open(InwardPrintComponent, { size: 'lg', windowClass: 'print-modal' });
+    modalRef.componentInstance.inward = inward;
+    modalRef.componentInstance.modelRef = modalRef;
+    modalRef.result.then((result) => {
+      if (result == true) {
+        this._success.next("Print done.")
+      }
+
+    }, (reason) => {
+
+    });
+  }
+  PrintInward(){
+    if (this.inward.inwardId > 0) {
+      this.openInwardPrintPopup(this.inward);
+    }
   }
 
   // latest snapshot
