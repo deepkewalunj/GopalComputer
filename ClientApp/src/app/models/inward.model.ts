@@ -4,7 +4,7 @@ import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/ty
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 export class Inward {
 
-
+  clientName: string;
   lstAccessories: TypeAheadResponseModel[];
   ngbInwardDate: NgbDate;
   customerTypeAhead: TypeAheadResponseModel;

@@ -60,6 +60,7 @@ namespace Gopal.Models.Customer
         public Object companyNameTypeAhead { get; set; }
         public NgbDateModel ngbDeliveryDate { get; set; }
         public List<FilePOCO> inwardFiles { get; set; }
+        public string clientName { get; set; }
 
     }
     public class FilePOCO {
