@@ -5,7 +5,7 @@ import { FormGroup,  FormBuilder} from '@angular/forms';
 import {Subject} from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { Customer } from 'src/app/models/customer.model';
 import { AddEditCustomerComponent } from '../add-edit-customer/add-edit-customer.component';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -67,7 +67,7 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
       localCustomer.clientTitleId='';
 
     }
-    debugger;
+    
     const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg' });
     modalRef.componentInstance.customer=localCustomer;
     modalRef.componentInstance.modelRef=modalRef;
@@ -111,7 +111,7 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
           .post<DataTablesResponse>(
             environment.API_URL+"Customer/GetCustomerList",
             {getListModel:getCustomerListModel},{}
-          ).subscribe(resp=> {
+        ).subscribe(resp => {
             that.customers =resp.data;
             callback({
               recordsTotal: resp.recordsTotal,

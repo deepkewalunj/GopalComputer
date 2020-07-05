@@ -35,7 +35,8 @@ export class AddEditCustomerComponent implements OnInit {
       clientAddress: ['', Validators.required],
       mobileNoFirst1:['' ],
       telNoFirst1:[''],
-      telNoSecond2:['']
+      telNoSecond2: [''],
+      balanceAmount:[]
     });
   }
   ngOnInit(){}

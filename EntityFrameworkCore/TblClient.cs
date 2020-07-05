@@ -15,6 +15,7 @@ namespace Gopal.EntityFrameworkCore
         public string MobileNoFirst { get; set; }
         public string TelNoFirst { get; set; }
         public string TelNoSecond { get; set; }
+        public double BalanceAmount { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int? ModifiedBy { get; set; }

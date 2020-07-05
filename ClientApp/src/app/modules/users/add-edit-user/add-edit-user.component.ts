@@ -22,7 +22,7 @@ export class AddEditUserComponent implements OnInit {
   modelRef:any;
   user:any;
   modulePermission:any;
-  roles=CommonModel.getRoles();
+  roles = CommonModel.getRolesExceptSuperAdmin();
 
   ngOnInit() {
   }
