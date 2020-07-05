@@ -55,7 +55,7 @@
                                formControlName="customerName"
                                [(ngModel)]="inward.customerTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
-                               [editable]='false' [ngbTypeahead]="searchCustomer"/>
+                               [editable]='false' [ngbTypeahead]="searchCustomer" placeholder="Select"/>
 
                                <small *ngIf="searching" class="form-text text-muted">searching...</small>
                                <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
@@ -74,6 +74,7 @@
                       <a href="javascript:void(0)"  class="btn btn-sm btn-outline btn-outline-dark mt-2" (click)="addClientPopup(null)">Add Customer<i class="ml-1 fas fa-plus"></i></a>
                   </div>
               </div>
+              <div class="mb-5 d-md-none"></div>
               <div class="row">
                   <div class="col-12 col-md-6 col-lg-4">
                       <div class="form-group has-float-label">
@@ -82,7 +83,7 @@
                                [(ngModel)]="inward.modelNoTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
                                [ngbTypeahead]="searchModel"
-                               (selectItem)="materialTypeAheadSelected($event)"
+                               (selectItem)="materialTypeAheadSelected($event)" placeholder="Search"
 
                                />
                                <small *ngIf="searching" class="form-text text-muted">searching...</small>
@@ -106,6 +107,7 @@
                                [resultFormatter]="formatter"
                                [ngbTypeahead]="searchMaterialType"
                                (selectItem)="materialTypeAheadSelected($event)"
+                               placeholder="Search"
                                 />
                                <small *ngIf="searching" class="form-text text-muted">searching...</small>
                                <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
@@ -129,6 +131,7 @@
                           [resultFormatter]="formatter"
                           [ngbTypeahead]="searchCompanyName"
                           (selectItem)="materialTypeAheadSelected($event)"
+                          placeholder="Search"
                            />
                           <small *ngIf="searching" class="form-text text-muted">searching...</small>
                           <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
@@ -255,7 +258,7 @@
 
                   </div>
                   <div class="col-12 col-md-4 col-lg-4">
-                      <div>
+                      <div class="form-group">
                           <label class="radio-btns-label d-block">Problem Detected</label>
                           <div class="custom-control custom-radio d-inline-block mt-3">
                               <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
@@ -344,7 +347,7 @@
       <div class="card-body">
           <div class="row">
               <div class="col-12 col-md-4 col-lg-4">
-                  <div>
+                <div class="form-group">
                       <label class="radio-btns-label d-block">Repaired</label>
                       <div class="custom-control custom-radio d-inline-block mt-3">
                           <input type="radio" value="1" [ngModelOptions]="{standalone: true}"

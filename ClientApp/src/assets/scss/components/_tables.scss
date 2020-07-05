@@ -24,6 +24,14 @@ table.dataTable {
 			height: 30px;
 			padding-left: 5px;
 		}
+		@media (max-width:375px) {
+			width: 162px;
+			text-align: left;
+			input {
+				margin-left: 0;
+				width: 100%;
+			}
+		}
 	}
 	.dataTables_paginate {
 		padding-top: 10px;
@@ -184,6 +192,7 @@ z-index: 1050;
 // Resposnsive tables css
 
 @media only screen and (max-width: 800px) {
+	#no-more-tables {
 	.dataTables_wrapper {
 		.dataTables_length {
 			float: left;
@@ -195,7 +204,13 @@ z-index: 1050;
 			margin-top: 0;
 			float: right;
 		}
+		.dataTables_empty {
+			padding-left: 0 !important;
+			min-height: 0 !important;
+			text-align: center !important;
+		}
 	}
+}
 
 
 
@@ -223,6 +238,11 @@ z-index: 1050;
 			//border-bottom: 0.0625rem solid $border;
 			border-bottom: 0;
 			padding: 0.625rem 0;
+			padding: 10px;
+			margin: 10px 0;
+			box-shadow: 0px 0 5px 0px rgba(0, 0, 0, 0.13);
+			background: #fff !important;
+			border-radius: 4px;
 			td { 
 				/* Behave  like a "row" */
 				border: none;
@@ -290,5 +310,8 @@ z-index: 1050;
 		.plain-select {
 			margin-right: 0.5rem;
 		}
+	}
+	table.dataTable.no-footer {
+		border-bottom: 0;
 	}
 }

@@ -15,12 +15,17 @@ namespace Gopal.EntityFrameworkCore
         {
         }
 
+        public virtual DbSet<TblBill> TblBill { get; set; }
+        public virtual DbSet<TblBillAndInwardDetail> TblBillAndInwardDetail { get; set; }
         public virtual DbSet<TblClient> TblClient { get; set; }
+        public virtual DbSet<TblClientOpeningBalanceHistory> TblClientOpeningBalanceHistory { get; set; }
         public virtual DbSet<TblInward> TblInward { get; set; }
         public virtual DbSet<TblInwardDocument> TblInwardDocument { get; set; }
         public virtual DbSet<TblMaterialAccessory> TblMaterialAccessory { get; set; }
         public virtual DbSet<TblModule> TblModule { get; set; }
         public virtual DbSet<TblModulePermission> TblModulePermission { get; set; }
+        public virtual DbSet<TblOutward> TblOutward { get; set; }
+        public virtual DbSet<TblOutwardAndInwardDetail> TblOutwardAndInwardDetail { get; set; }
         public virtual DbSet<TblSearchModelNoMaterialTypeCompanyName> TblSearchModelNoMaterialTypeCompanyName { get; set; }
         public virtual DbSet<TblUser> TblUser { get; set; }
         public virtual DbSet<TbleUserRole> TbleUserRole { get; set; }
@@ -38,6 +43,92 @@ namespace Gopal.EntityFrameworkCore
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
+            modelBuilder.Entity<TblBill>(entity =>
+            {
+                entity.HasKey(e => e.BillId)
+                    .HasName("PK__tblBill__6D903F037994B00B");
+
+                entity.ToTable("tblBill");
+
+                entity.Property(e => e.BillId).HasColumnName("billId");
+
+                entity.Property(e => e.AdvanceAmount).HasColumnName("advanceAmount");
+
+                entity.Property(e => e.BillDate)
+                    .HasColumnName("billDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("createdDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.EnggName)
+                    .HasColumnName("enggName")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+
+                entity.Property(e => e.MaterialAdded).HasColumnName("materialAdded");
+
+                entity.Property(e => e.MaterialUsed).HasColumnName("materialUsed");
+
+                entity.Property(e => e.ModifiedBy).HasColumnName("modifiedBy");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnName("modifiedDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.OutstandingAmount).HasColumnName("outstandingAmount");
+
+                entity.Property(e => e.PaidImmediatlyAmount).HasColumnName("paidImmediatlyAmount");
+
+                entity.Property(e => e.PaymentMode).HasColumnName("paymentMode");
+
+                entity.Property(e => e.PaymentRecievedBy)
+                    .HasColumnName("paymentRecievedBy")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PrintStatus).HasColumnName("printStatus");
+
+                entity.Property(e => e.ServiceAmount).HasColumnName("serviceAmount");
+
+                entity.Property(e => e.SmsSent).HasColumnName("smsSent");
+
+                entity.Property(e => e.TestedOk).HasColumnName("testedOk");
+            });
+
+            modelBuilder.Entity<TblBillAndInwardDetail>(entity =>
+            {
+                entity.HasKey(e => e.BillAndInwardId)
+                    .HasName("PK__tblBillA__77253CA43AFF77D7");
+
+                entity.ToTable("tblBillAndInwardDetail");
+
+                entity.Property(e => e.BillAndInwardId).HasColumnName("billAndInwardId");
+
+                entity.Property(e => e.BillIdRef).HasColumnName("billIdRef");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("createdDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.InwardIdRef).HasColumnName("inwardIdRef");
+
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+
+                entity.Property(e => e.ModifiedBy).HasColumnName("modifiedBy");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnName("modifiedDate")
+                    .HasColumnType("datetime");
+            });
+
             modelBuilder.Entity<TblClient>(entity =>
             {
                 entity.HasKey(e => e.ClientId)
@@ -52,6 +143,8 @@ namespace Gopal.EntityFrameworkCore
                     .HasName("UX_ClientName_MobileNo");
 
                 entity.Property(e => e.ClientId).HasColumnName("clientId");
+
+                entity.Property(e => e.BalanceAmount).HasColumnName("balanceAmount");
 
                 entity.Property(e => e.ClientAddress)
                     .HasColumnName("clientAddress")
@@ -107,6 +200,42 @@ namespace Gopal.EntityFrameworkCore
                     .HasColumnName("telNoSecond")
                     .HasMaxLength(20)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TblClientOpeningBalanceHistory>(entity =>
+            {
+                entity.HasKey(e => e.ClientOpeningBalanceHistoryId)
+                    .HasName("PK__tblClien__582CCEFFA4474BBA");
+
+                entity.ToTable("tblClientOpeningBalanceHistory");
+
+                entity.Property(e => e.ClientOpeningBalanceHistoryId).HasColumnName("clientOpeningBalanceHistoryId");
+
+                entity.Property(e => e.BillIdRef).HasColumnName("billIdRef");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("createdDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.CreditedAmount).HasColumnName("creditedAmount");
+
+                entity.Property(e => e.DebitedAmount).HasColumnName("debitedAmount");
+
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+
+                entity.Property(e => e.ModifiedBy).HasColumnName("modifiedBy");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnName("modifiedDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.NewBalance).HasColumnName("newBalance");
+
+                entity.Property(e => e.OldBalance).HasColumnName("oldBalance");
+
+                entity.Property(e => e.OutwardIdRef).HasColumnName("outwardIdRef");
             });
 
             modelBuilder.Entity<TblInward>(entity =>
@@ -352,6 +481,92 @@ namespace Gopal.EntityFrameworkCore
                 entity.Property(e => e.ModuleIdRef).HasColumnName("moduleIdRef");
 
                 entity.Property(e => e.UserUserIdRef).HasColumnName("userUserIdRef");
+            });
+
+            modelBuilder.Entity<TblOutward>(entity =>
+            {
+                entity.HasKey(e => e.OutwardId)
+                    .HasName("PK__tblOutwa__ADD89F60CB83E7F0");
+
+                entity.ToTable("tblOutward");
+
+                entity.Property(e => e.OutwardId).HasColumnName("outwardId");
+
+                entity.Property(e => e.AdvanceAmount).HasColumnName("advanceAmount");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("createdDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.EnggName)
+                    .HasColumnName("enggName")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+
+                entity.Property(e => e.MaterialAdded).HasColumnName("materialAdded");
+
+                entity.Property(e => e.MaterialUsed).HasColumnName("materialUsed");
+
+                entity.Property(e => e.ModifiedBy).HasColumnName("modifiedBy");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnName("modifiedDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.OutstandingAmount).HasColumnName("outstandingAmount");
+
+                entity.Property(e => e.OutwardDate)
+                    .HasColumnName("outwardDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.PaidImmediatlyAmount).HasColumnName("paidImmediatlyAmount");
+
+                entity.Property(e => e.PaymentMode).HasColumnName("paymentMode");
+
+                entity.Property(e => e.PaymentRecievedBy)
+                    .HasColumnName("paymentRecievedBy")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PrintStatus).HasColumnName("printStatus");
+
+                entity.Property(e => e.ServiceAmount).HasColumnName("serviceAmount");
+
+                entity.Property(e => e.SmsSent).HasColumnName("smsSent");
+
+                entity.Property(e => e.TestedOk).HasColumnName("testedOk");
+            });
+
+            modelBuilder.Entity<TblOutwardAndInwardDetail>(entity =>
+            {
+                entity.HasKey(e => e.OutwardAndInwardId)
+                    .HasName("PK__tblOutwa__B2B5D4113D123C7C");
+
+                entity.ToTable("tblOutwardAndInwardDetail");
+
+                entity.Property(e => e.OutwardAndInwardId).HasColumnName("outwardAndInwardId");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("createdDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.InwardIdRef).HasColumnName("inwardIdRef");
+
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+
+                entity.Property(e => e.ModifiedBy).HasColumnName("modifiedBy");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnName("modifiedDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.OutwardIdRef).HasColumnName("outwardIdRef");
             });
 
             modelBuilder.Entity<TblSearchModelNoMaterialTypeCompanyName>(entity =>

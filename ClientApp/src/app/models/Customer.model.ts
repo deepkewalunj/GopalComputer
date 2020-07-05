@@ -8,6 +8,6 @@ export class Customer{
  ownerMobileNo:string
  mobileNoFirst:string
  telNoFirst   :string
- telNoSecond  :string
-
+  telNoSecond: string
+  balanceAmount: number
 }

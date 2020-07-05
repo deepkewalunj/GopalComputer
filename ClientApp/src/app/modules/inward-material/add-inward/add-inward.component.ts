@@ -319,8 +319,8 @@ AddTag(){
     responseModel.searchValue=this.inputAccessories.nativeElement.value;
     responseModel.splitValue="";
     this.inward.lstAccessories.push(responseModel);
-    this.inputAccessories="";
     this.inputAccessories.nativeElement.value = '';
+    this.inputAccessories = "";
   }
 }
 

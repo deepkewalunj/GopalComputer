@@ -16,7 +16,14 @@ static getRoles():Array<SelectList>{
   {id:'2',name:'Staff'},
   {id:'3',name:'Other'}];
 return roles;
-}
+  }
+
+  static getRolesExceptSuperAdmin(): Array<SelectList> {
+    let roles: Array<SelectList> = [
+    { id: '2', name: 'Staff' },
+    { id: '3', name: 'Other' }];
+    return roles;
+  }
 
 static getInwardOutwardBillStatuses():Array<SelectList>{
   let statuses:Array<SelectList> =[{id:'1',name:'Paid'},

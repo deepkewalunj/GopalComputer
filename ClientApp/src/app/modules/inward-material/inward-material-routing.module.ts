@@ -9,6 +9,8 @@ import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accesso
 import { InwardPrintComponent } from './inward-print/inward-print.component';
 import { BillGenerationComponent } from './bill-generation/bill-generation.component';
 import { OutwardComponent } from './outward/outward.component';
+import { BillingListComponent } from './billing-list/billing-list.component';
+import { OutwardListComponent } from './outward-list/outward-list.component';
 
 
 const routes: Routes = [
@@ -45,6 +47,12 @@ const routes: Routes = [
   },
   {
     path: 'outward', component: OutwardComponent
+  },
+  {
+    path: 'billing-list', component: BillingListComponent
+  },
+  {
+    path: 'outward-list', component: OutwardListComponent
   },
   {
     path: '',

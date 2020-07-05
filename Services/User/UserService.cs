@@ -70,7 +70,7 @@ namespace Gopal.Services.User
 
         public List<TblUser> GetUsers()
         {
-            return _dbContext.TblUser.Where(x => x.IsDeleted != true).ToList();
+            return _dbContext.TblUser.Where(x => x.IsDeleted != true && x.UserRole != 1).ToList();
         }
 
         public object SaveUserData(UserDetailsInputModel model)
