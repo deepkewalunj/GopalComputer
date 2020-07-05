@@ -138,7 +138,7 @@ namespace Gopal.Controllers
 
             //Save Simple BarCode
             string simpleBarCodePath = $"{newPath}/{saveSimplePath}";
-            Image image = GetBarCodeImage(inwardModel.inwardId, true, $"{inwardModel.inwardId}",249,94);
+            Image image = GetBarCodeImage(inwardModel.inwardId, true, $"{inwardModel.inwardId}",249,50,true);
             image.Save(simpleBarCodePath);
 
             //Save Named BarCode
@@ -157,7 +157,7 @@ namespace Gopal.Controllers
             
         }
 
-        private Image GetBarCodeImage(int inwardId,bool isAlternateText=false,string alternateText=null,int width=200,int height=40) {
+        private Image GetBarCodeImage(int inwardId,bool isAlternateText=false,string alternateText=null,int width=200,int height=40,bool isCentre= false) {
             BarcodeLib.Barcode b = new BarcodeLib.Barcode();
 
             b.ImageFormat = System.Drawing.Imaging.ImageFormat.Png;
@@ -165,6 +165,11 @@ namespace Gopal.Controllers
             {
                 b.AlternateLabel = $"{alternateText}";
                 b.IncludeLabel = true;
+                if (isCentre)
+                {
+                    b.LabelPosition = BarcodeLib.LabelPositions.BOTTOMCENTER;
+                }
+                else
                 b.LabelPosition = BarcodeLib.LabelPositions.BOTTOMLEFT;
             }
            
