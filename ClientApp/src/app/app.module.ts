@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
 import { CustomDateParserFormatter } from './services/custom-date-parser-formatter.service';
 import { WebcamModule } from 'ngx-webcam';
+import { QzTrayService } from './services/qz-tray.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { WebcamModule } from 'ngx-webcam';
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter},
-    AuthorizationCheck, CustomerService,NgxSpinnerService,TypeAheadService],
+    AuthorizationCheck, CustomerService,NgxSpinnerService,TypeAheadService,QzTrayService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

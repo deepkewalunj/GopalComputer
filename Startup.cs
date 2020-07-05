@@ -1,4 +1,5 @@
 using Gopal.EntityFrameworkCore;
+using Gopal.Middleware;
 using Gopal.Models.Common;
 using Gopal.Services.Accessory;
 using Gopal.Services.Common;
@@ -64,7 +65,8 @@ namespace Gopal
             services.AddTransient<IInwardServices, InwardService>();
             services.AddTransient<IAccessoryServices, AccessoryService>();
             services.AddTransient<ITypeAheadService, TypeAheadService>();
-            
+
+            services.AddSingleton<ILog, LogNLog>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -73,7 +75,7 @@ namespace Gopal
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILog logger)
         {
             ConnectionHelper.SetConnectionString(Configuration["ConnectionString"]);
             app.UseCors("Gopal_CORS");
@@ -81,12 +83,7 @@ namespace Gopal
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            app.ConfigureExceptionHandler(logger);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles(); app.UseStaticFiles(new StaticFileOptions()

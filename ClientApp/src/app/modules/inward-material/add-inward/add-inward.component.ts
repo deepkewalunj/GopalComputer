@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { environment } from 'src/environments/environment.prod';
 import {WebcamImage} from 'ngx-webcam';
 import { InwardPrintComponent } from '../inward-print/inward-print.component';
+import { QzTrayService } from 'src/app/services/qz-tray.service';
 
 @Component({
   selector: 'app-add-inward',
@@ -73,7 +74,7 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private inwardService:InwardService,private typeAheadService:TypeAheadService,
     private route: ActivatedRoute,private router:Router,
-    private ngbCalendar: NgbCalendar) {
+    private ngbCalendar: NgbCalendar,private printService: QzTrayService) {
    this.createForm();
   }
 
@@ -145,6 +146,7 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
 
   ngOnInit(){
 
+    this.printService.initQZ();
     this.route.params.subscribe(data =>{
         this.inwardId=data.inwardId;
     });
@@ -388,11 +390,34 @@ GoToInwardList(){
 
   PrintInwardBarcode()
   {
-    this.inwardService.PrintInwardBarcode(this.inward.inwardId).subscribe(data=>{
-          this.inward.barCode=data;
-    },error=>{
+    this.printService.getPrinters().subscribe(data=>{
+      console.log(data);
+    });
+    let printData =[
+      '\nN\n',
+      'q609\n',
+      {
+         type: 'raw', format: 'pdf', flavor: 'file',
+         data: 'D:\\pdf_sample.pdf',
+         // rendered pageWidth and pageHeight in pixels is required
+         options: { language: "EPL", "pageWidth":"500", "pageHeight":"500" },
+      }
+      ,'\nP1,1\n'
+   ];
 
-    })
+		this.printService.printData("Microsoft Print to PDF", printData).subscribe(data=>{
+
+    },error=>{
+      console.log(error);
+    });
+
+
+
+    // this.inwardService.PrintInwardBarcode(this.inward.inwardId).subscribe(data=>{
+    //       this.inward.barCode=data;
+    // },error=>{
+
+    // })
   }
 
 
