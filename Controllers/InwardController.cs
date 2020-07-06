@@ -172,7 +172,7 @@ namespace Gopal.Controllers
                 else
                 b.LabelPosition = BarcodeLib.LabelPositions.BOTTOMLEFT;
             }
-           
+            b.Alignment = BarcodeLib.AlignmentPositions.LEFT;
             Image image = b.Encode(BarcodeLib.TYPE.CODE39, $"{inwardId}", Color.Black, Color.White, width, height);
             return image;
         }

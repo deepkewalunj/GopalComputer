@@ -431,7 +431,7 @@ getBase64EncodedImage(){
         data: base64Image
      }];
 
-     that.printService.printData("Microsoft Print to PDF", printData).subscribe(data=>{
+     that.printService.printData("Citizen CL-S621", printData).subscribe(data=>{
        that.isBarCodePrinting=false;
         console.log(data);
       },error=>{
