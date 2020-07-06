@@ -126,6 +126,16 @@ export class QzTrayService {
     return Observable.fromPromise(!qz.websocket.isActive()?qz.websocket.connect().then(
       ()=> qz.print(config, data)):  qz.print(config, data));
 
+  }
+
+  printBarCodeData(printer: string, data: any): Observable<any> {
+
+
+		const config = qz.configs.create(printer,{ size: {height:25,width:65},units:'mm' });
+
+    return Observable.fromPromise(!qz.websocket.isActive()?qz.websocket.connect().then(
+      ()=> qz.print(config, data)):  qz.print(config, data));
+
 	}
 
 	// Disconnect QZ Tray from the browser
