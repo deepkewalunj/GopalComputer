@@ -1,180 +1,323 @@
 <form [formGroup]="billGenerationForm" novalidate>
-    <div class="container form-container">
-        <h3 class="text-center mb-4">Bill Generation</h3>
-        <div class="card">
-            
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-group">
-                        <div class="input-group datepicker">
-                            <label class="date-label">Bill Date</label>
-                            <input class="form-control"  placeholder="dd-mm-yyyy"  name="dp"
-                            ngbDatepicker
-                                #d1="ngbDatepicker" (click)="d1.toggle()"  formControlName="billDate">
-                            <div class="input-group-append">
-                                <button  class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
-                                    type="button" ><i class="far fa-calendar-alt"></i></button>
-                            </div>
-                        </div>
-                        <div *ngIf="billGenerationForm.controls['billDate'].invalid &&
-                        (billGenerationForm.controls['billDate'].dirty || billGenerationForm.controls['billDate'].touched)"
-                            class="error-msg">
-                            <div *ngIf="billGenerationForm.controls['billDate'].errors.required">
-                               Bill date is required.
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" id="billNumber" type="text" placeholder="Bill Number" />
-                            <label for="billNumber">Bill Number</label>
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" id="jobNumber" type="text" placeholder="Job Number" />
-                            <label for="jobNumber">Job Number</label>
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select1">
-                                    <option value="" selected>Select</option>
-                                    <option>Alabama</option>
-                                    <option>California</option>
-                                    <option>Florida</option>
-                                    <option>Alaska</option>
-                                </select>
-                                <label class="select-label">Engg. Name</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div>
-                            <label class="radio-btns-label d-block">Tested Ok</label>
-                            <div class="custom-control custom-radio d-inline-block mt-3">
-                                <input type="radio" value="1" id="customRadio2" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio2">Yes</label>
-                            </div>
-                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
-                                <input type="radio" value="2" id="customRadio3" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio3">No</label>
-                            </div>
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div>
-                            <label class="radio-btns-label d-block">Material Used</label>
-                            <div class="custom-control custom-radio d-inline-block mt-3">
-                                <input type="radio" value="5" id="customRadio5" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio5">Yes</label>
-                            </div>
-                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
-                                <input type="radio" value="6" id="customRadio6" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio6">No</label>
-                            </div>
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" id="serviceAmount" type="text" placeholder="Service Amount" />
-                            <label for="serviceAmount">Service Amount</label>
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" id="advanceAmount" type="text" placeholder="Advance Amount" />
-                            <label for="advanceAmount">Advance Amount</label>
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" id="oustandingAmount" type="text" placeholder="Oustanding Amount" />
-                            <label for="oustandingAmount">Oustanding Amount</label>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select1">
-                                    <option value="" selected>Select</option>
-                                    <option>Printed</option>
-                                    <option>Not Printed</option>
-                                </select>
-                                <label class="select-label">Printed Status</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div>
-                            <label class="radio-btns-label d-block">Material Added</label>
-                            <div class="custom-control custom-radio d-inline-block mt-3">
-                                <input type="radio" value="8" id="customRadio8" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio8">Yes</label>
-                            </div>
-                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
-                                <input type="radio" value="9" id="customRadio9" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio9">No</label>
-                            </div>
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select1">
-                                    <option value="" selected>Select</option>
-                                    <option>Sent</option>
-                                    <option>Not Send</option>
-                                </select>
-                                <label class="select-label">SMS Status</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div>
-                            <label class="radio-btns-label d-block">Cash/Cheque</label>
-                            <div class="custom-control custom-radio d-inline-block mt-3">
-                                <input type="radio" value="10" id="customRadio10" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio10">Cash</label>
-                            </div>
-                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
-                                <input type="radio" value="11" id="customRadio11" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio11">Cheque</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select1">
-                                    <option value="" selected>Select</option>
-                                    <option>Nitn</option>
-                                    <option>Deepak</option>
-                                </select>
-                                <label class="select-label">Cash/Cheque Recieved by</label>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-           
+  <div class="container form-container">
+    <h4>{{bill.billId > 0 ? 'Edit':'Add'}} Bill</h4>
+    <div class="card mt-1">
+      <div class="card-header">
+        <h5>Job Numbers Detail</h5>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <div class="row">
+            <div class="d-flex flex-wrap align-items-end col-auto">
+              <ng-container *ngIf="hideTag">
+                <span class="badge badge-dark mr-1" *ngFor="let tag of bill.lstJobNumbers">
+                  {{tag.searchValue}}
+                  <i class="far fa-times-circle" (click)="deleteTag(tag)"></i>
+                </span>
+              </ng-container>
+              <div class="d-flex align-items-end">
+                <input class="form-control"
+                       [ngbTypeahead]="searchJobNumber"
+                       #inputJobNumbers
+                       (selectItem)="selectedJobNumber($event)"
+                       [inputFormatter]="formatter"
+                       [resultFormatter]="formatter"
+                       autofocus placeholder="Select Job Number" />
+                <small *ngIf="searching" class="form-text text-muted">searching...</small>
+                <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+
+              </div>
             </div>
-           
+
+          </div>
+          <div *ngIf="!bill.lstJobNumbers || (bill.lstJobNumbers && bill.lstJobNumbers.length <= 0)"
+               class="error-msg">
+            <div>
+              Job number is required.
+            </div>
+          </div>
         </div>
-        <footer>
-            <button class="btn btn-secondary">Cancel</button>
-            <button type="submit" class="btn btn-primary">
-                Save
-            </button>
-        </footer>
+      </div>
     </div>
+    <div class="card">
+      <div class="card-header">
+        <h5>Other Bill Details</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group">
+              <div class="input-group datepicker">
+                <label class="date-label">Bill Date</label>
+                <input class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="bill.ngbBillDate" name="dp"
+                       ngbDatepicker
+                       #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="billDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
+                          type="button">
+                    <i class="far fa-calendar-alt"></i>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="billGenerationForm.controls['billDate'].invalid &&
+                          (billGenerationForm.controls['billDate'].dirty || billGenerationForm.controls['billDate'].touched)"
+                   class="error-msg">
+                <div *ngIf="billGenerationForm.controls['billDate'].errors.required">
+                  Bill date is required.
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" [(ngModel)]="bill.billId" formControlName="billId" id="billNumber" type="text" placeholder="Bill Number" />
+              <label for="billNumber">Bill Number</label>
+
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="enggName" [(ngModel)]="bill.enggName" type="text" formControlName="enggName" placeholder="Engg. Name" />
+              <label for="enggName">Engg. Name</label>
+              <div *ngIf="billGenerationForm.controls['enggName'].invalid &&
+                          (billGenerationForm.controls['enggName'].dirty || billGenerationForm.controls['enggName'].touched)"
+                   class="error-msg">
+                <div *ngIf="billGenerationForm.controls['enggName'].errors.required">
+                  Engg. name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-4">
+            <div class="form-group">
+              <label class="radio-btns-label d-block">Tested Ok</label>
+              <div class="custom-control custom-radio d-inline-block mt-3">
+                <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.testedOk" id="customRadio1" name="customRadioTestedOk" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio1">Yes</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.testedOk" id="customRadio2" name="customRadioTestedOk" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio2">No</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4 col-lg-4">
+            <div class="form-group">
+              <label class="radio-btns-label d-block">Material Used</label>
+              <div class="custom-control custom-radio d-inline-block mt-3">
+                <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.materialUsed" id="customRadio3" name="customRadioMaterialUsed" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio3">Yes</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.materialUsed" id="customRadio4" name="customRadioMaterialUsed" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio4">No</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="serviceAmount" [(ngModel)]="bill.serviceAmount" formControlName="serviceAmount" type="text" placeholder="Service Amount" />
+              <label for="serviceAmount">Service Amount</label>
+              <div *ngIf="billGenerationForm.controls['serviceAmount'].invalid &&
+                          (billGenerationForm.controls['serviceAmount'].dirty || billGenerationForm.controls['serviceAmount'].touched)"
+                   class="error-msg">
+                <div *ngIf="billGenerationForm.controls['serviceAmount'].errors.required">
+                  Service amount is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="advanceAmount" [(ngModel)]="bill.advanceAmount" type="text" placeholder="Advance Amount" formControlName="advanceAmount" />
+              <label for="advanceAmount">Advance Amount</label>
+              <div *ngIf="billGenerationForm.controls['advanceAmount'].invalid &&
+                          (billGenerationForm.controls['advanceAmount'].dirty || billGenerationForm.controls['advanceAmount'].touched)"
+                   class="error-msg">
+                <div *ngIf="billGenerationForm.controls['advanceAmount'].errors.required">
+                  Advance amount is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="paidImmediatlyAmount" [(ngModel)]="bill.paidImmediatlyAmount" formControlName="paidImmediatlyAmount" type="text" placeholder="Paid Immediatly Amount" />
+              <label for="paidImmediatlyAmount">Paid Immediatly Amount</label>
+              <div *ngIf="billGenerationForm.controls['paidImmediatlyAmount'].invalid &&
+                          (billGenerationForm.controls['paidImmediatlyAmount'].dirty || billGenerationForm.controls['paidImmediatlyAmount'].touched)"
+                   class="error-msg">
+                <div *ngIf="billGenerationForm.controls['paidImmediatlyAmount'].errors.required">
+                  Paid immediatly amount is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="oustandingAmount" [(ngModel)]="bill.outstandingAmount" formControlName="outstandingAmount" type="text" placeholder="Oustanding Amount" />
+              <label for="oustandingAmount">Oustanding Amount</label>
+              <div *ngIf="billGenerationForm.controls['outstandingAmount'].invalid &&
+                          (billGenerationForm.controls['outstandingAmount'].dirty || billGenerationForm.controls['outstandingAmount'].touched)"
+                   class="error-msg">
+                <div *ngIf="billGenerationForm.controls['outstandingAmount'].errors.required">
+                  Outstanding amount is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-4">
+            <div class="form-group">
+              <label class="radio-btns-label d-block">Print Status</label>
+              <div class="custom-control custom-radio d-inline-block mt-3">
+                <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.printStatus" id="customRadio5" name="customRadioPrintStatus" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio5">Printed</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.printStatus" id="customRadio6" name="customRadioPrintStatus" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio6">Not Printed</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-4">
+            <div class="form-group">
+              <label class="radio-btns-label d-block">Material Added</label>
+              <div class="custom-control custom-radio d-inline-block mt-3">
+                <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.materialAdded" id="customRadio7" name="customRadioMaterialAdded" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio7">Yes</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.materialAdded" id="customRadio8" name="customRadioMaterialAdded" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio8">No</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-4">
+            <div class="form-group">
+              <label class="radio-btns-label d-block">SMS Sent</label>
+              <div class="custom-control custom-radio d-inline-block mt-3">
+                <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.smsSent" id="customRadio9" name="customRadioSmsSent" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio9">Yes</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.smsSent" id="customRadio10" name="customRadioSmsSent" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio10">No</label>
+              </div>
+            </div>
+          </div>
+
+          
+          
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-12 col-lg-12">
+            <div>
+              <label class="radio-btns-label d-block">Payment Mode</label>
+              <div class="custom-control custom-radio d-inline-block mt-3">
+                <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.paymentMode" id="customRadio11" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio11">Cash</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.paymentMode" id="customRadio12" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio12">Cheque</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="3" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.paymentMode" id="customRadio13" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio13">Online Transfer</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="4" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.paymentMode" id="customRadio14" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio14">Google Pay</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="5" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.paymentMode" id="customRadio15" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio15">Phone Pay</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="6" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="bill.paymentMode" id="customRadio16" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio16">Other</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div *ngIf="bill.paymentMode == '2'" class="col-12 col-md-6 col-lg-4">
+            <div class="form-group">
+              <div class="input-group datepicker">
+                <label class="date-label">Cheque Date</label>
+                <input class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="bill.ngbChequeDate" name="dp"
+                       ngbDatepicker
+                       #d2="ngbDatepicker" (click)="d2.toggle()" formControlName="chequeDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
+                          type="button">
+                    <i class="far fa-calendar-alt"></i>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="!bill.ngbChequeDate"
+                   class="error-msg">
+                <div>
+                  Cheque date is required.
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div *ngIf="bill.paymentMode == '2'" class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" [(ngModel)]="bill.chequeNo" formControlName="chequeNo" id="chequeNo" type="text" placeholder="Cheque Number" />
+              <label for="chequeNo">Cheque Number</label>
+              <div *ngIf="!bill.chequeNo"
+                   class="error-msg">
+                <div>
+                  Cheque number is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="paymentRecievedBy" [(ngModel)]="bill.paymentRecievedBy" formControlName="paymentRecievedBy" type="text" placeholder="{{bill.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}" />
+              <label for="paymentRecievedBy">{{bill.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}</label>
+              <div *ngIf="billGenerationForm.controls['paymentRecievedBy'].invalid &&
+                          (billGenerationForm.controls['paymentRecievedBy'].dirty || billGenerationForm.controls['paymentRecievedBy'].touched)"
+                   class="error-msg">
+                <div *ngIf="billGenerationForm.controls['paymentRecievedBy'].errors.required">
+                  {{bill.paymentMode == '2' ? 'Bank name is required.' : 'Payment recieved by is required.'}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <footer>
+      <button class="btn btn-secondary">Cancel</button>
+      <button type="submit" class="btn btn-primary" (click)="billGenerationForm.valid && validateForm() && saveBill()">
+        Save
+      </button>
+    </footer>
+  </div>
 </form>

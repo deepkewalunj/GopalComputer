@@ -10,6 +10,8 @@ namespace Gopal.Models.Common
         public int searchId { get; set; }
         public string searchValue { get; set; }
         public string splitValue { get; set; }
+        public float? advanceAmount { get; set; }
+        public int? clientRefId { get; set; }
     }
     public class TypeAheadRequestModel
     {
@@ -21,8 +23,8 @@ namespace Gopal.Models.Common
     public enum TYPEAHEAD_LIST{
         TYPEAHEAD_CUSTOMER=1,
         TYPEAHEAD_MATERIAL=2,
-        TYPEAHEAD_INVENTORY=3
-
+        TYPEAHEAD_INVENTORY=3,
+        TYPEAHEAD_JOBNUMBER = 4,
 
     }
 }

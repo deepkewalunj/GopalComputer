@@ -58,6 +58,15 @@ namespace Gopal.EntityFrameworkCore
                     .HasColumnName("billDate")
                     .HasColumnType("datetime");
 
+                entity.Property(e => e.ChequeDate)
+                    .HasColumnName("chequeDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.ChequeNo)
+                    .HasColumnName("chequeNo")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
 
                 entity.Property(e => e.CreatedDate)
@@ -493,6 +502,15 @@ namespace Gopal.EntityFrameworkCore
                 entity.Property(e => e.OutwardId).HasColumnName("outwardId");
 
                 entity.Property(e => e.AdvanceAmount).HasColumnName("advanceAmount");
+
+                entity.Property(e => e.ChequeDate)
+                    .HasColumnName("chequeDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.ChequeNo)
+                    .HasColumnName("chequeNo")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
 

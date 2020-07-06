@@ -24,5 +24,7 @@ namespace Gopal.EntityFrameworkCore
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public bool IsDeleted { get; set; }
+        public DateTime? ChequeDate { get; set; }
+        public string ChequeNo { get; set; }
     }
 }
