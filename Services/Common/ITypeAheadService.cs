@@ -12,5 +12,6 @@ namespace Gopal.Services.Common
         List<TypeAheadResponseModel> GetTypeAheadCustomer(TypeAheadRequestModel request);
 
         List<TypeAheadResponseModel> GetTypeAheadInventory(TypeAheadRequestModel request);
+        List<TypeAheadResponseModel> GetTypeAheadJobNumber(TypeAheadRequestModel request);
     }
 }

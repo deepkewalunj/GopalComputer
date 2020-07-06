@@ -7,5 +7,7 @@ export class TypeAheadRequestModel{
 export class TypeAheadResponseModel{
   searchId:number;
   searchValue:string;
-  splitValue:string;
+  splitValue: string;
+  advanceAmount: number;
+  clientRefId: number;
 }

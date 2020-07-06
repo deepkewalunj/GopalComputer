@@ -12,7 +12,7 @@ import { TypeAheadResponseModel, TypeAheadRequestModel } from 'src/app/models/ty
 import { InwardService } from 'src/app/services/inward.service';
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
 import { ActivatedRoute, Router } from '@angular/router'
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import {WebcamImage} from 'ngx-webcam';
 import { InwardPrintComponent } from '../inward-print/inward-print.component';
 
@@ -296,7 +296,7 @@ materialTypeAheadSelected(selectedElement){
 
   this.inward.lstAccessories=[];
   this.inward.lstAccessories.push({searchId: 0,
-    searchValue:selectedElementArray[1],splitValue:''});
+    searchValue: selectedElementArray[1], splitValue: '', advanceAmount: 0,clientRefId:0});
 }
 
 

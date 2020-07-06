@@ -35,6 +35,9 @@ namespace Gopal.Controllers
                 case TYPEAHEAD_LIST.TYPEAHEAD_INVENTORY:
                     lstTypeAheadResponseModel = _typeaheadService.GetTypeAheadInventory(request);
                     break;
+                case TYPEAHEAD_LIST.TYPEAHEAD_JOBNUMBER:
+                    lstTypeAheadResponseModel = _typeaheadService.GetTypeAheadJobNumber(request);
+                    break;
             }
 
             return Ok(lstTypeAheadResponseModel);
