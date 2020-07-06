@@ -39,6 +39,8 @@ export class AddInwardComponent implements OnInit {
   staticAlertClosed = false;
   successMessage: string;
 
+  isBarCodePrinting=false;
+
   formatter = (typeAhead: TypeAheadResponseModel) => typeAhead.searchValue;
 
   hideTag = true;
@@ -407,7 +409,11 @@ getBase64EncodedImage(){
   const that=this;
   this.toDataUrl(environment.API_URL+'Uploads/'+this.inward.barCode,function(base64Image){
     base64Image=base64Image.split(",")[1];
-    that.PrintInwardBarcode(base64Image,that);
+    if(!that.isBarCodePrinting)
+    {
+      that.PrintInwardBarcode(base64Image,that);
+    }
+
   } );
 
 }
@@ -415,9 +421,10 @@ getBase64EncodedImage(){
   PrintInwardBarcode(base64Image,that)
   {
 
-
+    that.isBarCodePrinting=true;
     that.printService.getPrinters().subscribe(data=>{
 
+      console.log(data);
       let printData = [{
         type: 'image',
         format: 'base64',
@@ -425,8 +432,10 @@ getBase64EncodedImage(){
      }];
 
      that.printService.printData("Microsoft Print to PDF", printData).subscribe(data=>{
+       that.isBarCodePrinting=false;
         console.log(data);
       },error=>{
+        that.isBarCodePrinting=false;
         console.log(error);
       });
 
