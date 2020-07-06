@@ -439,6 +439,9 @@ getBase64EncodedImage(){
         console.log(error);
       });
 
+    },error=>{
+      that.isBarCodePrinting=false;
+      console.log(error);
     });
 
   }
