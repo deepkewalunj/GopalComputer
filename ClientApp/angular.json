@@ -35,7 +35,10 @@
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/datatables.net/js/jquery.dataTables.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.js",
+              "src/scripts/qz-tray.js",
+              "src/scripts/rsvp-3.1.0.min.js",
+              "src/scripts/sha-256.min.js"
             ]
           },
           "configurations": {

@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { environment } from 'src/environments/environment';
 import {WebcamImage} from 'ngx-webcam';
 import { InwardPrintComponent } from '../inward-print/inward-print.component';
+import { QzTrayService } from 'src/app/services/qz-tray.service';
 
 @Component({
   selector: 'app-add-inward',
@@ -37,6 +38,8 @@ export class AddInwardComponent implements OnInit {
   private _success = new Subject<string>();
   staticAlertClosed = false;
   successMessage: string;
+
+  isBarCodePrinting=false;
 
   formatter = (typeAhead: TypeAheadResponseModel) => typeAhead.searchValue;
 
@@ -73,7 +76,7 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private inwardService:InwardService,private typeAheadService:TypeAheadService,
     private route: ActivatedRoute,private router:Router,
-    private ngbCalendar: NgbCalendar) {
+    private ngbCalendar: NgbCalendar,private printService: QzTrayService) {
    this.createForm();
   }
 
@@ -144,6 +147,7 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
 
 
   ngOnInit(){
+
 
     this.route.params.subscribe(data =>{
         this.inwardId=data.inwardId;
@@ -385,14 +389,61 @@ GoToInwardList(){
 		this.inward.inwardFiles.splice(this.inward.inwardFiles.indexOf(event), 1);
 	}
 
+  toDataUrl(url, callback) {
+    debugger;
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+}
 
-  PrintInwardBarcode()
+
+getBase64EncodedImage(){
+  const that=this;
+  this.toDataUrl(environment.API_URL+'Uploads/'+this.inward.barCode,function(base64Image){
+    base64Image=base64Image.split(",")[1];
+    if(!that.isBarCodePrinting)
+    {
+      that.PrintInwardBarcode(base64Image,that);
+    }
+
+  } );
+
+}
+
+  PrintInwardBarcode(base64Image,that)
   {
-    this.inwardService.PrintInwardBarcode(this.inward.inwardId).subscribe(data=>{
-          this.inward.barCode=data;
-    },error=>{
 
-    })
+    that.isBarCodePrinting=true;
+    that.printService.getPrinters().subscribe(data=>{
+
+      console.log(data);
+      let printData = [{
+        type: 'image',
+        format: 'base64',
+        data: base64Image
+     }];
+
+     that.printService.printData("Microsoft Print to PDF", printData).subscribe(data=>{
+       that.isBarCodePrinting=false;
+        console.log(data);
+      },error=>{
+        that.isBarCodePrinting=false;
+        console.log(error);
+      });
+
+    },error=>{
+      that.isBarCodePrinting=false;
+      console.log(error);
+    });
+
   }
 
 

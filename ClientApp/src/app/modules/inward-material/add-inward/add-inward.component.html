@@ -471,7 +471,7 @@
           <button type="submit" (click)="PrintInward()" *ngIf="inward.inwardId>0" class="btn btn-success">
             Print Inward
         </button>
-          <button type="submit" (click)="PrintInwardBarcode()" *ngIf="inward.inwardId>0" class="btn btn-success">
+          <button type="submit" [disabled]="isBarCodePrinting" (click)="getBase64EncodedImage()" *ngIf="inward.inwardId>0" class="btn btn-success">
             Print BarCode
         </button>
           <button type="submit" (click)="addInwardForm.valid && SaveInward()" class="btn btn-primary">
