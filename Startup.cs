@@ -79,6 +79,8 @@ namespace Gopal
         {
             ConnectionHelper.SetConnectionString(Configuration["ConnectionString"]);
             app.UseCors("Gopal_CORS");
+
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

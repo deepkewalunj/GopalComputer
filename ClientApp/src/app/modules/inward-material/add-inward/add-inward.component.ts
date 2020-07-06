@@ -146,7 +146,7 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
 
   ngOnInit(){
 
-    this.printService.initQZ();
+
     this.route.params.subscribe(data =>{
         this.inwardId=data.inwardId;
     });
@@ -387,37 +387,51 @@ GoToInwardList(){
 		this.inward.inwardFiles.splice(this.inward.inwardFiles.indexOf(event), 1);
 	}
 
+  toDataUrl(url, callback) {
+    debugger;
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+}
 
-  PrintInwardBarcode()
+
+getBase64EncodedImage(){
+  const that=this;
+  this.toDataUrl(environment.API_URL+'Uploads/'+this.inward.barCode,function(base64Image){
+    base64Image=base64Image.split(",")[1];
+    that.PrintInwardBarcode(base64Image,that);
+  } );
+
+}
+
+  PrintInwardBarcode(base64Image,that)
   {
-    this.printService.getPrinters().subscribe(data=>{
-      console.log(data);
-    });
-    let printData =[
-      '\nN\n',
-      'q609\n',
-      {
-         type: 'raw', format: 'pdf', flavor: 'file',
-         data: 'D:\\pdf_sample.pdf',
-         // rendered pageWidth and pageHeight in pixels is required
-         options: { language: "EPL", "pageWidth":"500", "pageHeight":"500" },
-      }
-      ,'\nP1,1\n'
-   ];
 
-		this.printService.printData("Microsoft Print to PDF", printData).subscribe(data=>{
 
-    },error=>{
-      console.log(error);
+    that.printService.getPrinters().subscribe(data=>{
+
+      let printData = [{
+        type: 'image',
+        format: 'base64',
+        data: base64Image
+     }];
+
+     that.printService.printData("Microsoft Print to PDF", printData).subscribe(data=>{
+        console.log(data);
+      },error=>{
+        console.log(error);
+      });
+
     });
 
-
-
-    // this.inwardService.PrintInwardBarcode(this.inward.inwardId).subscribe(data=>{
-    //       this.inward.barCode=data;
-    // },error=>{
-
-    // })
   }
 
 
