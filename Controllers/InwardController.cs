@@ -138,15 +138,15 @@ namespace Gopal.Controllers
 
             //Save Simple BarCode
             string simpleBarCodePath = $"{newPath}/{saveSimplePath}";
-            Image image = GetBarCodeImage(inwardModel.inwardId, true, $"{inwardModel.inwardId}",249,50,true);
+            Image image = GetBarCodeImage(inwardModel.inwardId, 170, 30, true, true, $"{inwardModel.inwardId}");
             image.Save(simpleBarCodePath);
 
             //Save Named BarCode
             string namedBarCodePath = $"{newPath}/{savePath}";
-            image = GetBarCodeImage(inwardModel.inwardId);
+            image = GetBarCodeImage(inwardModel.inwardId,170,30);
 
             // image.Save(newPath);
-            var fnt= new Font(FontFamily.GenericSansSerif, (float)8, FontStyle.Regular);
+            var fnt= new Font(FontFamily.GenericMonospace, (float)8, FontStyle.Bold);
             InwardBarCodeModel barCodeModel = new InwardBarCodeModel {accessory=accessories,
                                                  customerName=customerName,enggName=inwardModel.enggName,
                                                  inwardId=inwardModel.inwardId};
@@ -157,7 +157,7 @@ namespace Gopal.Controllers
             
         }
 
-        private Image GetBarCodeImage(int inwardId,bool isAlternateText=false,string alternateText=null,int width=200,int height=40,bool isCentre= false) {
+        private Image GetBarCodeImage(int inwardId, int width, int height, bool isCentre=false,bool isAlternateText=false,string alternateText=null) {
             BarcodeLib.Barcode b = new BarcodeLib.Barcode();
 
             b.ImageFormat = System.Drawing.Imaging.ImageFormat.Png;
@@ -172,7 +172,7 @@ namespace Gopal.Controllers
                 else
                 b.LabelPosition = BarcodeLib.LabelPositions.BOTTOMLEFT;
             }
-           
+            b.Alignment = BarcodeLib.AlignmentPositions.LEFT;
             Image image = b.Encode(BarcodeLib.TYPE.CODE39, $"{inwardId}", Color.Black, Color.White, width, height);
             return image;
         }
@@ -192,9 +192,10 @@ namespace Gopal.Controllers
             drawing.DrawString(barcodeModel.accessory, font, textBrush, 0, barCode.Height + 15);
             drawing.DrawString(barcodeModel.enggName, font, textBrush, 0, barCode.Height + 25);
             drawing.DrawString("REPAIRED :", font, textBrush, 0, barCode.Height + 35);
-            drawing.DrawString("YES :", font, textBrush, 100, barCode.Height + 35);
-            drawing.DrawString("NO :", font, textBrush, 175, barCode.Height + 35);
-            drawing.DrawString($"{barcodeModel.inwardId}", font, textBrush, barCode.Width+5, barCode.Height - 25);
+            drawing.DrawString("YES :", font, textBrush, 60, barCode.Height + 35);
+            drawing.DrawString("NO :", font, textBrush, 90, barCode.Height + 35);
+            drawing.DrawString(DateTime.Now.ToString("dd/MM/yyyy"), font, textBrush, 120, barCode.Height + 35);
+            drawing.DrawString($"{barcodeModel.inwardId}", font, textBrush, barCode.Width+2, barCode.Height - 25);
             drawing.Save();
 
             textBrush.Dispose();

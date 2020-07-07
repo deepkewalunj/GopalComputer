@@ -115,26 +115,23 @@ export class QzTrayService {
 		.map((printer: string) => printer);
 	}
 
-	printHTML(printerName, htmlData) {
-		qz.printers.find(printerName).then(function(found) {
-			console.log("Printer: " + found);
-			var config = qz.configs.create(printerName);
 
-			qz.print(config, htmlData).then(function() {
-				console.log("Sent data to printer");
-      }).catch((err) =>
-
-      console.log(err));
-		}).catch((err) => {
-
-      console.log(err) });
-	}
 
 	// Print data to chosen printer
 	printData(printer: string, data: any): Observable<any> {
 
 
 		const config = qz.configs.create(printer);
+
+    return Observable.fromPromise(!qz.websocket.isActive()?qz.websocket.connect().then(
+      ()=> qz.print(config, data)):  qz.print(config, data));
+
+  }
+
+  printBarCodeData(printer: string, data: any): Observable<any> {
+
+
+		const config = qz.configs.create(printer,{ size: {height:25,width:65},units:'mm' });
 
     return Observable.fromPromise(!qz.websocket.isActive()?qz.websocket.connect().then(
       ()=> qz.print(config, data)):  qz.print(config, data));
