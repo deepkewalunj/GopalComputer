@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -34,6 +36,12 @@ namespace Gopal.Controllers
             string folderName = "Uploads";
             string webRootPath = _hostingEnvironment.WebRootPath;
            return Path.Combine(webRootPath, folderName);
+        }
+        private string GetFontFolderPath()
+        {
+            string folderName = "Fonts";
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            return Path.Combine(webRootPath, folderName);
         }
 
 
@@ -138,19 +146,20 @@ namespace Gopal.Controllers
 
             //Save Simple BarCode
             string simpleBarCodePath = $"{newPath}/{saveSimplePath}";
-            Image image = GetBarCodeImage(inwardModel.inwardId, 170, 30, true, true, $"{inwardModel.inwardId}");
+            Image image = GetBarCodeImage(inwardModel.inwardId, 245, 70, true, true, $"{inwardModel.inwardId}");
             image.Save(simpleBarCodePath);
 
             //Save Named BarCode
             string namedBarCodePath = $"{newPath}/{savePath}";
-            image = GetBarCodeImage(inwardModel.inwardId,170,30);
-
+           // image = GetBarCodeImage(inwardModel.inwardId,190,50);
+          
             // image.Save(newPath);
-            var fnt= new Font(FontFamily.GenericMonospace, (float)8, FontStyle.Bold);
+            var fnt= new Font("Helvetica", (float)8, FontStyle.Bold);
             InwardBarCodeModel barCodeModel = new InwardBarCodeModel {accessory=accessories,
                                                  customerName=customerName,enggName=inwardModel.enggName,
                                                  inwardId=inwardModel.inwardId};
-             image = DrawText(barCodeModel, fnt,Color.Black,Color.White, image);
+            // image = DrawText(barCodeModel, fnt,Color.Black,Color.White, image);
+             image = DrawBarCodeImageWithText(barCodeModel, fnt, Color.Black, Color.White);
              image.Save(namedBarCodePath);
             _inwardServices.UpdateBarCodePathByInwardId(inwardModel.inwardId, savePath);
            
@@ -196,6 +205,48 @@ namespace Gopal.Controllers
             drawing.DrawString("NO :", font, textBrush, 90, barCode.Height + 35);
             drawing.DrawString(DateTime.Now.ToString("dd/MM/yyyy"), font, textBrush, 120, barCode.Height + 35);
             drawing.DrawString($"{barcodeModel.inwardId}", font, textBrush, barCode.Width+2, barCode.Height - 25);
+            drawing.Save();
+
+            textBrush.Dispose();
+            drawing.Dispose();
+
+            return img;
+
+        }
+
+        private Image  DrawBarCodeImageWithText(InwardBarCodeModel barcodeModel, Font font, Color textColor, Color backColor)
+        {
+            // Create a private font collection
+            PrivateFontCollection pfc = new PrivateFontCollection();
+
+            // Load in the temporary barcode font
+            pfc.AddFontFile(Path.Combine(GetFontFolderPath(), "free3of9.ttf"));
+
+            // Select the font family to use
+            FontFamily family = new FontFamily("Free 3 of 9", pfc);
+
+            // Create the font object with size 30
+            Font c39Font = new Font(family, 30);
+
+
+
+            //first, create a dummy bitmap just to get a graphics object
+            Bitmap img = new Bitmap(230, 85);
+           
+            Graphics drawing = Graphics.FromImage(img);
+            SizeF barCodeSize = drawing.MeasureString($"*{barcodeModel.inwardId}*", c39Font);
+
+            //create a brush for the text
+            Brush textBrush = new SolidBrush(textColor);
+            drawing.DrawString($"*{barcodeModel.inwardId}*", c39Font, textBrush, 0, 0);
+            drawing.DrawString(barcodeModel.customerName, font, textBrush, 0, barCodeSize.Height + 2);
+            drawing.DrawString(barcodeModel.accessory, font, textBrush, 0, barCodeSize.Height + 12);
+            drawing.DrawString(barcodeModel.enggName, font, textBrush, 0, barCodeSize.Height + 22);
+            drawing.DrawString("REPAIRED :", font, textBrush, 0, barCodeSize.Height + 32);
+            drawing.DrawString("YES :", font, textBrush, 60, barCodeSize.Height + 32);
+            drawing.DrawString("NO :", font, textBrush, 90, barCodeSize.Height + 32);
+            drawing.DrawString(DateTime.Now.ToString("dd/MM/yyyy"), font, textBrush, 120, barCodeSize.Height + 32);
+            drawing.DrawString($"{barcodeModel.inwardId}", font, textBrush, barCodeSize.Width + 2, barCodeSize.Height - 25);
             drawing.Save();
 
             textBrush.Dispose();

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Inward, InwardListModel } from 'src/app/models/inward.model';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { QzTrayService } from 'src/app/services/qz-tray.service';
 
 @Component({

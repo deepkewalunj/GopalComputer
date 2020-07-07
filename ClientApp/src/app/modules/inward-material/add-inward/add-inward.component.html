@@ -468,12 +468,10 @@
       </div>
       <footer>
           <button class="btn btn-secondary" (click)="GoToInwardList()" >Cancel</button>
-          <button type="submit" (click)="PrintInward()" *ngIf="inward.inwardId>0" class="btn btn-success">
-            Print Inward
-        </button>
-          <button type="submit" [disabled]="isBarCodePrinting" (click)="getBase64EncodedImage()" *ngIf="inward.inwardId>0" class="btn btn-success">
-            Print BarCode
-        </button>
+         
+      <button type="submit"  (click)="getBase64EncodedImage(false)" *ngIf="inward.inwardId>0" class="btn btn-success">
+        Print BarCode
+    </button>
           <button type="submit" (click)="addInwardForm.valid && SaveInward()" class="btn btn-primary">
               Save
           </button>

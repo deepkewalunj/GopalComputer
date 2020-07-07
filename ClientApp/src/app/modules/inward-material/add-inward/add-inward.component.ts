@@ -390,7 +390,7 @@ GoToInwardList(){
 	}
 
   toDataUrl(url, callback) {
-    debugger;
+
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {
         var reader = new FileReader();
@@ -405,22 +405,25 @@ GoToInwardList(){
 }
 
 
-getBase64EncodedImage(){
+getBase64EncodedImage(isZPL){
   const that=this;
   this.toDataUrl(environment.API_URL+'Uploads/'+this.inward.barCode,function(base64Image){
     base64Image=base64Image.split(",")[1];
     if(!that.isBarCodePrinting)
     {
-      that.PrintInwardBarcode(base64Image,that);
+      that.PrintInwardBarcode(base64Image,isZPL,that);
     }
 
   } );
 
 }
 
-  PrintInwardBarcode(base64Image,that)
-  {
 
+
+
+  PrintInwardBarcode(base64Image,isZPL,that)
+  {
+    
     that.isBarCodePrinting=true;
     that.printService.getPrinters().subscribe(data=>{
 
@@ -430,8 +433,8 @@ getBase64EncodedImage(){
         format: 'base64',
         data: base64Image
      }];
-
-     that.printService.printBarCodeData("Citizen CL-S621", printData).subscribe(data=>{
+     debugger;
+    that.printService.printBarCodeData("Citizen CL-S621", printData).subscribe(data=>{
        that.isBarCodePrinting=false;
         console.log(data);
       },error=>{
@@ -443,6 +446,8 @@ getBase64EncodedImage(){
       that.isBarCodePrinting=false;
       console.log(error);
     });
+   
+
 
   }
 
