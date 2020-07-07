@@ -17,6 +17,6 @@ namespace Gopal.Models.Customer
         public string telNoFirst     { get; set; }
         public string telNoSecond    { get; set; }
         public int userId { get; set; }
-        public float balanceAmount { get; set; }
+        public decimal balanceAmount { get; set; }
     }
 }

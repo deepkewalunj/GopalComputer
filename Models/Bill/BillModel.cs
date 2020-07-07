@@ -14,10 +14,10 @@ namespace Gopal.Models.Bill
         public string enggName { get; set; }
         public string testedOk { get; set; }
         public string materialUsed { get; set; }
-        public float serviceAmount { get; set; }
-        public float advanceAmount { get; set; }
-        public float paidImmediatlyAmount { get; set; }
-        public float outstandingAmount { get; set; }
+        public decimal serviceAmount { get; set; }
+        public decimal advanceAmount { get; set; }
+        public decimal paidImmediatlyAmount { get; set; }
+        public decimal outstandingAmount { get; set; }
         public string printStatus { get; set; }
         public string materialAdded { get; set; }
         public string paymentMode { get; set; }
@@ -39,10 +39,10 @@ namespace Gopal.Models.Bill
         public string jobNumbers { get; set; }
         public string enggName { get; set; }
         public DateTime? billDate { get; set; }
-        public float serviceAmount { get; set; }
-        public float advanceAmount { get; set; }
-        public float paidImmediatlyAmount { get; set; }
-        public float outstandingAmount { get; set; }
+        public decimal serviceAmount { get; set; }
+        public decimal advanceAmount { get; set; }
+        public decimal paidImmediatlyAmount { get; set; }
+        public decimal outstandingAmount { get; set; }
 
     }
 }

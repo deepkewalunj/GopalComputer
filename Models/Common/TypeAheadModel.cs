@@ -10,7 +10,7 @@ namespace Gopal.Models.Common
         public int searchId { get; set; }
         public string searchValue { get; set; }
         public string splitValue { get; set; }
-        public float? advanceAmount { get; set; }
+        public decimal? advanceAmount { get; set; }
         public int? clientRefId { get; set; }
     }
     public class TypeAheadRequestModel

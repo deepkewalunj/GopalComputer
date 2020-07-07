@@ -18,7 +18,6 @@ namespace Gopal.EntityFrameworkCore
         public virtual DbSet<TblBill> TblBill { get; set; }
         public virtual DbSet<TblBillAndInwardDetail> TblBillAndInwardDetail { get; set; }
         public virtual DbSet<TblClient> TblClient { get; set; }
-        public virtual DbSet<TblClientOpeningBalanceHistory> TblClientOpeningBalanceHistory { get; set; }
         public virtual DbSet<TblInward> TblInward { get; set; }
         public virtual DbSet<TblInwardDocument> TblInwardDocument { get; set; }
         public virtual DbSet<TblMaterialAccessory> TblMaterialAccessory { get; set; }
@@ -52,7 +51,9 @@ namespace Gopal.EntityFrameworkCore
 
                 entity.Property(e => e.BillId).HasColumnName("billId");
 
-                entity.Property(e => e.AdvanceAmount).HasColumnName("advanceAmount");
+                entity.Property(e => e.AdvanceAmount)
+                    .HasColumnName("advanceAmount")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.BillDate)
                     .HasColumnName("billDate")
@@ -67,6 +68,8 @@ namespace Gopal.EntityFrameworkCore
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.ClientIdRef).HasColumnName("clientIdRef");
+
                 entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
 
                 entity.Property(e => e.CreatedDate)
@@ -80,6 +83,8 @@ namespace Gopal.EntityFrameworkCore
 
                 entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
 
+                entity.Property(e => e.IsOpeningBalanceEntry).HasColumnName("isOpeningBalanceEntry");
+
                 entity.Property(e => e.MaterialAdded).HasColumnName("materialAdded");
 
                 entity.Property(e => e.MaterialUsed).HasColumnName("materialUsed");
@@ -90,9 +95,13 @@ namespace Gopal.EntityFrameworkCore
                     .HasColumnName("modifiedDate")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.OutstandingAmount).HasColumnName("outstandingAmount");
+                entity.Property(e => e.OutstandingAmount)
+                    .HasColumnName("outstandingAmount")
+                    .HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.PaidImmediatlyAmount).HasColumnName("paidImmediatlyAmount");
+                entity.Property(e => e.PaidImmediatlyAmount)
+                    .HasColumnName("paidImmediatlyAmount")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.PaymentMode).HasColumnName("paymentMode");
 
@@ -103,7 +112,9 @@ namespace Gopal.EntityFrameworkCore
 
                 entity.Property(e => e.PrintStatus).HasColumnName("printStatus");
 
-                entity.Property(e => e.ServiceAmount).HasColumnName("serviceAmount");
+                entity.Property(e => e.ServiceAmount)
+                    .HasColumnName("serviceAmount")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.SmsSent).HasColumnName("smsSent");
 
@@ -153,7 +164,9 @@ namespace Gopal.EntityFrameworkCore
 
                 entity.Property(e => e.ClientId).HasColumnName("clientId");
 
-                entity.Property(e => e.BalanceAmount).HasColumnName("balanceAmount");
+                entity.Property(e => e.BalanceAmount)
+                    .HasColumnName("balanceAmount")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.ClientAddress)
                     .HasColumnName("clientAddress")
@@ -211,42 +224,6 @@ namespace Gopal.EntityFrameworkCore
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<TblClientOpeningBalanceHistory>(entity =>
-            {
-                entity.HasKey(e => e.ClientOpeningBalanceHistoryId)
-                    .HasName("PK__tblClien__582CCEFFA4474BBA");
-
-                entity.ToTable("tblClientOpeningBalanceHistory");
-
-                entity.Property(e => e.ClientOpeningBalanceHistoryId).HasColumnName("clientOpeningBalanceHistoryId");
-
-                entity.Property(e => e.BillIdRef).HasColumnName("billIdRef");
-
-                entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
-
-                entity.Property(e => e.CreatedDate)
-                    .HasColumnName("createdDate")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.CreditedAmount).HasColumnName("creditedAmount");
-
-                entity.Property(e => e.DebitedAmount).HasColumnName("debitedAmount");
-
-                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
-
-                entity.Property(e => e.ModifiedBy).HasColumnName("modifiedBy");
-
-                entity.Property(e => e.ModifiedDate)
-                    .HasColumnName("modifiedDate")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.NewBalance).HasColumnName("newBalance");
-
-                entity.Property(e => e.OldBalance).HasColumnName("oldBalance");
-
-                entity.Property(e => e.OutwardIdRef).HasColumnName("outwardIdRef");
-            });
-
             modelBuilder.Entity<TblInward>(entity =>
             {
                 entity.HasKey(e => e.InwardId)
@@ -264,7 +241,9 @@ namespace Gopal.EntityFrameworkCore
                     .HasColumnName("accessories")
                     .IsUnicode(false);
 
-                entity.Property(e => e.AdvanceAmount).HasColumnName("advanceAmount");
+                entity.Property(e => e.AdvanceAmount)
+                    .HasColumnName("advanceAmount")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.BarCode)
                     .HasColumnName("barCode")
@@ -296,7 +275,9 @@ namespace Gopal.EntityFrameworkCore
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EstmRepairingAmount).HasColumnName("estmRepairingAmount");
+                entity.Property(e => e.EstmRepairingAmount)
+                    .HasColumnName("estmRepairingAmount")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.InwardDate)
                     .HasColumnName("inwardDate")
@@ -501,7 +482,9 @@ namespace Gopal.EntityFrameworkCore
 
                 entity.Property(e => e.OutwardId).HasColumnName("outwardId");
 
-                entity.Property(e => e.AdvanceAmount).HasColumnName("advanceAmount");
+                entity.Property(e => e.AdvanceAmount)
+                    .HasColumnName("advanceAmount")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.ChequeDate)
                     .HasColumnName("chequeDate")
@@ -535,13 +518,17 @@ namespace Gopal.EntityFrameworkCore
                     .HasColumnName("modifiedDate")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.OutstandingAmount).HasColumnName("outstandingAmount");
+                entity.Property(e => e.OutstandingAmount)
+                    .HasColumnName("outstandingAmount")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.OutwardDate)
                     .HasColumnName("outwardDate")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.PaidImmediatlyAmount).HasColumnName("paidImmediatlyAmount");
+                entity.Property(e => e.PaidImmediatlyAmount)
+                    .HasColumnName("paidImmediatlyAmount")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.PaymentMode).HasColumnName("paymentMode");
 
@@ -552,7 +539,9 @@ namespace Gopal.EntityFrameworkCore
 
                 entity.Property(e => e.PrintStatus).HasColumnName("printStatus");
 
-                entity.Property(e => e.ServiceAmount).HasColumnName("serviceAmount");
+                entity.Property(e => e.ServiceAmount)
+                    .HasColumnName("serviceAmount")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.SmsSent).HasColumnName("smsSent");
 

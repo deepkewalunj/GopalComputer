@@ -10,10 +10,10 @@ namespace Gopal.EntityFrameworkCore
         public string EnggName { get; set; }
         public bool TestedOk { get; set; }
         public bool MaterialUsed { get; set; }
-        public double ServiceAmount { get; set; }
-        public double AdvanceAmount { get; set; }
-        public double PaidImmediatlyAmount { get; set; }
-        public double OutstandingAmount { get; set; }
+        public decimal ServiceAmount { get; set; }
+        public decimal AdvanceAmount { get; set; }
+        public decimal PaidImmediatlyAmount { get; set; }
+        public decimal OutstandingAmount { get; set; }
         public bool PrintStatus { get; set; }
         public bool MaterialAdded { get; set; }
         public int? PaymentMode { get; set; }

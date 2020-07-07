@@ -22,9 +22,9 @@ namespace Gopal.EntityFrameworkCore
         public bool IsProblemDetected { get; set; }
         public bool IsSpecialJob { get; set; }
         public DateTime? DeliveryDate { get; set; }
-        public double? AdvanceAmount { get; set; }
+        public decimal? AdvanceAmount { get; set; }
         public int? OutwardBillStatus { get; set; }
-        public double? EstmRepairingAmount { get; set; }
+        public decimal? EstmRepairingAmount { get; set; }
         public bool IsRepaired { get; set; }
         public bool PrintStatus { get; set; }
         public bool RepeatJob { get; set; }
