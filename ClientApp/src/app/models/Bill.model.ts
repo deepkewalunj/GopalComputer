@@ -21,4 +21,6 @@ export class Bill{
   chequeDate: string
   ngbChequeDate: NgbDate
   chequeNo: string
+  customerName: string
+  jobNumbers: string
 }

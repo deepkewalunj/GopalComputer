@@ -53,18 +53,19 @@ export class BillingListComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
-  addClientPopup(currentBill: Bill) {
+  addBillPopup(currentBill: Bill) {
     let localBill = currentBill;
     if (localBill == null) {
       localBill = new Bill();
     }
-
+    const that = this;
     const modalRef = this.modalService.open(BillGenerationComponent, { size: 'lg' });
     modalRef.componentInstance.bill = localBill;
     modalRef.componentInstance.modelRef = modalRef;
     modalRef.result.then((result) => {
       if (result == true) {
         this.successMessage = "Bill saved successfully.";
+        that.rerender();
       }
 
     }, (reason) => {
@@ -85,16 +86,28 @@ export class BillingListComponent implements AfterViewInit, OnDestroy, OnInit {
   /*succes message code here*/
 
   ngOnInit(): void {
-
-
-
     const that = this;
-
-
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-      serverSide: false
+      serverSide: true,
+      ajax: (getBillListModel: any, callback) => {
+        that.http
+          .post<DataTablesResponse>(
+            environment.API_URL + "Bill/GetBillList",
+            { getListModel: getBillListModel }, {}
+          ).subscribe(resp => {
+            that.bills = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsFiltered,
+              data: []
+            });
+          });
+      },
+      columns: [{ data: 'billId', searchable: true, orderable: true }, { data: 'billDate', searchable: true, orderable: true },
+        { data: 'jobNumbers', searchable: true, orderable: true }, { data: 'customerName', searchable: false, orderable: true }, { data: 'serviceAmount', searchable: true, orderable: true },
+      { data: null, searchable: false, orderable: false }]
     };
     setTimeout(() => this.staticAlertClosed = true, 20000);
 

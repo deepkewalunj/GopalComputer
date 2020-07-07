@@ -11,8 +11,8 @@ export class BillService {
 
   constructor(private http: HttpClient) { }
 
-  addEditBill(billModel: Bill) {
-    return this.http.post<any>(environment.API_URL + 'Bill/AddEditBill', billModel);
+  addEditBill(formData: FormData) {
+    return this.http.post<any>(environment.API_URL + 'Bill/AddEditBill', formData);
 
   }
   deleteBill(billId: number) {

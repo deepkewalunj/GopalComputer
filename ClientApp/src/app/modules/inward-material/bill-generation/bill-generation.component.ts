@@ -167,8 +167,9 @@ export class BillGenerationComponent implements OnInit {
 
   saveBill() {
     alert('saving........');
-    this.billService.addEditBill(this.bill).subscribe((bill: Bill) => {
-      this.bill = bill;
+    const formData = new FormData();
+    formData.append("bill", JSON.stringify(this.bill))
+    this.billService.addEditBill(formData).subscribe((bill: Bill) => {
       this.modelRef.close(true);
     }, (error) => {
       console.log(error);

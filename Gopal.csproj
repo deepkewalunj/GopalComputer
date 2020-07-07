@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="LogFiles\" />
     <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
 
