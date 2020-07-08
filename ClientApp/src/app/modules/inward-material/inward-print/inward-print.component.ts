@@ -18,6 +18,9 @@ export class InwardPrintComponent implements OnInit {
   ngOnInit() {
   }
 
+  close() {
+    this.modelRef.close(false);
+  }
 
   printInward(){
     var colA = '<p style="font-weight: bold; font-size: 2mm;">Ticket 10001</p>';

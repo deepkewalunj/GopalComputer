@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -33,7 +33,9 @@ export class BillingListComponent implements AfterViewInit, OnDestroy, OnInit {
   // we used reactive forms and validations
   addClientForm: FormGroup;
   constructor(private fb: FormBuilder, private modalService: NgbModal, private http: HttpClient,
-    private billService: BillService) { }
+    private billService: BillService, config: NgbModalConfig) {
+    config.backdrop = 'static'; config.keyboard = false;
+  }
 
 
   openDelete(content, bill: Bill) {
@@ -74,7 +76,7 @@ export class BillingListComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   deleteBill(bill: Bill, that) {
-    that.customerService.deleteBill(bill.billId).subscribe((data) => {
+    that.billService.deleteBill(bill.billId).subscribe((data) => {
       that.rerender();
       that.successMessage = "Bill deleted successfully."
     }, (error) => {
@@ -128,7 +130,6 @@ export class BillingListComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   rerender(): void {
-    debugger;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
       dtInstance.destroy();

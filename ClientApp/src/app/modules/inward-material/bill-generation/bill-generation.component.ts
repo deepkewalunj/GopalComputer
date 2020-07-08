@@ -20,7 +20,7 @@ export class BillGenerationComponent implements OnInit {
   @ViewChild('inputJobNumbers', { static: false }) inputJobNumbers;
   modelRef: any;
   bill: Bill;
-  
+
   APIURL = environment.API_URL;
 
   searching = false;
@@ -84,13 +84,60 @@ export class BillGenerationComponent implements OnInit {
       tap(() => this.searching = false)
     )
 
-  
+
   selectedJobNumber(jobNumber) {
-    
     jobNumber.preventDefault();
-    this.bill.lstJobNumbers.push(jobNumber.item);
-    this.inputJobNumbers.nativeElement.value = '';
-    this.calculateAdvancedAmount();
+    var addRecord = false;
+    var duplicate = false;
+    for (var i = 0; i < this.bill.lstJobNumbers.length; i++) {
+      if (this.bill.lstJobNumbers[i].clientRefId == jobNumber.item.clientRefId)
+        addRecord = true;
+      if (this.bill.lstJobNumbers[i].searchId == jobNumber.item.searchId)
+        duplicate = true;
+    }
+    if (!this.bill.lstJobNumbers || (this.bill.lstJobNumbers && this.bill.lstJobNumbers.length == 0))
+      addRecord = true;
+
+    if (addRecord && !duplicate)
+    {
+      var _billId = 0;
+      if (this.bill.billId) {
+        _billId = this.bill.billId;
+      }
+      this.billService.checkBillIsGeneratedForJob(_billId, jobNumber.item.searchId).subscribe(data => {
+        
+        if (data == false) {
+          this.bill.lstJobNumbers.push(jobNumber.item);
+          this.inputJobNumbers.nativeElement.value = '';
+          this.calculateAdvancedAmount();
+        }
+        else {
+          alert(jobNumber.item.searchId + " job number's bill is already generated, please select valid job number");
+          this.inputJobNumbers.nativeElement.value = '';
+          this.calculateAdvancedAmount();
+        }
+      }, error => {
+
+      });
+      
+    }
+    else
+    {
+      if (duplicate)
+      {
+        alert(jobNumber.item.searchId + " job number is already selected, please select valid job number");
+        this.inputJobNumbers.nativeElement.value = '';
+        this.calculateAdvancedAmount();
+      }
+      else
+      {
+        alert(jobNumber.item.searchId + " job number is not belongs to customer, please select valid job number");
+        this.inputJobNumbers.nativeElement.value = '';
+        this.calculateAdvancedAmount();
+      }
+    }
+
+    
   }
 
   calculateAdvancedAmount() {
@@ -103,28 +150,29 @@ export class BillGenerationComponent implements OnInit {
 
   deleteTag(item) {
     this.bill.lstJobNumbers.splice(this.bill.lstJobNumbers.indexOf(item), 1);
-    this.inputJobNumbers.nativeElement.focus();
     this.calculateAdvancedAmount();
+    this.inputJobNumbers.nativeElement.focus();
   }
 
   ngOnInit() {
 
-    this.route.params.subscribe(data => {
-      this.billId = data.inwardId;
-    });
-    this.bill = new Bill();
-    this.bill.lstJobNumbers = [];
-    this.bill.testedOk = '2';
-    this.bill.materialUsed = '2';
-    this.bill.printStatus = '2';
-    this.bill.materialAdded = '2';
-    this.bill.smsSent = '2';
-    this.bill.paymentMode = '1';
-    this.bill.ngbBillDate = this.ngbCalendar.getToday();
-    this.bill.ngbChequeDate = this.ngbCalendar.getToday();
-    if (this.billId) {
+    if (this.bill.billId > 0) {
+      this.billId = this.bill.billId;
       this.getBillById(this.billId);
     }
+    else {
+      this.bill = new Bill();
+      this.bill.lstJobNumbers = [];
+      this.bill.testedOk = '2';
+      this.bill.materialUsed = '2';
+      this.bill.printStatus = '2';
+      this.bill.materialAdded = '2';
+      this.bill.smsSent = '2';
+      this.bill.paymentMode = '1';
+      this.bill.ngbBillDate = this.ngbCalendar.getToday();
+      this.bill.ngbChequeDate = this.ngbCalendar.getToday();
+    }
+
     setTimeout(() => this.staticAlertClosed = true, 20000);
 
     this._success.subscribe((message) => this.successMessage = message);
@@ -135,19 +183,19 @@ export class BillGenerationComponent implements OnInit {
 
 
   getBillById(billId) {
-    this.billService.addEditBill(billId).subscribe(data => {
+    this.billService.getBillById(billId).subscribe(data => {
       this.bill = data;
     }, error => {
 
     });
   }
 
+
   close() {
     this.modelRef.close(false);
   }
 
   validateForm() {
-    debugger;
     if (!this.bill.lstJobNumbers || (this.bill.lstJobNumbers && this.bill.lstJobNumbers.length <= 0)) {
       return false;
     }
@@ -156,8 +204,7 @@ export class BillGenerationComponent implements OnInit {
         return false;
       }
     }
-    else
-    {
+    else {
       if (!this.bill.paymentRecievedBy) {
         return false;
       }
@@ -166,7 +213,6 @@ export class BillGenerationComponent implements OnInit {
   }
 
   saveBill() {
-    alert('saving........');
     const formData = new FormData();
     formData.append("bill", JSON.stringify(this.bill))
     this.billService.addEditBill(formData).subscribe((bill: Bill) => {

@@ -12,6 +12,8 @@ namespace Gopal.Services.Bill
         DatatableResponseModel GetBillList(DatatableRequestModel getBillModel);
         BillTypeScriptModel AddEditBill(BillTypeScriptModel billModel);
         BillTypeScriptModel GetBillById(int billId);
+        bool CheckBillIsGeneratedForJob(int billId, int inwardId);
+        
         int DeleteBill(int billId);
         
         

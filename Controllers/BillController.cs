@@ -61,6 +61,15 @@ namespace Gopal.Controllers
         }
 
         [HttpGet]
+        [Route("CheckBillIsGeneratedForJob")]
+        public ActionResult CheckBillIsGeneratedForJob(int billId, int inwardId)
+        {
+            return Ok(_billServices.CheckBillIsGeneratedForJob(billId, inwardId));
+        }
+
+        
+
+        [HttpGet]
         [Route("DeleteBill")]
         public ActionResult DeleteBill(int billId)
         {

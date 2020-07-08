@@ -4,6 +4,7 @@ using Gopal.Models.Bill;
 using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Services.User;
+using Microsoft.AspNetCore.Razor.Language.Intermediate;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
@@ -31,6 +32,11 @@ namespace Gopal.Services.Bill
             billModel.billDate = new DateTime(billModel.ngbBillDate.year,
                                          billModel.ngbBillDate.month,
                                          billModel.ngbBillDate.day);
+
+
+            billModel.chequeDate = new DateTime(billModel.ngbChequeDate.year,
+                                         billModel.ngbChequeDate.month,
+                                         billModel.ngbChequeDate.day);
 
             billModel.createdBy = _userServices.GetCurrentUserId();
             
@@ -138,19 +144,80 @@ namespace Gopal.Services.Bill
             return 0;
         }
 
+        public bool CheckBillIsGeneratedForJob(int billId, int inwardId)
+        {
+            if(billId> 0)
+            {
+                var inward = _dbContext.TblBillAndInwardDetail.Where(x => x.IsDeleted != true && x.InwardIdRef == inwardId).FirstOrDefault();
+                if(inward != null)
+                {
+                    var bill = _dbContext.TblBill.Where(x => x.IsDeleted != true && x.BillId == inward.BillIdRef).FirstOrDefault();
+                    if(bill != null)
+                    {
+                        if(bill.BillId != billId)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var inward = _dbContext.TblBillAndInwardDetail.Where(x => x.IsDeleted != true && x.InwardIdRef == inwardId).FirstOrDefault();
+                if (inward != null)
+                {
+                    var bill = _dbContext.TblBill.Where(x => x.IsDeleted != true && x.BillId == inward.BillIdRef).FirstOrDefault();
+                    if (bill != null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public BillTypeScriptModel GetBillById(int billId)
         {
+            var bill = _dbContext.TblBill.Where(x => x.IsDeleted != true && x.IsOpeningBalanceEntry != true && x.BillId == billId).FirstOrDefault();
             BillTypeScriptModel billTypeScriptModel = new BillTypeScriptModel();
-            if (billTypeScriptModel.billDate != null)
+            if (bill != null)
             {
-
-                billTypeScriptModel.ngbBillDate = new NgbDateModel
+                if (bill.BillDate != null)
                 {
-                    year = billTypeScriptModel.billDate.Value.Year,
-                    month = billTypeScriptModel.billDate.Value.Month,
-                    day = billTypeScriptModel.billDate.Value.Day
-                };
+                    billTypeScriptModel.ngbBillDate = new NgbDateModel
+                    {
+                        year = bill.BillDate.Value.Year,
+                        month = bill.BillDate.Value.Month,
+                        day = bill.BillDate.Value.Day
+                    };
+                }
+                if (bill.ChequeDate != null)
+                {
+                    billTypeScriptModel.ngbChequeDate = new NgbDateModel
+                    {
+                        year = bill.ChequeDate.Value.Year,
+                        month = bill.ChequeDate.Value.Month,
+                        day = bill.ChequeDate.Value.Day
+                    };
+                }
+                billTypeScriptModel.advanceAmount = bill.AdvanceAmount;
+                billTypeScriptModel.billDate = bill.BillDate;
+                billTypeScriptModel.billId = bill.BillId;
+                billTypeScriptModel.chequeDate = bill.ChequeDate;
+                billTypeScriptModel.chequeNo = bill.ChequeNo;
+                billTypeScriptModel.materialAdded = bill.MaterialAdded == true ? "1" : "2";
+                billTypeScriptModel.materialUsed = bill.MaterialUsed == true ? "1" : "2";
+                billTypeScriptModel.printStatus = bill.PrintStatus == true ? "1" : "2";
+                billTypeScriptModel.smsSent = bill.SmsSent == true ? "1" : "2";
+                billTypeScriptModel.testedOk = bill.TestedOk == true ? "1" : "2";
+                billTypeScriptModel.outstandingAmount = bill.OutstandingAmount;
+                billTypeScriptModel.enggName = bill.EnggName;
+                billTypeScriptModel.paidImmediatlyAmount = bill.PaidImmediatlyAmount;
+                billTypeScriptModel.paymentMode = bill.PaymentMode.ToString();
+                billTypeScriptModel.paymentRecievedBy = bill.PaymentRecievedBy;
+                billTypeScriptModel.serviceAmount = bill.ServiceAmount;
             }
+            
 
             //Process job numbers
             var jobList = _dbContext.TblBillAndInwardDetail.Where(x => x.IsDeleted != true && x.BillIdRef == billTypeScriptModel.billId).ToList();
@@ -159,10 +226,21 @@ namespace Gopal.Services.Bill
                 billTypeScriptModel.lstJobNumbers = new List<TypeAheadResponseModel>();
                 foreach (var item in jobList)
                 {
+                    var clientRefId = 0;
+                    decimal? advanceAmt = 0;
+                    var inward = _dbContext.TblInward.Where(x => x.IsDeleted != true && x.InwardId == item.InwardIdRef).FirstOrDefault();
+                    if(inward != null)
+                    {
+                        clientRefId = (int)inward.ClientRefId;
+                        advanceAmt = inward.AdvanceAmount;
+                    }
+                    
                     billTypeScriptModel.lstJobNumbers.Add(new TypeAheadResponseModel
                     {
                         searchId = (int)item.InwardIdRef,
-                        searchValue = item.InwardIdRef.ToString()
+                        searchValue = item.InwardIdRef.ToString(),
+                        clientRefId = clientRefId,
+                        advanceAmount = advanceAmt
                     });
                 }
             }

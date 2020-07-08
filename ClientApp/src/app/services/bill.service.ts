@@ -18,4 +18,13 @@ export class BillService {
   deleteBill(billId: number) {
     return this.http.get<any>(environment.API_URL + 'Bill/DeleteBill?billId=' + billId);
   }
+
+  getBillById(billId: number) {
+    return this.http.get<any>(environment.API_URL + 'Bill/GetBillById?billId=' + billId);
+  }
+
+  checkBillIsGeneratedForJob(billId: number, inwardId: number) {
+    return this.http.get<any>(environment.API_URL + 'Bill/CheckBillIsGeneratedForJob?billId=' + billId + '&inwardId=' + inwardId);
+  }
+  
 }

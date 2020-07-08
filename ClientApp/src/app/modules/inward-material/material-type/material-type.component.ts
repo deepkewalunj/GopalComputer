@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
-import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {  NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { first } from 'rxjs/operators';
@@ -29,14 +29,13 @@ export class MaterialTypeComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
 
   constructor( private modalService: NgbModal, private searchModelNoMaterialTypeCompanyNameService: SearchModelNoMaterialTypeCompanyNameService
-   ) {
-
+    , config: NgbModalConfig) {
+    config.backdrop = 'static'; config.keyboard = false;
   }
 
   /*on click modal will be open*/
 
   addSearchModelNoMaterialTypePopup(searchId) {
-    debugger;
     if (searchId > 0)
     {
       this.GetSearchModelNoMaterialTypeCompanyNameById(searchId);
@@ -45,7 +44,6 @@ export class MaterialTypeComponent implements OnInit {
       this.searchModelNoMaterialTypeCompanyName = new tblSearchModelNoMaterialTypeCompanyName();
       this.openAddEditSearchModelNoMaterialTypeCompanyNamePopup(this.searchModelNoMaterialTypeCompanyName);
     }
-
   }
 
   openAddEditSearchModelNoMaterialTypeCompanyNamePopup(searchModelNoMaterialTypeCompanyName){

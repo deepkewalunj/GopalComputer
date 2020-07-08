@@ -23,6 +23,9 @@ export class OutwardComponent implements OnInit {
     });
   }
 
+  //close() {
+  //  this.modelRef.close(false);
+  //}
 
   ngOnInit(){
         

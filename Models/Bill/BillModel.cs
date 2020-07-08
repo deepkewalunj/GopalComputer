@@ -33,6 +33,7 @@ namespace Gopal.Models.Bill
     {
         public List<TypeAheadResponseModel> lstJobNumbers { get; set; }
         public NgbDateModel ngbBillDate { get; set; }
+        public NgbDateModel ngbChequeDate { get; set; }
     }
 
     public class BillListModel
