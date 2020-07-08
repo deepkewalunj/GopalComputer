@@ -131,7 +131,8 @@ export class QzTrayService {
   printBarCodeData(printer: string, data: any): Observable<any> {
 
 
-		const config = qz.configs.create(printer,{ size: {height:25,width:65},units:'mm' });
+    const config = qz.configs.create(printer,{ size: {height:25,width:65},units:'mm',
+    margins:{left:2,bottom:1,right:1,top:1},copies:1 });
 
     return Observable.fromPromise(!qz.websocket.isActive()?qz.websocket.connect().then(
       ()=> qz.print(config, data)):  qz.print(config, data));
