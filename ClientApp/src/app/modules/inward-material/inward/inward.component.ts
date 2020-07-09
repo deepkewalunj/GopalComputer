@@ -125,10 +125,13 @@ export class InwardComponent implements OnInit {
     const that = this;
 
 
+
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       serverSide: true,
+      searchDelay: 1000,
       ajax: (getCustomerListModel: any, callback) => {
         that.http
           .post<DataTablesResponse>(
@@ -145,8 +148,7 @@ export class InwardComponent implements OnInit {
       },
       columns: [{ data: 'inwardId',searchable:true,orderable:true  },
                 { data: 'clientName',searchable:true,orderable:true  },
-                { data: 'enggName',searchable:true,orderable:true  },
-                { data: 'inwardDate',searchable:false,orderable:true  },
+                { data: 'isRepaired',searchable:true,orderable:true  },
                 { data: 'deliveryDate',searchable:false,orderable:true  },
                 { data: 'outwardBillStatus',searchable:false,orderable:true  },
                 {data:null,searchable:false,orderable:false }]

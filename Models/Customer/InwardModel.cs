@@ -77,8 +77,7 @@ namespace Gopal.Models.Customer
     {
         public int inwardId { get; set; }
         public string clientName { get; set; }
-        public string enggName { get; set; }
-        public DateTime? inwardDate { get; set; }
+        public int isRepaired { get; set; }
         public DateTime? deliveryDate { get; set; }
         public int outwardBillStatus { get; set; }
 
