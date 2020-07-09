@@ -57,10 +57,10 @@ export class BillGenerationComponent implements OnInit {
       billDate: ['', Validators.required],
       billId: [{ value: null, disabled: true }],
       enggName: ['', Validators.required],
-      serviceAmount: ['', Validators.required],
-      advanceAmount: ['', Validators.required],
+      serviceAmount: [{ value: null, disabled: true }, Validators.required],
+      advanceAmount: [{ value: null, disabled: true }, Validators.required],
       paidImmediatlyAmount: ['', Validators.required],
-      outstandingAmount: ['', Validators.required],
+      outstandingAmount: [{ value: null, disabled: true }, Validators.required],
       paymentRecievedBy: ['', Validators.required],
       chequeNo: [''],
       chequeDate: ['']
@@ -152,6 +152,8 @@ export class BillGenerationComponent implements OnInit {
     this.bill.lstJobNumbers.splice(this.bill.lstJobNumbers.indexOf(item), 1);
     this.calculateAdvancedAmount();
     this.inputJobNumbers.nativeElement.focus();
+    this.calculateAmounts();
+    this.onKeyFromPaidImmidiatly();
   }
 
   ngOnInit() {
@@ -169,6 +171,7 @@ export class BillGenerationComponent implements OnInit {
       this.bill.materialAdded = '2';
       this.bill.smsSent = '2';
       this.bill.paymentMode = '1';
+      
       this.bill.ngbBillDate = this.ngbCalendar.getToday();
       this.bill.ngbChequeDate = this.ngbCalendar.getToday();
     }
@@ -213,6 +216,7 @@ export class BillGenerationComponent implements OnInit {
   }
 
   saveBill() {
+    debugger;
     const formData = new FormData();
     formData.append("bill", JSON.stringify(this.bill))
     this.billService.addEditBill(formData).subscribe((bill: Bill) => {
@@ -223,4 +227,23 @@ export class BillGenerationComponent implements OnInit {
     });
   }
 
+  onKey(event: any, index : number) { // without type info
+    //this.values += event.target.value + ' | ';
+    this.bill.lstJobNumbers[index].serviceAmount = parseInt(event.target.value);
+    this.calculateAmounts();
+  }
+  calculateAmounts() {
+    this.bill.serviceAmount = 0;
+    for (var i = 0; i < this.bill.lstJobNumbers.length; i++) {
+      if (this.bill.lstJobNumbers[i].serviceAmount > 0)
+        this.bill.serviceAmount += this.bill.lstJobNumbers[i].serviceAmount;
+    }
+    this.bill.outstandingAmount = 0;
+    this.bill.outstandingAmount = this.bill.serviceAmount - this.bill.advanceAmount;
+    this.bill.paidImmediatlyAmount = 0;
+  }
+
+  onKeyFromPaidImmidiatly() { // without type info
+    this.bill.outstandingAmount = this.bill.serviceAmount - (this.bill.advanceAmount + this.bill.paidImmediatlyAmount);
+  }
 }

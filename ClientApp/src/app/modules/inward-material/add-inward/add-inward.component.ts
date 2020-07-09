@@ -299,8 +299,10 @@ materialTypeAheadSelected(selectedElement){
     searchValue:selectedElementArray[2],splitValue:selectedElement.item.splitValue};
 
   this.inward.lstAccessories=[];
-  this.inward.lstAccessories.push({searchId: 0,
-    searchValue: selectedElementArray[1], splitValue: '', advanceAmount: 0,clientRefId:0});
+  this.inward.lstAccessories.push({
+    searchId: 0,
+    searchValue: selectedElementArray[1], splitValue: '', advanceAmount: 0, clientRefId: 0, modelNo: '', materialType: '', companyName: '', serialNo:'',isRepaired:false, serviceAmount:0
+  });
 }
 
 

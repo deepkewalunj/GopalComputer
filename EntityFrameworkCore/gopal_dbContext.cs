@@ -147,6 +147,10 @@ namespace Gopal.EntityFrameworkCore
                 entity.Property(e => e.ModifiedDate)
                     .HasColumnName("modifiedDate")
                     .HasColumnType("datetime");
+
+                entity.Property(e => e.ServiceAmount)
+                    .HasColumnName("serviceAmount")
+                    .HasColumnType("decimal(18, 2)");
             });
 
             modelBuilder.Entity<TblClient>(entity =>
@@ -574,6 +578,10 @@ namespace Gopal.EntityFrameworkCore
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.OutwardIdRef).HasColumnName("outwardIdRef");
+
+                entity.Property(e => e.ServiceAmount)
+                    .HasColumnName("serviceAmount")
+                    .HasColumnType("decimal(18, 2)");
             });
 
             modelBuilder.Entity<TblSearchModelNoMaterialTypeCompanyName>(entity =>

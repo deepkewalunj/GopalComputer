@@ -12,6 +12,13 @@ namespace Gopal.Models.Common
         public string splitValue { get; set; }
         public decimal? advanceAmount { get; set; }
         public int? clientRefId { get; set; }
+        public string modelNo { get; set; }
+        public string materialType { get; set; }
+        public string companyName { get; set; }
+        public string serialNo { get; set; }
+        public bool? isRepaired { get; set; }
+        public decimal? serviceAmount { get; set; }
+
     }
     public class TypeAheadRequestModel
     {

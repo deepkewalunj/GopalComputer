@@ -39,11 +39,11 @@ namespace Gopal.Services.Bill
                                          billModel.ngbChequeDate.day);
 
             billModel.createdBy = _userServices.GetCurrentUserId();
-            
-            if(billModel.billId > 0)
+
+            if (billModel.billId > 0)
             {
                 var bill = _dbContext.TblBill.Where(x => x.IsDeleted != true && x.BillId == billModel.billId && x.IsOpeningBalanceEntry != true).FirstOrDefault();
-                if(bill != null)
+                if (bill != null)
                 {
                     bill.AdvanceAmount = (decimal)billModel.advanceAmount;
                     bill.ServiceAmount = (decimal)billModel.serviceAmount;
@@ -76,6 +76,7 @@ namespace Gopal.Services.Bill
                         TblBillAndInwardDetail obj = new TblBillAndInwardDetail();
                         obj.BillIdRef = bill.BillId;
                         obj.InwardIdRef = item.searchId;
+                        obj.ServiceAmount = Convert.ToDecimal(item.serviceAmount);
                         obj.CreatedBy = billModel.createdBy;
                         obj.CreatedDate = DateTime.Now;
                         _dbContext.TblBillAndInwardDetail.Add(obj);
@@ -87,44 +88,45 @@ namespace Gopal.Services.Bill
             else
             {
                 TblBill bill = new TblBill();
-                    bill.AdvanceAmount = (decimal)billModel.advanceAmount;
-                    bill.ServiceAmount = (decimal)billModel.serviceAmount;
-                    bill.PaidImmediatlyAmount = (decimal)billModel.paidImmediatlyAmount;
-                    bill.OutstandingAmount = (decimal)billModel.outstandingAmount;
-                    bill.BillDate = billModel.billDate;
-                    bill.ChequeDate = billModel.chequeDate;
-                    bill.ChequeNo = billModel.chequeNo;
-                    bill.ClientIdRef = billModel.lstJobNumbers.FirstOrDefault().clientRefId;
-                    bill.CreatedBy = billModel.createdBy;
-                    bill.EnggName = billModel.enggName;
-                    bill.IsOpeningBalanceEntry = false;
-                    bill.MaterialAdded = billModel.materialAdded == "1" ? true:false;
-                    bill.MaterialUsed = billModel.materialUsed == "1" ? true : false;
-                    bill.PaymentMode = Convert.ToInt32(billModel.paymentMode);
-                    bill.PaymentRecievedBy = billModel.paymentRecievedBy;
-                    bill.PrintStatus = billModel.printStatus == "1" ? true : false;
+                bill.AdvanceAmount = (decimal)billModel.advanceAmount;
+                bill.ServiceAmount = (decimal)billModel.serviceAmount;
+                bill.PaidImmediatlyAmount = (decimal)billModel.paidImmediatlyAmount;
+                bill.OutstandingAmount = (decimal)billModel.outstandingAmount;
+                bill.BillDate = billModel.billDate;
+                bill.ChequeDate = billModel.chequeDate;
+                bill.ChequeNo = billModel.chequeNo;
+                bill.ClientIdRef = billModel.lstJobNumbers.FirstOrDefault().clientRefId;
+                bill.CreatedBy = billModel.createdBy;
+                bill.EnggName = billModel.enggName;
+                bill.IsOpeningBalanceEntry = false;
+                bill.MaterialAdded = billModel.materialAdded == "1" ? true : false;
+                bill.MaterialUsed = billModel.materialUsed == "1" ? true : false;
+                bill.PaymentMode = Convert.ToInt32(billModel.paymentMode);
+                bill.PaymentRecievedBy = billModel.paymentRecievedBy;
+                bill.PrintStatus = billModel.printStatus == "1" ? true : false;
                 bill.SmsSent = billModel.smsSent == "1" ? true : false;
                 bill.TestedOk = billModel.testedOk == "1" ? true : false;
                 bill.CreatedDate = DateTime.Now;
-                    _dbContext.TblBill.Add(bill);
-                    _dbContext.SaveChanges();
+                _dbContext.TblBill.Add(bill);
+                _dbContext.SaveChanges();
 
-                    var billInwards = _dbContext.TblBillAndInwardDetail.Where(x => x.BillIdRef == bill.BillId).ToList();
-                    _dbContext.RemoveRange(billInwards);
-                    _dbContext.SaveChanges();
+                var billInwards = _dbContext.TblBillAndInwardDetail.Where(x => x.BillIdRef == bill.BillId).ToList();
+                _dbContext.RemoveRange(billInwards);
+                _dbContext.SaveChanges();
 
-                    foreach (var item in billModel.lstJobNumbers)
-                    {
-                        TblBillAndInwardDetail obj = new TblBillAndInwardDetail();
-                        obj.BillIdRef = bill.BillId;
-                        obj.InwardIdRef = item.searchId;
-                        obj.CreatedBy = billModel.createdBy;
-                        obj.CreatedDate = DateTime.Now;
-                        _dbContext.TblBillAndInwardDetail.Add(obj);
-                        _dbContext.SaveChanges();
-                    }
+                foreach (var item in billModel.lstJobNumbers)
+                {
+                    TblBillAndInwardDetail obj = new TblBillAndInwardDetail();
+                    obj.BillIdRef = bill.BillId;
+                    obj.InwardIdRef = item.searchId;
+                    obj.ServiceAmount = Convert.ToDecimal(item.serviceAmount);
+                    obj.CreatedBy = billModel.createdBy;
+                    obj.CreatedDate = DateTime.Now;
+                    _dbContext.TblBillAndInwardDetail.Add(obj);
+                    _dbContext.SaveChanges();
                 }
-            
+            }
+
 
             return billModel;
         }
@@ -146,15 +148,15 @@ namespace Gopal.Services.Bill
 
         public bool CheckBillIsGeneratedForJob(int billId, int inwardId)
         {
-            if(billId> 0)
+            if (billId > 0)
             {
                 var inward = _dbContext.TblBillAndInwardDetail.Where(x => x.IsDeleted != true && x.InwardIdRef == inwardId).FirstOrDefault();
-                if(inward != null)
+                if (inward != null)
                 {
                     var bill = _dbContext.TblBill.Where(x => x.IsDeleted != true && x.BillId == inward.BillIdRef).FirstOrDefault();
-                    if(bill != null)
+                    if (bill != null)
                     {
-                        if(bill.BillId != billId)
+                        if (bill.BillId != billId)
                         {
                             return true;
                         }
@@ -217,7 +219,7 @@ namespace Gopal.Services.Bill
                 billTypeScriptModel.paymentRecievedBy = bill.PaymentRecievedBy;
                 billTypeScriptModel.serviceAmount = bill.ServiceAmount;
             }
-            
+
 
             //Process job numbers
             var jobList = _dbContext.TblBillAndInwardDetail.Where(x => x.IsDeleted != true && x.BillIdRef == billTypeScriptModel.billId).ToList();
@@ -228,19 +230,41 @@ namespace Gopal.Services.Bill
                 {
                     var clientRefId = 0;
                     decimal? advanceAmt = 0;
+                    var modelNo = "";
+                    var materialType = "";
+                    var companyName = "";
+                    var serialNo = "";
+                    var isRepaired = false;
                     var inward = _dbContext.TblInward.Where(x => x.IsDeleted != true && x.InwardId == item.InwardIdRef).FirstOrDefault();
-                    if(inward != null)
+                    if (inward != null)
                     {
                         clientRefId = (int)inward.ClientRefId;
                         advanceAmt = inward.AdvanceAmount;
+                        modelNo = inward.ModelNo;
+                        materialType = inward.MaterialType;
+                        companyName = inward.CompanyName;
+                        serialNo = inward.SerialNo;
+                        isRepaired = inward.IsRepaired;
                     }
-                    
+
+                    var searchValue = "";
+                    if (clientRefId > 0)
+                    {
+                        searchValue = _dbContext.TblClient.Where(x => x.IsDeleted != true && x.ClientId == clientRefId).FirstOrDefault().CompanyName;
+                    }
+
                     billTypeScriptModel.lstJobNumbers.Add(new TypeAheadResponseModel
                     {
                         searchId = (int)item.InwardIdRef,
-                        searchValue = item.InwardIdRef.ToString(),
+                        searchValue = item.InwardIdRef.ToString() + "   " + searchValue + "     " + (isRepaired == false ? "Unrepaired" : "Repaired"),
                         clientRefId = clientRefId,
-                        advanceAmount = advanceAmt
+                        advanceAmount = advanceAmt,
+                        modelNo = modelNo,
+                        materialType = materialType,
+                        companyName = companyName,
+                        serialNo = serialNo,
+                        isRepaired = isRepaired,
+                        serviceAmount = item.ServiceAmount
                     });
                 }
             }
@@ -266,6 +290,6 @@ namespace Gopal.Services.Bill
             return datatableResponseModel;
         }
 
-        
+
     }
 }

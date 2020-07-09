@@ -10,4 +10,10 @@ export class TypeAheadResponseModel{
   splitValue: string;
   advanceAmount: number;
   clientRefId: number;
+  modelNo: string;
+  materialType: string;
+  companyName: string;
+  serialNo: string;
+  isRepaired: boolean;
+  serviceAmount: number;
 }
