@@ -81,6 +81,18 @@ namespace Gopal.Services.Bill
                         obj.CreatedDate = DateTime.Now;
                         _dbContext.TblBillAndInwardDetail.Add(obj);
                         _dbContext.SaveChanges();
+
+                        var inward = _dbContext.TblInward.Where(x => x.IsDeleted != true && x.InwardId == item.searchId).FirstOrDefault();
+                        if(inward != null)
+                        {
+                            inward.EstmRepairingAmount = Convert.ToDecimal(item.serviceAmount);
+                            inward.ModifiedBy = billModel.createdBy;
+                            inward.ModifiedDate = DateTime.Now;
+                            inward.OutwardBillStatus = 1;//paid
+                            _dbContext.Entry(bill).State = EntityState.Modified;
+                            _dbContext.SaveChanges();
+                        }
+                            
                     }
 
                 }
@@ -124,6 +136,17 @@ namespace Gopal.Services.Bill
                     obj.CreatedDate = DateTime.Now;
                     _dbContext.TblBillAndInwardDetail.Add(obj);
                     _dbContext.SaveChanges();
+
+                    var inward = _dbContext.TblInward.Where(x => x.IsDeleted != true && x.InwardId == item.searchId).FirstOrDefault();
+                    if (inward != null)
+                    {
+                        inward.EstmRepairingAmount = Convert.ToDecimal(item.serviceAmount);
+                        inward.ModifiedBy = billModel.createdBy;
+                        inward.ModifiedDate = DateTime.Now;
+                        inward.OutwardBillStatus = 1;//paid
+                        _dbContext.Entry(bill).State = EntityState.Modified;
+                        _dbContext.SaveChanges();
+                    }
                 }
             }
 
@@ -141,6 +164,25 @@ namespace Gopal.Services.Bill
                 bill.ModifiedDate = DateTime.Now;
                 _dbContext.Entry(bill).State = EntityState.Modified;
                 _dbContext.SaveChanges();
+
+                var inwardBillList = _dbContext.TblBillAndInwardDetail.Where(x => x.IsDeleted != true && x.BillIdRef == billId).ToList();
+                foreach (var item in inwardBillList)
+                {
+                    var inward = _dbContext.TblInward.Where(x => x.IsDeleted != true && x.InwardId == item.InwardIdRef).FirstOrDefault();
+                    if (inward != null)
+                    {
+                        inward.ModifiedBy = _userServices.GetCurrentUserId();
+                        inward.ModifiedDate = DateTime.Now;
+                        inward.OutwardBillStatus = 2;//Unpaid
+                        _dbContext.Entry(inward).State = EntityState.Modified;
+                        _dbContext.SaveChanges();
+                    }
+                }
+
+                var billInwards = _dbContext.TblBillAndInwardDetail.Where(x => x.BillIdRef == billId).ToList();
+                _dbContext.RemoveRange(billInwards);
+                _dbContext.SaveChanges();
+
                 return billId;
             }
             return 0;
@@ -162,6 +204,19 @@ namespace Gopal.Services.Bill
                         }
                     }
                 }
+
+                var outwordDetail = _dbContext.TblOutwardAndInwardDetail.Where(x => x.IsDeleted != true && x.InwardIdRef == inwardId).FirstOrDefault();
+                if (outwordDetail != null)
+                {
+                    var outwordBill = _dbContext.TblOutward.Where(x => x.IsDeleted != true && x.OutwardId == outwordDetail.OutwardIdRef).FirstOrDefault();
+                    if (outwordBill != null)
+                    {
+                        if (outwordBill.OutwardId != billId)
+                        {
+                            return true;
+                        }
+                    }
+                }
             }
             else
             {
@@ -170,6 +225,15 @@ namespace Gopal.Services.Bill
                 {
                     var bill = _dbContext.TblBill.Where(x => x.IsDeleted != true && x.BillId == inward.BillIdRef).FirstOrDefault();
                     if (bill != null)
+                    {
+                        return true;
+                    }
+                }
+                var outwordDetail = _dbContext.TblOutwardAndInwardDetail.Where(x => x.IsDeleted != true && x.InwardIdRef == inwardId).FirstOrDefault();
+                if (outwordDetail != null)
+                {
+                    var outwordBill = _dbContext.TblOutward.Where(x => x.IsDeleted != true && x.OutwardId == outwordDetail.OutwardIdRef).FirstOrDefault();
+                    if (outwordBill != null)
                     {
                         return true;
                     }
