@@ -67,7 +67,7 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
       localCustomer.clientTitleId='';
 
     }
-    
+
     const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg' });
     modalRef.componentInstance.customer=localCustomer;
     modalRef.componentInstance.modelRef=modalRef;
@@ -75,6 +75,7 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
       if(result==true)
       {
         this.successMessage="Customer Saved Successfully.";
+        this.rerender();
       }
 
     }, (reason) => {
@@ -143,7 +144,6 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
   }
 
   rerender(): void {
-    debugger;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
       dtInstance.destroy();

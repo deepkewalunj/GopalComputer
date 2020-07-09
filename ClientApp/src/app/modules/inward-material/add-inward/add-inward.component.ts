@@ -353,7 +353,7 @@ deleteTag(item) {
 
       this.inwardService.addEditInward(formData).subscribe(data=>{
       this.inward=data;
-      this.GoToInwardList();
+      this._success.next("Inward Saved Successfully.");
     },error=>{
 
 
@@ -361,14 +361,7 @@ deleteTag(item) {
   }
 
 GoToInwardList(){
-  if(this.inwardId>0){
     this.router.navigate(['inward-material/inward']);
-  }
-  else{
-    this.router.navigate(['inward-material/add-inward',this.inward.inwardId]);
-  }
-
-
 }
 
 	onSelect(event) {
@@ -425,7 +418,7 @@ getBase64EncodedImage(isZPL){
 
   PrintInwardBarcode(base64Image,isZPL,that)
   {
-    
+
     that.isBarCodePrinting=true;
     that.printService.getPrinters().subscribe(data=>{
 
@@ -448,7 +441,7 @@ getBase64EncodedImage(isZPL){
       that.isBarCodePrinting=false;
       console.log(error);
     });
-   
+
 
 
   }

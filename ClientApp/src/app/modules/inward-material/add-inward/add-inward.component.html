@@ -312,18 +312,18 @@
                   <div class="col-12 col-md-6 col-lg-4">
                       <div class="form-group has-float-label">
                           <input class="form-control" type="text"  [ngModelOptions]="{standalone: true}"
-                          [(ngModel)]="inward.advanceAmount" mask="0*.00"   id="advAmount" placeholder="Advance Amount">
+                          [(ngModel)]="inward.advanceAmount" mask="0*.00" maxlength="17"  id="advAmount" placeholder="Advance Amount">
                           <label for="advAmount">Advance Amount</label>
                       </div>
                   </div>
                   <div class="col-12 col-md-6 col-lg-4">
                       <div class="form-group has-float-label">
-                          <input class="form-control" type="text" mask="0*.00"  [ngModelOptions]="{standalone: true}"
+                          <input class="form-control" type="text" mask="0*.00" maxlength="17"  [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.estmRepairingAmount"  id="estAmount" placeholder="Estimate Repearimg Amount">
                           <label for="estAmount">Estimate Repairing Amount</label>
                       </div>
                   </div>
-                  <div class="col-12 col-md-4 col-lg-4">
+                  <!-- <div class="col-12 col-md-4 col-lg-4">
                       <div class="form-group">
                           <span class="plain-select">
                               <select class="form-control" [ngModelOptions]="{standalone: true}"
@@ -335,7 +335,7 @@
                           </span>
 
                       </div>
-                  </div>
+                  </div> -->
               </div>
 
               </div>
@@ -412,13 +412,13 @@
                       <label for="clientDc">Client DC</label>
                   </div>
               </div>
-              <div class="col-12 col-md-6 col-lg-4">
+              <!-- <div class="col-12 col-md-6 col-lg-4">
                   <div class="form-group has-float-label">
                       <input class="form-control" [ngModelOptions]="{standalone: true}"
                       [(ngModel)]="inward.accBarCode" type="text" id="accountBarcode" placeholder="Account Barcode">
                       <label for="accountBarcode">Account Barcode</label>
                   </div>
-              </div>
+              </div> -->
           </div>
       </div>
      </div>
@@ -468,7 +468,7 @@
       </div>
       <footer>
           <button class="btn btn-secondary" (click)="GoToInwardList()" >Cancel</button>
-         
+
       <button type="submit"  (click)="getBase64EncodedImage(false)" *ngIf="inward.inwardId>0" class="btn btn-success">
         Print BarCode
     </button>
