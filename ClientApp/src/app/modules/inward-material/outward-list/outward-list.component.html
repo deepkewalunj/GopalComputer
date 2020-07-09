@@ -1,122 +1,68 @@
 
 
 <div class="container-fluid">
-    <div class="card mb-4 list-card">
-        <div class="card-header">
-            <h4 class="float-left">Outward List</h4>
-                <a href="javascript:void(0)" routerLink="/inward-material/outward" class="btn  btn-primary float-right">Add Outward</a>
-        </div>
-        <div class="card-body">
-            <!--table listing statrt hover-->
-            <div id="no-more-tables">
-                <!-- This id used for responsive table -->
-  
-              <table class="table row-border hover">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Outward Date</th>
-                    <th style="width: 25%;">Job Number</th>
-                    <th style="width: 20%;">Engg Name</th>
-                    <th style="width: 15%;">Service Amount</th>
-                    <th style="width: 20%;" class="text-center actions-td cursor">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                      <td data-title="Outward Date">10-10-2020</td>
-                      <td data-title="Job Number">1234567</td>
-                      <td data-title="Engg Name">Nitin Patil</td>
-                      <td data-title="Service Amount">5000/-</td>
-                      <td data-title="Actions" class="action text-center actions-td">
-                        <div class="d-flex justify-content-center">
-                          <a href="javascript:void(0)">
-                            <i class="far fa-edit orange" placement="top"
-                               ngbTooltip="Edit"></i>
-                          </a>
-                          <a href="javascript:void(0)">
-                            <i class="fas fa-print orange" placement="top"
-                               ngbTooltip="Inward Print"></i>
-                          </a>
-                          <a href="javascript:void(0)">
-                            <i class="far fa-trash-alt orange" placement="top"
-                               ngbTooltip="Delete"></i>
-                          </a>
-                        </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-title="Outward Date">10-10-2020</td>
-                    <td data-title="Job Number">1234567</td>
-                    <td data-title="Engg Name">Nitin Patil</td>
-                    <td data-title="Service Amount">5000/-</td>
-                    <td data-title="Actions" class="action text-center actions-td">
-                      <div class="d-flex justify-content-center">
-                        <a href="javascript:void(0)">
-                          <i class="far fa-edit orange" placement="top"
-                             ngbTooltip="Edit"></i>
-                        </a>
-                        <a href="javascript:void(0)">
-                          <i class="fas fa-print orange" placement="top"
-                             ngbTooltip="Inward Print"></i>
-                        </a>
-                        <a href="javascript:void(0)">
-                          <i class="far fa-trash-alt orange" placement="top"
-                             ngbTooltip="Delete"></i>
-                        </a>
-                      </div>
-                  </td>
-                </tr>
-                <tr>
-                    <td data-title="Outward Date">10-10-2020</td>
-                    <td data-title="Job Number">1234567</td>
-                    <td data-title="Engg Name">Nitin Patil</td>
-                    <td data-title="Service Amount">5000/-</td>
-                    <td data-title="Actions" class="action text-center actions-td">
-                      <div class="d-flex justify-content-center">
-                        <a href="javascript:void(0)">
-                          <i class="far fa-edit orange" placement="top"
-                             ngbTooltip="Edit"></i>
-                        </a>
-                        <a href="javascript:void(0)">
-                          <i class="fas fa-print orange" placement="top"
-                             ngbTooltip="Inward Print"></i>
-                        </a>
-                        <a href="javascript:void(0)">
-                          <i class="far fa-trash-alt orange" placement="top"
-                             ngbTooltip="Delete"></i>
-                        </a>
-                      </div>
-                  </td>
-                </tr>
-                <tr>
-                    <td data-title="Outward Date">10-10-2020</td>
-                    <td data-title="Job Number">1234567</td>
-                    <td data-title="Engg Name">Nitin Patil</td>
-                    <td data-title="Service Amount">5000/-</td>
-                    <td data-title="Actions" class="action text-center actions-td">
-                      <div class="d-flex justify-content-center">
-                        <a href="javascript:void(0)">
-                          <i class="far fa-edit orange" placement="top"
-                             ngbTooltip="Edit"></i>
-                        </a>
-                        <a href="javascript:void(0)">
-                          <i class="fas fa-print orange" placement="top"
-                             ngbTooltip="Inward Print"></i>
-                        </a>
-                        <a href="javascript:void(0)">
-                          <i class="far fa-trash-alt orange" placement="top"
-                             ngbTooltip="Delete"></i>
-                        </a>
-                      </div>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-                <!--table listing end-->
-            </div>
-        </div>
+  <div class="card mb-4 list-card">
+    <div class="card-header">
+      <h4 class="float-left">Outward List</h4>
+      <a href="javascript:void(0)" (click)="addOutwardPopup(null)" class="btn  btn-primary float-right">Add Outward</a>
+    </div>
+    <div class="card-body">
+      <!--table listing statrt hover-->
+      <div id="no-more-tables">
+        <!-- This id used for responsive table -->
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
+          <thead>
+            <tr>
+              <th style="width: 10%;">Outward No</th>
+              <th style="width: 15%;">Outward Date</th>
+              <th style="width: 20%;">Job Number</th>
+              <th style="width: 20%;">Customer Name</th>
+              <th style="width: 15%;">Service Amt</th>
+              <th style="width: 20%;" class="text-center actions-td cursor">Action</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="outwards?.length != 0">
+            <tr *ngFor="let _outward of outwards">
+              <td data-title="Outward No">{{ _outward.outwardId }}</td>
+              <td data-title="Outward Date">{{ _outward.outwardDate | date:'dd/MM/yyyy'}}</td>
+              <td data-title="Job Number">{{ _outward.jobNumbers }}</td>
+              <td data-title="Customer Name">{{ _outward.companyName }}</td>
+              <td data-title="Service Amount">{{ _outward.serviceAmount }} /-</td>
+              <td data-title="Actions" class="action text-center actions-td">
+                <div class="d-flex justify-content-center">
+                  <a href="javascript:void(0)">
+                    <i class="far fa-edit orange" placement="top"
+                       ngbTooltip="Edit" (click)="addOutwardPopup(_outward)"></i>
+                  </a>
+                  <a href="javascript:void(0)">
+                    <i class="far fa-trash-alt orange" placement="top"
+                       ngbTooltip="Delete" (click)="openDelete(content,_outward)"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="outwards?.length == 0">
+              <td colspan="12" class="no-data-available">No Records Found!</td>
+            </tr>
+          </tbody>
+        </table>
+        <!--table listing end-->
+      </div>
     </div>
   </div>
-  
-  
+</div>
 
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"><i class="icon-select"></i> Confirm</h4>
+  </div>
+  <div class="modal-body">
+    <p class="text-center">Are you sure, you want to delete?</p>
+  </div>
+  <div class="modal-footer no-top-border">
+    <button type="button" class="btn btn-primary" (click)="modal.close(true)">OK</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.close(false)">Cancel</button>
+  </div>
+</ng-template>

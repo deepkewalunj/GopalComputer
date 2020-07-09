@@ -26,5 +26,6 @@ namespace Gopal.EntityFrameworkCore
         public bool IsDeleted { get; set; }
         public DateTime? ChequeDate { get; set; }
         public string ChequeNo { get; set; }
+        public int? ClientIdRef { get; set; }
     }
 }

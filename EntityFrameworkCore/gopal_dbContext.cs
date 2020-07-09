@@ -499,6 +499,8 @@ namespace Gopal.EntityFrameworkCore
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.ClientIdRef).HasColumnName("clientIdRef");
+
                 entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
 
                 entity.Property(e => e.CreatedDate)

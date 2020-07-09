@@ -1,180 +1,304 @@
 <form [formGroup]="outwardForm" novalidate>
-    <div class="container form-container">
-        <h3 class="text-center mb-4">Outward</h3>
-        <div class="card">
-            
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-group">
-                        <div class="input-group datepicker">
-                            <label class="date-label">Outward Date</label>
-                            <input class="form-control"  placeholder="dd-mm-yyyy"  name="dp"
-                            ngbDatepicker
-                                #d1="ngbDatepicker" (click)="d1.toggle()"  formControlName="outwardDate">
-                            <div class="input-group-append">
-                                <button  class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
-                                    type="button" ><i class="far fa-calendar-alt"></i></button>
-                            </div>
-                        </div>
-                        <div *ngIf="outwardForm.controls['billDate'].invalid &&
-                        (outwardForm.controls['billDate'].dirty || outwardForm.controls['billDate'].touched)"
-                            class="error-msg">
-                            <div *ngIf="outwardForm.controls['billDate'].errors.required">
-                               Bill date is required.
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select1">
-                                    <option value="" selected>Select</option>
-                                    <option>12345</option>
-                                    <option>12345</option>
-                                    <option>12345</option>
-                                    <option>12345</option>
-                                </select>
-                                <label class="select-label">Job Number</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select1">
-                                    <option value="" selected>Select</option>
-                                    <option>Alabama</option>
-                                    <option>California</option>
-                                    <option>Florida</option>
-                                    <option>Alaska</option>
-                                </select>
-                                <label class="select-label">Engg. Name</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div>
-                            <label class="radio-btns-label d-block">Tested Ok</label>
-                            <div class="custom-control custom-radio d-inline-block mt-3">
-                                <input type="radio" value="1" id="customRadio2" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio2">Yes</label>
-                            </div>
-                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
-                                <input type="radio" value="2" id="customRadio3" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio3">No</label>
-                            </div>
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div>
-                            <label class="radio-btns-label d-block">Material Used</label>
-                            <div class="custom-control custom-radio d-inline-block mt-3">
-                                <input type="radio" value="5" id="customRadio5" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio5">Yes</label>
-                            </div>
-                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
-                                <input type="radio" value="6" id="customRadio6" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio6">No</label>
-                            </div>
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" id="serviceAmount" type="text" placeholder="Service Amount" />
-                            <label for="serviceAmount">Service Amount</label>
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" id="advanceAmount" type="text" placeholder="Advance Amount" />
-                            <label for="advanceAmount">Advance Amount</label>
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group has-float-label">
-                            <input class="form-control" id="oustandingAmount" type="text" placeholder="Oustanding Amount" />
-                            <label for="oustandingAmount">Oustanding Amount</label>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select1">
-                                    <option value="" selected>Select</option>
-                                    <option>Printed</option>
-                                    <option>Not Printed</option>
-                                </select>
-                                <label class="select-label">Printed Status</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div>
-                            <label class="radio-btns-label d-block">Material Added</label>
-                            <div class="custom-control custom-radio d-inline-block mt-3">
-                                <input type="radio" value="8" id="customRadio8" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio8">Yes</label>
-                            </div>
-                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
-                                <input type="radio" value="9" id="customRadio9" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio9">No</label>
-                            </div>
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select1">
-                                    <option value="" selected>Select</option>
-                                    <option>Sent</option>
-                                    <option>Not Send</option>
-                                </select>
-                                <label class="select-label">SMS Status</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 col-lg-4">
-                        <div>
-                            <label class="radio-btns-label d-block">Cash/Cheque</label>
-                            <div class="custom-control custom-radio d-inline-block mt-3">
-                                <input type="radio" value="10" id="customRadio10" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio10">Cash</label>
-                            </div>
-                            <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
-                                <input type="radio" value="11" id="customRadio11" name="customRadioIsProblemDetected" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio11">Cheque</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <span class="plain-select">
-                                <select class="form-control" id="select1">
-                                    <option value="" selected>Select</option>
-                                    <option>Nitn</option>
-                                    <option>Deepak</option>
-                                </select>
-                                <label class="select-label">Cash/Cheque Recieved by</label>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-           
+  <div class="container form-container">
+    <h4>{{outward.outwardId > 0 ? 'Edit':'Add'}} Outward # {{outward.outwardId}}</h4>
+    <div class="card mt-1">
+      <div class="card-header">
+        <h5>Job Numbers Detail</h5>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <div class="row">
+            <div class="d-flex flex-wrap align-items-end col-auto">
+              <ng-container *ngIf="hideTag">
+                <span class="badge badge-dark mr-1" *ngFor="let tag of outward.lstJobNumbers">
+                  {{tag.searchValue}}
+                  <i class="far fa-times-circle" (click)="deleteTag(tag)"></i>
+                </span>
+              </ng-container>
+              <div class="d-flex align-items-end">
+                <input class="form-control"
+                       [ngbTypeahead]="searchJobNumber"
+                       #inputJobNumbers
+                       (selectItem)="selectedJobNumber($event)"
+                       [inputFormatter]="formatter"
+                       [resultFormatter]="formatter"
+                       autofocus placeholder="Select Job Number" />
+                <small *ngIf="searching" class="form-text text-muted">searching...</small>
+                <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+
+              </div>
             </div>
-           
+
+          </div>
+          <div *ngIf="!outward.lstJobNumbers || (outward.lstJobNumbers && outward.lstJobNumbers.length <= 0)"
+               class="error-msg">
+            <div>
+              Job number is required.
+            </div>
+          </div>
+          <br />
+          <!--table listing statrt hover-->
+          <div *ngIf="outward.lstJobNumbers" id="no-more-tables">
+            <!-- This id used for responsive table -->
+
+            <table class="table row-border hover">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">Job Details</th>
+                  <th style="width: 15%;">Model No</th>
+                  <th style="width: 20%;">Serial No</th>
+                  <th style="width: 20%;">Advance Amount</th>
+                  <th style="width: 20%;">Service Amount</th>
+                  <!--<th style="width: 10%;" class="text-center actions-td cursor">Action</th>-->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tag of outward.lstJobNumbers;let i = index">
+                  <td data-title="Job Details">{{tag.searchValue}}</td>
+                  <td data-title="Model No">{{tag.modelNo}}</td>
+                  <td data-title="Serial No">{{tag.serialNo}}</td>
+                  <td data-title="Advance Amount">{{tag.advanceAmount}} /-</td>
+                  <td data-title="Service Amount"><input style="width:90%" type="number" (keyup)="onKey($event, i)" value="{{tag.serviceAmount}}"></td>
+                  
+                </tr>
+                <tr class="text-center" *ngIf="outward.lstJobNumbers.length == 0">
+                  <td colspan="6">No job number added yet...</td>
+                </tr>
+              </tbody>
+            </table>
+            <!--table listing end-->
+          </div>
         </div>
-        <footer>
-          <!--<button class="btn btn-secondary" (click)="close()">Cancel</button>-->
-            <button type="submit" class="btn btn-primary">
-                Save
-            </button>
-        </footer>
+      </div>
     </div>
+    <div class="card">
+      <div class="card-header">
+        <h5>Other Outward Details</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+
+          
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="serviceAmount" [(ngModel)]="outward.serviceAmount" formControlName="serviceAmount" type="number" placeholder="Service Amount" />
+              <label for="serviceAmount">Service Amount</label>
+              <div *ngIf="outwardForm.controls['serviceAmount'].invalid &&
+                          (outwardForm.controls['serviceAmount'].dirty || outwardForm.controls['serviceAmount'].touched)"
+                   class="error-msg">
+                <div *ngIf="outwardForm.controls['serviceAmount'].errors.required">
+                  Service amount is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="advanceAmount" [(ngModel)]="outward.advanceAmount" type="number" placeholder="Advance Amount" formControlName="advanceAmount" />
+              <label for="advanceAmount">Advance Amount</label>
+              <div *ngIf="outwardForm.controls['advanceAmount'].invalid &&
+                          (outwardForm.controls['advanceAmount'].dirty || outwardForm.controls['advanceAmount'].touched)"
+                   class="error-msg">
+                <div *ngIf="outwardForm.controls['advanceAmount'].errors.required">
+                  Advance amount is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="paidImmediatlyAmount" (keyup)="onKeyFromPaidImmidiatly()" [(ngModel)]="outward.paidImmediatlyAmount" formControlName="paidImmediatlyAmount" type="number" placeholder="Paid Immediatly Amount" />
+              <label for="paidImmediatlyAmount">Paid Immediatly Amount</label>
+              <div *ngIf="outwardForm.controls['paidImmediatlyAmount'].invalid &&
+                          (outwardForm.controls['paidImmediatlyAmount'].dirty || outwardForm.controls['paidImmediatlyAmount'].touched)"
+                   class="error-msg">
+                <div *ngIf="outwardForm.controls['paidImmediatlyAmount'].errors.required">
+                  Paid immediatly amount is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="oustandingAmount" [(ngModel)]="outward.outstandingAmount" formControlName="outstandingAmount" type="number" placeholder="Oustanding Amount" />
+              <label for="oustandingAmount">Oustanding Amount</label>
+              <div *ngIf="outwardForm.controls['outstandingAmount'].invalid &&
+                          (outwardForm.controls['outstandingAmount'].dirty || outwardForm.controls['outstandingAmount'].touched)"
+                   class="error-msg">
+                <div *ngIf="outwardForm.controls['outstandingAmount'].errors.required">
+                  Outstanding amount is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="enggName" [(ngModel)]="outward.enggName" type="text" formControlName="enggName" placeholder="Engg. Name" />
+              <label for="enggName">Engg. Name</label>
+              <div *ngIf="outwardForm.controls['enggName'].invalid &&
+                          (outwardForm.controls['enggName'].dirty || outwardForm.controls['enggName'].touched)"
+                   class="error-msg">
+                <div *ngIf="outwardForm.controls['enggName'].errors.required">
+                  Engg. name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group">
+              <div class="input-group datepicker">
+                <label class="date-label">Outward Date</label>
+                <input class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="outward.ngbOutwardDate" name="dp"
+                       ngbDatepicker
+                       #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="outwardDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
+                          type="button">
+                    <i class="far fa-calendar-alt"></i>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="outwardForm.controls['outwardDate'].invalid &&
+                          (outwardForm.controls['outwardDate'].dirty || outwardForm.controls['outwardDate'].touched)"
+                   class="error-msg">
+                <div *ngIf="outwardForm.controls['outwardDate'].errors.required">
+                  Outward date is required.
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-4">
+            <div class="form-group">
+              <label class="radio-btns-label d-block">Print Status</label>
+              <div class="custom-control custom-radio d-inline-block mt-3">
+                <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="outward.printStatus" id="customRadio5" name="customRadioPrintStatus" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio5">Printed</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="outward.printStatus" id="customRadio6" name="customRadioPrintStatus" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio6">Not Printed</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-12 col-md-4 col-lg-4">
+            <div class="form-group">
+              <label class="radio-btns-label d-block">SMS Sent</label>
+              <div class="custom-control custom-radio d-inline-block mt-3">
+                <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="outward.smsSent" id="customRadio9" name="customRadioSmsSent" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio9">Yes</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="outward.smsSent" id="customRadio10" name="customRadioSmsSent" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio10">No</label>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-12 col-lg-12">
+            <div>
+              <label class="radio-btns-label d-block">Payment Mode</label>
+              <div class="custom-control custom-radio d-inline-block mt-3">
+                <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="outward.paymentMode" id="customRadio11" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio11">Cash</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="outward.paymentMode" id="customRadio12" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio12">Cheque</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="3" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="outward.paymentMode" id="customRadio13" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio13">Online Transfer</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="4" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="outward.paymentMode" id="customRadio14" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio14">Google Pay</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="5" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="outward.paymentMode" id="customRadio15" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio15">Phone Pay</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="6" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="outward.paymentMode" id="customRadio16" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio16">Other</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div *ngIf="outward.paymentMode == '2'" class="col-12 col-md-6 col-lg-4">
+            <div class="form-group">
+              <div class="input-group datepicker">
+                <label class="date-label">Cheque Date</label>
+                <input class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="outward.ngbChequeDate" name="dp"
+                       ngbDatepicker
+                       #d2="ngbDatepicker" (click)="d2.toggle()" formControlName="chequeDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
+                          type="button">
+                    <i class="far fa-calendar-alt"></i>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="!outward.ngbChequeDate"
+                   class="error-msg">
+                <div>
+                  Cheque date is required.
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div *ngIf="outward.paymentMode == '2'" class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" [(ngModel)]="outward.chequeNo" formControlName="chequeNo" id="chequeNo" type="text" placeholder="Cheque Number" />
+              <label for="chequeNo">Cheque Number</label>
+              <div *ngIf="!outward.chequeNo"
+                   class="error-msg">
+                <div>
+                  Cheque number is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="paymentRecievedBy" [(ngModel)]="outward.paymentRecievedBy" formControlName="paymentRecievedBy" type="text" placeholder="{{outward.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}" />
+              <label for="paymentRecievedBy">{{outward.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}</label>
+              <div *ngIf="outwardForm.controls['paymentRecievedBy'].invalid &&
+                          (outwardForm.controls['paymentRecievedBy'].dirty || outwardForm.controls['paymentRecievedBy'].touched)"
+                   class="error-msg">
+                <div *ngIf="outwardForm.controls['paymentRecievedBy'].errors.required">
+                  {{outward.paymentMode == '2' ? 'Bank name is required.' : 'Payment recieved by is required.'}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <footer>
+      <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+      <button type="submit" class="btn btn-primary" (click)="outwardForm.valid && validateForm() && saveOutward()">
+        Save
+      </button>
+    </footer>
+  </div>
 </form>

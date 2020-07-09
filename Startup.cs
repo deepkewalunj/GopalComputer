@@ -6,6 +6,7 @@ using Gopal.Services.Bill;
 using Gopal.Services.Common;
 using Gopal.Services.Customer;
 using Gopal.Services.MaterialType;
+using Gopal.Services.Outward;
 using Gopal.Services.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -67,6 +68,7 @@ namespace Gopal
             services.AddTransient<IAccessoryServices, AccessoryService>();
             services.AddTransient<ITypeAheadService, TypeAheadService>();
             services.AddTransient<IBillServices, BillService>();
+            services.AddTransient<IOutwardServices, OutwardService>();
             services.AddSingleton<ILog, LogNLog>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

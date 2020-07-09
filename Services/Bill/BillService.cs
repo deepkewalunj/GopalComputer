@@ -89,7 +89,7 @@ namespace Gopal.Services.Bill
                             inward.ModifiedBy = billModel.createdBy;
                             inward.ModifiedDate = DateTime.Now;
                             inward.OutwardBillStatus = 1;//paid
-                            _dbContext.Entry(bill).State = EntityState.Modified;
+                            _dbContext.Entry(inward).State = EntityState.Modified;
                             _dbContext.SaveChanges();
                         }
                             
@@ -144,7 +144,7 @@ namespace Gopal.Services.Bill
                         inward.ModifiedBy = billModel.createdBy;
                         inward.ModifiedDate = DateTime.Now;
                         inward.OutwardBillStatus = 1;//paid
-                        _dbContext.Entry(bill).State = EntityState.Modified;
+                        _dbContext.Entry(inward).State = EntityState.Modified;
                         _dbContext.SaveChanges();
                     }
                 }
