@@ -110,11 +110,15 @@ export class BillGenerationComponent implements OnInit {
           this.bill.lstJobNumbers.push(jobNumber.item);
           this.inputJobNumbers.nativeElement.value = '';
           this.calculateAdvancedAmount();
+          this.calculateAmounts();
+          this.onKeyFromPaidImmidiatly();
         }
         else {
           alert(jobNumber.item.searchId + " job number's bill is already generated, please select valid job number");
           this.inputJobNumbers.nativeElement.value = '';
           this.calculateAdvancedAmount();
+          this.calculateAmounts();
+          this.onKeyFromPaidImmidiatly();
         }
       }, error => {
 
@@ -128,12 +132,16 @@ export class BillGenerationComponent implements OnInit {
         alert(jobNumber.item.searchId + " job number is already selected, please select valid job number");
         this.inputJobNumbers.nativeElement.value = '';
         this.calculateAdvancedAmount();
+        this.calculateAmounts();
+        this.onKeyFromPaidImmidiatly();
       }
       else
       {
         alert(jobNumber.item.searchId + " job number is not belongs to customer, please select valid job number");
         this.inputJobNumbers.nativeElement.value = '';
         this.calculateAdvancedAmount();
+        this.calculateAmounts();
+        this.onKeyFromPaidImmidiatly();
       }
     }
 
@@ -145,6 +153,11 @@ export class BillGenerationComponent implements OnInit {
     for (var i = 0; i < this.bill.lstJobNumbers.length; i++) {
       if (this.bill.lstJobNumbers[i].advanceAmount > 0)
         this.bill.advanceAmount += this.bill.lstJobNumbers[i].advanceAmount;
+    }
+    this.bill.serviceAmount = 0;
+    for (var i = 0; i < this.bill.lstJobNumbers.length; i++) {
+      if (this.bill.lstJobNumbers[i].serviceAmount > 0)
+        this.bill.serviceAmount += this.bill.lstJobNumbers[i].serviceAmount;
     }
   }
 
