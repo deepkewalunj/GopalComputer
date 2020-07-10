@@ -17,6 +17,7 @@ namespace Gopal.Models.Common
         public string companyName { get; set; }
         public string serialNo { get; set; }
         public int? isRepaired { get; set; }
+
         public decimal? serviceAmount { get; set; }
 
     }

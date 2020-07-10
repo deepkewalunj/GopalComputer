@@ -121,8 +121,11 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
             });
           });
       },
-      columns: [{ data: 'clientTitleId',searchable:true,orderable:true  }, { data: 'clientName',searchable:true,orderable:true  },
-                { data: 'companyName',searchable:true,orderable:true  },{ data: 'ownerMobileNo',searchable:false,orderable:false  },{ data: 'telNoFirst',searchable:false,orderable:false  },
+      columns: [{ data: 'clientTitleId',searchable:true,orderable:true  },
+                { data: 'companyName',searchable:true,orderable:true  },
+                { data: 'clientName',searchable:true,orderable:true  },
+                { data: 'ownerMobileNo',searchable:false,orderable:false  },
+                { data: 'telNoFirst',searchable:false,orderable:false  },
                 {data:null,searchable:false,orderable:false }]
     };
     setTimeout(() => this.staticAlertClosed = true, 20000);
