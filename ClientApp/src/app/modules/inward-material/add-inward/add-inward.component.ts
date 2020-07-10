@@ -301,7 +301,7 @@ materialTypeAheadSelected(selectedElement){
   this.inward.lstAccessories=[];
   this.inward.lstAccessories.push({
     searchId: 0,
-    searchValue: selectedElementArray[1], splitValue: '', advanceAmount: 0, clientRefId: 0, modelNo: '', materialType: '', companyName: '', serialNo:'',isRepaired:false, serviceAmount:0
+    searchValue: selectedElementArray[1], splitValue: '', advanceAmount: 0, clientRefId: 0, modelNo: '', materialType: '', companyName: '', serialNo:'',isRepaired:2, serviceAmount:0
   });
 }
 

@@ -274,7 +274,7 @@
 
 
         </div>
-        <div class="row">
+        <div *ngIf="bill.paidImmediatlyAmount > 0" class="row">
           <div class="col-12 col-md-12 col-lg-12">
             <div>
               <label class="radio-btns-label d-block">Payment Mode</label>
@@ -312,7 +312,7 @@
           </div>
         </div>
         <br />
-        <div class="row">
+        <div *ngIf="bill.paidImmediatlyAmount > 0" class="row">
           <div *ngIf="bill.paymentMode == '2'" class="col-12 col-md-6 col-lg-4">
             <div class="form-group">
               <div class="input-group datepicker">

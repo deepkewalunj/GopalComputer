@@ -16,7 +16,7 @@ namespace Gopal.Models.Common
         public string materialType { get; set; }
         public string companyName { get; set; }
         public string serialNo { get; set; }
-        public bool? isRepaired { get; set; }
+        public int? isRepaired { get; set; }
         public decimal? serviceAmount { get; set; }
 
     }
