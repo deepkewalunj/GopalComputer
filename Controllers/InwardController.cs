@@ -256,13 +256,7 @@ namespace Gopal.Controllers
 
         }
 
-        [HttpGet]
-        [Route("PrintInwardBarcode")]
-        public ActionResult PrintInwardBarcode(int inwardId)
-        {
-           
-            return Ok();
-        }
+        
 
 
       
@@ -271,7 +265,12 @@ namespace Gopal.Controllers
         [Route("DeleteInWard")]
         public ActionResult DeleteInWard(int inwardId)
         {
-            return Ok(_inwardServices.DeleteInward(inwardId));
+            int customerId = _inwardServices.DeleteInward(inwardId, ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(customerId);
         }
 
         

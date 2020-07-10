@@ -4,6 +4,7 @@ using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Models.User;
 using Gopal.Services.User;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
@@ -44,9 +45,18 @@ namespace Gopal.Services.Customer
 
             return datatableResponseModel;
         }
-
-        public CustomerModel AddEditCustomer(CustomerModel customerModel)
+        public bool IsCustomerExist(CustomerModel customerModel) {
+            return _dbContext.TblClient.Any(client => client.CompanyName == customerModel.companyName &&
+                                                      client.OwnerMobileNo== customerModel.ownerMobileNo
+                                                      && client.ClientId!= customerModel.clientId && client.IsDeleted==false);
+        }
+        public CustomerModel AddEditCustomer(CustomerModel customerModel,ModelStateDictionary modelState)
         {
+            if (IsCustomerExist(customerModel))
+            {
+                modelState.AddModelError($"{ (int)MODEL_ERRORS.CUSTOMER_ALREADY_EXIST}","Customer company name with mobile number already exist.");
+                return customerModel;
+            }
             customerModel.userId = _userServices.GetCurrentUserId();
             String strRequestModel = JsonConvert.SerializeObject(customerModel);
             using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
@@ -86,8 +96,17 @@ namespace Gopal.Services.Customer
             return customerModel;
         }
 
-        public int DeleteCustomer(int customerId)
+        public bool IsInwardExist(int customerId) {
+            return _dbContext.TblInward.Any(inward => inward.ClientRefId == customerId && inward.IsDeleted==false);
+        }
+
+        public int DeleteCustomer(int customerId,ModelStateDictionary modelState)
         {
+            if (IsInwardExist(customerId))
+            {
+                modelState.AddModelError($"{(int)MODEL_ERRORS.CUSTOMER_INWARD_EXIST}","Customer cannot be deleted because inward exist.");
+                return customerId;
+            }
             TblClient customer = _dbContext.TblClient.FirstOrDefault(x => x.ClientId == customerId);
             if (customer != null)
             {

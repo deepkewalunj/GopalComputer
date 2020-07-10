@@ -41,6 +41,14 @@ return statuses;
 }
 
 
+static getRepairedStatuses():Array<SelectList>{
+  let statuses:Array<SelectList> =[{id:'1',name:'Repaired'},
+  {id:'2',name:'Unrepaired'},
+  {id:'3',name:'Not Repairable'},
+ ];
+return statuses;
+}
+
 static getInwardRepeatJobs():Array<SelectList>{
   let statuses:Array<SelectList> =[{id:'1',name:'Yes'},
   {id:'2',name:'No'},

@@ -18,6 +18,7 @@ export class AddEditCustomerComponent implements OnInit {
   customer: Customer;
   addClientForm: FormGroup;
   titles= CommonModel.getTitles();
+  customerExist:string;
   constructor(private fb: FormBuilder,private modalService: NgbModal,
               private customerService:CustomerService) {
    this.createForm();
@@ -31,6 +32,7 @@ export class AddEditCustomerComponent implements OnInit {
       title:      ['', Validators.required],
       customerName: ['', Validators.required],
       companyName:          ['', Validators.required],
+      clientEmail:['',Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{1,}[.]{1}[a-zA-Z]{1,}")],
       mobileNo: ['', Validators.required],
       clientAddress: ['', Validators.required],
       mobileNoFirst1:['' ],
@@ -46,12 +48,15 @@ export class AddEditCustomerComponent implements OnInit {
   }
 
   saveCustomer(){
+    this.customerExist="";
       this.customerService.addEditCustomer(this.customer).subscribe((customer:Customer)=>{
           this.customer=customer;
           this.modelRef.close(true);
       },(error)=>{
           console.log(error);
-
+          if(error["1001"] && error["1001"].length>0 ){
+            this.customerExist=error["1001"][0];
+          }
       });
   }
 }

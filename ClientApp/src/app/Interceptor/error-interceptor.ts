@@ -19,9 +19,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         //if 401 response returned from api, logout from application & redirect to login page.
         this.authenticationService.logout();
       }
-
-      const error = err.error.message || err.statusText;
-      return Observable.throw(error);
+      return Observable.throw(err.error);
     }));
   }
 }

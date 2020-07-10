@@ -4,6 +4,7 @@ using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Models.User;
 using Gopal.Services.User;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -297,7 +298,26 @@ namespace Gopal.Services.Customer
             return filePOCOs;
         }
 
-        public int DeleteInward(int inwardId) {
+        public bool IsInwardBillExist(int inwardId) {
+            return _dbContext.TblBillAndInwardDetail.Any(inward => inward.InwardIdRef == inwardId && inward.IsDeleted == false);
+        }
+
+
+        public bool IsOutwardBillExist(int inwardId) {
+            return _dbContext.TblOutwardAndInwardDetail.Any(inward => inward.InwardIdRef == inwardId && inward.IsDeleted == false);
+        }
+
+        public bool IsInwardBillOrOutwardBillExist(int inwardId)
+        {
+            return IsInwardBillExist(inwardId) || IsOutwardBillExist(inwardId);
+        }
+
+        public int DeleteInward(int inwardId, ModelStateDictionary modelState) {
+            if (IsInwardBillOrOutwardBillExist(inwardId))
+            {
+                modelState.AddModelError($"{(int)MODEL_ERRORS.CUSTOMER_BILL_INWARD_OUTWARD_EXIST}","Inward cannot be deleted because inward and outward bill exists.");
+                return inwardId;
+            }
            TblInward inward= _dbContext.TblInward.FirstOrDefault(x => x.InwardId == inwardId);
             if (inward != null)
             {

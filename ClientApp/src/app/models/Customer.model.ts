@@ -4,6 +4,7 @@ export class Customer{
  clientTitleId   :String
  clientName   :string
  companyName  :string
+ clientEmail:string
  clientAddress:string
  ownerMobileNo:string
  mobileNoFirst:string

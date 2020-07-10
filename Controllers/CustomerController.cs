@@ -39,14 +39,18 @@ namespace Gopal.Controllers
         [Route("AddEditCustomer")]
         public ActionResult AddEditCustomer(CustomerModel customer)
         {
-
-            return Ok(_customerServices.AddEditCustomer(customer));
+            CustomerModel returnCustomer = _customerServices.AddEditCustomer(customer, ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(returnCustomer);
         }
 
         [HttpGet]
         [Route("DeleteCustomer")]
         public ActionResult DeleteCustomer(int customerId) {
-              return Ok(_customerServices.DeleteCustomer(customerId));
+              return Ok(_customerServices.DeleteCustomer(customerId,ModelState));
         }
     }
 }

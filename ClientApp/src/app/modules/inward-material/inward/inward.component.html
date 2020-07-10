@@ -31,7 +31,7 @@
 
                     <td data-title="Job No">{{ inward.inwardId }}</td>
                     <td data-title="Customer Name">{{ inward.clientName }}</td>
-                    <td data-title="Customer Name">{{ inward.isRepaired==1?'Repaired':'Not Repaired' }}</td>
+                    <td data-title="Customer Name">{{getRepairedStatusesById(inward.isRepaired)}}</td>
                     <td data-title="Delivery Date">{{ inward.deliveryDate | date: 'dd/MM/yyyy' }}</td>
                     <td data-title="Bill/Outward Status">{{ getInwardOutwardBillStatusById(inward.outwardBillStatus) }}</td>
                     <td data-title="Actions" class="action text-center actions-td">
