@@ -61,7 +61,7 @@ export class OutwardComponent implements OnInit {
       advanceAmount: [{ value: null, disabled: true }, Validators.required],
       paidImmediatlyAmount: ['', Validators.required],
       outstandingAmount: [{ value: null, disabled: true }, Validators.required],
-      paymentRecievedBy: ['', Validators.required],
+      paymentRecievedBy: [''],
       chequeNo: [''],
       chequeDate: ['']
     });
@@ -211,16 +211,19 @@ export class OutwardComponent implements OnInit {
     if (!this.outward.lstJobNumbers || (this.outward.lstJobNumbers && this.outward.lstJobNumbers.length <= 0)) {
       return false;
     }
-    if (this.outward.paymentMode == '2') {
-      if (!this.outward.ngbChequeDate.year || !this.outward.chequeNo || !this.outward.paymentRecievedBy) {
-        return false;
+    if (this.outward.paidImmediatlyAmount > 0) {
+      if (this.outward.paymentMode == '2') {
+        if (!this.outward.ngbChequeDate.year || !this.outward.chequeNo || !this.outward.paymentRecievedBy) {
+          return false;
+        }
+      }
+      else {
+        if (this.outward.paymentMode == '1' && !this.outward.paymentRecievedBy) {
+          return false;
+        }
       }
     }
-    else {
-      if (!this.outward.paymentRecievedBy) {
-        return false;
-      }
-    }
+
     return true;
   }
 

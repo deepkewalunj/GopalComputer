@@ -281,11 +281,10 @@
             <div class="form-group has-float-label">
               <input class="form-control" id="paymentRecievedBy" [(ngModel)]="outward.paymentRecievedBy" formControlName="paymentRecievedBy" type="text" placeholder="{{outward.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}" />
               <label for="paymentRecievedBy">{{outward.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}</label>
-              <div *ngIf="outwardForm.controls['paymentRecievedBy'].invalid &&
-                          (outwardForm.controls['paymentRecievedBy'].dirty || outwardForm.controls['paymentRecievedBy'].touched)"
+              <div *ngIf="!outward.paymentRecievedBy && (outward.paymentMode == '2' || outward.paymentMode == '1')"
                    class="error-msg">
-                <div *ngIf="outwardForm.controls['paymentRecievedBy'].errors.required">
-                  {{outward.paymentMode == '2' ? 'Bank name is required.' : 'Payment recieved by is required.'}}
+                <div>
+                  {{outward.paymentMode == '1' ? 'Payment recieved by is required.' : 'Bank name is required.'}}
                 </div>
               </div>
             </div>

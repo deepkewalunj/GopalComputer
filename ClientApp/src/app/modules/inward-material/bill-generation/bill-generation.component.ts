@@ -61,7 +61,7 @@ export class BillGenerationComponent implements OnInit {
       advanceAmount: [{ value: null, disabled: true }, Validators.required],
       paidImmediatlyAmount: ['', Validators.required],
       outstandingAmount: [{ value: null, disabled: true }, Validators.required],
-      paymentRecievedBy: ['', Validators.required],
+      paymentRecievedBy: [''],
       chequeNo: [''],
       chequeDate: ['']
     });
@@ -215,21 +215,23 @@ export class BillGenerationComponent implements OnInit {
     if (!this.bill.lstJobNumbers || (this.bill.lstJobNumbers && this.bill.lstJobNumbers.length <= 0)) {
       return false;
     }
-    if (this.bill.paymentMode == '2') {
-      if (!this.bill.ngbChequeDate.year || !this.bill.chequeNo || !this.bill.paymentRecievedBy) {
-        return false;
+    if (this.bill.paidImmediatlyAmount > 0) {
+      if (this.bill.paymentMode == '2') {
+        if (!this.bill.ngbChequeDate.year || !this.bill.chequeNo || !this.bill.paymentRecievedBy) {
+          return false;
+        }
+      }
+      else {
+        if (this.bill.paymentMode == '1' && !this.bill.paymentRecievedBy) {
+          return false;
+        }
       }
     }
-    else {
-      if (!this.bill.paymentRecievedBy) {
-        return false;
-      }
-    }
+    
     return true;
   }
 
   saveBill() {
-    debugger;
     const formData = new FormData();
     formData.append("bill", JSON.stringify(this.bill))
     this.billService.addEditBill(formData).subscribe((bill: Bill) => {
