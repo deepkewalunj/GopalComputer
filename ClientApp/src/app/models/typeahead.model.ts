@@ -14,6 +14,6 @@ export class TypeAheadResponseModel{
   materialType: string;
   companyName: string;
   serialNo: string;
-  isRepaired: boolean;
+  isRepaired: number;
   serviceAmount: number;
 }

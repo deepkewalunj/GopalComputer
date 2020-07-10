@@ -25,7 +25,7 @@ namespace Gopal.EntityFrameworkCore
         public decimal? AdvanceAmount { get; set; }
         public int? OutwardBillStatus { get; set; }
         public decimal? EstmRepairingAmount { get; set; }
-        public bool IsRepaired { get; set; }
+        public int IsRepaired { get; set; }
         public bool PrintStatus { get; set; }
         public bool RepeatJob { get; set; }
         public string RepairedRemark { get; set; }
