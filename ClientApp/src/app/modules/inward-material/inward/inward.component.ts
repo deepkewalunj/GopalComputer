@@ -192,6 +192,20 @@ export class InwardComponent implements OnInit {
       return "";
     }
   }
+
+  public getRepairedStatusesById(id:string){
+    let statuses=CommonModel.getRepairedStatuses();
+    let titleName:string =statuses.find(x=>x.id==id).name;
+    if(titleName)
+    {
+      return titleName;
+    }
+    else
+    {
+      return "";
+    }
+  }
+
   public changeSuccessMessage() {
     this._success.next('Record deleted successfully.');
   }

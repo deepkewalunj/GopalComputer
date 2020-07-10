@@ -1,6 +1,7 @@
 ﻿using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Models.User;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Gopal.Services.Customer
         DatatableResponseModel GetInwardList(DatatableRequestModel getInwardModel);
         InwardTypeScriptModel AddEditInward(InwardTypeScriptModel inwardModel);
         InwardTypeScriptModel GetInwardById(int inwardId);
-        int DeleteInward(int inwardId);
+        int DeleteInward(int inwardId,ModelStateDictionary modelState);
         List<String> GetAccessories(int inwardId);
         void UpdateBarCodePathByInwardId(int inwardId, string barCodePath);
         string GetCustomerNameByIdForBarcode(int customerId);

@@ -12,6 +12,7 @@ namespace Gopal.Models.Customer
         public string clientName    { get; set; }
         public string companyName    { get; set; }
         public string clientAddress   { get; set; }
+        public string clientEmail { get; set;}
         public string ownerMobileNo   { get; set; }
         public string mobileNoFirst   { get; set; }
         public string telNoFirst     { get; set; }
@@ -19,4 +20,5 @@ namespace Gopal.Models.Customer
         public int userId { get; set; }
         public decimal balanceAmount { get; set; }
     }
+   
 }

@@ -320,7 +320,7 @@
                       <div class="form-group has-float-label">
                           <input class="form-control" type="text" mask="0*.00" maxlength="17"  [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.estmRepairingAmount"  id="estAmount" placeholder="Estimate Repearimg Amount">
-                          <label for="estAmount">Estimate Repairing Amount</label>
+                          <label for="estAmount">Service Amount</label>
                       </div>
                   </div>
                   <!-- <div class="col-12 col-md-4 col-lg-4">
@@ -352,12 +352,17 @@
                       <div class="custom-control custom-radio d-inline-block mt-3">
                           <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.isRepaired"  id="customRadio4" name="customRadioIsRepaired" class="custom-control-input">
-                          <label class="custom-control-label" for="customRadio4">Yes</label>
+                          <label class="custom-control-label" for="customRadio4">Repaired</label>
                       </div>
                       <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
                           <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.isRepaired"  id="customRadio5" name="customRadioIsRepaired" class="custom-control-input">
-                          <label class="custom-control-label" for="customRadio5">No</label>
+                          <label class="custom-control-label" for="customRadio5">Unrepaied</label>
+                      </div>
+                      <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                          <input type="radio" value="3" [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="inward.isRepaired"  id="customRadio5" name="customRadioIsRepaired" class="custom-control-input">
+                          <label class="custom-control-label" for="customRadio5">Not Repairable</label>
                       </div>
                   </div>
               </div>
@@ -468,12 +473,17 @@
       </div>
       <footer>
           <button class="btn btn-secondary" (click)="GoToInwardList()" >Cancel</button>
-
-      <button type="submit"  (click)="getBase64EncodedImage(false)" *ngIf="inward.inwardId>0" class="btn btn-success">
+          <button type="button"  (click)="PrintInward()" *ngIf="inward.inwardId>0" class="btn btn-success">
+              Print Inward
+          </button>
+      <button type="button"  (click)="getBase64EncodedImage(false)" *ngIf="inward.inwardId>0" class="btn btn-success">
         Print BarCode
     </button>
           <button type="submit" (click)="addInwardForm.valid && SaveInward()" class="btn btn-primary">
               Save
+          </button>
+          <button type="button" (click)="AddAdditional()" *ngIf="inward.inwardId>0" class="btn btn-primary">
+              Add Additional
           </button>
       </footer>
   </div>

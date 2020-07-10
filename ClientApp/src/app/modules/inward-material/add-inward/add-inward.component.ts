@@ -364,6 +364,10 @@ GoToInwardList(){
     this.router.navigate(['inward-material/inward']);
 }
 
+AddAdditional(){
+  this.router.navigate(['inward-material/add-inward']);
+  }
+
 	onSelect(event) {
     for(let i=0;i<event.addedFiles.length;i++)
     {

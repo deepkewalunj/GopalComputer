@@ -7,6 +7,7 @@
           </div>
           <div class="card-body">
             <div class="row">
+
               <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group">
                   <span class="plain-select">
@@ -47,6 +48,25 @@
                     <div *ngIf="addClientForm.controls['companyName'].errors.required">
                       Company name is required.
                     </div>
+
+                  </div>
+                  <div *ngIf="customerExist" class="error-msg">
+                      {{customerExist}}
+                     </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4">
+                <div class="form-group has-float-label">
+                  <input class="form-control" id="clientEmail" type="text" placeholder="Customer Email"
+                         formControlName="clientEmail" [(ngModel)]="customer.clientEmail" />
+                  <label for="clientEmail">Customer Email</label>
+                  <div *ngIf="addClientForm.controls['clientEmail'].invalid &&
+                  (addClientForm.controls['clientEmail'].dirty
+                  || addClientForm.controls['clientEmail'].touched)"
+                       class="error-msg">
+                       <div *ngIf="addClientForm.controls['clientEmail'].errors.pattern">
+                        Email must be a valid email address.
+                      </div>
                   </div>
                 </div>
               </div>
@@ -83,7 +103,7 @@
                 <div class="form-group has-float-label">
                   <input class="form-control" type="text" id="mobileNoFirst" placeholder="Mobile Number 2"
                          formControlName="mobileNoFirst1" [(ngModel)]="customer.mobileNoFirst">
-                  <label for="mobileNoFirst"> Mobile Number </label>
+                  <label for="mobileNoFirst"> Mobile Number 2</label>
 
                 </div>
               </div>

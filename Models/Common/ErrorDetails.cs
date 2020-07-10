@@ -15,4 +15,10 @@ namespace Gopal.Models.Common
             return JsonConvert.SerializeObject(this);
         }
     }
+    public enum MODEL_ERRORS
+    {
+        CUSTOMER_ALREADY_EXIST = 1001,
+        CUSTOMER_INWARD_EXIST= 1002,
+        CUSTOMER_BILL_INWARD_OUTWARD_EXIST=1003
+    }
 }
