@@ -298,7 +298,7 @@ namespace Gopal.Services.Bill
                     var materialType = "";
                     var companyName = "";
                     var serialNo = "";
-                    var isRepaired = false;
+                    var isRepaired = 2;
                     var inward = _dbContext.TblInward.Where(x => x.IsDeleted != true && x.InwardId == item.InwardIdRef).FirstOrDefault();
                     if (inward != null)
                     {
@@ -317,10 +317,23 @@ namespace Gopal.Services.Bill
                         searchValue = _dbContext.TblClient.Where(x => x.IsDeleted != true && x.ClientId == clientRefId).FirstOrDefault().CompanyName;
                     }
 
+                    var isRepairedText = "";
+                    if(isRepaired == 1)
+                    {
+                        isRepairedText = "Repaired";
+                    }
+                    else if (isRepaired == 2)
+                    {
+                        isRepairedText = "Unrepaired";
+                    }
+                    else if (isRepaired == 3)
+                    {
+                        isRepairedText = "Not Repairable";
+                    }
                     billTypeScriptModel.lstJobNumbers.Add(new TypeAheadResponseModel
                     {
                         searchId = (int)item.InwardIdRef,
-                        searchValue = item.InwardIdRef.ToString() + "   " + searchValue + "     " + (isRepaired == false ? "Unrepaired" : "Repaired"),
+                        searchValue = item.InwardIdRef.ToString() + "   " + searchValue + "     " + isRepairedText,
                         clientRefId = clientRefId,
                         advanceAmount = advanceAmt,
                         modelNo = modelNo,

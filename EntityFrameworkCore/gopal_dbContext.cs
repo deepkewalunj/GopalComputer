@@ -293,7 +293,9 @@ namespace Gopal.EntityFrameworkCore
 
                 entity.Property(e => e.IsProblemDetected).HasColumnName("isProblemDetected");
 
-                entity.Property(e => e.IsRepaired).HasColumnName("isRepaired");
+                entity.Property(e => e.IsRepaired)
+                    .HasColumnName("isRepaired")
+                    .HasDefaultValueSql("((2))");
 
                 entity.Property(e => e.IsSpecialJob).HasColumnName("isSpecialJob");
 
