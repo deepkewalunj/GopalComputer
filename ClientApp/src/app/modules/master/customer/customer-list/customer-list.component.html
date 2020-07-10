@@ -73,10 +73,14 @@
         <h4 class="modal-title" id="modal-basic-title"><i class="icon-select"></i> Confirm</h4>
     </div>
     <div class="modal-body">
+
+      <div class="error-msg">
+          {{customerDeleteError}}
+      </div>
         <p class="text-center">Are you sure, you want to delete?</p>
     </div>
     <div class="modal-footer no-top-border">
-        <button type="button" class="btn btn-primary" (click)="modal.close(true)">OK</button>
+        <button type="button" class="btn btn-primary" (click)="deleteCustomer()">OK</button>
         <button type="button" class="btn btn-secondary" (click)="modal.close(false)">Cancel</button>
     </div>
 </ng-template>

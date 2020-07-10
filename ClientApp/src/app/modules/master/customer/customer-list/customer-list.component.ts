@@ -29,7 +29,9 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
   private _success = new Subject<string>();
   staticAlertClosed = false;
   successMessage: string;
-
+  deleteModelPopupRef:any;
+  customerToDelete:Customer;
+  customerDeleteError:"";
   dtTrigger: Subject<any> = new Subject();
     // we used reactive forms and validations
     addClientForm: FormGroup;
@@ -42,15 +44,18 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
   /*on click modal will be open*/
 
   openDelete(content,customer:Customer) {
-
+    this.customerDeleteError="";
     const that=this;
-
-    this.modalService.open(content).result.then((result) => {
+    this.customerToDelete=customer;
+    this.deleteModelPopupRef=this.modalService.open(content);
+    this.deleteModelPopupRef.result.then((result) => {
       if(result==true)
       {
 
 
-        that.deleteCustomer(customer,that);
+        that.rerender();
+        that.customerToDelete=null;
+        that._success.next("Customer Deleted Successfully.");
 
       }
 
@@ -83,13 +88,16 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
     });
   }
 
-  deleteCustomer(customer:Customer,that){
-    that.customerService.deleteCustomer(customer.clientId).subscribe((data)=>{
+  deleteCustomer(){
+    this.customerDeleteError="";
 
-        that.rerender();
-        that.successMessage="Customer Deleted Successfully."
+    this.customerService.deleteCustomer(this.customerToDelete.clientId).subscribe((data)=>{
+            this.deleteModelPopupRef.close(true);
       },(error)=>{
-
+          if(error["1002"] && error["1002"].length>0)
+          {
+            this.customerDeleteError=error["1002"];
+          }
 
       })
   }

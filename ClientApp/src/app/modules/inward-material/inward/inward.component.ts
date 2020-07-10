@@ -44,16 +44,20 @@ export class InwardComponent implements OnInit {
 
   /*on click modal will be open*/
 
-  openDelete(content,inward:InwardListModel) {
 
+  openDelete(content,inward:Inward) {
+    this.inwardDeleteError="";
     const that=this;
-
-    this.modalService.open(content).result.then((result) => {
+    this.inwardToDelete=inward;
+    this.deleteModelPopupRef=this.modalService.open(content);
+    this.deleteModelPopupRef.result.then((result) => {
       if(result==true)
       {
 
 
-        that.deleteInward(inward,that);
+        that.rerender();
+        that.inwardToDelete=null;
+        that._success.next("Inward Deleted Successfully.");
 
       }
 
@@ -64,13 +68,20 @@ export class InwardComponent implements OnInit {
 
 
 
-  deleteInward(inward:InwardListModel,that){
-    that.inwardService.deleteInward(inward.inwardId).subscribe((data)=>{
 
-        that.rerender();
-        that.successMessage="Inward Deleted Successfully."
+  inwardDeleteError:""
+  inwardToDelete:Inward;
+  deleteModelPopupRef:any;
+  deleteInward(){
+    this.inwardDeleteError="";
+
+    this.inwardService.deleteInward(this.inwardToDelete.inwardId).subscribe((data)=>{
+            this.deleteModelPopupRef.close(true);
       },(error)=>{
-
+          if(error["1003"] && error["1003"].length>0)
+          {
+            this.inwardDeleteError=error["1003"];
+          }
 
       })
   }

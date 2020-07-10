@@ -50,7 +50,12 @@ namespace Gopal.Controllers
         [HttpGet]
         [Route("DeleteCustomer")]
         public ActionResult DeleteCustomer(int customerId) {
-              return Ok(_customerServices.DeleteCustomer(customerId,ModelState));
+            int returnCustomerId = _customerServices.DeleteCustomer(customerId, ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+              return Ok(returnCustomerId);
         }
     }
 }
