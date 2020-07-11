@@ -23,6 +23,8 @@ import { CameraComponent } from 'src/app/shared/camera/camera.component';
 import { WebcamModule } from 'ngx-webcam';
 import { OutwardListComponent } from './outward-list/outward-list.component';
 import { BillingListComponent } from './billing-list/billing-list.component';
+import { BillPrintComponent } from './bill-print/bill-print.component';
+import { OutwardPrintComponent } from './outward-print/outward-print.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -41,7 +43,9 @@ const maskConfig: Partial<IConfig> = {
     OutwardComponent,
     CameraComponent,
     OutwardListComponent,
-    BillingListComponent
+    BillingListComponent,
+    BillPrintComponent,
+    OutwardPrintComponent
   ],
   imports: [
     CommonModule,

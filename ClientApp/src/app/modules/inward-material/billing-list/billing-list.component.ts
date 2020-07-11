@@ -10,6 +10,7 @@ import { BillGenerationComponent } from '../bill-generation/bill-generation.comp
 import { BillService } from 'src/app/services/bill.service';
 import { DataTableDirective } from 'angular-datatables';
 import { CommonModel, DataTablesResponse } from 'src/app/models/common.model';
+import { BillPrintComponent } from '../bill-print/bill-print.component';
 
 @Component({
   selector: 'app-billing-list',
@@ -147,5 +148,33 @@ export class BillingListComponent implements AfterViewInit, OnDestroy, OnInit {
 
   toggleSearch() {
     this.searchFilter = !this.searchFilter;
+  }
+
+  printBill(billId) {
+    if (billId > 0) {
+      this.givePrint(billId);
+    }
+  }
+
+  givePrint(billId) {
+    this.billService.getBillById(billId).subscribe(data => {
+      this.openInwardPrintPopup(data);
+    }, error => {
+
+    });
+  }
+
+  openInwardPrintPopup(bill) {
+    const modalRef = this.modalService.open(BillPrintComponent, { size: 'lg', windowClass: 'print-modal' });
+    modalRef.componentInstance.bill = bill;
+    modalRef.componentInstance.modelRef = modalRef;
+    modalRef.result.then((result) => {
+      if (result == true) {
+        this._success.next("Print done.")
+      }
+
+    }, (reason) => {
+
+    });
   }
 }
