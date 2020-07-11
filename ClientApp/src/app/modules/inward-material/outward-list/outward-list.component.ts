@@ -10,6 +10,7 @@ import { OutwardService } from 'src/app/services/Outward.service';
 import { DataTableDirective } from 'angular-datatables';
 import { CommonModel, DataTablesResponse } from 'src/app/models/common.model';
 import { Outward } from '../../../models/Outward.model';
+import { OutwardPrintComponent } from '../outward-print/outward-print.component';
 
 @Component({
   selector: 'app-outward-list',
@@ -147,5 +148,33 @@ export class OutwardListComponent implements AfterViewInit, OnDestroy, OnInit {
 
   toggleSearch() {
     this.searchFilter = !this.searchFilter;
+  }
+
+  printOutward(outwardId) {
+    if (outwardId > 0) {
+      this.givePrint(outwardId);
+    }
+  }
+
+  givePrint(outwardId) {
+    this.outwardService.getOutwardById(outwardId).subscribe(data => {
+      this.openOutwardPrintPopup(data);
+    }, error => {
+
+    });
+  }
+
+  openOutwardPrintPopup(outward) {
+    const modalRef = this.modalService.open(OutwardPrintComponent, { size: 'lg', windowClass: 'print-modal' });
+    modalRef.componentInstance.outward = outward;
+    modalRef.componentInstance.modelRef = modalRef;
+    modalRef.result.then((result) => {
+      if (result == true) {
+        this._success.next("Print done.")
+      }
+
+    }, (reason) => {
+
+    });
   }
 }

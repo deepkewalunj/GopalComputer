@@ -32,7 +32,11 @@
                 <div class="d-flex justify-content-center">
                   <a href="javascript:void(0)">
                     <i class="far fa-edit orange" placement="top"
-                       ngbTooltip="View/Edit" (click)="addBillPopup(_bill)"></i>
+                       ngbTooltip="Edit" (click)="addBillPopup(_bill)"></i>
+                  </a>
+                  <a href="javascript:void(0)">
+                    <i class="fas fa-print orange" placement="top"
+                       ngbTooltip="Bill Print" (click)="printBill(_bill.billId)"></i>
                   </a>
                   <a href="javascript:void(0)">
                     <i class="far fa-trash-alt orange" placement="top"

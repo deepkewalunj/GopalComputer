@@ -7,6 +7,8 @@ import { AddInwardComponent } from './add-inward/add-inward.component';
 import { AddUpdateModelNoMaterialTypeComponent } from './add-update-model-no-material-type/add-update-model-no-material-type.component';
 import { AddEditAccessoryComponent } from './add-edit-accessory/add-edit-accessory.component';
 import { InwardPrintComponent } from './inward-print/inward-print.component';
+import { BillPrintComponent } from './bill-print/bill-print.component';
+import { OutwardPrintComponent } from './outward-print/outward-print.component';
 import { BillGenerationComponent } from './bill-generation/bill-generation.component';
 import { OutwardComponent } from './outward/outward.component';
 import { BillingListComponent } from './billing-list/billing-list.component';
@@ -53,6 +55,12 @@ const routes: Routes = [
   },
   {
     path: 'outward-list', component: OutwardListComponent
+  },
+  {
+    path: 'bill-print', component: BillPrintComponent
+  },
+  {
+    path: 'outward-print', component: OutwardPrintComponent
   },
   {
     path: '',
