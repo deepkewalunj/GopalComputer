@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL: "https://localhost:44377/api/"
+  API_URL: "http://localhost:53115/api/"
   //API_URL:"https://gopalcomputers.azurewebsites.net/api/"
 };
 

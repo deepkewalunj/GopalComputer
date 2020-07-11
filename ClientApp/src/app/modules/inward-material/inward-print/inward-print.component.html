@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"  id="print-section">
+<html lang="en" #printHtml id="print-section">
 <head>
-  <meta charset="utf-8">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
   <title>Example 1</title>
   <!--<link rel="stylesheet" href="style.css" media="all" />-->
   <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap' rel='stylesheet' type='text/css'>
@@ -47,8 +47,12 @@
             margin: 0 0 10px 0;
             text-align: left;">Computers</p>
           </td>
-          <td style="padding:0; background: transparent; width: 50%; text-align: right;"><img style="
-            margin-right: 7px;" [src]="APIURL+'Uploads/simple_'+inward.barCode" id="barCode" /></td>
+          <td style="padding:0; background: transparent; width: 50%; text-align: right;">
+
+          <img style="
+            margin-right: 7px;" [src]="APIURL+'Uploads/simple_'+inward.barCode" id="barCode" />
+
+          </td>
         </tr>
       </table>
     </div>
@@ -232,8 +236,12 @@
             margin: 0 0 10px 0;
             text-align: left;">Computers</p>
           </td>
-          <td style="padding:0; background: transparent; width: 50%; text-align: right;"><img style="
-            margin-right: 7px;" [src]="APIURL+'Uploads/simple_'+inward.barCode" id="barCode" /></td>
+          <td style="padding:0; background: transparent; width: 50%; text-align: right;">
+
+          <img style="
+            margin-right: 7px;" [src]="APIURL+'Uploads/simple_'+inward.barCode" id="barCode" />
+
+          </td>
         </tr>
       </table>
     </div>
@@ -390,6 +398,6 @@
 </body>
 </html>
 <div style="text-align: center; padding-bottom: 15px;">
-  <button printSectionId="print-section" ngxPrint class="btn btn-primary btn-sm">print</button>
+  <button printSectionId="print-section" (click)="getBase64EncodedImage()" class="btn btn-primary btn-sm">print</button>
   <button class="btn btn-secondary" (click)="close()">Cancel</button>
 </div>

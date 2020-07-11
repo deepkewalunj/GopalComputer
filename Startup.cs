@@ -21,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
+using Rotativa.AspNetCore;
 using System.IO;
 using System.Text;
 
@@ -106,7 +107,7 @@ namespace Gopal
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
-
+            RotativaConfiguration.Setup(env);
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
@@ -114,10 +115,10 @@ namespace Gopal
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
+               if (env.IsDevelopment())
+               {
+                   spa.UseAngularCliServer(npmScript: "start");
+               }
             });
         }
     }
