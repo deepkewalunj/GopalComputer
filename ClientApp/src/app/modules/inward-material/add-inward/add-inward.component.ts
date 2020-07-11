@@ -353,7 +353,7 @@ deleteTag(item) {
 
       this.inwardService.addEditInward(formData).subscribe(data=>{
       this.inward=data;
-      this._success.next("Inward Saved Successfully.");
+     this.GoToInwardById(this.inward.inwardId);
     },error=>{
 
 
@@ -362,6 +362,11 @@ deleteTag(item) {
 
 GoToInwardList(){
     this.router.navigate(['inward-material/inward']);
+}
+
+GoToInwardById(inwardId:number)
+{
+  this.router.navigate(['inward-material/add-inward',inwardId]);
 }
 
 AddAdditional(){

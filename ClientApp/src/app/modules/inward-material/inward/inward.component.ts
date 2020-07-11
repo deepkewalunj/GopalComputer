@@ -159,6 +159,7 @@ export class InwardComponent implements OnInit {
       },
       columns: [{ data: 'inwardId',searchable:true,orderable:true  },
                 { data: 'clientName',searchable:true,orderable:true  },
+                { data: 'modelNo',searchable:true,orderable:true  },
                 { data: 'isRepaired',searchable:true,orderable:true  },
                 { data: 'deliveryDate',searchable:false,orderable:true  },
                 { data: 'outwardBillStatus',searchable:false,orderable:true  },

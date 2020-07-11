@@ -47,6 +47,7 @@ export class Inward {
 export class InwardListModel{
   inwardId:string
    clientName:string
+   modelNo:string
    isRepaired:number
    deliveryDate:string
    outwardBillStatus: string
