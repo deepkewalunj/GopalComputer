@@ -116,6 +116,7 @@ input {
     font-size: $font13;
     color: #000;
     font-weight: 400;
+    text-transform: uppercase; 
 }
 
 :focus {
@@ -457,6 +458,12 @@ input[type=number] {
                 display: flex;
                 width: 100%;
             }
+
+            .form-control,
+input {
+    text-transform: inherit !important; 
+}
+
         }
     }
 }

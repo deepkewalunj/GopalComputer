@@ -12,7 +12,7 @@ import { QzTrayService } from './services/qz-tray.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit{
-  title = 'sample';
+  title = 'Gopal Computers';
 
   constructor(private router: Router, public sharedService: SharedService,
      private authenticationService: AuthenticationService,
