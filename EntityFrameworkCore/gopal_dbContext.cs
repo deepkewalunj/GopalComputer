@@ -20,6 +20,7 @@ namespace Gopal.EntityFrameworkCore
         public virtual DbSet<TblClient> TblClient { get; set; }
         public virtual DbSet<TblInward> TblInward { get; set; }
         public virtual DbSet<TblInwardDocument> TblInwardDocument { get; set; }
+        public virtual DbSet<TblMaster> TblMaster { get; set; }
         public virtual DbSet<TblMaterialAccessory> TblMaterialAccessory { get; set; }
         public virtual DbSet<TblModule> TblModule { get; set; }
         public virtual DbSet<TblModulePermission> TblModulePermission { get; set; }
@@ -386,6 +387,26 @@ namespace Gopal.EntityFrameworkCore
                 entity.Property(e => e.ModifiedDate)
                     .HasColumnName("modifiedDate")
                     .HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<TblMaster>(entity =>
+            {
+                entity.HasKey(e => e.MasterId)
+                    .HasName("PK__tblMaste__D7BE0B6B4745E4E0");
+
+                entity.ToTable("tblMaster");
+
+                entity.Property(e => e.MasterId).HasColumnName("masterId");
+
+                entity.Property(e => e.MasterKey)
+                    .HasColumnName("masterKey")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.MasterValue)
+                    .HasColumnName("masterValue")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<TblMaterialAccessory>(entity =>
