@@ -51,6 +51,10 @@ const routes: Routes = [
     loadChildren: './modules/forgot-password/forgot-password.module#ForgotPasswordModule',
   },
   {
+    path: 'reports',
+    loadChildren: './modules/reports/reports.module#ReportsModule',
+  },
+  {
     path: 'login',
     loadChildren: './modules/login/login.module#LoginModule',
   },

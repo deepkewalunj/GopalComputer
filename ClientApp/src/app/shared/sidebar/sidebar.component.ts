@@ -15,6 +15,8 @@ export class SidebarComponent implements OnInit {
   public uiBasicCollapsed = false;
   public uiBasicCollapsedr = false;
   public uiBasicCollapsedIn = false;
+  public uiBasicCollapseRe = false;
+  
 
 
   constructor(private navservice: NavCollapseService, public sharedService: SharedService, private breakpointObserver: BreakpointObserver) {
