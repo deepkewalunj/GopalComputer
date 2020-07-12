@@ -1,9 +1,9 @@
 <form [formGroup]="billGenerationForm" novalidate>
   <div class="container form-container">
-    <h4>{{bill.billId > 0 ? 'Edit':'Add'}} Bill # {{bill.billId}}</h4>
+    
     <div class="card mt-1">
       <div class="card-header">
-        <h5>Job Numbers Detail</h5>
+        <h5>{{bill.billId > 0 ? 'Edit':'Add'}} Bill # {{bill.billId}}</h5>
       </div>
       <div class="card-body">
         <div class="form-group">
@@ -364,7 +364,7 @@
       </div>
 
     </div>
-    <footer>
+    <footer class="text-center pt-2 pb-3">
       <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
       <button type="submit" class="btn btn-primary" (click)="billGenerationForm.valid && validateForm() && saveBill()">
         Save

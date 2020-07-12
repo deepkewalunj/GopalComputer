@@ -115,7 +115,33 @@
     </li>
 <!--inward-menu-end-->
 
+<li class="nav-item" (click)="uiBasicCollapsedRepoIn = false" [routerLinkActive]="['active']">
+  <a class="nav-link" (click)="uiBasicCollapseRe = !uiBasicCollapseRe"
+    [attr.aria-expanded]="uiBasicCollapseRe" aria-controls="ui-list">
+    <i class="far fa-user"></i> <span class="menu-title"> Reports</span>
+    <i class="fa fa-arrow-circle-right menu-arrow" aria-hidden="true"></i>
+  </a>
 
+  <div class="collapse" id="ui-list" [ngbCollapse]="!uiBasicCollapseRe" [ngClass]="{ 'show': isShown }">
+    <ul class="nav flex-column sub-menu"  [routerLinkActive]="['subActive']">
+      <li class="nav-item">
+        <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="reports/bill-report"
+          routerLinkActive="active"><i class="fas fa-circle"></i> Bill Reports</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="reports/outward-report"
+          routerLinkActive="active"><i class="fas fa-circle"></i> Outward Reports</a>
+      </li>
+    </ul>
+  </div>
+</li>
+
+<!-- <li class="nav-item"  (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': reports.isActive }">
+  <a class="nav-link" routerLink="/reports" routerLinkActive #reports="routerLinkActive">
+    <i class="far fa-user"></i>
+    <span class="menu-title">Reports</span>
+  </a>
+</li> -->
 
     <li class="nav-item"  (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': sampleList.isActive }">
       <a class="nav-link" routerLink="/sample-list" routerLinkActive #sampleList="routerLinkActive">
