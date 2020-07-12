@@ -16,7 +16,7 @@ export class SidebarComponent implements OnInit {
   public uiBasicCollapsedr = false;
   public uiBasicCollapsedIn = false;
   public uiBasicCollapseRe = false;
-  
+  public uiBasicCollapsedRepoIn=false;
 
 
   constructor(private navservice: NavCollapseService, public sharedService: SharedService, private breakpointObserver: BreakpointObserver) {
@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit {
   });
 
 //media breakpoints
-   
+
  }
 
  deviceSidemenuCollapse(): void {
@@ -44,14 +44,14 @@ export class SidebarComponent implements OnInit {
   //   this.navservice.sidebarToggle();
   //  this.navservice.setNavCollapse(false);
   //     }
-    
+
   //   });
 
   if (this.breakpointObserver.isMatched('(max-width:769px)')) {
     this.navservice.sidebarToggle();
    this.navservice.setNavCollapse(false);
   }
-    
+
  }
 
  sidebarToggle(): void {
