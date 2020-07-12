@@ -437,7 +437,7 @@ getBase64EncodedImage(isZPL){
         format: 'base64',
         data: base64Image
      }];
-     debugger;
+     
     that.printService.printBarCodeData("Citizen CL-S621", printData).subscribe(data=>{
        that.isBarCodePrinting=false;
         console.log(data);
@@ -455,6 +455,31 @@ getBase64EncodedImage(isZPL){
 
   }
 
+  printInwardByZPL() {
+    var data = [
+      '^XA',
+      '^FO60,25^BY3^BCN,43,N,,,A^FD1001000^FS',
+      '^FO350,30^A0,40^FD1001000^FS',
+      '^FO60,76^A2,20^FDGOPAL COMPUTERS^FS',
+      '^FO60,97^A2,20^FDLAPTOP,BAG,BATTERY^FS',
+      '^FO60,120^A2,20^FDPROB: FAULTY RAM^FS',
+      '^FO60,145^A2,20^FDDAVID^FS',
+      '^FO370,145^A2,20^FD12/07/20^FS',
+      '^FO60,167^A2,20^FDREPAIRED:     YES      NO^FS',
+      '^XZ'
+    ];
+
+    // ['\n\n\n\n\n' + barcode + '\n\n\n\n\n']
+    this.printService.printBarCodeData("Citizen CL-S621Z", data).subscribe(data => {
+      this.isBarCodePrinting = false;
+      console.log(data);
+    }, error => {
+        this.isBarCodePrinting = false;
+      console.log(error);
+    });
+
+
+  }
 
   openInwardPrintPopup(inward) {
     const modalRef = this.modalService.open(InwardPrintComponent, { size: 'lg', windowClass: 'print-modal' });
