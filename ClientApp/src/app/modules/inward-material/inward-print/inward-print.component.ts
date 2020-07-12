@@ -50,7 +50,6 @@ getBase64EncodedImage(){
 }
   printInward(base64Data,that){
 
-debugger;
     var printData = [
       {
         type: 'pixel',
@@ -60,8 +59,9 @@ debugger;
 
       }
     ];
+    debugger;
 
-    that.printService.printData("Microsoft Print to PDF", printData).subscribe(data=>{
+    that.printService.printData(this.inward.normalPrinterName, printData).subscribe(data=>{
       that.isInwardPrinting=false;
       console.log(data);
     },error=>{

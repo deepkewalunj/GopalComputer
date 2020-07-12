@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Gopal.Services.Customer
@@ -207,6 +208,31 @@ namespace Gopal.Services.Customer
 
             }
         }
+
+        private List<string> GetInwardBarCodeZPL(InwardTypeScriptModel inwardModel) {
+            string ZPL = @"^XA$$
+                          ^FO60,25^BY3^BCN,43,N,,,A^FD##BARCODE##^FS$$
+                          ^FO350,30^A0,40^FD##BARCODE##^FS$$
+                          ^FO60,76^A2,20^FD##COMPANYNAME##^FS$$
+                          ^FO60,97^A2,20^FD##ACCESSORIES##^FS$$
+                          ^FO60,120^A2,20^FDPROB: ##PROBLEMDESCRIPTION##^FS$$
+                          ^FO370,145^A2,20^FD##INWARDDATE##^FS$$
+                          ^FO60,167^A2,20^FDREPAIRED:     YES      NO^FS$$
+                          ^XZ";
+            var replacements = new Dictionary<string, string>
+            {
+                ["BARCODE"] = inwardModel.inwardId.ToString(),
+                ["COMPANYNAME"] = inwardModel.companyName?.ToUpper(),
+                ["ACCESSORIES"] = inwardModel.accessories?.ToUpper(),
+                ["PROBLEMDESCRIPTION"] = inwardModel.problemDescription?.ToUpper(),
+                ["INWARDDATE"] = inwardModel.inwardDate?.ToString("dd/MM/y")
+            };
+            var pattern = $"##(?<placeholder>{string.Join("|", replacements.Keys)})##";
+            var result = Regex.Replace(ZPL, pattern, m => replacements[m.Groups["placeholder"].Value], RegexOptions.ExplicitCapture);
+            List<String> lstZPLBarCode = result.Split("$$")?.ToList();
+            return lstZPLBarCode;
+
+        }
         private InwardModel PostProcessInward(InwardTypeScriptModel inwardModel)
         {
             //Process Inward Date
@@ -281,6 +307,9 @@ namespace Gopal.Services.Customer
                 inwardModel.inwardFiles = lstFiles;
             }
 
+            inwardModel.inwardBarCodeZPL=  GetInwardBarCodeZPL(inwardModel);
+            inwardModel.normalPrinterName = _dbContext.TblMaster.FirstOrDefault(x => x.MasterKey == "NORMAL_PRINTER").MasterValue;
+            inwardModel.barCodePrinterName = _dbContext.TblMaster.FirstOrDefault(x => x.MasterKey == "BARCODE_PRINTER").MasterValue;
             return inwardModel;
         }
 

@@ -42,6 +42,9 @@ export class Inward {
   accessories: string;
   inwardFiles:FilePoco[];
   repairedRemark:string;
+  inwardBarCodeZPL:string[];
+  barCodePrinterName:string;
+  normalPrinterName:string;
 }
 
 export class InwardListModel{

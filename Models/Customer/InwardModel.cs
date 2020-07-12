@@ -61,6 +61,9 @@ namespace Gopal.Models.Customer
         public NgbDateModel ngbDeliveryDate { get; set; }
         public List<FilePOCO> inwardFiles { get; set; }
         public string clientName { get; set; }
+        public List<string> inwardBarCodeZPL { get; set; }
+        public string barCodePrinterName { get; set; }
+        public string normalPrinterName { get; set; }
 
     }
     public class FilePOCO {

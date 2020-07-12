@@ -18,7 +18,7 @@ export class OutwardReportComponent implements OnInit {
   /*on click search filter hide show on mobile*/
 
   toggleSearch() {
-    this.searchFilter = !this.searchFilter;    
+    this.searchFilter = !this.searchFilter;
   }
 
 }
