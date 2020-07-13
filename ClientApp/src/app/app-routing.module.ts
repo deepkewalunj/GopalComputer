@@ -53,6 +53,7 @@ const routes: Routes = [
   {
     path: 'reports',
     loadChildren: './modules/reports/reports.module#ReportsModule',
+    canActivate: [AuthorizationCheck]
   },
   {
     path: 'login',
@@ -64,6 +65,8 @@ const routes: Routes = [
     redirectTo: '/login',
     pathMatch: 'full'
   },
+
+  { path: 'payment', loadChildren: () => import('./modules/payment/payment.module').then(m => m.PaymentModule), canActivate: [AuthorizationCheck] },
 ];
 
 

@@ -24,6 +24,7 @@ import { CustomDateParserFormatter } from './services/custom-date-parser-formatt
 import { WebcamModule } from 'ngx-webcam';
 import { QzTrayService } from './services/qz-tray.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
