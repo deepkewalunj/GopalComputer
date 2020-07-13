@@ -20,6 +20,7 @@ namespace Gopal.EntityFrameworkCore
         public virtual DbSet<TblClient> TblClient { get; set; }
         public virtual DbSet<TblInward> TblInward { get; set; }
         public virtual DbSet<TblInwardDocument> TblInwardDocument { get; set; }
+        public virtual DbSet<TblLumpsum> TblLumpsum { get; set; }
         public virtual DbSet<TblMaster> TblMaster { get; set; }
         public virtual DbSet<TblMaterialAccessory> TblMaterialAccessory { get; set; }
         public virtual DbSet<TblModule> TblModule { get; set; }
@@ -387,6 +388,69 @@ namespace Gopal.EntityFrameworkCore
                 entity.Property(e => e.ModifiedDate)
                     .HasColumnName("modifiedDate")
                     .HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<TblLumpsum>(entity =>
+            {
+                entity.HasKey(e => e.LumpsumId)
+                    .HasName("PK__tblLumps__2DDA78A5DA3F8975");
+
+                entity.ToTable("tblLumpsum");
+
+                entity.Property(e => e.LumpsumId).HasColumnName("lumpsumId");
+
+                entity.Property(e => e.BillRefId).HasColumnName("billRefId");
+
+                entity.Property(e => e.ChequeDate)
+                    .HasColumnName("chequeDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.ChequeNo)
+                    .HasColumnName("chequeNo")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ClientIdRef).HasColumnName("clientIdRef");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("createdDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.EnggName)
+                    .HasColumnName("enggName")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+
+                entity.Property(e => e.LumpsumDate)
+                    .HasColumnName("lumpsumDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedBy).HasColumnName("modifiedBy");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnName("modifiedDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.OutwardRefId).HasColumnName("outwardRefId");
+
+                entity.Property(e => e.PaidAmount)
+                    .HasColumnName("paidAmount")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.PaymentMode).HasColumnName("paymentMode");
+
+                entity.Property(e => e.PaymentRecievedBy)
+                    .HasColumnName("paymentRecievedBy")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PrintStatus).HasColumnName("printStatus");
+
+                entity.Property(e => e.SmsSent).HasColumnName("smsSent");
             });
 
             modelBuilder.Entity<TblMaster>(entity =>
