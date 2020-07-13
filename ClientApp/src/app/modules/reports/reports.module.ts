@@ -8,8 +8,11 @@ import { ReportsRoutingModule } from './reports-routing.module';
 import { BillReportComponent } from './bill-report/bill-report.component';
 import { OutwardReportComponent } from './outward-report/outward-report.component';
 import { DataTablesModule } from 'angular-datatables';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
-
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 @NgModule({
   declarations: [BillReportComponent, OutwardReportComponent],
   imports: [
@@ -19,6 +22,7 @@ import { DataTablesModule } from 'angular-datatables';
     NgbModule,
     ReactiveFormsModule,
 
+    NgxMaskModule.forRoot(maskConfig),
     FormsModule,
   ]
 })

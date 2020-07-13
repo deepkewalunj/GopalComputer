@@ -25,15 +25,15 @@ export class Bill{
   jobNumbers: string
 }
 export class BillOutwardReportSearchModel{
-  customerName:string
-  billNo :string
+  customerName:any
+  reportId :string
   reportFromDate: NgbDate
   reportToDate :NgbDate
 }
 
 export class BillOutwardReportModel{
   reportId :number
-  inwardId :number
+  jobNumbers :string
   reportDate :string
   serviceAmount:number
   advanceAmount :number

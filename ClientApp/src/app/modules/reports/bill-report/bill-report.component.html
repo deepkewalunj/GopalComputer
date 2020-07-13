@@ -13,13 +13,17 @@
                 <div class="row mb-2">
                     <div class="col-sm">
                         <div class="form-group has-float-label">
-                            <input class="form-control" [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="searchModel.customerName" id="companyName" placeholder="Company Name">
+                           <input id="customerName" type="text" class="form-control"
+
+                               [(ngModel)]="searchModel.customerName" [inputFormatter]="formatter"
+                               [resultFormatter]="formatter" [ngModelOptions]="{standalone: true}"
+                               [editable]='true' [ngbTypeahead]="searchCustomer" placeholder="Select Company"/>
                             <label for="companyName">Company Name</label>
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="form-group has-float-label">
-                            <input class="form-control" [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="searchModel.billNo" id="billNumber" placeholder="Bill Number">
+                            <input class="form-control" mask="0000000000" [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="searchModel.reportId" id="billNumber" placeholder="Bill Number">
                             <label for="billNumber">Bill Number</label>
                         </div>
                     </div>
@@ -56,8 +60,8 @@
                     </div>
                     <div class="col-sm text-right">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-outline btn-outline-dark">Reset</button>
-                            <button type="submit" class="btn btn-outline btn-outline-dark">Search</button>
+                            <button type="reset" (click)="clearFilter()" class="btn btn-outline btn-outline-dark">Reset</button>
+                            <button type="button" (click)="GetBillReport(false)" class="btn btn-outline btn-outline-dark">Search</button>
                         </div>
                     </div>
                 </div>
@@ -69,29 +73,27 @@
                 <table class="table table-striped" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
                         <tr>
-                            <th scope="col" style="width:14%" class="cursor">
-                                <div class="d-flex align-items-center"><span>Bill Date</span> <span>
-                                        &#9660;</span></div>
+                            <th scope="col" style="width:15%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Bill Date</span></div>
                             </th>
-                            <th scope="col" style="width:14%" class="cursor">
-                                <div class="d-flex align-items-center"><span>Bill #</span> <span> &#9650; </span>
+                            <th scope="col" style="width:10%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Bill #</span>
                                 </div>
                             </th>
-                            <th scope="col" style="width:14%" class="cursor">
-                                <div class="d-flex align-items-center"><span>Job #</span> <span> &#9650;
-                                    </span></div>
+                            <th scope="col" style="width:15%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Job #</span> </div>
                             </th>
-                            <th scope="col" style="width:14%" class="text-right">
-                                Job ₹
+                            <th scope="col" style="width:15%" class="text-right">
+                              Service Amount
                             </th>
-                            <th scope="col" style="width:14%" class="text-right">
-                                Advance ₹
+                            <th scope="col" style="width:15%" class="text-right">
+                                Advance Amount
                             </th>
-                            <th scope="col" style="width:14%" class="text-right">
-                                Paid ₹
+                            <th scope="col" style="width:15%" class="text-right">
+                                Paid Amount
                             </th>
-                            <th scope="col" style="width:14%" class="text-right">
-                                O/S ₹
+                            <th scope="col" style="width:15%" class="text-right">
+                                O/S Amount
                             </th>
                         </tr>
                     </thead>
@@ -99,15 +101,27 @@
                         <tr *ngFor="let bill of lstBillReport">
                             <td data-title="Bill Date">{{bill.reportDate | date: 'dd/MM/yyyy' }}</td>
                             <td data-title="Bill #">{{bill.reportId}}</td>
-                            <td data-title="Job #">{{bill.inwardId}}</td>
-                            <td data-title="Job ₹" class="text-right">{{bill.serviceAmount}}</td>
-                            <td data-title="Advance ₹" class="text-right">{{bill.advanceAmount}}</td>
-                            <td data-title="Paid ₹" class="text-right">{{bill.paidImmediatlyAmount}}</td>
-                            <td data-title="O/S ₹" class="text-right">{{bill.outstandingAmount}}</td>
+                            <td data-title="Job #">{{bill.jobNumbers}}</td>
+                            <td data-title="Service Amount" class="text-right">{{bill.serviceAmount}}</td>
+                            <td data-title="Advance Amount" class="text-right">{{bill.advanceAmount}}</td>
+                            <td data-title="Paid Amount" class="text-right">{{bill.paidImmediatlyAmount}}</td>
+                            <td data-title="O/S Amount" class="text-right"  [ngClass]="{'text-danger': bill.outstandingAmount >0}">
+                              {{bill.outstandingAmount}}</td>
                         </tr>
 
 
                     </tbody>
+                    <tfoot>
+                      <tr>
+                        <th class="text-right"></th>
+                        <th class="text-right"></th>
+                        <th class="text-right">Total:</th>
+                        <th class="text-right">{{servicetotal}}</th>
+                        <th class="text-right">{{advancetotal}}</th>
+                        <th class="text-right">{{paidtotal}}</th>
+                        <th class="text-right" [ngClass]="{'text-danger': outStandingtotal >0}">{{outStandingtotal}}</th>
+                    </tr>
+                    </tfoot>
                 </table>
 
                 <!--table listing end-->

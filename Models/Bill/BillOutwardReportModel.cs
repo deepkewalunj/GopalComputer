@@ -1,4 +1,5 @@
-﻿using Gopal.Models.Customer;
+﻿using Gopal.Models.Common;
+using Gopal.Models.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Gopal.Models.Bill
     {
 
         public int reportId { get; set; }
-        public int inwardId { get; set; }
+        public string jobNumbers { get; set; }
         public DateTime? reportDate { get; set; }
         public float serviceAmount { get; set; }
         public float advanceAmount { get; set; }
@@ -19,8 +20,8 @@ namespace Gopal.Models.Bill
     }
 
     public class BillOutwardReportSearchModel {
-        public string customerName { get; set; }
-        public int? billNo  { get; set; }
+        public object customerName { get; set; }
+        public string reportId { get; set; }
         public NgbDateModel reportFromDate { get; set; }
         public NgbDateModel reportToDate { get; set; }
     }

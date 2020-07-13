@@ -4,8 +4,11 @@ import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@an
 import { NgbModal, NgbDate, NgbCalendar ,NgbPeriod} from '@ng-bootstrap/ng-bootstrap';
 import { BillOutwardReportModel, BillOutwardReportSearchModel } from 'src/app/models/Bill.model';
 import { BillService } from 'src/app/services/bill.service';
-import { Subject } from 'rxjs';
+import { Subject, Observable, of } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { TypeAheadResponseModel } from 'src/app/models/typeahead.model';
+import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
+import { TypeAheadService } from 'src/app/services/type-ahead.service';
 
 @Component({
   selector: 'app-bill-report',
@@ -17,31 +20,91 @@ export class BillReportComponent implements OnInit {
   searchForm: FormGroup;
   lstBillReport:BillOutwardReportModel[];
   searchModel:BillOutwardReportSearchModel;
+  formatter = (typeAhead: TypeAheadResponseModel) => typeAhead.searchValue;
 
   dtTrigger: Subject<any> = new Subject();
   dtOptions: {};
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
+  servicetotal:number=0;
+  advancetotal:number=0;
+  paidtotal:number=0;
+  outStandingtotal:number=0;
 
-  constructor(private ngbCalendar: NgbCalendar,private billService:BillService) { }
+  searching = false;
+  searchFailed = false;
+
+  constructor(private ngbCalendar: NgbCalendar,
+    private billService:BillService,
+    private typeAheadService:TypeAheadService) { }
 
   ngOnInit() {
-    this.searchModel={billNo:'',customerName:'',reportFromDate:null,reportToDate:null};
-    const that=this;
 
+    const that=this;
+    this.clearFilter();
+    this.searchModel.reportFromDate=this.ngbCalendar.getToday();
+    this.searchModel.reportToDate=this.ngbCalendar.getToday();
     this.dtOptions = {
       paging:false,
       searching:false,
       dom: 'Bfrtip',
-      buttons: ['excel',{
+      buttons: [
+        {
+          extend:'excel',
+          messageTop: 'Inward Bill Report',
+          footer: true
+        },
+       {
         extend: 'pdfHtml5',
         orientation: 'landscape',
         pageSize: 'LEGAL',
-        messageTop: 'Inward Bill Report'
+        messageTop: 'Inward Bill Report',
+        footer: true
     }],
+    footerCallback: function ( row, data, start, end, display ) {
+
+      var api = this.api(), data;
+
+      // Remove the formatting to get integer data for summation
+      let intVal = function ( i) {
+          return typeof i === 'string' ? parseFloat(i) :
+          typeof i === 'number' ?
+              i : 0;
+      };
+
+
+      that.servicetotal = api
+          .column( 3)
+          .data()
+          .reduce( function (a, b) {
+              return intVal(a) + intVal(b);
+          }, 0 );
+          that.advancetotal = api
+          .column( 4)
+          .data()
+          .reduce( function (a, b) {
+              return intVal(a) + intVal(b);
+          }, 0 );
+          that.paidtotal = api
+          .column( 5)
+          .data()
+          .reduce( function (a, b) {
+              return intVal(a) + intVal(b);
+          }, 0 );
+          that.outStandingtotal = api
+          .column( 6)
+          .data()
+          .reduce( function (a, b) {
+              return intVal(a) + intVal(b);
+          }, 0 );
+
+
+
+
+  },
      columns: [{ data: 'reportDate',searchable:false,orderable:true  },
       { data: 'reportId',searchable:false,orderable:true  },
-      { data: 'inwardId',searchable:false,orderable:true  },
+      { data: 'jobNumbers',searchable:false,orderable:true  },
       { data: 'serviceAmount',searchable:false,orderable:true  },
       { data: 'advanceAmount',searchable:false,orderable:true  },
       { data: 'paidImmediatlyAmount',searchable:false,orderable:true  },
@@ -58,6 +121,11 @@ export class BillReportComponent implements OnInit {
       this.dtTrigger.next();
     });
   }
+
+  clearFilter(){
+    this.searchModel={reportId:'',customerName:null,reportFromDate:null,reportToDate:null};
+  }
+
   GetBillReport(first=false){
     const that = this;
     this.billService.GetBillReportList(this.searchModel).subscribe(data=>{
@@ -81,4 +149,20 @@ export class BillReportComponent implements OnInit {
     this.searchFilter = !this.searchFilter;
   }
 
+  searchCustomer = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap(term =>term.length < 2 ? []:
+        this.typeAheadService.GetTypeAheadList(1,term,1)
+        .pipe(
+          tap(() => this.searchFailed = false),
+          catchError(() => {
+            this.searchFailed = true;
+            return of([]);
+          }))
+      ),
+      tap(() => this.searching = false)
+    )
 }
