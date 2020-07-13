@@ -70,6 +70,7 @@ namespace Gopal
             services.AddTransient<ITypeAheadService, TypeAheadService>();
             services.AddTransient<IBillServices, BillService>();
             services.AddTransient<IOutwardServices, OutwardService>();
+            services.AddTransient<IBillOutwardReportService, BillOutwardReportService>();
             services.AddSingleton<ILog, LogNLog>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -115,10 +116,10 @@ namespace Gopal
 
                 spa.Options.SourcePath = "ClientApp";
 
-               if (env.IsDevelopment())
-               {
-                   spa.UseAngularCliServer(npmScript: "start");
-               }
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }

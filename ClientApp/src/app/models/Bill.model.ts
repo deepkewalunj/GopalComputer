@@ -24,3 +24,19 @@ export class Bill{
   customerName: string
   jobNumbers: string
 }
+export class BillOutwardReportSearchModel{
+  customerName:string
+  billNo :string
+  reportFromDate: NgbDate
+  reportToDate :NgbDate
+}
+
+export class BillOutwardReportModel{
+  reportId :number
+  inwardId :number
+  reportDate :string
+  serviceAmount:number
+  advanceAmount :number
+  paidImmediatlyAmount :number
+  outstandingAmount:number
+}

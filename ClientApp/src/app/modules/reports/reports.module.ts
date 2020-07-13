@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ReportsRoutingModule } from './reports-routing.module';
 import { BillReportComponent } from './bill-report/bill-report.component';
 import { OutwardReportComponent } from './outward-report/outward-report.component';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -14,8 +15,11 @@ import { OutwardReportComponent } from './outward-report/outward-report.componen
   imports: [
     CommonModule,
     ReportsRoutingModule,
+    DataTablesModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
+    FormsModule,
   ]
 })
 export class ReportsModule { }
