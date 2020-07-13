@@ -41,11 +41,12 @@ export class InwardPrintComponent implements OnInit {
 
 getBase64EncodedImage(){
   const that=this;
+  that.isInwardPrinting=true;
   that.toDataUrl(environment.API_URL+'PDF/PrintInward?inwardId='+this.inward.inwardId,function(base64Image){
     base64Image=base64Image.split(",")[1];
     that.printInward(base64Image,that);
 
-  } );
+  });
 
 }
   printInward(base64Data,that){
@@ -59,7 +60,6 @@ getBase64EncodedImage(){
 
       }
     ];
-    debugger;
 
     that.printService.printData(this.inward.normalPrinterName, printData).subscribe(data=>{
       that.isInwardPrinting=false;

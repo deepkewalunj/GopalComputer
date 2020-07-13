@@ -393,70 +393,11 @@ AddAdditional(){
 		this.inward.inwardFiles.splice(this.inward.inwardFiles.indexOf(event), 1);
 	}
 
-  toDataUrl(url, callback) {
 
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-        var reader = new FileReader();
-        reader.onloadend = function() {
-            callback(reader.result);
-        }
-        reader.readAsDataURL(xhr.response);
-    };
-    xhr.open('GET', url);
-    xhr.responseType = 'blob';
-    xhr.send();
-}
-
-
-getBase64EncodedImage(isZPL){
-  const that=this;
-  this.toDataUrl(environment.API_URL+'Uploads/'+this.inward.barCode,function(base64Image){
-    base64Image=base64Image.split(",")[1];
-    if(!that.isBarCodePrinting)
-    {
-      that.PrintInwardBarcode(base64Image,isZPL,that);
-    }
-
-  } );
-
-}
-
-
-
-
-  PrintInwardBarcode(base64Image,isZPL,that)
-  {
-
-    that.isBarCodePrinting=true;
-    that.printService.getPrinters().subscribe(data=>{
-
-      console.log(data);
-      let printData = [{
-        type: 'image',
-        format: 'base64',
-        data: base64Image
-     }];
-
-    that.printService.printBarCodeData("Citizen CL-S621", printData).subscribe(data=>{
-       that.isBarCodePrinting=false;
-        console.log(data);
-      },error=>{
-        that.isBarCodePrinting=false;
-        console.log(error);
-      });
-
-    },error=>{
-      that.isBarCodePrinting=false;
-      console.log(error);
-    });
-
-
-
-  }
 
   printInwardByZPL() {
-debugger;
+
+    this.isBarCodePrinting=true;
     this.printService.printBarCodeData( this.inward.barCodePrinterName, this.inward.inwardBarCodeZPL).subscribe(data => {
       this.isBarCodePrinting = false;
       console.log(data);

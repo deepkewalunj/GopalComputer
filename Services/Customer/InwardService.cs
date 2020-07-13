@@ -213,19 +213,22 @@ namespace Gopal.Services.Customer
             string ZPL = @"^XA$$
                           ^FO60,25^BY3^BCN,43,N,,,A^FD##BARCODE##^FS$$
                           ^FO350,30^A0,40^FD##BARCODE##^FS$$
-                          ^FO60,76^A2,20^FD##COMPANYNAME##^FS$$
-                          ^FO60,97^A2,20^FD##ACCESSORIES##^FS$$
+                          ^FO60,76^A0,25^FD##COMPANYNAME##^FS$$
+                          ^FO60,99^A2,20^FD##ACCESSORIES##^FS$$
                           ^FO60,120^A2,20^FDPROB: ##PROBLEMDESCRIPTION##^FS$$
-                          ^FO370,145^A2,20^FD##INWARDDATE##^FS$$
+                          ^FO370,142^A2,20^FD##INWARDDATE##^FS$$
                           ^FO60,167^A2,20^FDREPAIRED:     YES      NO^FS$$
+                          ^FO272,163^GB40,25,3^FS
+                          ^FO367,163^GB40,25,3^FS
                           ^XZ";
             var replacements = new Dictionary<string, string>
             {
                 ["BARCODE"] = inwardModel.inwardId.ToString(),
-                ["COMPANYNAME"] = inwardModel.companyName?.ToUpper(),
+                ["COMPANYNAME"] = inwardModel.clientName?.ToUpper(),
                 ["ACCESSORIES"] = inwardModel.accessories?.ToUpper(),
                 ["PROBLEMDESCRIPTION"] = inwardModel.problemDescription?.ToUpper(),
-                ["INWARDDATE"] = inwardModel.inwardDate?.ToString("dd/MM/y")
+                ["INWARDDATE"] = $"{inwardModel.ngbInwardDate.day}/{inwardModel.ngbInwardDate.month}/{inwardModel.ngbInwardDate.year}"
+            
             };
             var pattern = $"##(?<placeholder>{string.Join("|", replacements.Keys)})##";
             var result = Regex.Replace(ZPL, pattern, m => replacements[m.Groups["placeholder"].Value], RegexOptions.ExplicitCapture);
