@@ -1,0 +1,243 @@
+<form [formGroup]="lumpsumGenerationForm" novalidate>
+  <div class="container form-container">
+
+    <div class="card mt-1">
+      <div class="card-header">
+        <h5>{{lumpsum.lumpsumId > 0 ? 'Edit':'Add'}} Voucher # {{lumpsum.lumpsumId}}</h5>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-12 has-float-label">
+              <input *ngIf="(lumpsum.lumpsumId <= 0 || !lumpsum.lumpsumId)" id="customerName" type="text" class="form-control"
+                     [(ngModel)]="lumpsum.customerTypeAhead" [inputFormatter]="formatter"
+                     [resultFormatter]="formatter" formControlName="customerName"
+                     [editable]='false' [ngbTypeahead]="searchCustomer" placeholder="Select Company"
+                     (selectItem)="companyNameSelected($event)" />
+              <input *ngIf="lumpsum.lumpsumId > 0" id="customerName" type="text" class="form-control"
+                     [(ngModel)]="lumpsum.customerTypeAhead" [inputFormatter]="formatter" disabled
+                     [resultFormatter]="formatter" formControlName="customerName"
+                     [editable]='false' [ngbTypeahead]="searchCustomer" placeholder="Select Company"
+                     (selectItem)="companyNameSelected($event)" />
+              <small *ngIf="searching" class="form-text text-muted">searching...</small>
+              <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+              <label for="customerName">Company Name</label>
+              <div *ngIf="lumpsumGenerationForm.controls['customerName'].invalid &&
+                          (lumpsumGenerationForm.controls['customerName'].dirty || lumpsumGenerationForm.controls['customerName'].touched)"
+                   class="error-msg">
+                <div *ngIf="lumpsumGenerationForm.controls['customerName'].errors.required">
+                  Company name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h5>Statement Summary</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 d-flex">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="totalBillAmount" [(ngModel)]="lumpsum.totalBillAmount" formControlName="totalBillAmount" type="number" />
+              <label for="totalBillAmount">Total Bill Amt</label>
+            </div><span style="padding:10px;">+</span>
+            <div class="form-group has-float-label">
+              <input class="form-control" id="totalOutwordAmount" [(ngModel)]="lumpsum.totalOutwordAmount" formControlName="totalOutwordAmount" type="number" />
+              <label for="totalOutwordAmount">Total Outward Amt</label>
+            </div><span style="padding:10px;">=</span>
+            <div class="form-group has-float-label">
+              <input class="form-control text-danger" id="totalAmountDue" [(ngModel)]="lumpsum.totalAmountDue" formControlName="totalAmountDue" type="number" />
+              <label class="text-danger" for="totalAmountDue">Total Amt Due</label>
+            </div><span style="padding:10px;">-</span>
+            <div class="form-group has-float-label">
+              <input class="form-control text-success" id="totalPaidAmount" [(ngModel)]="lumpsum.totalPaidAmount" formControlName="totalPaidAmount" type="number" />
+              <label class="text-success" for="totalPaidAmount">Total Paid Amt</label>
+            </div><span style="padding:10px;">=</span>
+            <div class="form-group has-float-label">
+              <input class="form-control text-danger" id="outstandingAmount" [(ngModel)]="lumpsum.outstandingAmount" formControlName="outstandingAmount" type="number" />
+              <label class="text-danger" for="outstandingAmount">Total OST Amt</label>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <h5>Bill Details</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="paidAmount" [(ngModel)]="lumpsum.paidAmount" formControlName="paidAmount" type="number" placeholder="Paid Amount" />
+              <label for="paidAmount">Paid Amount</label>
+              <div *ngIf="lumpsumGenerationForm.controls['paidAmount'].invalid &&
+                          (lumpsumGenerationForm.controls['paidAmount'].dirty || lumpsumGenerationForm.controls['paidAmount'].touched)"
+                   class="error-msg">
+                <div *ngIf="lumpsumGenerationForm.controls['paidAmount'].errors.required">
+                  Paid amount is required.
+                </div>
+              </div>
+              <div class="text-warning" *ngIf="(lumpsum.paidAmount > lumpsum.outstandingAmount) && (lumpsum.lumpsumId <= 0 || !lumpsum.lumpsumId)">
+                Paid amount is greater than outstanding amount.
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group">
+              <div class="input-group datepicker">
+                <label class="date-label">Hand Over Date</label>
+                <input class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="lumpsum.ngbLumpsumDate" name="dp"
+                       ngbDatepicker
+                       #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="lumpsumDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
+                          type="button">
+                    <i class="far fa-calendar-alt"></i>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="lumpsumGenerationForm.controls['lumpsumDate'].invalid &&
+                          (lumpsumGenerationForm.controls['lumpsumDate'].dirty || lumpsumGenerationForm.controls['lumpsumDate'].touched)"
+                   class="error-msg">
+                <div *ngIf="lumpsumGenerationForm.controls['lumpsumDate'].errors.required">
+                  Hand over date is required.
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-4">
+            <div class="form-group">
+              <label class="radio-btns-label d-block">Print Status</label>
+              <div class="custom-control custom-radio d-inline-block mt-3">
+                <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="lumpsum.printStatus" id="customRadio5" name="customRadioPrintStatus" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio5">Printed</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="lumpsum.printStatus" id="customRadio6" name="customRadioPrintStatus" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio6">Not Printed</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-4">
+            <div class="form-group">
+              <label class="radio-btns-label d-block">SMS Sent</label>
+              <div class="custom-control custom-radio d-inline-block mt-3">
+                <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="lumpsum.smsSent" id="customRadio9" name="customRadioSmsSent" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio9">Yes</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="lumpsum.smsSent" id="customRadio10" name="customRadioSmsSent" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio10">No</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="lumpsum.paidAmount > 0" class="row">
+          <div class="col-12 col-md-12 col-lg-12">
+            <div>
+              <label class="radio-btns-label d-block">Payment Mode</label>
+              <div class="custom-control custom-radio d-inline-block mt-3">
+                <input type="radio" value="1" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="lumpsum.paymentMode" id="customRadio11" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio11">Cash</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="2" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="lumpsum.paymentMode" id="customRadio12" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio12">Cheque</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="3" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="lumpsum.paymentMode" id="customRadio13" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio13">Online Transfer</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="4" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="lumpsum.paymentMode" id="customRadio14" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio14">Google Pay</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="5" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="lumpsum.paymentMode" id="customRadio15" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio15">Phone Pay</label>
+              </div>
+              <div class="custom-control custom-radio d-inline-block mt-3 ml-3">
+                <input type="radio" value="6" [ngModelOptions]="{standalone: true}"
+                       [(ngModel)]="lumpsum.paymentMode" id="customRadio16" name="customRadioPaymentMode" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio16">Other</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div *ngIf="lumpsum.paidAmount > 0" class="row">
+          <div *ngIf="lumpsum.paymentMode == '2'" class="col-12 col-md-6 col-lg-4">
+            <div class="form-group">
+              <div class="input-group datepicker">
+                <label class="date-label">Cheque Date</label>
+                <input class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="lumpsum.ngbChequeDate" name="dp"
+                       ngbDatepicker
+                       #d2="ngbDatepicker" (click)="d2.toggle()" formControlName="chequeDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
+                          type="button">
+                    <i class="far fa-calendar-alt"></i>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="!lumpsum.ngbChequeDate"
+                   class="error-msg">
+                <div>
+                  Cheque date is required.
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div *ngIf="lumpsum.paymentMode == '2'" class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" [(ngModel)]="lumpsum.chequeNo" formControlName="chequeNo" id="chequeNo" type="text" placeholder="Cheque Number" />
+              <label for="chequeNo">Cheque Number</label>
+              <div *ngIf="!lumpsum.chequeNo"
+                   class="error-msg">
+                <div>
+                  Cheque number is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group has-float-label">
+              <input class="form-control" id="paymentRecievedBy" [(ngModel)]="lumpsum.paymentRecievedBy" formControlName="paymentRecievedBy" type="text" placeholder="{{lumpsum.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}" />
+              <label for="paymentRecievedBy">{{lumpsum.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}</label>
+              <div *ngIf="!lumpsum.paymentRecievedBy && (lumpsum.paymentMode == '2' || lumpsum.paymentMode == '1')"
+                   class="error-msg">
+                <div>
+                  {{lumpsum.paymentMode == '1' ? 'Payment recieved by is required.' : 'Bank name is required.'}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <footer class="text-center pt-2 pb-3">
+      <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+      <button *ngIf="lumpsum.paidAmount > 0" type="submit" class="btn btn-primary" (click)="lumpsumGenerationForm.valid && validateForm() && saveLumpsum()">
+        Save
+      </button>
+    </footer>
+  </div>
+</form>

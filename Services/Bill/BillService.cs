@@ -53,7 +53,7 @@ namespace Gopal.Services.Bill
                     bill.ChequeDate = billModel.chequeDate;
                     bill.ChequeNo = billModel.chequeNo;
                     bill.ClientIdRef = billModel.lstJobNumbers.FirstOrDefault().clientRefId;
-                    bill.CreatedBy = billModel.createdBy;
+                    bill.ModifiedBy = billModel.createdBy;
                     bill.EnggName = billModel.enggName;
                     bill.IsOpeningBalanceEntry = false;
                     bill.MaterialAdded = billModel.materialAdded == "1" ? true : false;

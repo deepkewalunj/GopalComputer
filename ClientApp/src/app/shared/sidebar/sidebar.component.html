@@ -1,52 +1,19 @@
 
-<!---menu old-->
-<!-- <div class="overlay" *ngIf="sharedService.getRoleId()==1"></div>
-<nav class="side-nav expand-lg" *ngIf="sharedService.getRoleId()==1">
-  <div class="side-nav-inner">
-    <ul class="side-nav-menu">
-      <li class="nav-item dropdown">
-        <a class="dropdown-toggle" routerLink="/master" routerLinkActive="active-link">
-          <i class="icon-forms"></i>
-          <span class="title">Client Master</span>
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="dropdown-toggle" routerLink="/users" routerLinkActive="active-link">
-          <i class="icon-forms"></i>
-          <span class="title">Inventory Material Master</span>
-        </a>
-      </li>
-    </ul>
-    <div class="fold-menu-on-desktop">
-      <a class="sidenav-fold-toggler" href="javascript:void(0);">
-        <i class="icon-left"></i>
-      </a>
-    </div>
-  </div>
-</nav> -->
-<!-- Side Nav END -->
-
-
 
 <div class="side-nav-inner">
   <ul class="side-nav-menu">
-    <li class="nav-item" (click)="uiBasicCollapsed = false" (click)="deviceSidemenuCollapse()"  [ngClass]="{ 'active': sampleForm.isActive }">
-      <a class="nav-link" routerLink="/sample-form" routerLinkActive #sampleForm="routerLinkActive">
-        <i class="far fa-user"></i>
-        <span class="menu-title">Sample Form</span>
-      </a>
-    </li>
-    <li class="nav-item"  (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': users.isActive }">
+
+    <li class="nav-item" (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': users.isActive }">
       <a class="nav-link" routerLink="/users" routerLinkActive #users="routerLinkActive">
         <i class="far fa-user"></i>
         <span class="menu-title">Users</span>
       </a>
     </li>
 
-<!--master-meenu-->
+    <!--master-meenu-->
     <li class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" (click)="uiBasicCollapsed = !uiBasicCollapsed" [attr.aria-expanded]="uiBasicCollapsed"
-        aria-controls="ui-list">
+         aria-controls="ui-list">
         <i class="fab fa-buromobelexperte"></i>
         <span class="menu-title">Master</span>
         <i class="fa fa-arrow-circle-right menu-arrow" aria-hidden="true"></i>
@@ -56,7 +23,7 @@
           <!--client-menu-->
           <li class="nav-item" (click)="uiBasicCollapsedIn = false" [routerLinkActive]="['subActive']">
             <a class="nav-link" (click)="uiBasicCollapsedr = !uiBasicCollapsedr"
-              [attr.aria-expanded]="uiBasicCollapsedr" aria-controls="ui-list">
+               [attr.aria-expanded]="uiBasicCollapsedr" aria-controls="ui-list">
               <i class="far fa-circle"></i> <span class="menu-title"> Client Master</span>
               <i class="fa fa-chevron-right menu-arrow" aria-hidden="true"></i>
             </a>
@@ -65,17 +32,17 @@
               <ul class="nav flex-column sub-menu" [routerLinkActive]="['in']">
                 <li class="nav-item">
                   <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="master"
-                    routerLinkActive="active" #clientMaster="routerLinkActive"><i class="fas fa-circle"></i> Client</a>
+                     routerLinkActive="active" #clientMaster="routerLinkActive"><i class="fas fa-circle"></i> Client</a>
                 </li>
-                
+
               </ul>
             </div>
           </li>
- <!--client-menu-end-->
- <!--inward-menu-->
+          <!--client-menu-end-->
+          <!--inward-menu-->
           <li class="nav-item" (click)="uiBasicCollapsedr = false" [routerLinkActive]="['subActive']">
             <a class="nav-link" (click)="uiBasicCollapsedIn = !uiBasicCollapsedIn"
-              [attr.aria-expanded]="uiBasicCollapsedIn" aria-controls="ui-list">
+               [attr.aria-expanded]="uiBasicCollapsedIn" aria-controls="ui-list">
               <i class="far fa-circle"></i> <span class="menu-title">Inward Material</span>
               <i class="fa fa-chevron-right menu-arrow" aria-hidden="true"></i>
             </a>
@@ -84,28 +51,36 @@
               <ul class="nav flex-column sub-menu" [routerLinkActive]="['in']">
                 <li class="nav-item">
                   <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/inward"
-                    routerLinkActive="active" #inward="routerLinkActive"><i class="fas fa-circle"></i> Inward</a>
+                     routerLinkActive="active" #inward="routerLinkActive"><i class="fas fa-circle"></i> Inward</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/material-type"
-                    routerLinkActive="active" #materialType="routerLinkActive"><i class="fas fa-circle"></i>
-                    Material Type</a>
+                     routerLinkActive="active" #materialType="routerLinkActive">
+                    <i class="fas fa-circle"></i>
+                    Material Type
+                  </a>
                 </li>
-               
+
                 <li class="nav-item">
                   <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/inward-accessories"
-                    routerLinkActive="active" #inwardAccessories="routerLinkActive"><i class="fas fa-circle"></i>
-                    Inward Accessories</a>
+                     routerLinkActive="active" #inwardAccessories="routerLinkActive">
+                    <i class="fas fa-circle"></i>
+                    Inward Accessories
+                  </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/billing-list"
-                    routerLinkActive="active" #billingList="routerLinkActive"><i class="fas fa-circle"></i>
-                    Billing List</a>
+                     routerLinkActive="active" #billingList="routerLinkActive">
+                    <i class="fas fa-circle"></i>
+                    Billing List
+                  </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/outward-list"
-                    routerLinkActive="active" #outwardList="routerLinkActive"><i class="fas fa-circle"></i>
-                    Outward List</a>
+                     routerLinkActive="active" #outwardList="routerLinkActive">
+                    <i class="fas fa-circle"></i>
+                    Outward List
+                  </a>
                 </li>
               </ul>
             </div>
@@ -113,42 +88,48 @@
         </ul>
       </div>
     </li>
-<!--inward-menu-end-->
+    <!--inward-menu-end-->
 
-<li class="nav-item" (click)="uiBasicCollapsedRepoIn = false" [routerLinkActive]="['active']">
-  <a class="nav-link" (click)="uiBasicCollapseRe = !uiBasicCollapseRe"
-    [attr.aria-expanded]="uiBasicCollapseRe" aria-controls="ui-list">
-    <i class="far fa-user"></i> <span class="menu-title"> Reports</span>
-    <i class="fa fa-arrow-circle-right menu-arrow" aria-hidden="true"></i>
-  </a>
-
-  <div class="collapse" id="ui-list" [ngbCollapse]="!uiBasicCollapseRe" [ngClass]="{ 'show': isShown }">
-    <ul class="nav flex-column sub-menu"  [routerLinkActive]="['subActive']">
-      <li class="nav-item">
-        <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="reports/bill-report"
-          routerLinkActive="active"><i class="fas fa-circle"></i> Bill Reports</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="reports/outward-report"
-          routerLinkActive="active"><i class="fas fa-circle"></i> Outward Reports</a>
-      </li>
-    </ul>
-  </div>
-</li>
-
-<!-- <li class="nav-item"  (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': reports.isActive }">
-  <a class="nav-link" routerLink="/reports" routerLinkActive #reports="routerLinkActive">
-    <i class="far fa-user"></i>
-    <span class="menu-title">Reports</span>
-  </a>
-</li> -->
-
-    <li class="nav-item"  (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': sampleList.isActive }">
-      <a class="nav-link" routerLink="/sample-list" routerLinkActive #sampleList="routerLinkActive">
-        <i class="far fa-user"></i>
-        <span class="menu-title">Sample List</span>
+    <li class="nav-item" (click)="uiBasicCollapsedRepoIn = false" [routerLinkActive]="['active']">
+      <a class="nav-link" (click)="uiBasicCollapseRe = !uiBasicCollapseRe"
+         [attr.aria-expanded]="uiBasicCollapseRe" aria-controls="ui-list">
+        <i class="far fa-user"></i> <span class="menu-title"> Reports</span>
+        <i class="fa fa-arrow-circle-right menu-arrow" aria-hidden="true"></i>
       </a>
+
+      <div class="collapse" id="ui-list" [ngbCollapse]="!uiBasicCollapseRe" [ngClass]="{ 'show': isShown }">
+        <ul class="nav flex-column sub-menu" [routerLinkActive]="['subActive']">
+          <li class="nav-item">
+            <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="reports/bill-report"
+               routerLinkActive="active"><i class="fas fa-circle"></i> Bill Reports</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="reports/outward-report"
+               routerLinkActive="active"><i class="fas fa-circle"></i> Outward Reports</a>
+          </li>
+        </ul>
+      </div>
     </li>
+
+    <li class="nav-item" (click)="uiBasicCollapsedPayIn = false" [routerLinkActive]="['active']">
+      <a class="nav-link" (click)="uiBasicCollapsePay = !uiBasicCollapsePay"
+         [attr.aria-expanded]="uiBasicCollapsePay" aria-controls="ui-list">
+        <i class="fas fa-rupee-sign"></i> <span class="menu-title"> Payment</span>
+        <i class="fa fa-arrow-circle-right menu-arrow" aria-hidden="true"></i>
+      </a>
+
+      <div class="collapse" id="ui-list" [ngbCollapse]="!uiBasicCollapsePay" [ngClass]="{ 'show': isShown }">
+        <ul class="nav flex-column sub-menu" [routerLinkActive]="['subActive']">
+          <li class="nav-item">
+            <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="payment/lumpsum"
+               routerLinkActive="active"><i class="fas fa-circle"></i> Lumpsum</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    
+
   </ul>
   <div class="fold-menu-on-desktop">
     <a class="sidenav-fold-toggler" href="javascript:void(0);">
