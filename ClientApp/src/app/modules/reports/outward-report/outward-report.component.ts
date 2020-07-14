@@ -52,16 +52,39 @@ export class OutwardReportComponent implements OnInit {
       dom: 'Bfrtip',
       buttons: [
         {
-          extend:'excel',
+          extend:'excelHtml5',
           messageTop: 'Inward Bill Report',
-          footer: true
+          footer: true,
+          customize: function (doc) {
+              let sheet = doc.xl.worksheets['sheet1.xml'];
+              $('row c[r^="G"]', sheet).each(function() {
+                if (parseFloat($('c v', this).text()) > 0) {
+                  $(this).attr('s', '36');
+                }
+              });
+
+
+          }
         },
        {
         extend: 'pdfHtml5',
         orientation: 'landscape',
         pageSize: 'LEGAL',
         messageTop: 'Inward Bill Report',
-        footer: true
+        footer: true,
+        customize: function (doc) {
+          doc.content[2].table.widths =
+              Array(doc.content[2].table.body[0].length + 1).join('*').split('');
+
+              for (let r=1;r<doc.content[2].table.body.length;r++) {
+                let row = doc.content[2].table.body[r];
+                if(parseFloat(row[6].text)>0){
+                  row[6].color = 'red';
+                }
+
+
+            }
+        }
     }],
     footerCallback: function ( row, data, start, end, display ) {
 
