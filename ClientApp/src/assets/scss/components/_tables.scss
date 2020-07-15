@@ -213,11 +213,12 @@ z-index: 1050;
 }
 
 
-
+ 
     /* Force table to not be like tables anymore */
 	#no-more-tables table, 
 	#no-more-tables thead, 
 	#no-more-tables tbody, 
+	#no-more-tables tfoot,
 	#no-more-tables th, 
 	#no-more-tables td, 
 	#no-more-tables tr { 
@@ -266,6 +267,9 @@ z-index: 1050;
 					font-weight: bold;
 					color: $black-blue !important;
 				}
+				&.empty-data {
+					padding-left: 0% !important; 
+				}
 			}
 		}
 
@@ -288,6 +292,9 @@ z-index: 1050;
 					}
 				}
 			}
+		}
+		.total-amount-bg {
+			background: #f0fdfa !important;
 		}
 	} 
 
@@ -314,4 +321,8 @@ z-index: 1050;
 	table.dataTable.no-footer {
 		border-bottom: 0;
 	}
+	.hide-td-on-device {
+		display: none !important;
+	}
+	
 }

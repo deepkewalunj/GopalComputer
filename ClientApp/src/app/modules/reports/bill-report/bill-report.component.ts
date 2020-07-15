@@ -48,10 +48,12 @@ export class BillReportComponent implements OnInit {
       paging:false,
       searching:false,
       dom: 'Bfrtip',
+     
       buttons: [
         {
           extend:'excel',
           messageTop: 'Inward Bill Report',
+          className: 'far fa-file-excel',
           footer: true,
           customize: function (doc) {
             let sheet = doc.xl.worksheets['sheet1.xml'];
@@ -69,6 +71,7 @@ export class BillReportComponent implements OnInit {
         orientation: 'landscape',
         pageSize: 'LEGAL',
         messageTop: 'Inward Bill Report',
+        className: 'far fa-file-pdf',
         footer: true,
         customize: function (doc) {
           doc.content[2].table.widths =
