@@ -2,10 +2,10 @@
 <div class="container-fluid">
     <h3 class="text-center mb-4">Bill Report</h3>
     <div class="card mb-4">
-        <div class="card-header">
+        <div class="card-header justify-content-end">
             <!-- <h4 class="float-left">Tables</h4>  -->
             <button class="btn btn-search btn-primary float-right d-sm-none"
-                (click)="toggleSearch()"><i class="icon-search"></i></button>
+                (click)="toggleSearch()"><i class="fas fa-search"></i></button>
         </div>
         <div class="card-body">
             <!--table search filter start-->
@@ -118,16 +118,16 @@
 
                     </tbody>
                     <tfoot>
-                      <tr>
-                        <th></th>
-                        <th class="text-right"></th>
-                        <th class="text-right"></th>
-                        <th class="text-right"></th>
-                        <th class="text-right">Total:</th>
-                        <th class="text-right">{{servicetotal}}</th>
-                        <th class="text-right">{{advancetotal}}</th>
-                        <th class="text-right">{{paidtotal}}</th>
-                        <th class="text-right" [ngClass]="{'text-danger': outStandingtotal >0}">{{outStandingtotal}}</th>
+                      <tr class="total-amount-bg">
+                        <th class="text-right hide-td-on-device"></th>
+                        <th class="text-right hide-td-on-device"></th>
+                        <td class="text-right hide-td-on-device"></td>
+                        <td class="text-right hide-td-on-device"></td>
+                        <td class="text-right font-weight-bold"> <span>Total:</span></td>
+                        <td data-title="Service Total" class="text-right font-weight-bold">{{servicetotal}}</td>
+                        <td data-title="Advance Total" class="text-right font-weight-bold">{{advancetotal}}</td>
+                        <td data-title="Paid Total" class="text-right font-weight-bold">{{paidtotal}}</td>
+                        <td data-title="O/S Total" class="text-right font-weight-bold" [ngClass]="{'text-danger': outStandingtotal >0}">{{outStandingtotal}}</td>
                     </tr>
                     </tfoot>
                 </table>

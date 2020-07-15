@@ -60,6 +60,7 @@ export class OutwardReportComponent implements OnInit {
         {
           extend:'excelHtml5',
           messageTop: 'Inward Bill Report',
+          className: 'far fa-file-excel',
           footer: true,
           customize: function (doc) {
 
@@ -119,6 +120,7 @@ export class OutwardReportComponent implements OnInit {
         orientation: 'landscape',
         pageSize: 'LEGAL',
         messageTop: 'Inward Bill Report',
+        className: 'far fa-file-pdf',
         footer: true,
         customize: function (doc) {
           doc.content[2].table.widths =

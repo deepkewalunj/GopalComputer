@@ -32,7 +32,9 @@
         margin-left: 0.625rem;
     }
     &.btn-search {
-        min-width: 1rem;
+        display: inline-flex;
+        min-width: 0;
+        padding: 5px 10px;
     }
     &.btn-sm {
         padding: 0.25rem 0.5rem;
@@ -184,6 +186,32 @@ footer {
         }
     }
 }
+.dt-button {
+    padding: 6px 8px;
+    font-size: 0.8125rem;
+    margin-right: 10px;
+   margin-bottom: 10px;
+    span {
+        margin-left: 7px;
+        display: inline-block;
+        font-family: "Poppins", sans-serif;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+   &.buttons-excel {
+        background-color:#fff;
+        color: $green;
+        border: 1px solid $green;
+       border-radius: 4px;
+    }
+    &.buttons-pdf {
+        background-color:#fff;
+        color: $danger;
+        border: 1px solid $danger;
+        border-radius: 4px;
+    }
+}
+
 
 // media queries csss for buttons
 @media only screen and (max-width:992px) {

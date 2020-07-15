@@ -1,14 +1,14 @@
 <form [formGroup]="lumpsumGenerationForm" novalidate>
-  <div class="container form-container">
-
+  <div class="container form-container pl-0 pr-0">
     <div class="card mt-1">
       <div class="card-header">
         <h5>{{lumpsum.lumpsumId > 0 ? 'Edit':'Add'}} Voucher # {{lumpsum.lumpsumId}}</h5>
       </div>
       <div class="card-body">
-        <div class="form-group">
+    
           <div class="row">
-            <div class="col-12 has-float-label">
+            <div class="col-12">
+              <div class="form-group mb-0 has-float-label">
               <input *ngIf="(lumpsum.lumpsumId <= 0 || !lumpsum.lumpsumId)" id="customerName" type="text" class="form-control"
                      [(ngModel)]="lumpsum.customerTypeAhead" [inputFormatter]="formatter"
                      [resultFormatter]="formatter" formControlName="customerName"
@@ -30,34 +30,35 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>
-        </div>
+    
       </div>
     </div>
     <div class="card">
       <div class="card-header">
-        <h5>Statement Summary</h5>
+        <h5 class="mb-2">Statement Summary</h5>
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-12 d-flex">
-            <div class="form-group has-float-label">
+          <div class="col-12 d-flex lumsum-form">
+            <div class="form-group mb-0 has-float-label">
               <input class="form-control" id="totalBillAmount" [(ngModel)]="lumpsum.totalBillAmount" formControlName="totalBillAmount" type="number" />
               <label for="totalBillAmount">Total Bill Amt</label>
-            </div><span style="padding:10px;">+</span>
-            <div class="form-group has-float-label">
+            </div><span class="math-signs">+</span>
+            <div class="form-group mb-0 has-float-label">
               <input class="form-control" id="totalOutwordAmount" [(ngModel)]="lumpsum.totalOutwordAmount" formControlName="totalOutwordAmount" type="number" />
               <label for="totalOutwordAmount">Total Outward Amt</label>
-            </div><span style="padding:10px;">=</span>
-            <div class="form-group has-float-label">
+            </div><span class="math-signs">=</span>
+            <div class="form-group mb-0 has-float-label">
               <input class="form-control text-danger" id="totalAmountDue" [(ngModel)]="lumpsum.totalAmountDue" formControlName="totalAmountDue" type="number" />
               <label class="text-danger" for="totalAmountDue">Total Amt Due</label>
-            </div><span style="padding:10px;">-</span>
-            <div class="form-group has-float-label">
+            </div><span class="math-signs">-</span>
+            <div class="form-group mb-0 has-float-label">
               <input class="form-control text-success" id="totalPaidAmount" [(ngModel)]="lumpsum.totalPaidAmount" formControlName="totalPaidAmount" type="number" />
               <label class="text-success" for="totalPaidAmount">Total Paid Amt</label>
-            </div><span style="padding:10px;">=</span>
-            <div class="form-group has-float-label">
+            </div><span class="math-signs">=</span>
+            <div class="form-group mb-0 has-float-label">
               <input class="form-control text-danger" id="outstandingAmount" [(ngModel)]="lumpsum.outstandingAmount" formControlName="outstandingAmount" type="number" />
               <label class="text-danger" for="outstandingAmount">Total OST Amt</label>
             </div>
@@ -68,7 +69,7 @@
     
     <div class="card">
       <div class="card-header">
-        <h5>Bill Details</h5>
+        <h5 class="mb-2">Bill Details</h5>
       </div>
       <div class="card-body">
         <div class="row">
@@ -112,6 +113,8 @@
 
             </div>
           </div>
+        </div>
+        <div class="row">
           <div class="col-12 col-md-4 col-lg-4">
             <div class="form-group">
               <label class="radio-btns-label d-block">Print Status</label>

@@ -1,5 +1,5 @@
 <form [formGroup]="billGenerationForm" novalidate>
-  <div class="container form-container">
+  <div class="container form-container pl-0 pr-0">
     
     <div class="card mt-1">
       <div class="card-header">
@@ -69,7 +69,7 @@
                   </td>-->
                 </tr>
                 <tr class="text-center" *ngIf="bill.lstJobNumbers.length == 0">
-                  <td colspan="6">No job number added yet...</td>
+                  <td colspan="6" class="empty-data">No job number added yet...</td>
                 </tr>
               </tbody>
             </table>
