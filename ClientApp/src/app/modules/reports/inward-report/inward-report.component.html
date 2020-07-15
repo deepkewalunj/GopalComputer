@@ -1,6 +1,6 @@
 
 <div class="container-fluid">
-    <h3 class="text-center mb-4">Bill Report</h3>
+    <h3 class="text-center mb-4">Inward Report</h3>
     <div class="card mb-4">
         <div class="card-header">
             <!-- <h4 class="float-left">Tables</h4>  -->
@@ -70,64 +70,59 @@
             <!--table listing statrt-->
             <div id="no-more-tables">
                 <!-- This id used for responsive table -->
-                <table class="table table-striped" id="billDatatable"   datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                <table class="table table-striped" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
                         <tr>
-                          <th scope="col" style="width:5%" class="cursor"></th>
-                            <th scope="col" style="width:10%" class="cursor">
-                                <div class="d-flex align-items-center"><span>Bill Date</span></div>
-                            </th>
-                            <th scope="col" style="width:10%" class="cursor">
-                                <div class="d-flex align-items-center"><span>Bill #</span>
-                                </div>
-                            </th>
+
+
                             <th scope="col" style="width:15%" class="cursor">
                                 <div class="d-flex align-items-center"><span>Job #</span> </div>
                             </th>
-                            <th scope="col" style="width:10%" class="cursor">
-                              <div class="d-flex align-items-center"><span>Client Name</span> </div>
+                            <th scope="col" style="width:15%" class="cursor">
+                              <div class="d-flex align-items-center"><span>Inward Date</span></div>
                           </th>
-                            <th scope="col" style="width:15%" class="text-right">
-                              Service Amount
+                            <th scope="col" style="width:15%" class="cursor">
+                              <div class="d-flex align-items-center"><span>Client Name</span> </div>
                             </th>
-                            <th scope="col" style="width:10%" class="text-right">
+                            <th scope="col" style="width:15%" class="text-right">
+                              Estimated Amt.
+                            </th>
+                            <th scope="col" style="width:15%" class="text-right">
                                 Advance Amount
                             </th>
-                            <th scope="col" style="width:10%" class="text-right">
-                                Paid Amount
-                            </th>
                             <th scope="col" style="width:15%" class="text-right">
-                                O/S Amount
+                                Outward/Bill Status
+                            </th>
+                            <th scope="col" style="width:10%" class="text-right">
+                                Repaired
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let bill of lstBillReport">
-                          <td></td>
-                            <td data-title="Bill Date">{{bill.reportDate | date: 'dd/MM/yyyy' }}</td>
-                            <td data-title="Bill #">{{bill.reportId}}</td>
+
+
                             <td data-title="Job #">{{bill.jobNumbers}}</td>
+                            <td data-title="Inward Date">{{bill.reportDate | date: 'dd/MM/yyyy' }}</td>
                             <td data-title="Client Name">{{bill.clientName}}</td>
-                            <td data-title="Service Amount" class="text-right">{{bill.serviceAmount}}</td>
+                            <td data-title="Estimated Amt." class="text-right">{{bill.serviceAmount}}</td>
                             <td data-title="Advance Amount" class="text-right">{{bill.advanceAmount}}</td>
-                            <td data-title="Paid Amount" class="text-right">{{bill.paidImmediatlyAmount}}</td>
-                            <td data-title="O/S Amount" class="text-right"  [ngClass]="{'text-danger': bill.outstandingAmount >0}">
-                              {{bill.outstandingAmount}}</td>
+                            <td data-title="Outward/Bill Status" class="text-right">{{bill.outwardBillStatus}}</td>
+                            <td data-title="Repaired" class="text-right" >
+                              {{bill.repairedStatus}}</td>
                         </tr>
 
 
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th></th>
-                        <th class="text-right"></th>
                         <th class="text-right"></th>
                         <th class="text-right"></th>
                         <th class="text-right">Total:</th>
                         <th class="text-right">{{servicetotal}}</th>
                         <th class="text-right">{{advancetotal}}</th>
-                        <th class="text-right">{{paidtotal}}</th>
-                        <th class="text-right" [ngClass]="{'text-danger': outStandingtotal >0}">{{outStandingtotal}}</th>
+                        <th class="text-right"></th>
+                        <th class="text-right"></th>
                     </tr>
                     </tfoot>
                 </table>

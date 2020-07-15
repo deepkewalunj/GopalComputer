@@ -9,12 +9,15 @@ import { BillReportComponent } from './bill-report/bill-report.component';
 import { OutwardReportComponent } from './outward-report/outward-report.component';
 import { DataTablesModule } from 'angular-datatables';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { InwardReportComponent } from './inward-report/inward-report.component';
+import { ClientOutstandingReportComponent } from './client-outstanding-report/client-outstanding-report.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
 };
 @NgModule({
-  declarations: [BillReportComponent, OutwardReportComponent],
+  declarations: [BillReportComponent, OutwardReportComponent,
+    InwardReportComponent,ClientOutstandingReportComponent],
   imports: [
     CommonModule,
     ReportsRoutingModule,

@@ -13,7 +13,7 @@
               <div class="row mb-2">
                   <div class="col-sm">
                       <div class="form-group has-float-label">
-                        <input id="customerName" type="text" class="form-control"
+                        <input id="companyName" type="text" class="form-control"
 
                         [(ngModel)]="searchModel.customerName" [inputFormatter]="formatter"
                         [resultFormatter]="formatter" [ngModelOptions]="{standalone: true}"
@@ -73,7 +73,8 @@
               <table class="table table-striped" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                   <thead>
                       <tr>
-                          <th scope="col" style="width:15%" class="cursor">
+                        <th scope="col" style="width:5%" class="cursor"></th>
+                            <th scope="col" style="width:10%" class="cursor">
                               <div class="d-flex align-items-center"><span>Outward Date</span> </div>
                           </th>
                           <th scope="col" style="width:10%" class="cursor">
@@ -83,13 +84,16 @@
                           <th scope="col" style="width:15%" class="cursor">
                               <div class="d-flex align-items-center"><span>Job #</span> </div>
                           </th>
+                          <th scope="col" style="width:10%" class="cursor">
+                            <div class="d-flex align-items-center"><span>Client Name</span> </div>
+                        </th>
                           <th scope="col" style="width:15%" class="text-right">
                             Service Amount
                           </th>
-                          <th scope="col" style="width:15%" class="text-right">
+                          <th scope="col" style="width:10%" class="text-right">
                               Advance Amount
                           </th>
-                          <th scope="col" style="width:15%" class="text-right">
+                          <th scope="col" style="width:10%" class="text-right">
                               Paid Amount
                           </th>
                           <th scope="col" style="width:15%" class="text-right">
@@ -99,9 +103,11 @@
                   </thead>
                   <tbody>
                       <tr *ngFor="let Outward of lstOutwardReport">
+                        <td></td>
                           <td data-title="Outward Date">{{Outward.reportDate | date: 'dd/MM/yyyy' }}</td>
                           <td data-title="Outward #">{{Outward.reportId}}</td>
                           <td data-title="Job #">{{Outward.jobNumbers}}</td>
+                          <td data-title="Client Name">{{Outward.clientName}}</td>
                           <td data-title="Service Amount" class="text-right">{{Outward.serviceAmount}}</td>
                           <td data-title="Advance Amount" class="text-right">{{Outward.advanceAmount}}</td>
                           <td data-title="Paid Amount" class="text-right">{{Outward.paidImmediatlyAmount}}</td>
@@ -113,6 +119,8 @@
                   </tbody>
                   <tfoot>
                     <tr>
+                      <th></th>
+                      <th class="text-right"></th>
                       <th class="text-right"></th>
                       <th class="text-right"></th>
                       <th class="text-right">Total:</th>

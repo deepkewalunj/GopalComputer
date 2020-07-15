@@ -1,5 +1,6 @@
 using Gopal.EntityFrameworkCore;
 using Gopal.Middleware;
+using Gopal.Models.Bill;
 using Gopal.Models.Common;
 using Gopal.Services.Accessory;
 using Gopal.Services.Bill;
@@ -71,7 +72,7 @@ namespace Gopal
             services.AddTransient<ITypeAheadService, TypeAheadService>();
             services.AddTransient<IBillServices, BillService>();
             services.AddTransient<IOutwardServices, OutwardService>();
-            services.AddTransient<IBillOutwardReportService, BillOutwardReportService>();
+            services.AddTransient<IReportServices, ReportServices>();
             services.AddTransient<IPaymentServices, PaymentService>();
             services.AddSingleton<ILog, LogNLog>();
             // In production, the Angular files will be served from this directory
@@ -118,10 +119,10 @@ namespace Gopal
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
+                //if (env.IsDevelopment())
+                //{
+                //    spa.UseAngularCliServer(npmScript: "start");
+                //}
             });
         }
     }
