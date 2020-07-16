@@ -68,20 +68,7 @@
                     Inward Accessories
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/billing-list"
-                     routerLinkActive="active" #billingList="routerLinkActive">
-                    <i class="fas fa-circle"></i>
-                    Billing List
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/outward-list"
-                     routerLinkActive="active" #outwardList="routerLinkActive">
-                    <i class="fas fa-circle"></i>
-                    Outward List
-                  </a>
-                </li>
+                
               </ul>
             </div>
           </li>
@@ -136,6 +123,20 @@
           <li class="nav-item">
             <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="payment/lumpsum"
                routerLinkActive="active"><i class="fas fa-circle"></i> Lumpsum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/billing-list"
+               routerLinkActive="active" #billingList="routerLinkActive">
+              <i class="fas fa-circle"></i>
+              Billing List
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/outward-list"
+               routerLinkActive="active" #outwardList="routerLinkActive">
+              <i class="fas fa-circle"></i>
+              Outward List
+            </a>
           </li>
         </ul>
       </div>
