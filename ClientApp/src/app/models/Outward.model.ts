@@ -23,4 +23,7 @@ export class Outward{
   chequeNo: string
   customerName: string
   jobNumbers: string
+  normalPrinterName: string
+  gstNo: string
+  customerAddress: string
 }

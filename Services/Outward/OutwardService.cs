@@ -190,6 +190,7 @@ namespace Gopal.Services.Outward
         {
             var outward = _dbContext.TblOutward.Where(x => x.IsDeleted != true && x.OutwardId == outwardId).FirstOrDefault();
             OutwardTypeScriptModel outwardTypeScriptModel = new OutwardTypeScriptModel();
+            outwardTypeScriptModel.normalPrinterName = _dbContext.TblMaster.FirstOrDefault(x => x.MasterKey == "NORMAL_PRINTER").MasterValue;
             if (outward != null)
             {
                 if (outward.OutwardDate != null)
@@ -258,7 +259,11 @@ namespace Gopal.Services.Outward
                     var searchValue = "";
                     if (clientRefId > 0)
                     {
-                        searchValue = _dbContext.TblClient.Where(x => x.IsDeleted != true && x.ClientId == clientRefId).FirstOrDefault().CompanyName;
+                        var client = _dbContext.TblClient.Where(x => x.IsDeleted != true && x.ClientId == clientRefId).FirstOrDefault();
+                        searchValue = client.CompanyName;
+                        outwardTypeScriptModel.customerName = client.CompanyName;
+                        outwardTypeScriptModel.customerAddress = client.ClientAddress;
+                        outwardTypeScriptModel.gstNo = client.TelNoSecond;
                     }
                     var isRepairedText = "";
                     if (isRepaired == 1)

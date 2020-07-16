@@ -1,0 +1,30 @@
+﻿@model Gopal.Models.Bill.BillTypeScriptModel
+@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en"  id="print-section">
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <title>Bill Receipt</title>
+    <!--<link rel="stylesheet" href="style.css" media="all" />-->
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap' rel='stylesheet' type='text/css'>
+
+    <style>
+        html {
+            height: 0;
+        }
+    @@media print {
+        body {
+           font-family:Arial, Helvetica, sans-serif !important;
+           font-family: 'Poppins', sans-serif !important;
+           padding: 0 !important;
+        }
+      }
+    </style>
+</head>
+<body style="padding: 0 0px;page-break-after:always; background: #fff; font-family: 'Poppins', sans-serif !important;">
+    
+</body>
+</html>

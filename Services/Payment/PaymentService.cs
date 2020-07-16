@@ -97,6 +97,7 @@ namespace Gopal.Services.Payment
         {
             var lumpsum = _dbContext.TblLumpsum.Where(x => x.IsDeleted != true && x.LumpsumId == lumpsumId && x.BillRefId == null && x.OutwardRefId == null).FirstOrDefault();
             LumpsumTypeScriptModel lumpsumTypeScriptModel = new LumpsumTypeScriptModel();
+            lumpsumTypeScriptModel.normalPrinterName = _dbContext.TblMaster.FirstOrDefault(x => x.MasterKey == "NORMAL_PRINTER").MasterValue;
             if (lumpsum != null)
             {
                 if (lumpsum.LumpsumDate != null)

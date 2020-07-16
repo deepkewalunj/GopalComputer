@@ -125,7 +125,7 @@ export class LumpsumGenerationComponent implements OnInit {
   }
 
   saveLumpsum() {
-    debugger;
+    
     const formData = new FormData();
     formData.append("lumpsum", JSON.stringify(this.lumpsum))
     this.lumpsumService.addEditLumpsum(formData).subscribe((lumpsum: Lumpsum) => {

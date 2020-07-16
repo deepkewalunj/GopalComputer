@@ -1,1 +1,290 @@
-<p>outward-print works!</p>
+<!DOCTYPE html>
+<html lang="en" id="print-section">
+<head>
+  <meta charset="utf-8">
+  <title>Outward Receipt</title>
+  <!--<link rel="stylesheet" href="style.css" media="all" />-->
+  <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap' rel='stylesheet' type='text/css'>
+
+  <style>
+    /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap'); */
+
+    @media print {
+      body {
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-family: 'Poppins', sans-serif !important;
+        padding: 0 !important;
+      }
+    }
+  </style>
+</head>
+<body style="padding: 0 0px;page-break-after:always; background: #fff; font-family: 'Poppins', sans-serif !important;">
+  <!--customer-copy-start-->
+  <main style="width:780px; margin-left:auto; margin-right:auto">
+    <div class="clearfix" style=" page-break-after:before; padding: 0px 0;
+  margin-bottom: 10px;
+  border: 0px solid #ccc;
+  margin-top: 10px;">
+      <div id="logo" style=" text-align: center;
+    margin-bottom: 10px;">
+        <table style="background:transparent; margin-bottom:0; width: 100%;">
+          <tr>
+            <td style="padding:0; width: 50%; background: transparent">
+              <h4 style="font-weight: 700;
+            font-size: 2.375rem;
+            letter-spacing: 3px;
+            color: #1c0f3a;
+            margin: 0;
+            text-align: left;font-family: 'Poppins', sans-serif !important;">
+                GOPAL
+              </h4>
+              <p style="font-size: 0.875rem;
+            line-height: 7px;
+            letter-spacing: 0.406rem;
+            text-transform: uppercase;
+            position: relative;
+            left: 3px;
+            color: #FF4081;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            text-align: left;">Computers</p>
+            </td>
+            <td style="padding:0; background: transparent; width: 50%; text-align: right;"><strong>GST No.</strong>: 25637EFHJH</td>
+          </tr>
+        </table>
+      </div>
+      <div class="address" style=" border-top: 1px solid #C1CED9;
+    border-bottom: 1px solid #C1CED9;
+    margin: 0 0 0px 0;
+    padding: 7px;
+    background: #f5f5f5;">
+        <p style="margin:0; font-weight:500; font-size: 14px;">
+          Flat No 4, B Wing, Viththal Park, Samant Vadi, Near Ashok Stambh, Kashiba Medical Back side, Gangapur Road, Nashik - 422002.
+          <strong>Contact</strong>: 9867545678, 9867545678
+        </p>
+      </div>
+    </div>
+
+
+    <table style="background:transparent; margin-bottom:20px; width: 100%;border:1px solid #ccc; border-collapse: collapse;" border="1">
+      <thead>
+        <tr>
+          <td colspan="3" style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width:30%"><strong>Customer Name:</strong></td>
+                <td>{{outward.customerName}}</td>
+              </tr>
+              <tr>
+                <td style="width:30%"><strong>Customer Address:</strong></td>
+                <td>{{outward.customerAddress}}</td>
+              </tr>
+              <tr>
+                <td><strong>GST #:</strong></td>
+                <td>{{outward.gstNo}}</td>
+              </tr>
+            </table>
+
+          </td>
+
+          <td colspan="2" style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width:30%"><strong>Outward #:</strong></td>
+                <td>{{outward.outwardId}}</td>
+              </tr>
+              <tr>
+                <td><strong>Date:</strong></td>
+                <td>{{outward.outwardDate  | date:'dd/MM/yyyy'}}</td>
+              </tr>
+            </table>
+          </td>
+
+        </tr>
+
+        <tr>
+          <th style="padding: 5px 5px;
+          background: #f5f5f5;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left">Job No.</th>
+          <th style="padding: 5px 5px;
+          background: #f5f5f5;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left">Material Name</th>
+
+          <th style="padding: 5px 5px;
+          background: #f5f5f5;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left">Serial No</th>
+          <th style="padding: 5px 5px;
+          background: #f5f5f5;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left">Advance ₹</th>
+          <th style="padding: 5px 5px;
+          background: #f5f5f5;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left">Service ₹</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tag of outward.lstJobNumbers;let i = index">
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left; width:13%">
+            {{tag.searchValue.substr(0,tag.searchValue.indexOf(' '))}}
+          </td>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left;width:48%">
+            {{tag.modelNo}}, {{tag.materialType}}, {{tag.companyName}}
+          </td>
+
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left;width:13%">
+            {{tag.serialNo}}
+          </td>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:right;width:13%">
+            {{tag.advanceAmount}} /-
+          </td>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:right;width:13%">
+            {{tag.serviceAmount}} /-
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left; width:13%; border:0"></td>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left;width:48%; border:0"></td>
+
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left;width:13%; border:0"></td>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left;width:13%">
+            <strong>Outstanding ₹</strong>
+          </td>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:right;width:13%">
+            {{outward.outstandingAmount}} /-
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left; width:13%; border:0"></td>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left;width:48%; border:0"></td>
+
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left;width:13%; border:0"></td>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left;width:13%">
+            <strong>Paid ₹</strong>
+          </td>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:right;width:13%">
+            {{outward.paidImmediatlyAmount}} /-
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left; width:13%;border:0"></td>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left;width:48%;border:0"></td>
+
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left;width:13%;border:0"></td>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:left;width:13%">
+            <strong>Total ₹</strong>
+          </td>
+          <td style="padding: 5px 5px;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; text-align:right;width:13%">
+            {{getTotalSum()}} /-
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <div id="notices">
+      <div><strong>NOTICE:</strong></div>
+      <ul style="  padding: 0 13px;margin: 5px;">
+        <li style="font-size: 13px;">A finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
+      </ul>
+    </div>
+    <table style="margin-top:60px; margin-bottom:10px; width: 100%;border-collapse: collapse;">
+      <tr>
+        <td style="padding:0px; text-align:left;font-size: 13px;">
+          <strong>Customer Signature</strong>
+        </td>
+        <td style="padding:0; text-align:right;font-size: 13px;">
+          <strong>Authorized Signature</strong>
+        </td>
+      </tr>
+    </table>
+    <p style="padding: 0;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top; margin:0; text-align:left"><strong>Bank A/C:</strong> 1234567</p>
+    <p style="padding: 0;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top;margin:0; text-align:left"><strong>IFSC Code:</strong> ABCD1234</p>
+    <p style="padding: 0;
+          background: transparent;
+          font-size: 12px;
+          line-height: 18px; vertical-align: top;margin:0; text-align:left"><strong>Gpay:</strong> 9999999999</p>
+  </main>
+
+
+</body>
+</html>
+<div style="text-align: center; padding-bottom: 15px;">
+  <button printSectionId="print-section" [disabled]="isOutwardPrinting" (click)="getBase64EncodedImage()" class="btn btn-primary btn-sm">print</button>
+  <button class="btn btn-secondary" (click)="close()">Cancel</button>
+</div>

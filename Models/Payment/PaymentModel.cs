@@ -27,7 +27,10 @@ namespace Gopal.Models.Payment
         public string chequeNo { get; set; }
         public DateTime? chequeDate { get; set; }
         public string customerName { get; set; }
-        
+        public string normalPrinterName { get; set; }
+        public string gstNo { get; set; }
+        public string customerAddress { get; set; }
+
     }
 
     public class LumpsumTypeScriptModel : LumpsumModel

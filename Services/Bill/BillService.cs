@@ -246,6 +246,7 @@ namespace Gopal.Services.Bill
         {
             var bill = _dbContext.TblBill.Where(x => x.IsDeleted != true && x.IsOpeningBalanceEntry != true && x.BillId == billId).FirstOrDefault();
             BillTypeScriptModel billTypeScriptModel = new BillTypeScriptModel();
+            billTypeScriptModel.normalPrinterName = _dbContext.TblMaster.FirstOrDefault(x => x.MasterKey == "NORMAL_PRINTER").MasterValue;
             if (bill != null)
             {
                 if (bill.BillDate != null)
@@ -314,7 +315,11 @@ namespace Gopal.Services.Bill
                     var searchValue = "";
                     if (clientRefId > 0)
                     {
-                        searchValue = _dbContext.TblClient.Where(x => x.IsDeleted != true && x.ClientId == clientRefId).FirstOrDefault().CompanyName;
+                        var client = _dbContext.TblClient.Where(x => x.IsDeleted != true && x.ClientId == clientRefId).FirstOrDefault();
+                        searchValue = client.CompanyName;
+                        billTypeScriptModel.customerName = client.CompanyName;
+                        billTypeScriptModel.customerAddress = client.ClientAddress;
+                        billTypeScriptModel.gstNo = client.TelNoSecond;
                     }
 
                     var isRepairedText = "";

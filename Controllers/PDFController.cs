@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Gopal.Models.Bill;
 using Gopal.Models.Customer;
+using Gopal.Services.Bill;
 using Gopal.Services.Customer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +23,13 @@ namespace Gopal.Controllers
         
         private IHostingEnvironment _hostingEnvironment;
         private IInwardServices _inwardServices;
+        private IBillServices _billServices;
         public string UPLOAD_PATH;
-        public PDFController(IHostingEnvironment hostingEnvironment, IInwardServices inwardServices)
+        public PDFController(IHostingEnvironment hostingEnvironment, IInwardServices inwardServices, IBillServices billServices)
         {
             _hostingEnvironment = hostingEnvironment;
             _inwardServices = inwardServices;
+            _billServices = billServices;
 
         }
         private string GetUploadFolderPath()
@@ -41,12 +45,27 @@ namespace Gopal.Controllers
 
             if (inwardId <= 0)
             {
-                return BadRequest("Inwalid Inward Id.");
+                return BadRequest("Invalid Inward Id.");
             }
            
            InwardTypeScriptModel inward =  _inwardServices.GetInwardById(inwardId);
            
             return new ViewAsPdf("PrintInward", inward);
+        }
+
+        [HttpGet]
+        [Route("PrintBill")]
+        public IActionResult PrintBill(int billId)
+        {
+
+            if (billId <= 0)
+            {
+                return BadRequest("Invalid Bill Id.");
+            }
+
+            BillTypeScriptModel bill = _billServices.GetBillById(billId);
+
+            return new ViewAsPdf("PrintBill", bill);
         }
     }
 }

@@ -138,7 +138,7 @@
   </div>-->
           <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" id="serviceAmount" [(ngModel)]="bill.serviceAmount" formControlName="serviceAmount" type="number" placeholder="Service Amount" />
+              <input class="form-control" id="serviceAmount" [ngModel]="bill.serviceAmount" formControlName="serviceAmount" type="number" placeholder="Service Amount" />
               <label for="serviceAmount">Service Amount</label>
               <div *ngIf="billGenerationForm.controls['serviceAmount'].invalid &&
                           (billGenerationForm.controls['serviceAmount'].dirty || billGenerationForm.controls['serviceAmount'].touched)"
@@ -151,7 +151,7 @@
           </div>
           <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" id="advanceAmount" [(ngModel)]="bill.advanceAmount" type="number" placeholder="Advance Amount" formControlName="advanceAmount" />
+              <input class="form-control" id="advanceAmount" [ngModel]="bill.advanceAmount" type="number" placeholder="Advance Amount" formControlName="advanceAmount" />
               <label for="advanceAmount">Advance Amount</label>
               <div *ngIf="billGenerationForm.controls['advanceAmount'].invalid &&
                           (billGenerationForm.controls['advanceAmount'].dirty || billGenerationForm.controls['advanceAmount'].touched)"
@@ -177,7 +177,7 @@
           </div>
           <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" id="oustandingAmount" [(ngModel)]="bill.outstandingAmount" formControlName="outstandingAmount" type="number" placeholder="Oustanding Amount" />
+              <input class="form-control" id="oustandingAmount" [ngModel]="bill.outstandingAmount" formControlName="outstandingAmount" type="number" placeholder="Oustanding Amount" />
               <label for="oustandingAmount">Oustanding Amount</label>
               <div *ngIf="billGenerationForm.controls['outstandingAmount'].invalid &&
                           (billGenerationForm.controls['outstandingAmount'].dirty || billGenerationForm.controls['outstandingAmount'].touched)"

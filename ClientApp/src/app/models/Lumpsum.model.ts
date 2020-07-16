@@ -22,6 +22,7 @@ export class Lumpsum{
   totalPaidAmount: number
   outstandingAmount: number
   clientRefId: number
-  customerTypeAhead:any
+  customerTypeAhead: any
+  normalPrinterName: string
 }
 

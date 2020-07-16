@@ -28,6 +28,10 @@ namespace Gopal.Models.Bill
         public DateTime? chequeDate { get; set; }
         public string companyName { get; set; }
         public string jobNumbers { get; set; }
+        public string normalPrinterName { get; set; }
+        public string customerName { get; set; }
+        public string gstNo { get; set; }
+        public string customerAddress { get; set; }
     }
     public class BillTypeScriptModel : BillModel
     {

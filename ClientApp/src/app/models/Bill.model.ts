@@ -23,6 +23,9 @@ export class Bill{
   chequeNo: string
   customerName: string
   jobNumbers: string
+  normalPrinterName: string
+  gstNo: string
+  customerAddress :string
 }
 export class BillOutwardReportSearchModel{
   customerName:any

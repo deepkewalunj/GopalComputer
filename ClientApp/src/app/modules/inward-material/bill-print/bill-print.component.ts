@@ -14,10 +14,62 @@ export class BillPrintComponent implements OnInit {
   modelRef: any;
   bill: Bill;
   APIURL = environment.API_URL;
-  isInwardPrinting: boolean = false;
+  isBillPrinting: boolean = false;
   ngOnInit() {
   }
   close() {
     this.modelRef.close(false);
+  }
+
+  getTotalSum() {
+    return this.bill.paidImmediatlyAmount + this.bill.outstandingAmount;
+  }
+
+toDataUrl(url, callback) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+}
+
+
+getBase64EncodedImage(){
+  const that=this;
+  that.isBillPrinting=true;
+  that.toDataUrl(environment.API_URL+'PDF/PrintBill?billId='+this.bill.billId,function(base64Image){
+    base64Image=base64Image.split(",")[1];
+    that.printBill(base64Image,that);
+
+  });
+
+}
+  printBill(base64Data,that){
+
+    var printData = [
+      {
+        type: 'pixel',
+        format: 'pdf',
+        flavor: 'base64',
+        data:base64Data
+
+      }
+    ];
+
+    that.printService.printData(this.bill.normalPrinterName, printData).subscribe(data=>{
+      that.isBillPrinting=false;
+      console.log(data);
+    },error=>{
+        that.isBillPrinting=false;
+      console.log(error);
+    });
+
   }
 }
