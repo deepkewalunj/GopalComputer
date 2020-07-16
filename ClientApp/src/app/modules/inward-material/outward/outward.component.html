@@ -81,7 +81,7 @@
           
           <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" id="serviceAmount" [(ngModel)]="outward.serviceAmount" formControlName="serviceAmount" type="number" placeholder="Service Amount" />
+              <input class="form-control" id="serviceAmount" [ngModel]="outward.serviceAmount" formControlName="serviceAmount" type="number" placeholder="Service Amount" />
               <label for="serviceAmount">Service Amount</label>
               <div *ngIf="outwardForm.controls['serviceAmount'].invalid &&
                           (outwardForm.controls['serviceAmount'].dirty || outwardForm.controls['serviceAmount'].touched)"
@@ -94,7 +94,7 @@
           </div>
           <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" id="advanceAmount" [(ngModel)]="outward.advanceAmount" type="number" placeholder="Advance Amount" formControlName="advanceAmount" />
+              <input class="form-control" id="advanceAmount" [ngModel]="outward.advanceAmount" type="number" placeholder="Advance Amount" formControlName="advanceAmount" />
               <label for="advanceAmount">Advance Amount</label>
               <div *ngIf="outwardForm.controls['advanceAmount'].invalid &&
                           (outwardForm.controls['advanceAmount'].dirty || outwardForm.controls['advanceAmount'].touched)"
@@ -120,7 +120,7 @@
           </div>
           <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" id="oustandingAmount" [(ngModel)]="outward.outstandingAmount" formControlName="outstandingAmount" type="number" placeholder="Oustanding Amount" />
+              <input class="form-control" id="oustandingAmount" [ngModel]="outward.outstandingAmount" formControlName="outstandingAmount" type="number" placeholder="Oustanding Amount" />
               <label for="oustandingAmount">Oustanding Amount</label>
               <div *ngIf="outwardForm.controls['outstandingAmount'].invalid &&
                           (outwardForm.controls['outstandingAmount'].dirty || outwardForm.controls['outstandingAmount'].touched)"
