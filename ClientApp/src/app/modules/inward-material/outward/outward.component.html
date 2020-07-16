@@ -57,7 +57,7 @@
                   <td data-title="Job Details">{{tag.searchValue}}</td>
                   <td data-title="Model No">{{tag.modelNo}}</td>
                   <td data-title="Serial No">{{tag.serialNo}}</td>
-                  <td data-title="Advance Amount">{{tag.advanceAmount}} /-</td>
+                  <td data-title="Advance Amount">{{tag.advanceAmount > 0 ? tag.advanceAmount : 0}} /-</td>
                   <td data-title="Service Amount"><input style="width:90%" type="number" (keyup)="onKey($event, i)" value="{{tag.serviceAmount}}"></td>
                   
                 </tr>
