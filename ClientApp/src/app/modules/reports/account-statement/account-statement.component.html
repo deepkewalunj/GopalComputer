@@ -1,0 +1,240 @@
+
+<div class="container-fluid">
+    <h3 class="text-center mb-4">Account Statement</h3>
+    <div class="card mb-1">
+        <div class="card-header">
+            <!-- <h4 class="float-left">Tables</h4>  -->
+            <button class="btn btn-search btn-primary float-right d-sm-none"
+                (click)="toggleSearch()"><i class="icon-search"></i></button>
+        </div>
+        <div class="card-body pb-0 mb-0">
+                 <!--table search filter start-->
+                 <form  class="search-filter d-none d-md-block" [ngClass]="searchFilter ? 'd-block' : 'd-none'">
+                    <div class="row mb-2">
+                        <div class="col-sm">
+                            <div class="form-group has-float-label">
+                               <input id="companyName" type="text" class="form-control"  placeholder="Select Company"/>
+                                <label for="companyName">Company Name</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group has-float-label">
+                                <input class="form-control" type="text"  id="billNumber" placeholder="Bill Number">
+                                <label for="billNumber">Bill Number</label>
+                            </div>
+                        </div>
+    
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <div class="input-group datepicker">
+                                    <label class="date-label">From Date</label>
+                                    <input class="form-control" placeholder="dd-mm-yyyy" name="dp"
+                                    ngbDatepicker
+                                        #d1="ngbDatepicker" (click)="d1.toggle()">
+                                    <div class="input-group-append">
+                                        <button  class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
+                                            type="button" ><i class="far fa-calendar-alt"></i></button>
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <div class="input-group datepicker">
+                                    <label class="date-label">To Date</label>
+                                    <input class="form-control"  placeholder="dd-mm-yyyy" name="dp"
+                                    ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()">
+                                    <div class="input-group-append">
+                                        <button  class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
+                                            type="button" ><i class="far fa-calendar-alt"></i></button>
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+                        <div class="col-sm text-right">
+                            <div class="form-group">
+                                <button type="reset"  class="btn btn-outline btn-outline-dark">Reset</button>
+                                <button type="button" class="btn btn-outline btn-outline-dark">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--table search filter end-->
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex account-list">
+
+        <div class="card mb-3 card-left">
+            <div class="card-header">
+            <h4 class="float-left">Bill Payment</h4> 
+            </div>
+            <div class="card-body">
+                <!--table listing statrt-->
+                <div id="no-more-tables">
+                    <!-- This id used for responsive table -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width:18%" class="cursor">
+                                    <div class="d-flex align-items-center"><span>Bill Date </span> </div>
+                                </th>
+                                <th scope="col" style="width:14%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Bill #</span></div>
+                            </th>
+                                <th scope="col" style="width:14%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Job #</span> </div>
+                                </th>
+                                <th scope="col" style="width:14%" class="text-right">
+                                Job ₹
+                                </th>
+                                <th scope="col" style="width:15%" class="text-right">
+                                    Adv. ₹
+                                </th>
+                                <th scope="col" style="width:15%" class="text-right">
+                                Paid ₹
+                                </th>
+                                <th scope="col" style="width:10%" class="text-right">
+                                    O/S ₹
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-title="Bill Date">09-09-2020</td>
+                                <td data-title="Bill #">1234567</td>
+                                <td data-title="Job #">678905</td>
+                                <td data-title="Job ₹" class="text-right">2000</td>
+                                <td data-title="Advance ₹" class="text-right">1000</td>
+                                <td data-title="Paid ₹" class="text-right">500</td>
+                                <td data-title=" O/S ₹" class="text-right">1500</td>
+                            </tr>
+                        </tbody>
+                    
+                    </table>
+
+                    <!--table listing end-->
+                </div>
+            </div>
+            <div class="card-header">
+                <h4 class="float-left">Outward Payment</h4> 
+            </div>
+            <div class="card-body">
+                <!--outward listing-->
+                <div id="no-more-tables">
+                    <!-- This id used for responsive table -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width:18%" class="cursor">
+                                    <div class="d-flex align-items-center"><span>Outward Date </span> </div>
+                                </th>
+                                <th scope="col" style="width:14%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Bill #</span></div>
+                            </th>
+                                <th scope="col" style="width:14%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Job #</span> </div>
+                                </th>
+                                <th scope="col" style="width:14%" class="text-right">
+                                Job ₹
+                                </th>
+                                <th scope="col" style="width:15%" class="text-right">
+                                    Adv. ₹
+                                </th>
+                                <th scope="col" style="width:15%" class="text-right">
+                                Paid ₹
+                                </th>
+                                <th scope="col" style="width:10%" class="text-right">
+                                    O/S ₹
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-title="Outward Date">09-09-2020</td>
+                                <td data-title="Bill #">1234567</td>
+                                <td data-title="Job #">678905</td>
+                                <td data-title="Job ₹" class="text-right">2000</td>
+                                <td data-title="Advance ₹" class="text-right">1000</td>
+                                <td data-title="Paid ₹" class="text-right">500</td>
+                                <td data-title=" O/S ₹" class="text-right">1500</td>
+                            </tr>
+                        
+                    
+                    </table>
+
+                    <!--table listing end-->
+                </div>
+            </div>
+            <div class="card-footer">
+                <strong>7500</strong>
+            </div>
+        </div>
+        <div class="card mb-3 card-right">
+            <div class="card-header">
+            <h4 class="float-left">Total</h4> 
+            </div>
+            <div class="card-body">
+                <!--table listing statrt-->
+                <div id="no-more-tables">
+                    <!-- This id used for responsive table -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width:18%" class="cursor">
+                                    <div class="d-flex align-items-center"><span>Payment Date </span> </div>
+                                </th>
+                                <th scope="col" style="width:15%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Job #</span></div>
+                            </th>
+                                <th scope="col" style="width:15%" class="cursor">
+                                <div class="d-flex align-items-center"><span>Cash/Cheque</span> </div>
+                                </th>
+                                <th scope="col" style="width:15%" class="text-right">
+                                Paid ₹
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-title="Payment Date">09-09-2020</td>
+                                <td data-title="Job #">678905</td>
+                                <td data-title="Cash/Cheque " class="text-right">Cash</td>
+                                <td data-title="Paid ₹" class="text-right">500</td>
+                            </tr>
+                        </tbody>
+                        <!-- <tfoot>
+                        <tr>
+                            <th class="text-right"></th>
+                            <th class="text-right"></th>
+                            <th class="text-right">Total:</th>
+                            <th class="text-right">{{servicetotal}}</th>
+                            <th class="text-right">{{advancetotal}}</th>
+                            <th class="text-right"></th>
+                            <th class="text-right"></th>
+                        </tr>
+                        </tfoot> -->
+                    </table>
+
+                    <!--table listing end-->
+                </div>
+            </div>
+            <div class="card-footer">
+                <strong>7500</strong>
+            </div>
+        </div>
+</div>
+
+</div>
+<div class="alert alert-warning" role="alert">
+   <h5 class="mb-0">Note:</h5>
+   <p class="mb-0"> Please clear amount as soon as possible, Credit will be provided for 7 day's only. After that intrest will be charged @ 18% p.a. </p>
+  </div>
+</div>
+
+
+
+
+

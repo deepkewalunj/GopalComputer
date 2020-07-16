@@ -1,0 +1,23 @@
+.account-list {
+    .card-left {
+        flex-basis: 60%;
+    }
+    .card-right {
+        flex-basis: 40%;
+        margin-left: 5px;
+    }
+    .card-footer {
+        background-color: #fff;
+        text-align: right;
+        font-size: 1.2rem;
+    }
+}
+
+.alert {
+    h5 {
+        color: #000;
+    }
+    p {
+        color: #000;
+    }
+}
