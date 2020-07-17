@@ -16,14 +16,7 @@
                                <input id="companyName" type="text" class="form-control"  placeholder="Select Company"/>
                                 <label for="companyName">Company Name</label>
                             </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group has-float-label">
-                                <input class="form-control" type="text"  id="billNumber" placeholder="Bill Number">
-                                <label for="billNumber">Bill Number</label>
-                            </div>
-                        </div>
-    
+                        </div>                   
                         <div class="col-sm">
                             <div class="form-group">
                                 <div class="input-group datepicker">
@@ -102,6 +95,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr class="opening-balance">
+                                <td colspan="4">Opening Balance</td>
+                                <td  colspan="4" class="text-right">1200</td>
+                            </tr>
                             <tr>
                                 <td data-title="Bill Date">09-09-2020</td>
                                 <td data-title="Bill #">1234567</td>
@@ -152,6 +149,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr class="opening-balance">
+                                <td colspan="4">Opening Balance</td>
+                                <td  colspan="4" class="text-right">1200</td>
+                            </tr>
                             <tr>
                                 <td data-title="Outward Date">09-09-2020</td>
                                 <td data-title="Bill #">1234567</td>
@@ -187,10 +188,7 @@
                                     <div class="d-flex align-items-center"><span>Payment Date </span> </div>
                                 </th>
                                 <th scope="col" style="width:15%" class="cursor">
-                                <div class="d-flex align-items-center"><span>Job #</span></div>
-                            </th>
-                                <th scope="col" style="width:15%" class="cursor">
-                                <div class="d-flex align-items-center"><span>Cash/Cheque</span> </div>
+                                <div class="d-flex align-items-center"><span>Payment Mode</span> </div>
                                 </th>
                                 <th scope="col" style="width:15%" class="text-right">
                                 Paid ₹
@@ -200,7 +198,6 @@
                         <tbody>
                             <tr>
                                 <td data-title="Payment Date">09-09-2020</td>
-                                <td data-title="Job #">678905</td>
                                 <td data-title="Cash/Cheque " class="text-right">Cash</td>
                                 <td data-title="Paid ₹" class="text-right">500</td>
                             </tr>
@@ -222,6 +219,14 @@
                 </div>
             </div>
             <div class="card-footer">
+                <div class="d-flex">
+                    <span class="title">
+                        <strong>Closing Balance</strong>
+                    </span>
+                    <span class="amount">
+                        <strong>7500</strong>
+                    </span>
+                </div>
                 <strong>7500</strong>
             </div>
         </div>
