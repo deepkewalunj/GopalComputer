@@ -24,5 +24,7 @@ export class Lumpsum{
   clientRefId: number
   customerTypeAhead: any
   normalPrinterName: string
+  gstNo: string
+  customerAddress: string
 }
 
