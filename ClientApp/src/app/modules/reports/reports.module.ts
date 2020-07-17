@@ -14,7 +14,8 @@ import { AccountStatementComponent } from './account-statement/account-statement
 
 @NgModule({
   declarations: [BillReportComponent, OutwardReportComponent,
-    InwardReportComponent,ClientOutstandingReportComponent, AccountStatementComponent],
+    InwardReportComponent,ClientOutstandingReportComponent,
+    AccountStatementComponent],
   imports: [
     CommonModule,
     ReportsRoutingModule,
