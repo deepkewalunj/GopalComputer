@@ -85,15 +85,15 @@
                               <div class="d-flex align-items-center"><span>Client Name</span> </div>
                             </th>
                             <th scope="col" style="width:15%" class="text-right">
-                              Estimated Amt.
+                              <div class="mr-2"> Estimated ₹</div>
                             </th>
                             <th scope="col" style="width:15%" class="text-right">
-                                Advance Amount
+                                <div class="mr-2"> Advance ₹</div>
                             </th>
-                            <th scope="col" style="width:15%" class="text-right">
-                                Outward/Bill Status
+                            <th scope="col" style="width:15%">
+                                Outward/Bill Status 
                             </th>
-                            <th scope="col" style="width:10%" class="text-right">
+                            <th scope="col" style="width:10%">
                                 Repaired
                             </th>
                         </tr>
@@ -105,10 +105,10 @@
                             <td data-title="Job #">{{bill.jobNumbers}}</td>
                             <td data-title="Inward Date">{{bill.reportDate | date: 'dd/MM/yyyy' }}</td>
                             <td data-title="Client Name">{{bill.clientName}}</td>
-                            <td data-title="Estimated Amt." class="text-right">{{bill.serviceAmount}}</td>
+                            <td data-title="Estimated Amount" class="text-right">{{bill.serviceAmount}}</td>
                             <td data-title="Advance Amount" class="text-right">{{bill.advanceAmount}}</td>
-                            <td data-title="Outward/Bill Status" class="text-right">{{bill.outwardBillStatus}}</td>
-                            <td data-title="Repaired" class="text-right" >
+                            <td data-title="Outward/Bill Status">{{bill.outwardBillStatus}}</td>
+                            <td data-title="Repaired">
                               {{bill.repairedStatus}}</td>
                         </tr>
 

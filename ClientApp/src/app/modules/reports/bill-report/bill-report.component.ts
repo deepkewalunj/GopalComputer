@@ -50,7 +50,8 @@ export class BillReportComponent implements OnInit {
       dom: 'Bfrtip',
       select: {
       style:    'os,multi',
-      selector: 'td:first-child'
+      selector: 'td:first-child',
+    
   },
 
 
