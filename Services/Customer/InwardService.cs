@@ -313,6 +313,7 @@ namespace Gopal.Services.Customer
             inwardModel.inwardBarCodeZPL=  GetInwardBarCodeZPL(inwardModel);
             inwardModel.normalPrinterName = _dbContext.TblMaster.FirstOrDefault(x => x.MasterKey == "NORMAL_PRINTER").MasterValue;
             inwardModel.barCodePrinterName = _dbContext.TblMaster.FirstOrDefault(x => x.MasterKey == "BARCODE_PRINTER").MasterValue;
+            inwardModel.isOutwardOrBillExist = IsInwardBillOrOutwardBillExist(inwardModel.inwardId);
             return inwardModel;
         }
 
