@@ -17,8 +17,6 @@ import { InwardPrintComponent } from './inward-print/inward-print.component';
 import { NgxPrintModule } from 'ngx-print';
 import { BillGenerationComponent } from './bill-generation/bill-generation.component';
 import { OutwardComponent } from './outward/outward.component';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { CameraComponent } from 'src/app/shared/camera/camera.component';
 import { WebcamModule } from 'ngx-webcam';
 import { OutwardListComponent } from './outward-list/outward-list.component';
@@ -26,9 +24,6 @@ import { BillingListComponent } from './billing-list/billing-list.component';
 import { BillPrintComponent } from './bill-print/bill-print.component';
 import { OutwardPrintComponent } from './outward-print/outward-print.component';
 
-const maskConfig: Partial<IConfig> = {
-  validation: false,
-};
 
 @NgModule({
   declarations: [
@@ -58,7 +53,6 @@ const maskConfig: Partial<IConfig> = {
     MasterModule,
     NgxDropzoneModule,
     NgxPrintModule,
-    NgxMaskModule.forRoot(maskConfig),
     WebcamModule
 
   ]

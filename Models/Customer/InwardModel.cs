@@ -64,6 +64,7 @@ namespace Gopal.Models.Customer
         public List<string> inwardBarCodeZPL { get; set; }
         public string barCodePrinterName { get; set; }
         public string normalPrinterName { get; set; }
+        public bool isOutwardOrBillExist { get; set; }
 
     }
     public class FilePOCO {
