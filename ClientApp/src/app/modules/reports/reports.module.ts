@@ -10,10 +10,12 @@ import { OutwardReportComponent } from './outward-report/outward-report.componen
 import { DataTablesModule } from 'angular-datatables';
 import { InwardReportComponent } from './inward-report/inward-report.component';
 import { ClientOutstandingReportComponent } from './client-outstanding-report/client-outstanding-report.component';
+import { AccountStatementComponent } from './account-statement/account-statement.component';
 
 @NgModule({
   declarations: [BillReportComponent, OutwardReportComponent,
-    InwardReportComponent,ClientOutstandingReportComponent],
+    InwardReportComponent,ClientOutstandingReportComponent,
+    AccountStatementComponent],
   imports: [
     CommonModule,
     ReportsRoutingModule,
