@@ -9,7 +9,18 @@
     .card-footer {
         background-color: #fff;
         text-align: right;
-        font-size: 1.2rem;
+        font-size: .895rem;
+        div {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 7px;
+        }
+        span {
+            font-size: .895rem;
+        }
+        .title {
+            flex: 1;
+            text-align: left;
+        }
     }
 }
 
@@ -19,5 +30,13 @@
     }
     p {
         color: #000;
+    }
+}
+
+.opening-balance {
+    td {
+        font-size: .875rem;
+    font-weight: 600;
+    color: #000;
     }
 }

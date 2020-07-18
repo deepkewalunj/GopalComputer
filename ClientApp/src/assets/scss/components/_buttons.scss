@@ -191,12 +191,14 @@ footer {
     font-size: 0.8125rem;
     margin-right: 10px;
    margin-bottom: 10px;
+   line-height: 1;
     span {
         margin-left: 7px;
         display: inline-block;
         font-family: "Poppins", sans-serif;
         text-transform: uppercase;
         font-weight: 600;
+        line-height: 1;
     }
    &.buttons-excel {
         background-color:#fff;
@@ -209,6 +211,27 @@ footer {
         color: $danger;
         border: 1px solid $danger;
         border-radius: 4px;
+    }
+    &.buttons-select-all {
+        background-color:#fff;
+        color: #1c0f3a;
+        border-color: #1c0f3a;
+        border-radius: 4px;
+        span {
+            margin: 0;
+        }
+    }
+    &.buttons-select-all {
+        background-color:#fff;
+        color: #1c0f3a;
+        border: 1px solid #1c0f3a;
+        border-radius: 4px;
+        span {
+            margin: 0;
+        }
+    }
+    &.buttons-select-none {
+        @extend .buttons-select-all
     }
 }
 
