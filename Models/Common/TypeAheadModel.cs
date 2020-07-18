@@ -33,6 +33,7 @@ namespace Gopal.Models.Common
         TYPEAHEAD_MATERIAL=2,
         TYPEAHEAD_INVENTORY=3,
         TYPEAHEAD_JOBNUMBER = 4,
+        TYPEAHEAD_CUSTOMERNAME=5
 
     }
 }

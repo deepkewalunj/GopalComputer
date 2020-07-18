@@ -8,6 +8,7 @@ import { ReportModel, ReportSearchModel } from 'src/app/models/Report.model';
 import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
 import { TypeAheadResponseModel } from 'src/app/models/typeahead.model';
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
+import { FiscalYear } from 'src/app/models/FiscalYear.model';
 
 @Component({
   selector: 'app-outward-report',
@@ -31,7 +32,7 @@ export class OutwardReportComponent implements OnInit {
   advancetotal:number=0;
   paidtotal:number=0;
   outStandingtotal:number=0;
-
+  todaydate:NgbDate;
   searching = false;
   searchFailed = false;
 
@@ -42,9 +43,10 @@ export class OutwardReportComponent implements OnInit {
   ngOnInit() {
 
     const that=this;
+    this.todaydate=this.ngbCalendar.getToday();
     this.clearFilter();
-    this.searchModel.reportFromDate=this.ngbCalendar.getToday();
-    this.searchModel.reportToDate=this.ngbCalendar.getToday();
+   this.searchModel.reportFromDate=new NgbDate(FiscalYear.getFiscalStartYearByToday(this.todaydate),4,1)
+   this.searchModel.reportToDate=this.todaydate;
 
     this.dtOptions = {
       paging:false,
@@ -59,7 +61,7 @@ export class OutwardReportComponent implements OnInit {
         'selectNone',
         {
           extend:'excelHtml5',
-          messageTop: 'Inward Bill Report',
+          messageTop: `Outward Report  Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
           className: 'far fa-file-excel',
           footer: true,
           customize: function (doc) {
@@ -119,7 +121,7 @@ export class OutwardReportComponent implements OnInit {
         extend: 'pdfHtml5',
         orientation: 'landscape',
         pageSize: 'LEGAL',
-        messageTop: 'Inward Bill Report',
+        messageTop: `Outward Report  Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
         className: 'far fa-file-pdf',
         footer: true,
         customize: function (doc) {
@@ -258,7 +260,7 @@ export class OutwardReportComponent implements OnInit {
     distinctUntilChanged(),
     tap(() => this.searching = true),
     switchMap(term =>term.length < 2 ? []:
-      this.typeAheadService.GetTypeAheadList(1,term,1)
+      this.typeAheadService.GetTypeAheadList(1,term,5)
       .pipe(
         tap(() => this.searchFailed = false),
         catchError(() => {

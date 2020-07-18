@@ -9,6 +9,7 @@ import { TypeAheadResponseModel } from 'src/app/models/typeahead.model';
 import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
 import { ReportService } from 'src/app/services/report.service';
+import { FiscalYear } from 'src/app/models/FiscalYear.model';
 
 @Component({
   selector: 'app-inward-report',
@@ -18,7 +19,7 @@ import { ReportService } from 'src/app/services/report.service';
 export class InwardReportComponent implements OnInit {
   searchFilter: boolean;
   searchForm: FormGroup;
-  lstBillReport:ReportModel[];
+  lstInwardReport:ReportModel[];
   searchModel:ReportSearchModel;
   formatter = (typeAhead: TypeAheadResponseModel) => typeAhead.searchValue;
 
@@ -30,7 +31,7 @@ export class InwardReportComponent implements OnInit {
   advancetotal:number=0;
   paidtotal:number=0;
   outStandingtotal:number=0;
-
+  todaydate:NgbDate;
   searching = false;
   searchFailed = false;
 
@@ -41,29 +42,88 @@ export class InwardReportComponent implements OnInit {
   ngOnInit() {
 
     const that=this;
+    this.todaydate=this.ngbCalendar.getToday();
     this.clearFilter();
-    this.searchModel.reportFromDate=this.ngbCalendar.getToday();
-    this.searchModel.reportToDate=this.ngbCalendar.getToday();
+    this.searchModel.reportFromDate=new NgbDate(FiscalYear.getFiscalStartYearByToday(this.todaydate),4,1)
+    this.searchModel.reportToDate=this.todaydate
     this.dtOptions = {
       paging:false,
       searching:false,
       dom: 'Bfrtip',
+      select: {
+      style:    'os,multi',
+      selector: 'td:first-child',
+
+  },
+
+
       buttons: [
+        'selectAll',
+        'selectNone',
         {
           extend:'excel',
-          messageTop: 'Inward Bill Report',
+          messageTop: `Inward Report   Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
+          className: 'far fa-file-excel',
           footer: true,
+          customize: function (doc) {
 
+            let sheet = doc.xl.worksheets['sheet1.xml'];
+
+            let serviceAmountForPrint=0;
+            let advanceAmountForPrint=0;
+            for(let i=1;i< $('row c[r^="F"]', sheet).length-1;i++){
+              let element=$('row c[r^="F"]', sheet)[i];
+              if (parseFloat($('c v', element).text()) > 0) {
+                serviceAmountForPrint=serviceAmountForPrint+parseFloat($('c v', element).text());
+              }
+            }
+
+            for(let i=1;i< $('row c[r^="G"]', sheet).length-1;i++){
+              let element=$('row c[r^="G"]', sheet)[i];
+              if (parseFloat($('c v', element).text()) > 0) {
+                advanceAmountForPrint=advanceAmountForPrint+parseFloat($('c v', element).text());
+              }
+            }
+
+
+
+            $('c v', $('row c[r^="F"]', sheet)[$('row c[r^="F"]', sheet).length-1]).text(serviceAmountForPrint);
+            $('c v', $('row c[r^="G"]', sheet)[$('row c[r^="G"]', sheet).length-1]).text(advanceAmountForPrint);
+
+
+
+
+
+
+
+        }
         },
        {
         extend: 'pdfHtml5',
         orientation: 'landscape',
         pageSize: 'LEGAL',
-        messageTop: 'Inward Bill Report',
+        messageTop: `Inward Report Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
+        className: 'far fa-file-pdf',
         footer: true,
         customize: function (doc) {
           doc.content[2].table.widths =
               Array(doc.content[2].table.body[0].length + 1).join('*').split('');
+
+              let serviceAmountForPrint=0;
+              let advanceAmountForPrint=0;
+
+              for (let r=1;r<doc.content[2].table.body.length-1;r++) {
+                let row = doc.content[2].table.body[r];
+                if(parseFloat(row[5].text)>0){
+                  serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[5].text);
+                }
+                if(parseFloat(row[6].text)>0){
+                  advanceAmountForPrint=advanceAmountForPrint+parseFloat(row[6].text);
+                }
+
+              }
+              doc.content[2].table.body[doc.content[2].table.body.length-1][5].text=serviceAmountForPrint;
+              doc.content[2].table.body[doc.content[2].table.body.length-1][6].text=advanceAmountForPrint;
 
 
         }
@@ -81,14 +141,13 @@ export class InwardReportComponent implements OnInit {
 
 
       that.servicetotal = api
-          .column( 3)
+          .column( 5)
           .data()
           .reduce( function (a, b) {
               return intVal(a) + intVal(b);
           }, 0 );
-
           that.advancetotal = api
-          .column( 4)
+          .column( 6)
           .data()
           .reduce( function (a, b) {
               return intVal(a) + intVal(b);
@@ -99,15 +158,15 @@ export class InwardReportComponent implements OnInit {
 
 
   },
-
-     columns: [
-      { data: 'jobNumbers',searchable:false,orderable:true  },
-       { data: 'reportDate',searchable:false,orderable:true  },
+     columns: [{orderable: false,className: 'select-checkbox',targets:   0},
+     { data: 'reportId',searchable:false,orderable:true  },
+      { data: 'reportDate',searchable:false,orderable:true  },
       { data: 'clientName',searchable:false,orderable:true  },
+      { data: 'MaterialName',searchable:false,orderable:true  },
       { data: 'serviceAmount',searchable:false,orderable:true  },
       { data: 'advanceAmount',searchable:false,orderable:true  },
       { data: 'outwardBillStatus',searchable:false,orderable:true  },
-      { data: 'repairedStatus',searchable:false,orderable:true  }]
+      { data: 'repairedStatus',searchable:false,orderable:true  },]
 
     };
     this.GetBillReport(true);
@@ -128,7 +187,7 @@ export class InwardReportComponent implements OnInit {
   GetBillReport(first=false){
     const that = this;
     this.reportService.GetInwardReportList(this.searchModel).subscribe(data=>{
-      that.lstBillReport = data.data;
+      that.lstInwardReport = data.data;
       if(first)
       {
         that.dtTrigger.next();
@@ -154,7 +213,7 @@ export class InwardReportComponent implements OnInit {
       distinctUntilChanged(),
       tap(() => this.searching = true),
       switchMap(term =>term.length < 2 ? []:
-        this.typeAheadService.GetTypeAheadList(1,term,1)
+        this.typeAheadService.GetTypeAheadList(1,term,5)
         .pipe(
           tap(() => this.searchFailed = false),
           catchError(() => {

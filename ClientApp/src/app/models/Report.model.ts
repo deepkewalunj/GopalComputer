@@ -13,7 +13,7 @@ export class ReportModel{
   jobNumbers :string
   reportDate :string
   clientName:string
-  MaterialName:string
+  materialName:string
   serviceAmount:number
   advanceAmount :number
   paidImmediatlyAmount :number
