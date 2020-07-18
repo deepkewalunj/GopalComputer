@@ -45,5 +45,12 @@ namespace Gopal.Controllers
         {
             return Ok(_reportServices.GetClientOutstandingReportList(searchModel));
         }
+
+        [HttpPost("GetAccountStatementReport")]
+        [Authorize]
+        public IActionResult GetAccountStatementReport(ReportSearchModel searchModel)
+        {
+            return Ok(_reportServices.GetAccountStatementReport(searchModel));
+        }
     }
 }

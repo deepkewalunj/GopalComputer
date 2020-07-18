@@ -26,4 +26,7 @@ export class ReportService {
   GetClientOutstandingReportList(searchModel:ReportSearchModel){
     return this.http.post<any>(environment.API_URL + 'Report/GetClientOutstandingReportList', searchModel);
   }
+  GetAccountStatementReport(searchModel: ReportSearchModel) {
+    return this.http.post<any>(environment.API_URL + 'Report/GetAccountStatementReport', searchModel);
+  }
 }

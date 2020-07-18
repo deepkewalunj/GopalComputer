@@ -9,55 +9,66 @@
         </div>
         <div class="card-body pb-0 mb-0">
                  <!--table search filter start-->
-                 <form  class="search-filter d-none d-md-block" [ngClass]="searchFilter ? 'd-block' : 'd-none'">
-                    <div class="row mb-2">
-                        <div class="col-sm">
-                            <div class="form-group has-float-label">
-                               <input id="companyName" type="text" class="form-control"  placeholder="Select Company"/>
-                                <label for="companyName">Company Name</label>
-                            </div>
-                        </div>                   
-                        <div class="col-sm">
-                            <div class="form-group">
-                                <div class="input-group datepicker">
-                                    <label class="date-label">From Date</label>
-                                    <input class="form-control" placeholder="dd-mm-yyyy" name="dp"
-                                    ngbDatepicker
-                                        #d1="ngbDatepicker" (click)="d1.toggle()">
-                                    <div class="input-group-append">
-                                        <button  class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
-                                            type="button" ><i class="far fa-calendar-alt"></i></button>
-                                    </div>
-                                </div>
-    
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group">
-                                <div class="input-group datepicker">
-                                    <label class="date-label">To Date</label>
-                                    <input class="form-control"  placeholder="dd-mm-yyyy" name="dp"
-                                    ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()">
-                                    <div class="input-group-append">
-                                        <button  class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
-                                            type="button" ><i class="far fa-calendar-alt"></i></button>
-                                    </div>
-                                </div>
-    
-                            </div>
-                        </div>
-                        <div class="col-sm text-right">
-                            <div class="form-group">
-                                <button type="reset"  class="btn btn-outline btn-outline-dark">Reset</button>
-                                <button type="button" class="btn btn-outline btn-outline-dark">Search</button>
-                            </div>
-                        </div>
+          <form class="search-filter d-none d-md-block" [ngClass]="searchFilter ? 'd-block' : 'd-none'">
+            <div class="row mb-2">
+              <div class="col-sm">
+                <div class="form-group has-float-label">
+                  <input id="companyName" type="text" class="form-control"
+                         [(ngModel)]="searchModel.customerName" [inputFormatter]="formatter"
+                         [resultFormatter]="formatter" [ngModelOptions]="{standalone: true}"
+                         [editable]='false' [ngbTypeahead]="searchCustomer" placeholder="Select Company" />
+                  <label for="companyName">Company Name</label>
+                </div>
+              </div>
+
+
+              <div class="col-sm">
+                <div class="form-group">
+                  <div class="input-group datepicker">
+                    <label class="date-label">From Date</label>
+                    <input class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchModel.reportFromDate" placeholder="dd-mm-yyyy" name="dp"
+                           ngbDatepicker
+                           #d1="ngbDatepicker" (click)="d1.toggle()">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
+                              type="button">
+                        <i class="far fa-calendar-alt"></i>
+                      </button>
                     </div>
-                </form>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="form-group">
+                  <div class="input-group datepicker">
+                    <label class="date-label">To Date</label>
+                    <input class="form-control" [ngModelOptions]="{standalone: true}" placeholder="dd-mm-yyyy" name="dp"
+                           ngbDatepicker [(ngModel)]="searchModel.reportToDate"
+                           #d2="ngbDatepicker" (click)="d2.toggle()">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
+                              type="button">
+                        <i class="far fa-calendar-alt"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-sm text-right">
+                <div class="form-group">
+                  <button type="reset" (click)="clearFilter()" class="btn btn-outline btn-outline-dark">Reset</button>
+                  <button type="button" (click)="GetAccountStatementReport()" class="btn btn-outline btn-outline-dark">Search</button>
+                </div>
+              </div>
+              <span *ngIf="isError" style="text-align:center;" class="danger">All fields are required.</span>
+            </div>
+          </form>
                 <!--table search filter end-->
             </div>
     </div>
-    <div class="row">
+    <div *ngIf="isShow" class="row">
         <div class="col-12 d-flex account-list">
 
         <div class="card mb-3 card-left">
@@ -97,16 +108,16 @@
                         <tbody>
                             <tr class="opening-balance">
                                 <td colspan="4">Opening Balance</td>
-                                <td  colspan="4" class="text-right">1200</td>
+                                <td colspan="4" class="text-right">{{accountStatement.billOpeningBalance}} </td>
                             </tr>
-                            <tr>
-                                <td data-title="Bill Date">09-09-2020</td>
-                                <td data-title="Bill #">1234567</td>
-                                <td data-title="Job #">678905</td>
-                                <td data-title="Job ₹" class="text-right">2000</td>
-                                <td data-title="Advance ₹" class="text-right">1000</td>
-                                <td data-title="Paid ₹" class="text-right">500</td>
-                                <td data-title=" O/S ₹" class="text-right">1500</td>
+                            <tr *ngFor="let bill of accountStatement.billPaymentDetails">
+                              <td data-title="Bill Date">{{bill.billDate  | date:'dd/MM/yyyy'}}</td>
+                              <td data-title="Bill #">{{bill.billNumber}}</td>
+                              <td data-title="Job #">{{bill.jobNumber}}</td>
+                              <td data-title="Job ₹" class="text-right">{{bill.serviceAmount}} </td>
+                              <td data-title="Advance ₹" class="text-right">{{bill.advancedAmount}} </td>
+                              <td data-title="Paid ₹" class="text-right">{{bill.paidImmidiateAmount}} </td>
+                              <td data-title=" O/S ₹" class="text-right">{{bill.outstandingAmount}} </td>
                             </tr>
                         </tbody>
                     
@@ -129,7 +140,7 @@
                                     <div class="d-flex align-items-center"><span>Outward Date </span> </div>
                                 </th>
                                 <th scope="col" style="width:14%" class="cursor">
-                                <div class="d-flex align-items-center"><span>Bill #</span></div>
+                                <div class="d-flex align-items-center"><span>Outward #</span></div>
                             </th>
                                 <th scope="col" style="width:14%" class="cursor">
                                 <div class="d-flex align-items-center"><span>Job #</span> </div>
@@ -149,20 +160,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="opening-balance">
-                                <td colspan="4">Opening Balance</td>
-                                <td  colspan="4" class="text-right">1200</td>
-                            </tr>
-                            <tr>
-                                <td data-title="Outward Date">09-09-2020</td>
-                                <td data-title="Bill #">1234567</td>
-                                <td data-title="Job #">678905</td>
-                                <td data-title="Job ₹" class="text-right">2000</td>
-                                <td data-title="Advance ₹" class="text-right">1000</td>
-                                <td data-title="Paid ₹" class="text-right">500</td>
-                                <td data-title=" O/S ₹" class="text-right">1500</td>
-                            </tr>
-                        
+                          <tr class="opening-balance">
+                            <td colspan="4">Opening Balance</td>
+                            <td colspan="4" class="text-right">{{accountStatement.outwardOpeningBalance}} </td>
+                          </tr>
+                          <tr *ngFor="let bill of accountStatement.outwardPaymentDetails">
+                            <td data-title="Outward Date">{{bill.billDate  | date:'dd/MM/yyyy'}}</td>
+                            <td data-title="Outward #">{{bill.billNumber}}</td>
+                            <td data-title="Job #">{{bill.jobNumber}}</td>
+                            <td data-title="Job ₹" class="text-right">{{bill.serviceAmount}} </td>
+                            <td data-title="Advance ₹" class="text-right">{{bill.advancedAmount}} </td>
+                            <td data-title="Paid ₹" class="text-right">{{bill.paidImmidiateAmount}} </td>
+                            <td data-title=" O/S ₹" class="text-right">{{bill.outstandingAmount}} </td>
+                          </tr>
+                        </tbody>
                     
                     </table>
 
@@ -170,7 +181,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <strong>7500</strong>
+              <strong>{{accountStatement.leftSideOutstandingAmount}} </strong>
             </div>
         </div>
         <div class="card mb-3 card-right">
@@ -196,11 +207,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td data-title="Payment Date">09-09-2020</td>
-                                <td data-title="Cash/Cheque " class="text-right">Cash</td>
-                                <td data-title="Paid ₹" class="text-right">500</td>
-                            </tr>
+                          <tr *ngFor="let bill of accountStatement.lumpsumPaymentDetails">
+                            <td data-title="Payment Date">{{bill.billDate  | date:'dd/MM/yyyy'}}</td>
+                            <td data-title="Payment Mode">{{bill.paymentMode}}</td>
+                            <td data-title="Paid ₹" class="text-right">{{bill.paidAmount}} </td>
+                          </tr>
                         </tbody>
                         <!-- <tfoot>
                         <tr>
@@ -224,16 +235,16 @@
                         <strong>Closing Balance</strong>
                     </span>
                     <span class="amount">
-                        <strong>7500</strong>
+                      <strong>{{accountStatement.rightSideClosingBalance}} </strong>
                     </span>
                 </div>
-                <strong>7500</strong>
+                <strong>{{accountStatement.rightSideBottomAmount}} </strong>
             </div>
         </div>
 </div>
 
 </div>
-<div class="alert alert-warning" role="alert">
+<div *ngIf="isShow" class="alert alert-warning" role="alert">
    <h5 class="mb-0">Note:</h5>
    <p class="mb-0"> Please clear amount as soon as possible, Credit will be provided for 7 day's only. After that intrest will be charged @ 18% p.a. </p>
   </div>
