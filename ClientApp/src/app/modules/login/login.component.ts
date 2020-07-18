@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = 'master' || '/';
+    this.returnUrl = 'inward-material/inward' || '/';
 
     this.document.body.classList.add('login-page-body');
   }
