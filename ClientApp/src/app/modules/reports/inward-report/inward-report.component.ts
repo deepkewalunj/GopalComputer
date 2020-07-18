@@ -9,6 +9,7 @@ import { TypeAheadResponseModel } from 'src/app/models/typeahead.model';
 import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
 import { ReportService } from 'src/app/services/report.service';
+import { FiscalYear } from 'src/app/models/FiscalYear.model';
 
 @Component({
   selector: 'app-inward-report',
@@ -42,7 +43,7 @@ export class InwardReportComponent implements OnInit {
 
     const that=this;
     this.clearFilter();
-    this.searchModel.reportFromDate=this.ngbCalendar.getToday();
+    this.searchModel.reportFromDate=new NgbDate(FiscalYear.getFiscalStartYearByToday(this.ngbCalendar.getToday()),4,1)
     this.searchModel.reportToDate=this.ngbCalendar.getToday();
     this.dtOptions = {
       paging:false,

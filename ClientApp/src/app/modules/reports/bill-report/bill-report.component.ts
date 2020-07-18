@@ -9,6 +9,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { TypeAheadResponseModel } from 'src/app/models/typeahead.model';
 import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
+import { FiscalYear } from 'src/app/models/FiscalYear.model';
 
 @Component({
   selector: 'app-bill-report',
@@ -30,7 +31,7 @@ export class BillReportComponent implements OnInit {
   advancetotal:number=0;
   paidtotal:number=0;
   outStandingtotal:number=0;
-
+  todaydate:NgbDate;
   searching = false;
   searchFailed = false;
 
@@ -41,9 +42,10 @@ export class BillReportComponent implements OnInit {
   ngOnInit() {
 
     const that=this;
+    this.todaydate=this.ngbCalendar.getToday();
     this.clearFilter();
-    this.searchModel.reportFromDate=this.ngbCalendar.getToday();
-    this.searchModel.reportToDate=this.ngbCalendar.getToday();
+    this.searchModel.reportFromDate=new NgbDate(FiscalYear.getFiscalStartYearByToday(this.todaydate),4,1)
+    this.searchModel.reportToDate=this.todaydate
     this.dtOptions = {
       paging:false,
       searching:false,
@@ -51,7 +53,7 @@ export class BillReportComponent implements OnInit {
       select: {
       style:    'os,multi',
       selector: 'td:first-child',
-    
+
   },
 
 
@@ -60,7 +62,7 @@ export class BillReportComponent implements OnInit {
         'selectNone',
         {
           extend:'excel',
-          messageTop: 'Inward Bill Report',
+          messageTop: `Inward Bill Report   Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
           className: 'far fa-file-excel',
           footer: true,
           customize: function (doc) {
@@ -120,7 +122,7 @@ export class BillReportComponent implements OnInit {
         extend: 'pdfHtml5',
         orientation: 'landscape',
         pageSize: 'LEGAL',
-        messageTop: 'Inward Bill Report',
+        messageTop: `Inward Bill Report Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
         className: 'far fa-file-pdf',
         footer: true,
         customize: function (doc) {
@@ -259,7 +261,7 @@ export class BillReportComponent implements OnInit {
       distinctUntilChanged(),
       tap(() => this.searching = true),
       switchMap(term =>term.length < 2 ? []:
-        this.typeAheadService.GetTypeAheadList(1,term,1)
+        this.typeAheadService.GetTypeAheadList(1,term,5)
         .pipe(
           tap(() => this.searchFailed = false),
           catchError(() => {

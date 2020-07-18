@@ -38,6 +38,9 @@ namespace Gopal.Controllers
                 case TYPEAHEAD_LIST.TYPEAHEAD_JOBNUMBER:
                     lstTypeAheadResponseModel = _typeaheadService.GetTypeAheadJobNumber(request);
                     break;
+                case TYPEAHEAD_LIST.TYPEAHEAD_CUSTOMERNAME:
+                    lstTypeAheadResponseModel = _typeaheadService.GetTypeAheadCustomerNameOnly(request);
+                    break;
             }
 
             return Ok(lstTypeAheadResponseModel);
