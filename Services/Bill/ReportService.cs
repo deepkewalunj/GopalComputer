@@ -250,6 +250,7 @@ namespace Gopal.Models.Bill
                             clsBillPayment.jobNumber += ", ";
                             clsBillPayment.jobNumber += jobItem.InwardIdRef.ToString();
                         }
+                        jobCounter++;
                     }
                     finalBillPaymentList.Add(clsBillPayment);
                     
@@ -309,6 +310,7 @@ namespace Gopal.Models.Bill
                             clsBillPayment.jobNumber += ", ";
                             clsBillPayment.jobNumber += jobItem.InwardIdRef.ToString();
                         }
+                        jobCounter++;
                     }
                     finalBillPaymentList.Add(clsBillPayment);
                 }
