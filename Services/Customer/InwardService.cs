@@ -311,8 +311,17 @@ namespace Gopal.Services.Customer
             }
 
             inwardModel.inwardBarCodeZPL=  GetInwardBarCodeZPL(inwardModel);
-            inwardModel.normalPrinterName = _dbContext.TblMaster.FirstOrDefault(x => x.MasterKey == "NORMAL_PRINTER").MasterValue;
-            inwardModel.barCodePrinterName = _dbContext.TblMaster.FirstOrDefault(x => x.MasterKey == "BARCODE_PRINTER").MasterValue;
+            var masterDate = _dbContext.TblMaster.ToList();
+            inwardModel.normalPrinterName = masterDate.Where(x => x.MasterKey == "NORMAL_PRINTER").FirstOrDefault().MasterValue;
+            inwardModel.barCodePrinterName = masterDate.Where(x => x.MasterKey == "BARCODE_PRINTER").FirstOrDefault().MasterValue;
+            
+            inwardModel.bankAccountNoPrint = masterDate.Where(x => x.MasterKey == "BANK_ACCOUNT").FirstOrDefault().MasterValue;
+            inwardModel.bankNamePrint = masterDate.Where(x => x.MasterKey == "BANK_NAME").FirstOrDefault().MasterValue;
+            inwardModel.ifscCodePrint = masterDate.Where(x => x.MasterKey == "IFSC_CODE").FirstOrDefault().MasterValue;
+            inwardModel.gPayPrint = masterDate.Where(x => x.MasterKey == "GPAY").FirstOrDefault().MasterValue;
+            inwardModel.inwardAddressPrint = masterDate.Where(x => x.MasterKey == "INWARD_ADDRESS").FirstOrDefault().MasterValue;
+            inwardModel.inwardAddressPhoneNoPrint = masterDate.Where(x => x.MasterKey == "INWARD_PHONE_NO").FirstOrDefault().MasterValue;
+
             inwardModel.isOutwardOrBillExist = IsInwardBillOrOutwardBillExist(inwardModel.inwardId);
             return inwardModel;
         }

@@ -38,6 +38,12 @@ namespace Gopal.Models.Bill
         public List<TypeAheadResponseModel> lstJobNumbers { get; set; }
         public NgbDateModel ngbBillDate { get; set; }
         public NgbDateModel ngbChequeDate { get; set; }
+        public string bankAccountNoPrint { get; set; }
+        public string bankNamePrint { get; set; }
+        public string ifscCodePrint { get; set; }
+        public string gPayPrint { get; set; }
+        public string inwardAddressPrint { get; set; }
+        public string inwardAddressPhoneNoPrint { get; set; }
     }
 
     public class BillListModel

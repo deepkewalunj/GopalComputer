@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //API_URL: "http://localhost:53115/api/"
-  API_URL:"https://gopalcomputers.azurewebsites.net/api/"
+  API_URL: "http://localhost:44377/api/"
+  //API_URL:"https://gopalcomputers.azurewebsites.net/api/"
 };
 
 /*

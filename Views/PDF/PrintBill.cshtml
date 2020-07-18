@@ -25,7 +25,7 @@
 </head>
 <body style="padding: 0 0px;page-break-after:always; background: #fff; font-family: 'Poppins', sans-serif !important;">
     <!--customer-copy-start-->
-    <main style="width:780px; margin-left:auto; margin-right:auto">
+    <main style="width:100%; margin-left:auto; margin-right:auto">
         <div class="clearfix" style=" page-break-after:before; padding: 0px 0;
   margin-bottom: 10px;
   border: 0px solid #ccc;
@@ -80,16 +80,16 @@
           line-height: 18px; vertical-align: top; text-align:left">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width:30%"><strong>Customer Name:</strong></td>
-                                <td>@Model.customerName</td>
+                                <td style="width:30%; padding:5px 0 !important;"><strong>Customer Name:</strong></td>
+                                <td style="padding:5px 0 !important;">@Model.customerName</td>
                             </tr>
                             <tr>
-                                <td style="width:30%"><strong>Customer Address:</strong></td>
-                                <td>@Model.customerAddress</td>
+                                <td style="width:30%; padding:5px 0 !important;"><strong>Customer Address:</strong></td>
+                                <td style="padding:5px 0 !important;">@Model.customerAddress</td>
                             </tr>
                             <tr>
-                                <td><strong>GST #:</strong></td>
-                                <td>@Model.gstNo</td>
+                                <td style="padding:5px 0 !important;"><strong>GST #:</strong></td>
+                                <td style="padding:5px 0 !important;">@Model.gstNo</td>
                             </tr>
                         </table>
 
@@ -101,12 +101,12 @@
           line-height: 18px; vertical-align: top; text-align:left">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width:30%"><strong>Bill #:</strong></td>
-                                <td>@Model.billId</td>
+                                <td style="width:30%; padding:5px 0 !important;"><strong>Bill #:</strong></td>
+                                <td style="padding:5px 0 !important;">@Model.billId</td>
                             </tr>
                             <tr>
-                                <td><strong>Date:</strong></td>
-                                <td>@Model.billDate.Value.ToString("dd/MM/yyyy")</td>
+                                <td style="padding:5px 0 !important;"><strong>Date:</strong></td>
+                                <td style="padding:5px 0 !important;">@Model.billDate.Value.ToString("dd/MM/yyyy")</td>
                             </tr>
                         </table>
                     </td>
@@ -117,124 +117,96 @@
                     <th style="padding: 5px 5px;
           background: #f5f5f5;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left">Job No.</th>
+          line-height: 18px; vertical-align: top; text-align:left; width: 15%;">Job No.</th>
                     <th style="padding: 5px 5px;
           background: #f5f5f5;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left">Material Name</th>
+          line-height: 18px; vertical-align: top; text-align:left; width: 35%;">Material Name</th>
 
                     <th style="padding: 5px 5px;
           background: #f5f5f5;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left">Serial No</th>
+          line-height: 18px; vertical-align: top; text-align:left; width: 20%;">Serial No</th>
                     <th style="padding: 5px 5px;
           background: #f5f5f5;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left">Advance ₹</th>
+          line-height: 18px; vertical-align: top; text-align:right; width: 15%;">Advance ₹</th>
                     <th style="padding: 5px 5px;
           background: #f5f5f5;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left">Service ₹</th>
+          line-height: 18px; vertical-align: top; text-align:right; width: 15%;">Service ₹</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.lstJobNumbers)
                 {
-                <tr>
-                    <td style="padding: 5px 5px;
+                    <tr>
+                        <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left; width:13%">
-                        @item.searchValue.Substring(0, item.searchValue.IndexOf(' '))
-                    </td>
-                    <td style="padding: 5px 5px;
+          line-height: 18px; vertical-align: top; text-align:left;">
+                            @item.searchValue.Substring(0, item.searchValue.IndexOf(' '))
+                        </td>
+                        <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;width:48%">
-                        @item.modelNo, @item.materialType, @item.companyName
-                    </td>
+          line-height: 18px; vertical-align: top; text-align:left;">
+                            @item.modelNo, @item.materialType, @item.companyName
+                        </td>
 
-                    <td style="padding: 5px 5px;
+                        <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;width:13%">
-                        @item.serialNo
-                    </td>
-                    <td style="padding: 5px 5px;
+          line-height: 18px; vertical-align: top; text-align:left;">
+                            @item.serialNo
+                        </td>
+                        <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:right;width:13%">
-                        @if (item.advanceAmount > 0)
-                        {
-                            <span>@item.advanceAmount /-</span>
-                        }
-                        else
-                        {
-                            <span>0 /-</span>
-                        }
-                    </td>
-                    <td style="padding: 5px 5px;
+          line-height: 18px; vertical-align: top; text-align:right;">
+                            @if (item.advanceAmount > 0)
+                            {
+                                <span>@item.advanceAmount /-</span>
+                            }
+                            else
+                            {
+                                <span>0 /-</span>
+                            }
+                        </td>
+                        <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:right;width:13%">
-                        @item.serviceAmount /-
-                    </td>
-                </tr>
+          line-height: 18px; vertical-align: top; text-align:right;">
+                            @item.serviceAmount /-
+                        </td>
+                    </tr>
                 }
-                
             </tbody>
             <tfoot>
                 <tr>
                     <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left; width:13%; border:0"></td>
+          line-height: 18px; vertical-align: top; text-align:left; border:0"></td>
                     <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;width:48%; border:0"></td>
+          line-height: 18px; vertical-align: top; text-align:left; border:0"></td>
 
                     <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;width:13%; border:0"></td>
+          line-height: 18px; vertical-align: top; text-align:left; border:0"></td>
                     <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;width:13%">
-                        <strong>Outstanding ₹</strong>
-                    </td>
-                    <td style="padding: 5px 5px;
-          background: transparent;
-          font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:right;width:13%">
-                        @Model.outstandingAmount /-
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 5px 5px;
-          background: transparent;
-          font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left; width:13%; border:0"></td>
-                    <td style="padding: 5px 5px;
-          background: transparent;
-          font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;width:48%; border:0"></td>
-
-                    <td style="padding: 5px 5px;
-          background: transparent;
-          font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;width:13%; border:0"></td>
-                    <td style="padding: 5px 5px;
-          background: transparent;
-          font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;width:13%">
+          line-height: 18px; vertical-align: top; text-align:left;">
                         <strong>Paid ₹</strong>
                     </td>
                     <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:right;width:13%">
+          line-height: 18px; vertical-align: top; text-align:right;">
                         @Model.paidImmediatlyAmount /-
                     </td>
                 </tr>
@@ -242,32 +214,31 @@
                     <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left; width:13%;border:0"></td>
+          line-height: 18px; vertical-align: top; text-align:left; border:0"></td>
                     <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;width:48%;border:0"></td>
+          line-height: 18px; vertical-align: top; text-align:left; border:0"></td>
 
                     <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;width:13%;border:0"></td>
+          line-height: 18px; vertical-align: top; text-align:left; border:0"></td>
                     <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;width:13%">
-                        <strong>Total ₹</strong>
+          line-height: 18px; vertical-align: top; text-align:left;">
+                        <strong>Outstanding ₹</strong>
                     </td>
                     <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:right;width:13%">
-                        @{ 
-                            var total = Model.paidImmediatlyAmount + Model.outstandingAmount;
-                                                <span>@total /-</span>
-                        }
+          line-height: 18px; vertical-align: top; text-align:right;">
+                        @Model.outstandingAmount /-
                     </td>
                 </tr>
+
+
             </tfoot>
         </table>
         <div id="notices">
@@ -278,10 +249,10 @@
         </div>
         <table style="margin-top:60px; margin-bottom:10px; width: 100%;border-collapse: collapse;">
             <tr>
-                <td style="padding:0px; text-align:left;font-size: 13px;">
+                <td style="padding:0px !important; text-align:left;font-size: 13px;">
                     <strong>Customer Signature</strong>
                 </td>
-                <td style="padding:0; text-align:right;font-size: 13px;">
+                <td style="padding:0px !important; text-align:right;font-size: 13px;">
                     <strong>Authorized Signature</strong>
                 </td>
             </tr>
@@ -289,15 +260,15 @@
         <p style="padding: 0;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; margin:0; text-align:left"><strong>Bank A/C:</strong> 1234567</p>
+          line-height: 18px; vertical-align: top; margin:0; text-align:left"><strong>Bank A/C:</strong> @Model.bankAccountNoPrint</p>
         <p style="padding: 0;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top;margin:0; text-align:left"><strong>IFSC Code:</strong> ABCD1234</p>
+          line-height: 18px; vertical-align: top;margin:0; text-align:left"><strong>IFSC Code:</strong> @Model.ifscCodePrint</p>
         <p style="padding: 0;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top;margin:0; text-align:left"><strong>Gpay:</strong> 9999999999</p>
+          line-height: 18px; vertical-align: top;margin:0; text-align:left"><strong>Gpay:</strong> @Model.gPayPrint</p>
     </main>
 
 

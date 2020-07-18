@@ -45,7 +45,14 @@ export class Inward {
   inwardBarCodeZPL:string[];
   barCodePrinterName:string;
   normalPrinterName:string;
-  isOutwardOrBillExist:boolean
+  isOutwardOrBillExist:boolean;
+  bankAccountNoPrint: string;
+  bankNamePrint: string;
+  ifscCodePrint: string;
+  gPayPrint: string;
+  inwardAddressPrint: string;
+  inwardAddressPhoneNoPrint: string;
+
 }
 
 export class InwardListModel{

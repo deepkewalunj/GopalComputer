@@ -26,4 +26,10 @@ export class Outward{
   normalPrinterName: string
   gstNo: string
   customerAddress: string
+  bankAccountNoPrint: string;
+  bankNamePrint: string;
+  ifscCodePrint: string;
+  gPayPrint: string;
+  inwardAddressPrint: string;
+  inwardAddressPhoneNoPrint: string;
 }

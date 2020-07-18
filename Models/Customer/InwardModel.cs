@@ -62,9 +62,16 @@ namespace Gopal.Models.Customer
         public List<FilePOCO> inwardFiles { get; set; }
         public string clientName { get; set; }
         public List<string> inwardBarCodeZPL { get; set; }
+        public bool isOutwardOrBillExist { get; set; }
         public string barCodePrinterName { get; set; }
         public string normalPrinterName { get; set; }
-        public bool isOutwardOrBillExist { get; set; }
+        public string bankAccountNoPrint { get; set; }
+        public string bankNamePrint { get; set; }
+        public string ifscCodePrint { get; set; }
+        public string gPayPrint { get; set; }
+        public string inwardAddressPrint { get; set; }
+        public string inwardAddressPhoneNoPrint { get; set; }
+
 
     }
     public class FilePOCO {

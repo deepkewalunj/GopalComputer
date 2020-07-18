@@ -97,7 +97,14 @@ namespace Gopal.Services.Payment
         {
             var lumpsum = _dbContext.TblLumpsum.Where(x => x.IsDeleted != true && x.LumpsumId == lumpsumId && x.BillRefId == null && x.OutwardRefId == null).FirstOrDefault();
             LumpsumTypeScriptModel lumpsumTypeScriptModel = new LumpsumTypeScriptModel();
-            lumpsumTypeScriptModel.normalPrinterName = _dbContext.TblMaster.FirstOrDefault(x => x.MasterKey == "NORMAL_PRINTER").MasterValue;
+            var masterDate = _dbContext.TblMaster.ToList();
+            lumpsumTypeScriptModel.normalPrinterName = masterDate.Where(x => x.MasterKey == "NORMAL_PRINTER").FirstOrDefault().MasterValue;
+            lumpsumTypeScriptModel.bankAccountNoPrint = masterDate.Where(x => x.MasterKey == "BANK_ACCOUNT").FirstOrDefault().MasterValue;
+            lumpsumTypeScriptModel.bankNamePrint = masterDate.Where(x => x.MasterKey == "BANK_NAME").FirstOrDefault().MasterValue;
+            lumpsumTypeScriptModel.ifscCodePrint = masterDate.Where(x => x.MasterKey == "IFSC_CODE").FirstOrDefault().MasterValue;
+            lumpsumTypeScriptModel.gPayPrint = masterDate.Where(x => x.MasterKey == "GPAY").FirstOrDefault().MasterValue;
+            lumpsumTypeScriptModel.inwardAddressPrint = masterDate.Where(x => x.MasterKey == "INWARD_ADDRESS").FirstOrDefault().MasterValue;
+            lumpsumTypeScriptModel.inwardAddressPhoneNoPrint = masterDate.Where(x => x.MasterKey == "INWARD_PHONE_NO").FirstOrDefault().MasterValue;
             if (lumpsum != null)
             {
                 if (lumpsum.LumpsumDate != null)

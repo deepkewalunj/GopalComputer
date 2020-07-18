@@ -190,7 +190,14 @@ namespace Gopal.Services.Outward
         {
             var outward = _dbContext.TblOutward.Where(x => x.IsDeleted != true && x.OutwardId == outwardId).FirstOrDefault();
             OutwardTypeScriptModel outwardTypeScriptModel = new OutwardTypeScriptModel();
-            outwardTypeScriptModel.normalPrinterName = _dbContext.TblMaster.FirstOrDefault(x => x.MasterKey == "NORMAL_PRINTER").MasterValue;
+            var masterDate = _dbContext.TblMaster.ToList();
+            outwardTypeScriptModel.normalPrinterName = masterDate.Where(x => x.MasterKey == "NORMAL_PRINTER").FirstOrDefault().MasterValue;
+            outwardTypeScriptModel.bankAccountNoPrint = masterDate.Where(x => x.MasterKey == "BANK_ACCOUNT").FirstOrDefault().MasterValue;
+            outwardTypeScriptModel.bankNamePrint = masterDate.Where(x => x.MasterKey == "BANK_NAME").FirstOrDefault().MasterValue;
+            outwardTypeScriptModel.ifscCodePrint = masterDate.Where(x => x.MasterKey == "IFSC_CODE").FirstOrDefault().MasterValue;
+            outwardTypeScriptModel.gPayPrint = masterDate.Where(x => x.MasterKey == "GPAY").FirstOrDefault().MasterValue;
+            outwardTypeScriptModel.inwardAddressPrint = masterDate.Where(x => x.MasterKey == "INWARD_ADDRESS").FirstOrDefault().MasterValue;
+            outwardTypeScriptModel.inwardAddressPhoneNoPrint = masterDate.Where(x => x.MasterKey == "INWARD_PHONE_NO").FirstOrDefault().MasterValue;
             if (outward != null)
             {
                 if (outward.OutwardDate != null)

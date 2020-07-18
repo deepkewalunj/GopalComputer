@@ -186,33 +186,6 @@
           background: transparent;
           font-size: 12px;
           line-height: 18px; vertical-align: top; text-align:left;">
-            <strong>Outstanding ₹</strong>
-          </td>
-          <td style="padding: 5px 5px;
-          background: transparent;
-          font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:right;">
-            {{bill.outstandingAmount}} /-
-          </td>
-        </tr>
-        <tr>
-          <td style="padding: 5px 5px;
-          background: transparent;
-          font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left; border:0"></td>
-          <td style="padding: 5px 5px;
-          background: transparent;
-          font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left; border:0"></td>
-
-          <td style="padding: 5px 5px;
-          background: transparent;
-          font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left; border:0"></td>
-          <td style="padding: 5px 5px;
-          background: transparent;
-          font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;">
             <strong>Paid ₹</strong>
           </td>
           <td style="padding: 5px 5px;
@@ -230,25 +203,27 @@
           <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;border:0"></td>
+          line-height: 18px; vertical-align: top; text-align:left; border:0"></td>
 
           <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; text-align:left;border:0"></td>
+          line-height: 18px; vertical-align: top; text-align:left; border:0"></td>
           <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
           line-height: 18px; vertical-align: top; text-align:left;">
-            <strong>Total ₹</strong>
+            <strong>Outstanding ₹</strong>
           </td>
           <td style="padding: 5px 5px;
           background: transparent;
           font-size: 12px;
           line-height: 18px; vertical-align: top; text-align:right;">
-            {{getTotalSum()}} /-
+            {{bill.outstandingAmount}} /-
           </td>
         </tr>
+
+
       </tfoot>
     </table>
     <div id="notices">
@@ -270,15 +245,15 @@
     <p style="padding: 0;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top; margin:0; text-align:left"><strong>Bank A/C:</strong> 1234567</p>
+          line-height: 18px; vertical-align: top; margin:0; text-align:left"><strong>Bank A/C:</strong> {{bill.bankAccountNoPrint}}</p>
     <p style="padding: 0;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top;margin:0; text-align:left"><strong>IFSC Code:</strong> ABCD1234</p>
+          line-height: 18px; vertical-align: top;margin:0; text-align:left"><strong>IFSC Code:</strong> {{bill.ifscCodePrint}}</p>
     <p style="padding: 0;
           background: transparent;
           font-size: 12px;
-          line-height: 18px; vertical-align: top;margin:0; text-align:left"><strong>Gpay:</strong> 9999999999</p>
+          line-height: 18px; vertical-align: top;margin:0; text-align:left"><strong>Gpay:</strong> {{bill.gPayPrint}}</p>
   </main>
 
 

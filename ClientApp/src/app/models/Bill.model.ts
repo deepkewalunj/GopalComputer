@@ -25,7 +25,13 @@ export class Bill{
   jobNumbers: string
   normalPrinterName: string
   gstNo: string
-  customerAddress :string
+  customerAddress: string
+  bankAccountNoPrint: string;
+  bankNamePrint: string;
+  ifscCodePrint: string;
+  gPayPrint: string;
+  inwardAddressPrint: string;
+  inwardAddressPhoneNoPrint: string;
 }
 export class BillOutwardReportSearchModel{
   customerName:any
