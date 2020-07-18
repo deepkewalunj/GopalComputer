@@ -46,15 +46,15 @@ namespace Gopal.Services.Customer
             return datatableResponseModel;
         }
         public bool IsCustomerExist(CustomerModel customerModel) {
-            return _dbContext.TblClient.Any(client => client.CompanyName == customerModel.companyName &&
-                                                      client.OwnerMobileNo== customerModel.ownerMobileNo
-                                                      && client.ClientId!= customerModel.clientId && client.IsDeleted==false);
+            return _dbContext.TblClient.Any(client => client.CompanyName == customerModel.companyName 
+                                                      && client.ClientId!= customerModel.clientId 
+                                                      && client.IsDeleted==false);
         }
         public CustomerModel AddEditCustomer(CustomerModel customerModel,ModelStateDictionary modelState)
         {
             if (IsCustomerExist(customerModel))
             {
-                modelState.AddModelError($"{ (int)MODEL_ERRORS.CUSTOMER_ALREADY_EXIST}","Customer company name with mobile number already exist.");
+                modelState.AddModelError($"{ (int)MODEL_ERRORS.CUSTOMER_ALREADY_EXIST}","Customer company name already exist.");
                 return customerModel;
             }
             customerModel.userId = _userServices.GetCurrentUserId();
