@@ -34,6 +34,8 @@ export class ClientOutstandingReportComponent implements OnInit {
   todaydate:NgbDate;
   searching = false;
   searchFailed = false;
+  inwardAddressPrint:string;
+  inwardAddressPhoneNoPrint:string;
 
   constructor(private ngbCalendar: NgbCalendar,
     private reportService:ReportService,
@@ -62,7 +64,7 @@ export class ClientOutstandingReportComponent implements OnInit {
         'selectNone',
         {
           extend:'excel',
-          messageTop: `Client O/S Report   Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
+          messageTop: `Client O/S Report   F.Y. - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
           className: 'far fa-file-excel',
           footer: true,
           customize: function (doc) {
@@ -123,19 +125,27 @@ export class ClientOutstandingReportComponent implements OnInit {
         extend: 'pdfHtml5',
         orientation: 'landscape',
         pageSize: 'LEGAL',
-        messageTop: `Client O/S Report Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
+        messageTop: ``,
         className: 'far fa-file-pdf',
         footer: true,
         customize: function (doc) {
-          doc.content[2].table.widths =
-              Array(doc.content[2].table.body[0].length + 1).join('*').split('');
+
+          doc.content[0].text = `Gopal Computers \n
+        ${that.inwardAddressPrint} Contact : ${that.inwardAddressPhoneNoPrint} \n
+        Client O/S Report  \n
+        F.Y. - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)+1}`;
+
+        let docContent=doc.content[1];
+
+          docContent.table.widths =
+              Array(docContent.table.body[0].length + 1).join('*').split('');
 
               let serviceAmountForPrint=0;
               let advanceAmountForPrint=0;
               let outstandingAmountForPrint=0;
 
-              for (let r=1;r<doc.content[2].table.body.length-1;r++) {
-                let row = doc.content[2].table.body[r];
+              for (let r=1;r<docContent.table.body.length-1;r++) {
+                let row = docContent.table.body[r];
                 row[1].text=r;
                 if(parseFloat(row[3].text)>0){
                   serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[3].text);
@@ -148,12 +158,12 @@ export class ClientOutstandingReportComponent implements OnInit {
                 }
 
               }
-              doc.content[2].table.body[doc.content[2].table.body.length-1][3].text=serviceAmountForPrint;
-              doc.content[2].table.body[doc.content[2].table.body.length-1][4].text=advanceAmountForPrint;
-              doc.content[2].table.body[doc.content[2].table.body.length-1][5].text=outstandingAmountForPrint;
+              docContent.table.body[docContent.table.body.length-1][3].text=serviceAmountForPrint;
+              docContent.table.body[docContent.table.body.length-1][4].text=advanceAmountForPrint;
+              docContent.table.body[docContent.table.body.length-1][5].text=outstandingAmountForPrint;
 
-              for (let r=1;r<doc.content[2].table.body.length;r++) {
-                let row = doc.content[2].table.body[r];
+              for (let r=1;r<docContent.table.body.length;r++) {
+                let row = docContent.table.body[r];
                 if(parseFloat(row[5].text)>0){
                   row[5].color = 'red';
                 }
@@ -225,7 +235,14 @@ export class ClientOutstandingReportComponent implements OnInit {
   GetClientOutstandingReport(first=false){
     const that = this;
     this.reportService.GetClientOutstandingReportList().subscribe(data=>{
-      that.lstOutstandingReport = data.data;
+
+      let modelData=data.data;
+      if(modelData)
+      {
+        that.lstOutstandingReport = modelData.lstReport;
+        that.inwardAddressPrint=modelData.inwardAddressPrint;
+        that.inwardAddressPhoneNoPrint=modelData.inwardAddressPhoneNoPrint;
+      }
       if(first)
       {
         that.dtTrigger.next();

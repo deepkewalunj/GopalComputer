@@ -34,6 +34,8 @@ export class InwardReportComponent implements OnInit {
   todaydate:NgbDate;
   searching = false;
   searchFailed = false;
+  inwardAddressPrint:string;
+  inwardAddressPhoneNoPrint:string;
 
   constructor(private ngbCalendar: NgbCalendar,
     private reportService:ReportService,
@@ -62,7 +64,7 @@ export class InwardReportComponent implements OnInit {
         'selectNone',
         {
           extend:'excel',
-          messageTop: `Inward Report   Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
+          messageTop: `Inward Report   F.Y. - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
           className: 'far fa-file-excel',
           footer: true,
           customize: function (doc) {
@@ -110,18 +112,25 @@ export class InwardReportComponent implements OnInit {
         extend: 'pdfHtml5',
         orientation: 'landscape',
         pageSize: 'LEGAL',
-        messageTop: `Inward Report Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
+        messageTop: ``,
         className: 'far fa-file-pdf',
         footer: true,
         customize: function (doc) {
-          doc.content[2].table.widths =
-              Array(doc.content[2].table.body[0].length + 1).join('*').split('');
+          doc.content[0].text = `Gopal Computers \n
+        ${that.inwardAddressPrint} Contact : ${that.inwardAddressPhoneNoPrint} \n
+        Inward Report \n
+        F.Y. - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)+1}`;
+
+        let docContent=doc.content[1];
+
+          docContent.table.widths =
+              Array(docContent.table.body[0].length + 1).join('*').split('');
 
               let serviceAmountForPrint=0;
               let advanceAmountForPrint=0;
 
-              for (let r=1;r<doc.content[2].table.body.length-1;r++) {
-                let row = doc.content[2].table.body[r];
+              for (let r=1;r<docContent.table.body.length-1;r++) {
+                let row = docContent.table.body[r];
                 row[1].text=r;
                 if(parseFloat(row[6].text)>0){
                   serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[6].text);
@@ -131,8 +140,8 @@ export class InwardReportComponent implements OnInit {
                 }
 
               }
-              doc.content[2].table.body[doc.content[2].table.body.length-1][6].text=serviceAmountForPrint;
-              doc.content[2].table.body[doc.content[2].table.body.length-1][7].text=advanceAmountForPrint;
+              docContent.table.body[docContent.table.body.length-1][6].text=serviceAmountForPrint;
+              docContent.table.body[docContent.table.body.length-1][7].text=advanceAmountForPrint;
 
 
         }
@@ -197,7 +206,14 @@ export class InwardReportComponent implements OnInit {
   GetInwardReport(first=false){
     const that = this;
     this.reportService.GetInwardReportList(this.searchModel).subscribe(data=>{
-      that.lstInwardReport = data.data;
+
+      let modelData=data.data;
+      if(modelData)
+      {
+        that.lstInwardReport = modelData.lstReport;
+        that.inwardAddressPrint=modelData.inwardAddressPrint;
+        that.inwardAddressPhoneNoPrint=modelData.inwardAddressPhoneNoPrint;
+      }
       if(first)
       {
         that.dtTrigger.next();
