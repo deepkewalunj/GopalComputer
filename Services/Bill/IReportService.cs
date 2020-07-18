@@ -14,8 +14,10 @@ namespace Gopal.Services.Bill
 
         DatatableResponseModel GetInwardReportList(ReportSearchModel searchModel);
 
-        DatatableResponseModel GetClientOutstandingReportList(ReportSearchModel searchModel);
 
         AccountStatementModel GetAccountStatementReport(ReportSearchModel searchModel);
+
+        DatatableResponseModel GetClientOutstandingReportList();
+
     }
 }

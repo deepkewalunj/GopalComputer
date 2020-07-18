@@ -56,7 +56,7 @@
                   <div class="col-sm text-right">
                       <div class="form-group">
                           <button type="reset" (click)="clearFilter()" class="btn btn-outline btn-outline-dark">Reset</button>
-                          <button type="button" (click)="GetBillReport(false)" class="btn btn-outline btn-outline-dark">Search</button>
+                          <button type="button" (click)="GetInwardReport(false)" class="btn btn-outline btn-outline-dark">Search</button>
                       </div>
                   </div>
               </div>
@@ -69,20 +69,21 @@
                   <thead>
                       <tr>
                         <th scope="col" style="width:4%" class="cursor"></th>
+                        <th scope="col" style="width:8%" class="cursor">Sr No.</th>
                           <th scope="col" style="width:10%" class="cursor">
                             Job No.
                           </th>
-                          <th scope="col" style="width:12%" class="cursor">
+                          <th scope="col" style="width:10%" class="cursor">
                               Inward Date
                           </th>
 
-                          <th scope="col" style="width:12%" class="cursor">
+                          <th scope="col" style="width:10%" class="cursor">
                            Client Name
                         </th>
-                        <th scope="col" style="width:12%" class="cursor">
+                        <th scope="col" style="width:10%" class="cursor">
                           Material Name
                        </th>
-                          <th scope="col" style="width:12%" class="text-right">
+                          <th scope="col" style="width:10%" class="text-right">
                            <div class="mr-2"> Estimated Amt. ₹</div>
                           </th>
                           <th scope="col" style="width:12%" class="text-right">
@@ -97,8 +98,9 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr *ngFor="let inward of lstInwardReport">
+                      <tr *ngFor="let inward of lstInwardReport; let i=index">
                         <td></td>
+                        <td data-title="Sr No.">{{i+1 }}</td>
                           <td data-title="Job No.">{{inward.reportId }}</td>
                           <td data-title="Inward Date">{{inward.reportDate | date: 'dd/MM/yyyy'}}</td>
                           <td data-title="Client Name">{{inward.clientName}}</td>
@@ -114,6 +116,7 @@
                   </tbody>
                   <tfoot>
                     <tr class="total-amount-bg">
+                      <th class="text-right hide-td-on-device"></th>
                       <th class="text-right hide-td-on-device"></th>
                       <th class="text-right hide-td-on-device"></th>
                       <td class="text-right hide-td-on-device"></td>

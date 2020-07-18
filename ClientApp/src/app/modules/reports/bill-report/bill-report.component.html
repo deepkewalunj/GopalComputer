@@ -73,7 +73,8 @@
                 <table class="table table-striped" id="billDatatable"   datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
                         <tr>
-                          <th scope="col" style="width:5%" class="cursor"></th>
+                          <th scope="col" style="width:2%" class="cursor"></th>
+                          <th scope="col" style="width:8%" class="cursor">Sr No.</th>
                             <th scope="col" style="width:10%" class="cursor">
                               Bill Date
                             </th>
@@ -86,7 +87,7 @@
                             <th scope="col" style="width:15%" class="cursor">
                              Client Name
                           </th>
-                            <th scope="col" style="width:15%" class="text-right">
+                            <th scope="col" style="width:10%" class="text-right">
                              <div class="mr-2"> Service ₹</div>
                             </th>
                             <th scope="col" style="width:10%" class="text-right">
@@ -101,8 +102,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let bill of lstBillReport">
+                        <tr *ngFor="let bill of lstBillReport ; let i = index">
                           <td></td>
+                          <td data-title="Sr No.">{{i+1}}</td>
                             <td data-title="Bill Date">{{bill.reportDate | date: 'dd/MM/yyyy' }}</td>
                             <td data-title="Bill #">{{bill.reportId}}</td>
                             <td data-title="Job #">{{bill.jobNumbers}}</td>
@@ -118,6 +120,7 @@
                     </tbody>
                     <tfoot>
                       <tr class="total-amount-bg">
+                        <th class="text-right hide-td-on-device"></th>
                         <th class="text-right hide-td-on-device"></th>
                         <th class="text-right hide-td-on-device"></th>
                         <td class="text-right hide-td-on-device"></td>
