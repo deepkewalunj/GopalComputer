@@ -76,18 +76,13 @@ namespace Gopal.Models.Bill
 
             return datatableResponseModel;
         }
-        public DatatableResponseModel GetClientOutstandingReportList(ReportSearchModel searchModel)
+        public DatatableResponseModel GetClientOutstandingReportList()
         {
             DatatableResponseModel datatableResponseModel = new DatatableResponseModel();
-            if (searchModel.customerName != null)
-            {
-                searchModel.customerName = GetSearchValue(searchModel.customerName);
-            }
-            String strRequestModel = JsonConvert.SerializeObject(searchModel);
+            
             using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
             {
-                datatableResponseModel.data = connection.Query<ReportModel>("usp_GetClientOutstandingReportList",
-                      new { RequestModel = strRequestModel }, commandType: CommandType.StoredProcedure);
+                datatableResponseModel.data = connection.Query<ReportModel>("usp_GetClientOutstandingReportList", commandType: CommandType.StoredProcedure);
             }
 
 

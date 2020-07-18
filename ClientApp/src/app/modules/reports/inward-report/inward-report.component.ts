@@ -71,15 +71,15 @@ export class InwardReportComponent implements OnInit {
 
             let serviceAmountForPrint=0;
             let advanceAmountForPrint=0;
-            for(let i=1;i< $('row c[r^="F"]', sheet).length-1;i++){
-              let element=$('row c[r^="F"]', sheet)[i];
+            for(let i=1;i< $('row c[r^="G"]', sheet).length-1;i++){
+              let element=$('row c[r^="G"]', sheet)[i];
               if (parseFloat($('c v', element).text()) > 0) {
                 serviceAmountForPrint=serviceAmountForPrint+parseFloat($('c v', element).text());
               }
             }
 
-            for(let i=1;i< $('row c[r^="G"]', sheet).length-1;i++){
-              let element=$('row c[r^="G"]', sheet)[i];
+            for(let i=1;i< $('row c[r^="H"]', sheet).length-1;i++){
+              let element=$('row c[r^="H"]', sheet)[i];
               if (parseFloat($('c v', element).text()) > 0) {
                 advanceAmountForPrint=advanceAmountForPrint+parseFloat($('c v', element).text());
               }
@@ -87,8 +87,8 @@ export class InwardReportComponent implements OnInit {
 
 
 
-            $('c v', $('row c[r^="F"]', sheet)[$('row c[r^="F"]', sheet).length-1]).text(serviceAmountForPrint);
-            $('c v', $('row c[r^="G"]', sheet)[$('row c[r^="G"]', sheet).length-1]).text(advanceAmountForPrint);
+            $('c v', $('row c[r^="G"]', sheet)[$('row c[r^="G"]', sheet).length-1]).text(serviceAmountForPrint);
+            $('c v', $('row c[r^="H"]', sheet)[$('row c[r^="H"]', sheet).length-1]).text(advanceAmountForPrint);
 
 
 
@@ -114,16 +114,16 @@ export class InwardReportComponent implements OnInit {
 
               for (let r=1;r<doc.content[2].table.body.length-1;r++) {
                 let row = doc.content[2].table.body[r];
-                if(parseFloat(row[5].text)>0){
-                  serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[5].text);
-                }
                 if(parseFloat(row[6].text)>0){
-                  advanceAmountForPrint=advanceAmountForPrint+parseFloat(row[6].text);
+                  serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[6].text);
+                }
+                if(parseFloat(row[7].text)>0){
+                  advanceAmountForPrint=advanceAmountForPrint+parseFloat(row[7].text);
                 }
 
               }
-              doc.content[2].table.body[doc.content[2].table.body.length-1][5].text=serviceAmountForPrint;
-              doc.content[2].table.body[doc.content[2].table.body.length-1][6].text=advanceAmountForPrint;
+              doc.content[2].table.body[doc.content[2].table.body.length-1][6].text=serviceAmountForPrint;
+              doc.content[2].table.body[doc.content[2].table.body.length-1][7].text=advanceAmountForPrint;
 
 
         }
@@ -141,13 +141,13 @@ export class InwardReportComponent implements OnInit {
 
 
       that.servicetotal = api
-          .column( 5)
+          .column( 6)
           .data()
           .reduce( function (a, b) {
               return intVal(a) + intVal(b);
           }, 0 );
           that.advancetotal = api
-          .column( 6)
+          .column( 7)
           .data()
           .reduce( function (a, b) {
               return intVal(a) + intVal(b);
@@ -159,6 +159,7 @@ export class InwardReportComponent implements OnInit {
 
   },
      columns: [{orderable: false,className: 'select-checkbox',targets:   0},
+     { data: '',searchable:false,orderable:true  },
      { data: 'reportId',searchable:false,orderable:true  },
       { data: 'reportDate',searchable:false,orderable:true  },
       { data: 'clientName',searchable:false,orderable:true  },
@@ -169,7 +170,7 @@ export class InwardReportComponent implements OnInit {
       { data: 'repairedStatus',searchable:false,orderable:true  },]
 
     };
-    this.GetBillReport(true);
+    this.GetInwardReport(true);
   }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -184,7 +185,7 @@ export class InwardReportComponent implements OnInit {
     this.searchModel={reportId:'',customerName:null,reportFromDate:null,reportToDate:null};
   }
 
-  GetBillReport(first=false){
+  GetInwardReport(first=false){
     const that = this;
     this.reportService.GetInwardReportList(this.searchModel).subscribe(data=>{
       that.lstInwardReport = data.data;

@@ -73,41 +73,41 @@ export class BillReportComponent implements OnInit {
             let advanceAmountForPrint=0;
             let paidAmountForPrint=0;
             let outstandingAmountForPrint=0;
-            for(let i=1;i< $('row c[r^="F"]', sheet).length-1;i++){
-              let element=$('row c[r^="F"]', sheet)[i];
-              if (parseFloat($('c v', element).text()) > 0) {
-                serviceAmountForPrint=serviceAmountForPrint+parseFloat($('c v', element).text());
-              }
-            }
-
             for(let i=1;i< $('row c[r^="G"]', sheet).length-1;i++){
               let element=$('row c[r^="G"]', sheet)[i];
               if (parseFloat($('c v', element).text()) > 0) {
-                advanceAmountForPrint=advanceAmountForPrint+parseFloat($('c v', element).text());
+                serviceAmountForPrint=serviceAmountForPrint+parseFloat($('c v', element).text());
               }
             }
 
             for(let i=1;i< $('row c[r^="H"]', sheet).length-1;i++){
               let element=$('row c[r^="H"]', sheet)[i];
               if (parseFloat($('c v', element).text()) > 0) {
-                paidAmountForPrint=paidAmountForPrint+parseFloat($('c v', element).text());
+                advanceAmountForPrint=advanceAmountForPrint+parseFloat($('c v', element).text());
               }
             }
 
             for(let i=1;i< $('row c[r^="I"]', sheet).length-1;i++){
               let element=$('row c[r^="I"]', sheet)[i];
               if (parseFloat($('c v', element).text()) > 0) {
+                paidAmountForPrint=paidAmountForPrint+parseFloat($('c v', element).text());
+              }
+            }
+
+            for(let i=1;i< $('row c[r^="J"]', sheet).length-1;i++){
+              let element=$('row c[r^="J"]', sheet)[i];
+              if (parseFloat($('c v', element).text()) > 0) {
                 outstandingAmountForPrint=outstandingAmountForPrint+parseFloat($('c v', element).text());
               }
             }
 
-            $('c v', $('row c[r^="F"]', sheet)[$('row c[r^="F"]', sheet).length-1]).text(serviceAmountForPrint);
-            $('c v', $('row c[r^="G"]', sheet)[$('row c[r^="G"]', sheet).length-1]).text(advanceAmountForPrint);
-            $('c v', $('row c[r^="H"]', sheet)[$('row c[r^="H"]', sheet).length-1]).text(paidAmountForPrint);
-            $('c v', $('row c[r^="I"]', sheet)[$('row c[r^="I"]', sheet).length-1]).text(outstandingAmountForPrint);
+            $('c v', $('row c[r^="G"]', sheet)[$('row c[r^="G"]', sheet).length-1]).text(serviceAmountForPrint);
+            $('c v', $('row c[r^="H"]', sheet)[$('row c[r^="H"]', sheet).length-1]).text(advanceAmountForPrint);
+            $('c v', $('row c[r^="I"]', sheet)[$('row c[r^="I"]', sheet).length-1]).text(paidAmountForPrint);
+            $('c v', $('row c[r^="J"]', sheet)[$('row c[r^="J"]', sheet).length-1]).text(outstandingAmountForPrint);
 
 
-            $('row c[r^="I"]', sheet).each(function() {
+            $('row c[r^="J"]', sheet).each(function() {
               if (parseFloat($('c v', this).text()) > 0) {
                 $(this).attr('s', '36');
               }
@@ -136,29 +136,29 @@ export class BillReportComponent implements OnInit {
 
               for (let r=1;r<doc.content[2].table.body.length-1;r++) {
                 let row = doc.content[2].table.body[r];
-                if(parseFloat(row[5].text)>0){
-                  serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[5].text);
-                }
                 if(parseFloat(row[6].text)>0){
-                  advanceAmountForPrint=advanceAmountForPrint+parseFloat(row[6].text);
+                  serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[6].text);
                 }
                 if(parseFloat(row[7].text)>0){
-                  paidAmountForPrint=paidAmountForPrint+parseFloat(row[7].text);
+                  advanceAmountForPrint=advanceAmountForPrint+parseFloat(row[7].text);
                 }
                 if(parseFloat(row[8].text)>0){
-                  outstandingAmountForPrint=outstandingAmountForPrint+parseFloat(row[8].text);
+                  paidAmountForPrint=paidAmountForPrint+parseFloat(row[8].text);
+                }
+                if(parseFloat(row[9].text)>0){
+                  outstandingAmountForPrint=outstandingAmountForPrint+parseFloat(row[9].text);
                 }
               }
-              doc.content[2].table.body[doc.content[2].table.body.length-1][5].text=serviceAmountForPrint;
-              doc.content[2].table.body[doc.content[2].table.body.length-1][6].text=advanceAmountForPrint;
-              doc.content[2].table.body[doc.content[2].table.body.length-1][7].text=paidAmountForPrint;
-              doc.content[2].table.body[doc.content[2].table.body.length-1][8].text=outstandingAmountForPrint;
+              doc.content[2].table.body[doc.content[2].table.body.length-1][6].text=serviceAmountForPrint;
+              doc.content[2].table.body[doc.content[2].table.body.length-1][7].text=advanceAmountForPrint;
+              doc.content[2].table.body[doc.content[2].table.body.length-1][8].text=paidAmountForPrint;
+              doc.content[2].table.body[doc.content[2].table.body.length-1][9].text=outstandingAmountForPrint;
 
 
               for (let r=1;r<doc.content[2].table.body.length;r++) {
                 let row = doc.content[2].table.body[r];
-                if(parseFloat(row[8].text)>0){
-                  row[8].color = 'red';
+                if(parseFloat(row[9].text)>0){
+                  row[9].color = 'red';
                 }
 
 
@@ -178,25 +178,25 @@ export class BillReportComponent implements OnInit {
 
 
       that.servicetotal = api
-          .column( 5)
-          .data()
-          .reduce( function (a, b) {
-              return intVal(a) + intVal(b);
-          }, 0 );
-          that.advancetotal = api
           .column( 6)
           .data()
           .reduce( function (a, b) {
               return intVal(a) + intVal(b);
           }, 0 );
-          that.paidtotal = api
+          that.advancetotal = api
           .column( 7)
           .data()
           .reduce( function (a, b) {
               return intVal(a) + intVal(b);
           }, 0 );
-          that.outStandingtotal = api
+          that.paidtotal = api
           .column( 8)
+          .data()
+          .reduce( function (a, b) {
+              return intVal(a) + intVal(b);
+          }, 0 );
+          that.outStandingtotal = api
+          .column( 9)
           .data()
           .reduce( function (a, b) {
               return intVal(a) + intVal(b);
@@ -207,6 +207,7 @@ export class BillReportComponent implements OnInit {
 
   },
      columns: [{orderable: false,className: 'select-checkbox',targets:   0},
+     { data: '',searchable:false,orderable:true  },
      { data: 'reportDate',searchable:false,orderable:true  },
       { data: 'reportId',searchable:false,orderable:true  },
       { data: 'jobNumbers',searchable:false,orderable:true  },
