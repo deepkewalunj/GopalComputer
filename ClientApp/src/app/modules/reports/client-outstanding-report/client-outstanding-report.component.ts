@@ -73,6 +73,13 @@ export class ClientOutstandingReportComponent implements OnInit {
             let advanceAmountForPrint=0;
             let outstandingAmountForPrint=0;
 
+            for(let i=1;i< $('row c[r^="B"]', sheet).length;i++){
+
+              let element=$('row c[r^="B"]', sheet)[i];
+              $('c v', element).text(i);
+
+            }
+
             for(let i=1;i< $('row c[r^="D"]', sheet).length-1;i++){
               let element=$('row c[r^="D"]', sheet)[i];
               if (parseFloat($('c v', element).text()) > 0) {
@@ -129,6 +136,7 @@ export class ClientOutstandingReportComponent implements OnInit {
 
               for (let r=1;r<doc.content[2].table.body.length-1;r++) {
                 let row = doc.content[2].table.body[r];
+                row[1].text=r;
                 if(parseFloat(row[3].text)>0){
                   serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[3].text);
                 }
