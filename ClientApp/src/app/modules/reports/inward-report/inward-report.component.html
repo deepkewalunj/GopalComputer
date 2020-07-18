@@ -1,136 +1,136 @@
 
 <div class="container-fluid">
-    <h3 class="text-center mb-4">Inward Report</h3>
-    <div class="card mb-4">
-        <div class="card-header">
-            <!-- <h4 class="float-left">Tables</h4>  -->
-            <button class="btn btn-search btn-primary float-right d-sm-none"
-                (click)="toggleSearch()"><i class="icon-search"></i></button>
-        </div>
-        <div class="card-body">
-            <!--table search filter start-->
-            <form  class="search-filter d-none d-md-block" [ngClass]="searchFilter ? 'd-block' : 'd-none'">
-                <div class="row mb-2">
-                    <div class="col-sm">
-                        <div class="form-group has-float-label">
-                           <input id="companyName" type="text" class="form-control"
+  <h3 class="text-center mb-4">Inward Report</h3>
+  <div class="card mb-4">
+      <div class="card-header justify-content-end">
+          <!-- <h4 class="float-left">Tables</h4>  -->
+          <button class="btn btn-search btn-primary float-right d-sm-none"
+              (click)="toggleSearch()"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="card-body">
+          <!--table search filter start-->
+          <form  class="search-filter d-none d-md-block" [ngClass]="searchFilter ? 'd-block' : 'd-none'">
+              <div class="row mb-2">
+                  <div class="col-sm">
+                      <div class="form-group has-float-label">
+                         <input id="companyName" type="text" class="form-control"
 
-                               [(ngModel)]="searchModel.customerName" [inputFormatter]="formatter"
-                               [resultFormatter]="formatter" [ngModelOptions]="{standalone: true}"
-                               [editable]='true' [ngbTypeahead]="searchCustomer" placeholder="Select Company"/>
-                            <label for="companyName">Company Name</label>
-                        </div>
-                    </div>
-                    <div class="col-sm">
-                        <div class="form-group has-float-label">
-                            <input class="form-control"  [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="searchModel.reportId" id="billNumber" placeholder="Bill Number">
-                            <label for="billNumber">Bill Number</label>
-                        </div>
-                    </div>
-
-                    <div class="col-sm">
-                        <div class="form-group">
-                            <div class="input-group datepicker">
-                                <label class="date-label">From Date</label>
-                                <input class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchModel.reportFromDate"  placeholder="dd-mm-yyyy" name="dp"
-                                ngbDatepicker
-                                    #d1="ngbDatepicker" (click)="d1.toggle()">
-                                <div class="input-group-append">
-                                    <button  class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
-                                        type="button" ><i class="far fa-calendar-alt"></i></button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-sm">
-                        <div class="form-group">
-                            <div class="input-group datepicker">
-                                <label class="date-label">To Date</label>
-                                <input class="form-control" [ngModelOptions]="{standalone: true}"  placeholder="dd-mm-yyyy" name="dp"
-                                ngbDatepicker [(ngModel)]="searchModel.reportToDate"
-                                    #d2="ngbDatepicker" (click)="d2.toggle()">
-                                <div class="input-group-append">
-                                    <button  class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
-                                        type="button" ><i class="far fa-calendar-alt"></i></button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-sm text-right">
-                        <div class="form-group">
-                            <button type="reset" (click)="clearFilter()" class="btn btn-outline btn-outline-dark">Reset</button>
-                            <button type="button" (click)="GetBillReport(false)" class="btn btn-outline btn-outline-dark">Search</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <!--table search filter end-->
-            <!--table listing statrt-->
-            <div id="no-more-tables">
-                <!-- This id used for responsive table -->
-                <table class="table table-striped" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                    <thead>
-                        <tr>
+                             [(ngModel)]="searchModel.customerName" [inputFormatter]="formatter"
+                             [resultFormatter]="formatter" [ngModelOptions]="{standalone: true}"
+                             [editable]='true' [ngbTypeahead]="searchCustomer" placeholder="Select Company"/>
+                          <label for="companyName">Company Name</label>
+                      </div>
+                  </div>
 
 
-                            <th scope="col" style="width:15%" class="cursor">
-                                <div class="d-flex align-items-center"><span>Job #</span> </div>
-                            </th>
-                            <th scope="col" style="width:15%" class="cursor">
-                              <div class="d-flex align-items-center"><span>Inward Date</span></div>
-                          </th>
-                            <th scope="col" style="width:15%" class="cursor">
-                              <div class="d-flex align-items-center"><span>Client Name</span> </div>
-                            </th>
-                            <th scope="col" style="width:15%" class="text-right">
-                              <div class="mr-2"> Estimated ₹</div>
-                            </th>
-                            <th scope="col" style="width:15%" class="text-right">
-                                <div class="mr-2"> Advance ₹</div>
-                            </th>
-                            <th scope="col" style="width:15%">
-                                Outward/Bill Status 
-                            </th>
-                            <th scope="col" style="width:10%">
-                                Repaired
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let bill of lstBillReport">
+                  <div class="col-sm">
+                      <div class="form-group">
+                          <div class="input-group datepicker">
+                              <label class="date-label">From Date</label>
+                              <input class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchModel.reportFromDate"  placeholder="dd-mm-yyyy" name="dp"
+                              ngbDatepicker
+                                  #d1="ngbDatepicker" (click)="d1.toggle()">
+                              <div class="input-group-append">
+                                  <button  class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
+                                      type="button" ><i class="far fa-calendar-alt"></i></button>
+                              </div>
+                          </div>
 
+                      </div>
+                  </div>
+                  <div class="col-sm">
+                      <div class="form-group">
+                          <div class="input-group datepicker">
+                              <label class="date-label">To Date</label>
+                              <input class="form-control" [ngModelOptions]="{standalone: true}"  placeholder="dd-mm-yyyy" name="dp"
+                              ngbDatepicker [(ngModel)]="searchModel.reportToDate"
+                                  #d2="ngbDatepicker" (click)="d2.toggle()">
+                              <div class="input-group-append">
+                                  <button  class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
+                                      type="button" ><i class="far fa-calendar-alt"></i></button>
+                              </div>
+                          </div>
 
-                            <td data-title="Job #">{{bill.jobNumbers}}</td>
-                            <td data-title="Inward Date">{{bill.reportDate | date: 'dd/MM/yyyy' }}</td>
-                            <td data-title="Client Name">{{bill.clientName}}</td>
-                            <td data-title="Estimated Amount" class="text-right">{{bill.serviceAmount}}</td>
-                            <td data-title="Advance Amount" class="text-right">{{bill.advanceAmount}}</td>
-                            <td data-title="Outward/Bill Status">{{bill.outwardBillStatus}}</td>
-                            <td data-title="Repaired">
-                              {{bill.repairedStatus}}</td>
-                        </tr>
-
-
-                    </tbody>
-                    <tfoot>
+                      </div>
+                  </div>
+                  <div class="col-sm text-right">
+                      <div class="form-group">
+                          <button type="reset" (click)="clearFilter()" class="btn btn-outline btn-outline-dark">Reset</button>
+                          <button type="button" (click)="GetBillReport(false)" class="btn btn-outline btn-outline-dark">Search</button>
+                      </div>
+                  </div>
+              </div>
+          </form>
+          <!--table search filter end-->
+          <!--table listing statrt-->
+          <div id="no-more-tables">
+              <!-- This id used for responsive table -->
+              <table class="table table-striped" id="billDatatable"   datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                  <thead>
                       <tr>
-                        <th class="text-right"></th>
-                        <th class="text-right"></th>
-                        <th class="text-right">Total:</th>
-                        <th class="text-right">{{servicetotal}}</th>
-                        <th class="text-right">{{advancetotal}}</th>
-                        <th class="text-right"></th>
-                        <th class="text-right"></th>
-                    </tr>
-                    </tfoot>
-                </table>
+                        <th scope="col" style="width:4%" class="cursor"></th>
+                          <th scope="col" style="width:10%" class="cursor">
+                            Job No.
+                          </th>
+                          <th scope="col" style="width:12%" class="cursor">
+                              Inward Date
+                          </th>
 
-                <!--table listing end-->
-            </div>
-        </div>
-    </div>
+                          <th scope="col" style="width:12%" class="cursor">
+                           Client Name
+                        </th>
+                        <th scope="col" style="width:12%" class="cursor">
+                          Material Name
+                       </th>
+                          <th scope="col" style="width:12%" class="text-right">
+                           <div class="mr-2"> Estimated Amt. ₹</div>
+                          </th>
+                          <th scope="col" style="width:12%" class="text-right">
+                              <div class="mr-2"> Advance Amount ₹</div>
+                          </th>
+                          <th scope="col" style="width:12%" class="text-right">
+                              <div class="mr-2"> Outward/Bill Status</div>
+                          </th>
+                          <th scope="col" style="width:12%" class="text-right">
+                              <div class="mr-2">Repaired</div>
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let inward of lstInwardReport">
+                        <td></td>
+                          <td data-title="Job No.">{{inward.reportId }}</td>
+                          <td data-title="Inward Date">{{inward.reportDate | date: 'dd/MM/yyyy'}}</td>
+                          <td data-title="Client Name">{{inward.clientName}}</td>
+                          <td data-title="Material Name">{{inward.materialName}}</td>
+                          <td data-title="Estimated Amt." class="text-right">{{inward.serviceAmount}}</td>
+                          <td data-title="Advance Amount" class="text-right">{{inward.advanceAmount}}</td>
+                          <td data-title="Outward/Bill Status" class="text-right">{{inward.outwardBillStatus}}</td>
+                          <td data-title="Repaired" class="text-right" >
+                            {{inward.repairedStatus}}</td>
+                      </tr>
+
+
+                  </tbody>
+                  <tfoot>
+                    <tr class="total-amount-bg">
+                      <th class="text-right hide-td-on-device"></th>
+                      <th class="text-right hide-td-on-device"></th>
+                      <td class="text-right hide-td-on-device"></td>
+                      <td class="text-right hide-td-on-device"></td>
+                      <td class="text-right font-weight-bold"> <span>Total:</span></td>
+                      <td data-title="Service Total" class="text-right font-weight-bold">{{servicetotal}}</td>
+                      <td data-title="Advance Total" class="text-right font-weight-bold">{{advancetotal}}</td>
+                      <td class="text-right hide-td-on-device"></td>
+                      <td class="text-right hide-td-on-device"></td>
+                  </tr>
+                  </tfoot>
+              </table>
+
+              <!--table listing end-->
+          </div>
+      </div>
+  </div>
 </div>
 
 

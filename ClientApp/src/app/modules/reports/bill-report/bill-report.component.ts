@@ -62,7 +62,7 @@ export class BillReportComponent implements OnInit {
         'selectNone',
         {
           extend:'excel',
-          messageTop: `Inward Bill Report   Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
+          messageTop: `Bill Report   Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
           className: 'far fa-file-excel',
           footer: true,
           customize: function (doc) {
@@ -122,7 +122,7 @@ export class BillReportComponent implements OnInit {
         extend: 'pdfHtml5',
         orientation: 'landscape',
         pageSize: 'LEGAL',
-        messageTop: `Inward Bill Report Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
+        messageTop: `Bill Report Financial Year - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
         className: 'far fa-file-pdf',
         footer: true,
         customize: function (doc) {

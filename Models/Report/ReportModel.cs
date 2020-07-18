@@ -22,6 +22,7 @@ namespace Gopal.Models.Report
         public string repairedStatus { get; set; }
         public float billOutwardAmount { get; set; }
         public float paymentAmount { get; set; }
+        public string materialName { get; set; }
     }
 
     public class ReportSearchModel {
