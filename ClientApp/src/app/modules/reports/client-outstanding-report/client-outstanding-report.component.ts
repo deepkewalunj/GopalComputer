@@ -11,6 +11,8 @@ import { TypeAheadService } from 'src/app/services/type-ahead.service';
 import { ReportService } from 'src/app/services/report.service';
 import { FiscalYear } from 'src/app/models/FiscalYear.model';
 
+
+declare var pdfMake: any;
 @Component({
   selector: 'app-client-outstanding-report',
   templateUrl: './client-outstanding-report.component.html',
@@ -36,7 +38,7 @@ export class ClientOutstandingReportComponent implements OnInit {
   searchFailed = false;
   inwardAddressPrint:string;
   inwardAddressPhoneNoPrint:string;
-
+  pdfDoc:any;
   constructor(private ngbCalendar: NgbCalendar,
     private reportService:ReportService,
     private typeAheadService:TypeAheadService) { }
@@ -63,6 +65,50 @@ export class ClientOutstandingReportComponent implements OnInit {
         'selectAll',
         'selectNone',
         {
+          text: 'Send to CA',
+          className:'buttons-send-to-ca',
+          extend: 'pdfHtml5',
+          orientation: 'landscape',
+          pageSize: 'LEGAL',
+          messageTop: ``,
+         footer: true,
+         action: function ( e, dt, button, config ) {
+
+          let allRows= dt.rows().data();
+          let selectedRows= dt.rows( { selected: true } ).data();
+
+          let lstReportId=[];
+
+          if(selectedRows && selectedRows.length>0)
+          {
+            for(let i=0;i<selectedRows.length;i++)
+            {
+              lstReportId.push(selectedRows[i][""]);
+            }
+
+          }
+          else if(allRows && allRows.length>0)
+          {
+            for(let i=0;i<allRows.length;i++)
+            {
+              lstReportId.push(allRows[i][""]);
+            }
+          }
+
+
+         let doc= that.createDocPDF(config,dt)
+         const pdfDocGenerator = pdfMake.createPdf(doc);
+         pdfDocGenerator.getBlob((data) => {
+         let outstandingFile= that.blobToFile(data,"Outstanding_Report.pdf");
+           console.log(outstandingFile);
+         });
+        },
+          customize: function (doc) {
+              that.customizeDocPDF(that,doc);
+
+          }
+      },
+        {
           extend:'excel',
           messageTop: `Client O/S Report   F.Y. - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
           className: 'far fa-file-excel',
@@ -74,7 +120,12 @@ export class ClientOutstandingReportComponent implements OnInit {
             //let serviceAmountForPrint=0;
             //let advanceAmountForPrint=0;
             let outstandingAmountForPrint=0;
+            for(let i=1;i< $('row c[r^="A"]', sheet).length;i++){
 
+              let element=$('row c[r^="A"]', sheet)[i];
+              $('c v', element).text('');
+
+            }
             for(let i=1;i< $('row c[r^="B"]', sheet).length;i++){
 
               let element=$('row c[r^="B"]', sheet)[i];
@@ -129,48 +180,7 @@ export class ClientOutstandingReportComponent implements OnInit {
         className: 'far fa-file-pdf',
         footer: true,
         customize: function (doc) {
-          doc.defaultStyle.alignment = 'right';
-          doc.styles.tableHeader.alignment = 'right';
-          doc.content[0].text = `Gopal Computers \n
-        ${that.inwardAddressPrint} Contact : ${that.inwardAddressPhoneNoPrint} \n
-        Client O/S Report  \n
-        F.Y. - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)+1}`;
-
-        let docContent=doc.content[1];
-
-          docContent.table.widths =[ 'auto', 'auto', '*', '*' ];
-             // Array(docContent.table.body[0].length + 1).join('*').split('');
-
-              // let serviceAmountForPrint=0;
-              // let advanceAmountForPrint=0;
-              let outstandingAmountForPrint=0;
-
-              for (let r=1;r<docContent.table.body.length-1;r++) {
-                let row = docContent.table.body[r];
-                row[1].text=r;
-                // if(parseFloat(row[3].text)>0){
-                //   serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[3].text);
-                // }
-                // if(parseFloat(row[4].text)>0){
-                //   advanceAmountForPrint=advanceAmountForPrint+parseFloat(row[4].text);
-                // }
-                if(parseFloat(row[3].text)>0){
-                  outstandingAmountForPrint=outstandingAmountForPrint+parseFloat(row[3].text);
-                }
-
-              }
-             // docContent.table.body[docContent.table.body.length-1][3].text=serviceAmountForPrint;
-             // docContent.table.body[docContent.table.body.length-1][4].text=advanceAmountForPrint;
-              docContent.table.body[docContent.table.body.length-1][3].text=outstandingAmountForPrint;
-
-              for (let r=1;r<docContent.table.body.length;r++) {
-                let row = docContent.table.body[r];
-                if(parseFloat(row[3].text)>0){
-                  row[3].color = 'red';
-                }
-
-
-            }
+          that.customizeDocPDF(that,doc);
 
         }
     }],
@@ -220,6 +230,160 @@ export class ClientOutstandingReportComponent implements OnInit {
     };
     this.GetClientOutstandingReport(true);
   }
+
+  public blobToFile = (theBlob: Blob, fileName:string): File => {
+    var b: any = theBlob;
+
+    b.lastModifiedDate = new Date();
+    b.name = fileName;
+
+    //Cast to a File() type
+    return <File>theBlob;
+}
+
+  createDocPDF(config,dt){
+
+    var data = dt.buttons.exportData( config.exportOptions );
+    var rows = [];
+
+    if ( config.header ) {
+      rows.push( $.map( data.header, function ( d ) {
+        return {
+          text: typeof d === 'string' ? d : d+'',
+          style: 'tableHeader'
+        };
+      } ) );
+    }
+
+    for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
+      rows.push( $.map( data.body[i], function ( d ) {
+        return {
+          text: typeof d === 'string' ? d : d+'',
+          style: i % 2 ? 'tableBodyEven' : 'tableBodyOdd'
+        };
+      } ) );
+    }
+
+    if ( config.footer && data.footer) {
+      rows.push( $.map( data.footer, function ( d ) {
+        return {
+          text: typeof d === 'string' ? d : d+'',
+          style: 'tableFooter'
+        };
+      } ) );
+    }
+
+    var doc = {
+      pageSize: config.pageSize,
+      pageOrientation: config.orientation,
+      content: [
+        {
+          table: {
+            headerRows: 1,
+            body: rows
+          },
+          layout: 'noBorders'
+        }
+      ] as any[],
+      styles: {
+        tableHeader: {
+          bold: true,
+          fontSize: 11,
+          color: 'white',
+          fillColor: '#2d4154',
+          alignment: 'center'
+        },
+        tableBodyEven: {},
+        tableBodyOdd: {
+          fillColor: '#f3f3f3'
+        },
+        tableFooter: {
+          bold: true,
+          fontSize: 11,
+          color: 'white',
+          fillColor: '#2d4154'
+        },
+        title: {
+          alignment: 'center',
+          fontSize: 15
+        },
+        message: {}
+      },
+      defaultStyle: {
+        fontSize: 10,
+        alignment : 'right'
+      }
+    };
+
+if ( config.message ) {
+doc.content.unshift( {
+  text: '',
+  style: 'message',
+  margin: [ 0, 0, 0, 12 ]
+} );
+}
+
+if ( config.title ) {
+doc.content.unshift( {
+  text: 'Gopal Computers',
+  style: 'title',
+  margin: [ 0, 0, 0, 12 ]
+} );
+}
+    if ( config.customize ) {
+      config.customize( doc, config );
+    }
+
+    return doc;
+  }
+
+  customizeDocPDF(that,doc){
+
+    doc.defaultStyle.alignment = 'right';
+    doc.styles.tableHeader.alignment = 'right';
+    doc.content[0].text = `Gopal Computers \n
+  ${that.inwardAddressPrint} Contact : ${that.inwardAddressPhoneNoPrint} \n
+  Client O/S Report  \n
+  F.Y. - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)+1}`;
+
+  let docContent=doc.content[1];
+
+    docContent.table.widths =[ 'auto', 'auto', '*', '*' ];
+       // Array(docContent.table.body[0].length + 1).join('*').split('');
+
+        // let serviceAmountForPrint=0;
+        // let advanceAmountForPrint=0;
+        let outstandingAmountForPrint=0;
+
+        for (let r=1;r<docContent.table.body.length-1;r++) {
+          let row = docContent.table.body[r];
+          row[0].text='';
+          row[1].text=r;
+          // if(parseFloat(row[3].text)>0){
+          //   serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[3].text);
+          // }
+          // if(parseFloat(row[4].text)>0){
+          //   advanceAmountForPrint=advanceAmountForPrint+parseFloat(row[4].text);
+          // }
+          if(parseFloat(row[3].text)>0){
+            outstandingAmountForPrint=outstandingAmountForPrint+parseFloat(row[3].text);
+          }
+
+        }
+       // docContent.table.body[docContent.table.body.length-1][3].text=serviceAmountForPrint;
+       // docContent.table.body[docContent.table.body.length-1][4].text=advanceAmountForPrint;
+        docContent.table.body[docContent.table.body.length-1][3].text=outstandingAmountForPrint;
+
+        for (let r=1;r<docContent.table.body.length;r++) {
+          let row = docContent.table.body[r];
+          if(parseFloat(row[3].text)>0){
+            row[3].color = 'red';
+          }
+
+
+      }
+  }
+
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
