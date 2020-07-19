@@ -10,6 +10,7 @@ import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from '
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
 import { ReportService } from 'src/app/services/report.service';
 import { FiscalYear } from 'src/app/models/FiscalYear.model';
+import { EmailService } from 'src/app/services/email.service';
 
 
 declare var pdfMake: any;
@@ -41,7 +42,8 @@ export class ClientOutstandingReportComponent implements OnInit {
   pdfDoc:any;
   constructor(private ngbCalendar: NgbCalendar,
     private reportService:ReportService,
-    private typeAheadService:TypeAheadService) { }
+    private typeAheadService:TypeAheadService,
+    private emailService:EmailService) { }
 
   ngOnInit() {
 
@@ -100,7 +102,18 @@ export class ClientOutstandingReportComponent implements OnInit {
          const pdfDocGenerator = pdfMake.createPdf(doc);
          pdfDocGenerator.getBlob((data) => {
          let outstandingFile= that.blobToFile(data,"Outstanding_Report.pdf");
-           console.log(outstandingFile);
+
+
+         const formData = new FormData();
+
+         formData.append("outstanding_file", outstandingFile);
+         formData.append("ClientIdArray",JSON.stringify(lstReportId) )
+
+          that.emailService.SendEmailToCA(formData).subscribe(data=>{
+
+          },error=>{
+              console.log(error);
+          })
          });
         },
           customize: function (doc) {

@@ -103,5 +103,14 @@ namespace Gopal.Controllers
 
             return new ViewAsPdf("PrintLumpsum", lumpsum);
         }
+
+        [HttpGet]
+        [Route("PrintAccountStatement")]
+        public IActionResult PrintAccountStatement(int clientId)
+        {
+           
+            
+            return new ViewAsPdf("PrintAccountStatement");
+        }
     }
 }

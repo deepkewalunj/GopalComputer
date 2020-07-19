@@ -77,6 +77,7 @@ namespace Gopal
             services.AddTransient<IOutwardServices, OutwardService>();
             services.AddTransient<IReportServices, ReportServices>();
             services.AddTransient<IPaymentServices, PaymentService>();
+            services.AddTransient<IEmailService, EmailService>();
             services.AddSingleton<ILog, LogNLog>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -92,7 +93,7 @@ namespace Gopal
             ConnectionHelper.SetConnectionString(Configuration["ConnectionString"]);
             app.UseCors("Gopal_CORS");
 
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
