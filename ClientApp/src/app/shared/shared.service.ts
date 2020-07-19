@@ -33,6 +33,11 @@ export class SharedService {
     }
   }
 
+  smsCount() {
+    if (this.isLoggedIn()) {
+      return this.AUTH_TOKEN.smsCount;
+    }
+  }
 
   getRoleId() {
    if (this.isLoggedIn()) {

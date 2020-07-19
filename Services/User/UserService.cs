@@ -2,6 +2,8 @@
 using Gopal.Models.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +31,28 @@ namespace Gopal.Services.User
             LoginModel _loginModel = new LoginModel();
             var user = _dbContext.TblUser.Where(x=>x.IsDeleted != true && x.UserEmail == login.userEmail
                                                           && x.UserPassword== login.userPassword).FirstOrDefault();
-            if(user != null)
+
+            var smsApiKey = _dbContext.TblMaster.Where(x => x.MasterKey == "SMS_API_KEY").FirstOrDefault().MasterValue;
+            try
+            {
+                var client = new RestClient("http://2factor.in/API/V1/"+ smsApiKey +"/ADDON_SERVICES/BAL/TRANSACTIONAL_SMS");
+                var request = new RestRequest(Method.GET);
+                IRestResponse response = client.Execute(request);
+                var data = JsonConvert.DeserializeObject<smsCountModel>(response.Content);
+                _loginModel.smsCount = data.Details.ToString();
+            }
+            catch (Exception ex)
+            {
+                _loginModel.smsCount = "Error";
+            }
+            if (user != null)
             {
                 _loginModel.lastName = user.LastName;
                 _loginModel.firstName = user.FirstName;
                 _loginModel.userEmail = user.UserEmail;
                 _loginModel.userId = user.UserId;
                 _loginModel.userRole = (int)user.UserRole;
+             
                // _loginModel.userName = user.UserName;
             }
             return _loginModel;

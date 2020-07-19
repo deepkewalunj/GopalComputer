@@ -17,6 +17,7 @@ namespace Gopal.Models.User
         public int userRole { get; set; }
         public string userEmail { get; set; }
         public bool isDeleted { get; set; }
+        public string smsCount { get; set; }
     }
 
     public class GetUserByIdModel
@@ -46,5 +47,10 @@ namespace Gopal.Models.User
         public string moduleName { get; set; }
         public bool isChecked { get; set; }
        
+    }
+    public class smsCountModel
+    {
+        public string Status { get; set; }
+        public string Details { get; set; }
     }
 }
