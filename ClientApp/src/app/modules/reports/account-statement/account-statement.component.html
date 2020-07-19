@@ -73,17 +73,14 @@
         <div class="col-12 d-flex account-list">
 
         <div class="card mb-3 card-left">
-            <div class="card-header">
-            <h4 class="float-left">Bill Payment</h4> 
-            </div>
-            <div class="card-body">
+            <div class="card-body first-card-body">
                 <!--table listing statrt-->
                 <div id="no-more-tables">
                     <!-- This id used for responsive table -->
-                    <table class="table table-striped">
-                        <thead>
+                    <table class="table">
+                        <thead class="thead-light">
                             <tr>
-                                <th scope="col" style="width:18%" class="cursor">
+                                <th scope="col" style="width:18%;" class="cursor">
                                     <div class="d-flex align-items-center"><span>Bill Date </span> </div>
                                 </th>
                                 <th scope="col" style="width:14%" class="cursor">
@@ -105,11 +102,14 @@
                                     O/S ₹
                                 </th>
                             </tr>
+                            <tr>
+                              <td colspan="7" class="text-center pt-2"><h5 class="text-uppercase text-center">bill-payment details</h5></td>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr class="opening-balance">
-                                <td colspan="4">Opening Balance</td>
-                                <td colspan="4" class="text-right">{{accountStatement.billOpeningBalance}} </td>
+                                <td colspan="3" class="pb-2" style="border:0">Opening Balance</td>
+                                <td colspan="4" style="border:0" class="text-right">{{accountStatement.billOpeningBalance}} </td>
                             </tr>
                             <tr *ngFor="let bill of accountStatement.billPaymentDetails">
                               <td data-title="Bill Date">{{bill.billDate  | date:'dd/MM/yyyy'}}</td>
@@ -127,15 +127,13 @@
                     <!--table listing end-->
                 </div>
             </div>
-            <div class="card-header">
-                <h4 class="float-left">Outward Payment</h4> 
-            </div>
+           
             <div class="card-body">
                 <!--outward listing-->
                 <div id="no-more-tables">
                     <!-- This id used for responsive table -->
-                    <table class="table table-striped">
-                        <thead>
+                    <table class="table">
+                      <thead class="thead-light">
                             <tr>
                                 <th scope="col" style="width:18%" class="cursor">
                                     <div class="d-flex align-items-center"><span>Outward Date </span> </div>
@@ -159,11 +157,14 @@
                                     O/S ₹
                                 </th>
                             </tr>
+                            <tr>
+                              <td colspan="7" class="text-cente pt2r"><h5 class="text-uppercase text-center">outward-payment details</h5></td>
+                            </tr>
                         </thead>
                         <tbody>
                           <tr class="opening-balance">
-                            <td colspan="4">Opening Balance</td>
-                            <td colspan="4" class="text-right">{{accountStatement.outwardOpeningBalance}} </td>
+                            <td colspan="3" class="pb-2" style="border:0">Opening Balance</td>
+                            <td colspan="4" style="border:0" class="text-right">{{accountStatement.outwardOpeningBalance}} </td>
                           </tr>
                           <tr *ngFor="let bill of accountStatement.outwardPaymentDetails">
                             <td data-title="Outward Date">{{bill.billDate  | date:'dd/MM/yyyy'}}</td>
@@ -181,33 +182,36 @@
                     <!--table listing end-->
                 </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer d-flex align-items-end justify-content-end">
               <strong>{{accountStatement.leftSideOutstandingAmount}} </strong>
             </div>
         </div>
         <div class="card mb-3 card-right">
-            <div class="card-header">
-            <h4 class="float-left">Total</h4> 
-            </div>
             <div class="card-body">
                 <!--table listing statrt-->
                 <div id="no-more-tables">
                     <!-- This id used for responsive table -->
-                    <table class="table table-striped">
-                        <thead>
+                    <table class="table">
+                      <thead class="thead-light">
                             <tr>
-                                <th scope="col" style="width:18%" class="cursor">
+                                <th scope="col" style="width:35%" class="cursor">
                                     <div class="d-flex align-items-center"><span>Payment Date </span> </div>
                                 </th>
-                                <th scope="col" style="width:15%" class="cursor">
+                                <th scope="col" style="width:35%" class="cursor">
                                 <div class="d-flex align-items-center"><span>Payment Mode</span> </div>
                                 </th>
-                                <th scope="col" style="width:15%" class="text-right">
+                                <th scope="col" style="width:30%" class="text-right">
                                 Paid ₹
                                 </th>
                             </tr>
+                            <tr>
+                              <td colspan="3" class="pt-2" style="border:0"><h5>&nbsp;</h5></td>
+                            </tr>
                         </thead>
                         <tbody>
+                          <tr>
+                            <td colspan="3"class="pb-2" style="border:0">&nbsp;</td>
+                          </tr>
                           <tr *ngFor="let bill of accountStatement.lumpsumPaymentDetails">
                             <td data-title="Payment Date">{{bill.billDate  | date:'dd/MM/yyyy'}}</td>
                             <td data-title="Payment Mode">{{bill.paymentMode}}</td>
