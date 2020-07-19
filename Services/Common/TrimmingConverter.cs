@@ -17,7 +17,7 @@ namespace Gopal.Services.Common
         {
             if (reader.TokenType == JsonToken.String)
                 if (reader.Value != null)
-                    return (reader.Value as string).Trim();
+                    return (reader.Value as string).Trim()?.ToUpper();
 
             return reader.Value;
         }
