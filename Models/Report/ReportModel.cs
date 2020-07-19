@@ -25,6 +25,13 @@ namespace Gopal.Models.Report
         public string materialName { get; set; }
     }
 
+    public class ReportViewModel
+    {
+        public string inwardAddressPrint { get; set; }
+        public string inwardAddressPhoneNoPrint { get; set; }
+        public List<ReportModel> lstReport { get; set; }
+    }
+
     public class ReportSearchModel {
         public object customerName { get; set; }
         public string reportId { get; set; }

@@ -62,7 +62,10 @@ namespace Gopal
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
         };
     });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options =>
+            {
+                options.SerializerSettings.Converters.Add(new TrimmingConverter());
+            });
             services.AddDbContext<gopal_dbContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
             services.AddTransient<IUserServices, UserService>();
             services.AddTransient<ICustomerServices, CustomerService>();
@@ -80,6 +83,7 @@ namespace Gopal
             {
                 configuration.RootPath = "ClientApp/dist/deepak";
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,7 +100,7 @@ namespace Gopal
             app.ConfigureExceptionHandler(logger);
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles(); app.UseStaticFiles(new StaticFileOptions()
+            app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/Uploads")),
                 RequestPath = new PathString("/api/Uploads")
@@ -104,7 +108,7 @@ namespace Gopal
             app.UseSpaStaticFiles();
 
             app.UseAuthentication();
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -1,5 +1,5 @@
 
-<form [formGroup]="addClientForm" novalidate class="form-custom-modal">
+<form [formGroup]="addClientForm"  novalidate class="form-custom-modal">
   <div>
       <div class="card">
           <div class="card-header">
@@ -7,7 +7,23 @@
           </div>
           <div class="card-body">
             <div class="row">
+              <div class="col-12 col-md-6 col-lg-4">
+                <div class="form-group has-float-label">
+                  <input class="form-control" autocomplete="new" id="companyName" type="text" placeholder="Company Name"
+                         formControlName="companyName" [(ngModel)]="customer.companyName" />
+                  <label for="companyName">Company Name</label>
+                  <div *ngIf="addClientForm.controls['companyName'].invalid && (addClientForm.controls['companyName'].dirty || addClientForm.controls['companyName'].touched)"
+                       class="error-msg">
+                    <div *ngIf="addClientForm.controls['companyName'].errors.required">
+                      Company name is required.
+                    </div>
 
+                  </div>
+                  <div *ngIf="customerExist" class="error-msg">
+                      {{customerExist}}
+                     </div>
+                </div>
+              </div>
               <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group">
                   <span class="plain-select">
@@ -27,7 +43,7 @@
               </div>
               <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group has-float-label">
-                  <input class="form-control" id="customerName" type="text" placeholder="Customer Name"
+                  <input class="form-control" autocomplete="new" id="customerName" type="text" placeholder="Customer Name"
                          formControlName="customerName" [(ngModel)]="customer.clientName" />
                   <label for="customerName">Customer Name</label>
                   <div *ngIf="addClientForm.controls['customerName'].invalid && (addClientForm.controls['customerName'].dirty || addClientForm.controls['customerName'].touched)"
@@ -38,26 +54,10 @@
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-md-6 col-lg-4">
-                <div class="form-group has-float-label">
-                  <input class="form-control" id="companyName" type="text" placeholder="Company Name"
-                         formControlName="companyName" [(ngModel)]="customer.companyName" />
-                  <label for="companyName">Company Name</label>
-                  <div *ngIf="addClientForm.controls['companyName'].invalid && (addClientForm.controls['companyName'].dirty || addClientForm.controls['companyName'].touched)"
-                       class="error-msg">
-                    <div *ngIf="addClientForm.controls['companyName'].errors.required">
-                      Company name is required.
-                    </div>
 
-                  </div>
-                  <div *ngIf="customerExist" class="error-msg">
-                      {{customerExist}}
-                     </div>
-                </div>
-              </div>
               <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group has-float-label">
-                  <input class="form-control" id="clientEmail" type="text" placeholder="Customer Email"
+                  <input class="form-control" autocomplete="new" id="clientEmail" type="text" placeholder="Customer Email"
                          formControlName="clientEmail" [(ngModel)]="customer.clientEmail" />
                   <label for="clientEmail">Customer Email</label>
                   <div *ngIf="addClientForm.controls['clientEmail'].invalid &&
@@ -72,7 +72,7 @@
               </div>
               <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group has-float-label">
-                  <input class="form-control" id="clientAddress" type="text" placeholder="Customer Address"
+                  <input class="form-control" autocomplete="new" id="clientAddress" type="text" placeholder="Customer Address"
                          formControlName="clientAddress" [(ngModel)]="customer.clientAddress" />
                   <label for="clientAddress">Customer Address</label>
                   <div *ngIf="addClientForm.controls['clientAddress'].invalid && (addClientForm.controls['clientAddress'].dirty || addClientForm.controls['clientAddress'].touched)"
@@ -87,7 +87,7 @@
 
               <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group has-float-label">
-                  <input class="form-control" type="text" id="mobileNo" placeholder="Mobile Number 1"
+                  <input class="form-control" autocomplete="new" type="number" id="mobileNo" placeholder="Mobile Number 1"
                          formControlName="mobileNo" [(ngModel)]="customer.ownerMobileNo">
                   <label for="mobileNo"> Mobile Number 1</label>
                   <div *ngIf="addClientForm.controls['mobileNo'].invalid && (addClientForm.controls['mobileNo'].dirty || addClientForm.controls['mobileNo'].touched)"
@@ -101,7 +101,7 @@
 
               <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group has-float-label">
-                  <input class="form-control" type="text" id="mobileNoFirst" placeholder="Mobile Number 2"
+                  <input class="form-control" autocomplete="new" type="number" autocomplete="new" id="mobileNoFirst" placeholder="Mobile Number 2"
                          formControlName="mobileNoFirst1" [(ngModel)]="customer.mobileNoFirst">
                   <label for="mobileNoFirst"> Mobile Number 2</label>
 
@@ -110,7 +110,7 @@
 
               <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group has-float-label">
-                  <input class="form-control" type="text" id="telNoFirst" placeholder="Telephone Number 1"
+                  <input class="form-control" autocomplete="new" type="number" id="telNoFirst" placeholder="Telephone Number 1"
                          formControlName="telNoFirst1" [(ngModel)]="customer.telNoFirst">
                   <label for="telNoFirst"> Telephone Number 1 </label>
 
@@ -119,7 +119,7 @@
 
               <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group has-float-label">
-                  <input class="form-control" type="text" id="telNoSecond" placeholder="Customer GST No."
+                  <input class="form-control" autocomplete="new" type="text" id="telNoSecond" placeholder="Customer GST No."
                          formControlName="telNoSecond2" [(ngModel)]="customer.telNoSecond">
                   <label for="telNoSecond"> Customer GST No. </label>
 
@@ -128,7 +128,7 @@
 
               <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group has-float-label">
-                  <input class="form-control" type="text" id="balanceAmount" placeholder="Opening Amount e.g. 5000.00"
+                  <input class="form-control" autocomplete="new" type="text" id="balanceAmount" placeholder="Opening Amount e.g. 5000.00"
                          formControlName="balanceAmount" [(ngModel)]="customer.balanceAmount">
                   <label for="balanceAmount"> Opening Amount </label>
 

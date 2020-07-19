@@ -19,7 +19,7 @@ import { FiscalYear } from 'src/app/models/FiscalYear.model';
 export class ClientOutstandingReportComponent implements OnInit {
   searchFilter: boolean;
   searchForm: FormGroup;
-  lstBillReport:ReportModel[];
+  lstOutstandingReport:ReportModel[];
   searchModel:ReportSearchModel;
   formatter = (typeAhead: TypeAheadResponseModel) => typeAhead.searchValue;
 
@@ -31,9 +31,11 @@ export class ClientOutstandingReportComponent implements OnInit {
   advancetotal:number=0;
   paidtotal:number=0;
   outStandingtotal:number=0;
-
+  todaydate:NgbDate;
   searching = false;
   searchFailed = false;
+  inwardAddressPrint:string;
+  inwardAddressPhoneNoPrint:string;
 
   constructor(private ngbCalendar: NgbCalendar,
     private reportService:ReportService,
@@ -42,30 +44,133 @@ export class ClientOutstandingReportComponent implements OnInit {
   ngOnInit() {
 
     const that=this;
+    this.todaydate=this.ngbCalendar.getToday();
     this.clearFilter();
-    this.searchModel.reportFromDate=new NgbDate(FiscalYear.getFiscalStartYearByToday(this.ngbCalendar.getToday()),4,1)
-    this.searchModel.reportToDate=this.ngbCalendar.getToday();
+    this.searchModel.reportFromDate=new NgbDate(FiscalYear.getFiscalStartYearByToday(this.todaydate),4,1)
+    this.searchModel.reportToDate=this.todaydate
     this.dtOptions = {
       paging:false,
       searching:false,
       dom: 'Bfrtip',
+      select: {
+      style:    'os,multi',
+      selector: 'td:first-child',
+
+  },
+
+
       buttons: [
+        'selectAll',
+        'selectNone',
         {
           extend:'excel',
-          messageTop: 'Inward Bill Report',
+          messageTop: `Client O/S Report   F.Y. - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
+          className: 'far fa-file-excel',
           footer: true,
+          customize: function (doc) {
 
+            let sheet = doc.xl.worksheets['sheet1.xml'];
+
+            //let serviceAmountForPrint=0;
+            //let advanceAmountForPrint=0;
+            let outstandingAmountForPrint=0;
+
+            for(let i=1;i< $('row c[r^="B"]', sheet).length;i++){
+
+              let element=$('row c[r^="B"]', sheet)[i];
+              $('c v', element).text(i);
+
+            }
+
+            // for(let i=1;i< $('row c[r^="D"]', sheet).length-1;i++){
+            //   let element=$('row c[r^="D"]', sheet)[i];
+            //   if (parseFloat($('c v', element).text()) > 0) {
+            //     serviceAmountForPrint=serviceAmountForPrint+parseFloat($('c v', element).text());
+            //   }
+            // }
+
+            // for(let i=1;i< $('row c[r^="E"]', sheet).length-1;i++){
+            //   let element=$('row c[r^="E"]', sheet)[i];
+            //   if (parseFloat($('c v', element).text()) > 0) {
+            //     advanceAmountForPrint=advanceAmountForPrint+parseFloat($('c v', element).text());
+            //   }
+            // }
+
+            for(let i=1;i< $('row c[r^="D"]', sheet).length-1;i++){
+              let element=$('row c[r^="D"]', sheet)[i];
+              if (parseFloat($('c v', element).text()) > 0) {
+                outstandingAmountForPrint=outstandingAmountForPrint+parseFloat($('c v', element).text());
+              }
+            }
+
+
+
+            //$('c v', $('row c[r^="D"]', sheet)[$('row c[r^="D"]', sheet).length-1]).text(serviceAmountForPrint);
+            //$('c v', $('row c[r^="E"]', sheet)[$('row c[r^="E"]', sheet).length-1]).text(advanceAmountForPrint);
+            $('c v', $('row c[r^="F"]', sheet)[$('row c[r^="F"]', sheet).length-1]).text(outstandingAmountForPrint);
+
+            $('row c[r^="D"]', sheet).each(function() {
+              if (parseFloat($('c v', this).text()) > 0) {
+                $(this).attr('s', '36');
+              }
+            });
+
+
+
+
+
+        }
         },
        {
         extend: 'pdfHtml5',
         orientation: 'landscape',
         pageSize: 'LEGAL',
-        messageTop: 'Inward Bill Report',
+        messageTop: ``,
+        className: 'far fa-file-pdf',
         footer: true,
         customize: function (doc) {
-          doc.content[2].table.widths =
-              Array(doc.content[2].table.body[0].length + 1).join('*').split('');
+          doc.defaultStyle.alignment = 'right';
+          doc.styles.tableHeader.alignment = 'right';
+          doc.content[0].text = `Gopal Computers \n
+        ${that.inwardAddressPrint} Contact : ${that.inwardAddressPhoneNoPrint} \n
+        Client O/S Report  \n
+        F.Y. - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)+1}`;
 
+        let docContent=doc.content[1];
+
+          docContent.table.widths =[ 'auto', 'auto', '*', '*' ];
+             // Array(docContent.table.body[0].length + 1).join('*').split('');
+
+              // let serviceAmountForPrint=0;
+              // let advanceAmountForPrint=0;
+              let outstandingAmountForPrint=0;
+
+              for (let r=1;r<docContent.table.body.length-1;r++) {
+                let row = docContent.table.body[r];
+                row[1].text=r;
+                // if(parseFloat(row[3].text)>0){
+                //   serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[3].text);
+                // }
+                // if(parseFloat(row[4].text)>0){
+                //   advanceAmountForPrint=advanceAmountForPrint+parseFloat(row[4].text);
+                // }
+                if(parseFloat(row[3].text)>0){
+                  outstandingAmountForPrint=outstandingAmountForPrint+parseFloat(row[3].text);
+                }
+
+              }
+             // docContent.table.body[docContent.table.body.length-1][3].text=serviceAmountForPrint;
+             // docContent.table.body[docContent.table.body.length-1][4].text=advanceAmountForPrint;
+              docContent.table.body[docContent.table.body.length-1][3].text=outstandingAmountForPrint;
+
+              for (let r=1;r<docContent.table.body.length;r++) {
+                let row = docContent.table.body[r];
+                if(parseFloat(row[3].text)>0){
+                  row[3].color = 'red';
+                }
+
+
+            }
 
         }
     }],
@@ -81,37 +186,39 @@ export class ClientOutstandingReportComponent implements OnInit {
       };
 
 
-      that.servicetotal = api
+      // that.servicetotal = api
+      //     .column( 3)
+      //     .data()
+      //     .reduce( function (a, b) {
+      //         return intVal(a) + intVal(b);
+      //     }, 0 );
+      //     that.advancetotal = api
+      //     .column( 4)
+      //     .data()
+      //     .reduce( function (a, b) {
+      //         return intVal(a) + intVal(b);
+      //     }, 0 );
+          that.outStandingtotal= api
           .column( 3)
           .data()
           .reduce( function (a, b) {
               return intVal(a) + intVal(b);
           }, 0 );
 
-          that.advancetotal = api
-          .column( 4)
-          .data()
-          .reduce( function (a, b) {
-              return intVal(a) + intVal(b);
-          }, 0 );
-
-
 
 
 
   },
-
-     columns: [
-      { data: 'jobNumbers',searchable:false,orderable:true  },
-       { data: 'reportDate',searchable:false,orderable:true  },
-      { data: 'clientName',searchable:false,orderable:true  },
-      { data: 'serviceAmount',searchable:false,orderable:true  },
-      { data: 'advanceAmount',searchable:false,orderable:true  },
-      { data: 'outwardBillStatus',searchable:false,orderable:true  },
-      { data: 'repairedStatus',searchable:false,orderable:true  }]
+     columns: [{orderable: false,className: 'select-checkbox',targets:   0},
+     { data: '',searchable:false,orderable:true  },
+     { data: 'clientName',searchable:false,orderable:true  },
+      // { data: 'serviceAmount',searchable:false,orderable:true  },
+      // { data: 'advanceAmount',searchable:false,orderable:true  },
+      { data: 'outstandingAmount',searchable:false,orderable:true  },
+      ]
 
     };
-    this.GetBillReport(true);
+    this.GetClientOutstandingReport(true);
   }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -126,10 +233,17 @@ export class ClientOutstandingReportComponent implements OnInit {
     this.searchModel={reportId:'',customerName:null,reportFromDate:null,reportToDate:null};
   }
 
-  GetBillReport(first=false){
+  GetClientOutstandingReport(first=false){
     const that = this;
-    this.reportService.GetInwardReportList(this.searchModel).subscribe(data=>{
-      that.lstBillReport = data.data;
+    this.reportService.GetClientOutstandingReportList().subscribe(data=>{
+
+      let modelData=data.data;
+      if(modelData)
+      {
+        that.lstOutstandingReport = modelData.lstReport;
+        that.inwardAddressPrint=modelData.inwardAddressPrint;
+        that.inwardAddressPhoneNoPrint=modelData.inwardAddressPhoneNoPrint;
+      }
       if(first)
       {
         that.dtTrigger.next();
@@ -155,7 +269,7 @@ export class ClientOutstandingReportComponent implements OnInit {
       distinctUntilChanged(),
       tap(() => this.searching = true),
       switchMap(term =>term.length < 2 ? []:
-        this.typeAheadService.GetTypeAheadList(1,term,1)
+        this.typeAheadService.GetTypeAheadList(1,term,5)
         .pipe(
           tap(() => this.searchFailed = false),
           catchError(() => {

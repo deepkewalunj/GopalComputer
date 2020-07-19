@@ -74,6 +74,7 @@
                   <thead>
                     <tr>
                         <th scope="col" style="width:5%" class="cursor"></th>
+                        <th scope="col" style="width:5%" class="cursor">Sr No.</th>
                           <th scope="col" style="width:10%" class="cursor">
                             Outward Date
                           </th>
@@ -83,7 +84,7 @@
                           <th scope="col" style="width:10%" class="cursor">
                              Job #
                           </th>
-                          <th scope="col" style="width:15%" class="cursor">
+                          <th scope="col" style="width:10%" class="cursor">
                            Client Name
                         </th>
                           <th scope="col" style="width:15%" class="text-right">
@@ -101,8 +102,9 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr *ngFor="let Outward of lstOutwardReport">
+                      <tr *ngFor="let Outward of lstOutwardReport ; let i=index">
                         <td></td>
+                        <td data-title="Sr No.">{{i+1}}</td>
                           <td data-title="Outward Date">{{Outward.reportDate | date: 'dd/MM/yyyy' }}</td>
                           <td data-title="Outward #">{{Outward.reportId}}</td>
                           <td data-title="Job #">{{Outward.jobNumbers}}</td>
@@ -116,6 +118,7 @@
                   </tbody>
                   <tfoot>
                     <tr class="total-amount-bg">
+                      <th class="text-right hide-td-on-device"></th>
                       <th class="text-right hide-td-on-device"></th>
                       <th class="text-right hide-td-on-device"></th>
                       <td class="text-right hide-td-on-device"></td>

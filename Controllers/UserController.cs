@@ -68,6 +68,7 @@ namespace Gopal.Controllers
         new Claim("firstName", userInfo.firstName.ToString()),
         new Claim("lastName", userInfo.lastName.ToString()),
         new Claim("userId", userInfo.userId.ToString()),
+        new Claim("smsCount", userInfo.smsCount.ToString()),
         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         moduleClaim
     };

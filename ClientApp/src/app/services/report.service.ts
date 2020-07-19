@@ -23,7 +23,10 @@ export class ReportService {
   GetInwardReportList(searchModel:ReportSearchModel){
     return this.http.post<any>(environment.API_URL + 'Report/GetInwardReportList', searchModel);
   }
-  GetClientOutstandingReportList(searchModel:ReportSearchModel){
-    return this.http.post<any>(environment.API_URL + 'Report/GetClientOutstandingReportList', searchModel);
+  GetClientOutstandingReportList(){
+    return this.http.get<any>(environment.API_URL + 'Report/GetClientOutstandingReportList');
+  }
+  GetAccountStatementReport(searchModel: ReportSearchModel) {
+    return this.http.post<any>(environment.API_URL + 'Report/GetAccountStatementReport', searchModel);
   }
 }

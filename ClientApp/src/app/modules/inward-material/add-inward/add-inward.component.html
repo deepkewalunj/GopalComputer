@@ -13,7 +13,7 @@
                       <div class="form-group">
                           <div class="input-group datepicker">
                               <label class="date-label">Inward Date</label>
-                              <input class="form-control"  placeholder="dd-mm-yyyy" [(ngModel)]="inward.ngbInwardDate" name="dp"
+                              <input class="form-control" autocomplete="new"  placeholder="dd-mm-yyyy" [(ngModel)]="inward.ngbInwardDate" name="dp"
                               ngbDatepicker
                                   #d1="ngbDatepicker" (click)="d1.toggle()"  formControlName="inwardDate">
                               <div class="input-group-append">
@@ -159,7 +159,7 @@
 
               <div class="col-12 col-md-4 col-lg-4">
                   <div class="form-group has-float-label">
-                      <input class="form-control" type="text" id="serialNumber"
+                      <input class="form-control" autocomplete="new" type="text" id="serialNumber"
                       [(ngModel)]="inward.serialNo"  formControlName="serialNumber"
                        placeholder="Serial Number">
                       <label for="serialNumber">Serial Number</label>
@@ -176,7 +176,7 @@
 
               <div class="col-12 col-md-4 col-lg-4">
                   <div class="form-group has-float-label">
-                      <input class="form-control" type="text" id="ProblemDescription"
+                      <input class="form-control" autocomplete="new" type="text" id="ProblemDescription"
                       [(ngModel)]="inward.problemDescription"  formControlName="ProblemDescription"
                        placeholder="Problem Description">
                       <label for="ProblemDescription">Problem Description</label>
@@ -193,7 +193,7 @@
 
               <div class="col-12 col-md-4 col-lg-4">
                   <div class="form-group has-float-label">
-                      <input class="form-control" type="text" id="EnggName"
+                      <input class="form-control" autocomplete="new" type="text" id="EnggName"
                       [(ngModel)]="inward.enggName" placeholder="Engineer Name"
                       formControlName="EnggName" >
                       <label for="EnggName">Engineer Name</label>
@@ -221,7 +221,7 @@
               <div class="row">
                   <div class="col-12 col-md-4 col-lg-4">
                       <div class="form-group has-float-label">
-                          <input class="form-control" type="text"  id="mobileNumber"
+                          <input class="form-control" autocomplete="new" type="text"  id="mobileNumber"
                           [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.mobileNumber" placeholder="Mobile Number">
                           <label for="mobileNumber">Mobile Number</label>
@@ -245,7 +245,7 @@
               <div class="row">
                   <div class="col-12 col-md-4 col-lg-4">
                       <div class="form-group has-float-label">
-                          <input class="form-control" type="text"
+                          <input class="form-control" autocomplete="new" type="text"
                           [(ngModel)]="inward.receiverName" id="receiverName" placeholder="Receiver Name" formControlName="receiverName">
                           <label for="receiverName">Receiver Name</label>
                           <div *ngIf="addInwardForm.controls['receiverName'].invalid && (addInwardForm.controls['receiverName'].dirty || addInwardForm.controls['receiverName'].touched)"
@@ -284,7 +284,7 @@
                       <div class="form-group">
                           <div class="input-group datepicker">
                               <label class="date-label">Delivery Date</label>
-                              <input class="form-control" placeholder="09-09-2020" name="dp" ngbDatepicker
+                              <input class="form-control" autocomplete="new" placeholder="09-09-2020" name="dp" ngbDatepicker
                                   #d2="ngbDatepicker"
                                   [(ngModel)]="inward.ngbDeliveryDate" (click)="d2.toggle()" formControlName="deliveryDate">
                               <div class="input-group-append">
@@ -311,7 +311,7 @@
               <div class="row">
                 <div class="col-12 col-md-6 col-lg-4">
                   <div class="form-group has-float-label" *ngIf="inward.isOutwardOrBillExist==false">
-                      <input class="form-control" type="number"  maxlength="17"  [ngModelOptions]="{standalone: true}"
+                      <input class="form-control" autocomplete="new" type="number"  maxlength="17"  [ngModelOptions]="{standalone: true}"
                       [(ngModel)]="inward.estmRepairingAmount"  id="estAmount" placeholder="Estimate Repearimg Amount">
                       <label for="estAmount">Service Amount</label>
                   </div>
@@ -321,7 +321,7 @@
               </div>
                   <div class="col-12 col-md-6 col-lg-4">
                       <div class="form-group has-float-label"  *ngIf="inward.isOutwardOrBillExist==false">
-                          <input class="form-control" type="number"   [ngModelOptions]="{standalone: true}"
+                          <input class="form-control" autocomplete="new" type="number"   [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.advanceAmount"  maxlength="17"  id="advAmount" placeholder="Advance Amount">
                           <label for="advAmount">Advance Amount</label>
                       </div>
@@ -420,14 +420,14 @@
               </div>
               <div class="col-12 col-md-6 col-lg-4">
                   <div class="form-group has-float-label">
-                      <input class="form-control" [ngModelOptions]="{standalone: true}"
+                      <input class="form-control" autocomplete="new" [ngModelOptions]="{standalone: true}"
                       [(ngModel)]="inward.clientDc" type="text" id="clientDc" placeholder="Client DC">
                       <label for="clientDc">Client DC</label>
                   </div>
               </div>
               <!-- <div class="col-12 col-md-6 col-lg-4">
                   <div class="form-group has-float-label">
-                      <input class="form-control" [ngModelOptions]="{standalone: true}"
+                      <input class="form-control" autocomplete="new" [ngModelOptions]="{standalone: true}"
                       [(ngModel)]="inward.accBarCode" type="text" id="accountBarcode" placeholder="Account Barcode">
                       <label for="accountBarcode">Account Barcode</label>
                   </div>
@@ -449,7 +449,7 @@
                               </span>
                           </ng-container>
                           <div class="d-flex align-items-end">
-                              <input class="form-control"
+                              <input class="form-control" autocomplete="new"
 
                                   [ngbTypeahead]="searchInventory"
                                    #inputAccessories
