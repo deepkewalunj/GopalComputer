@@ -116,6 +116,8 @@ export class InwardReportComponent implements OnInit {
         className: 'far fa-file-pdf',
         footer: true,
         customize: function (doc) {
+          doc.defaultStyle.alignment = 'right';
+        doc.styles.tableHeader.alignment = 'right';
           doc.content[0].text = `Gopal Computers \n
         ${that.inwardAddressPrint} Contact : ${that.inwardAddressPhoneNoPrint} \n
         Inward Report \n
