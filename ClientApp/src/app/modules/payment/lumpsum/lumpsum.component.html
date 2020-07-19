@@ -13,10 +13,10 @@
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
           <thead>
             <tr>
-              <th style="width: 10%;">Voucher No</th>
+              <th style="width: 15%;">Voucher No</th>
               <th style="width: 20%;">Voucher Date</th>
-              <th style="width: 30%;">Company Name</th>
-              <th style="width: 20%;">Service Amt</th>
+              <th style="width: 25%;">Company Name</th>
+              <th style="width: 20%;" class="text-right"><span class="d-inline-block mr-2">Service ₹</span></th>
               <th style="width: 20%;" class="text-center actions-td cursor">Action</th>
             </tr>
           </thead>
@@ -25,7 +25,7 @@
               <td data-title="Voucher No">{{ _lumpsum.lumpsumId }}</td>
               <td data-title="Voucher Date">{{ _lumpsum.lumpsumDate | date:'dd/MM/yyyy'}}</td>
               <td data-title="Company Name">{{ _lumpsum.customerName }}</td>
-              <td data-title="Service Amount">{{ _lumpsum.paidAmount }} /-</td>
+              <td data-title="Service Amount" class="text-right">{{ _lumpsum.paidAmount }} /-</td>
               <td data-title="Actions" class="action text-center actions-td">
                 <div class="d-flex justify-content-center">
                   <a href="javascript:void(0)">

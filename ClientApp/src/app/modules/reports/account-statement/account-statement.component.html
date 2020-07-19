@@ -62,8 +62,9 @@
                   <button type="button" (click)="GetAccountStatementReport()" class="btn btn-outline btn-outline-dark">Search</button>
                 </div>
               </div>
-              <span *ngIf="isError" style="text-align:center;" class="danger">All fields are required.</span>
+              
             </div>
+            <div *ngIf="isError" class="danger text-center mb-2">All fields are required.</div>
           </form>
                 <!--table search filter end-->
             </div>

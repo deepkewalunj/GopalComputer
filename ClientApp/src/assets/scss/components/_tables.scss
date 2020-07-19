@@ -88,6 +88,7 @@ z-index: 1050;
 .table {
 	table-layout: fixed;
 	width: 100% !important;
+	border: 1px solid #dee2e6;
     thead {
         th {
             border-top: none !important;
@@ -95,7 +96,10 @@ z-index: 1050;
 			position: relative;
 			vertical-align: middle;
         }
-    }
+	}
+	tr th, tr td {
+		border: 1px solid #dee2e6;
+	}
 
     tbody {
         tr {

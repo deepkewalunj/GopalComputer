@@ -17,7 +17,7 @@
               <th style="width: 15%;">Bill Date</th>
               <th style="width: 20%;">Job Number</th>
               <th style="width: 20%;">Customer Name</th>
-              <th style="width: 15%;">Service Amt</th>
+              <th style="width: 15%;" class="text-right"><span class="d-inline-block mr-2">Service ₹</span> </th>
               <th style="width: 20%;" class="text-center actions-td cursor">Action</th>
             </tr>
           </thead>
@@ -27,7 +27,7 @@
               <td data-title="Bill Date">{{ _bill.billDate | date:'dd/MM/yyyy'}}</td>
               <td data-title="Job Number">{{ _bill.jobNumbers }}</td>
               <td data-title="Customer Name">{{ _bill.companyName }}</td>
-              <td data-title="Service Amount">{{ _bill.serviceAmount }} /-</td>
+              <td data-title="Service Amount" class="text-right">{{ _bill.serviceAmount }} /-</td>
               <td data-title="Actions" class="action text-center actions-td">
                 <div class="d-flex justify-content-center">
                   <a href="javascript:void(0)">
