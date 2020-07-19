@@ -157,9 +157,10 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
       this.inward.outwardBillStatus='2';
       this.inward.printStatus='2';
       this.inward.repeatJob='2';
-      this.inward.smsStatus='2';
+      this.inward.smsStatus='1';
       this.inward.isProblemDetected='2';
       this.inward.isRepaired='2';
+      this.inward.isOutwardOrBillExist=false;
 
       this.inward.ngbInwardDate=this.ngbCalendar.getToday();
       this.inward.ngbDeliveryDate=this.ngbCalendar.getNext(this.inward.ngbInwardDate,'d',4);

@@ -71,8 +71,8 @@ export class ClientOutstandingReportComponent implements OnInit {
 
             let sheet = doc.xl.worksheets['sheet1.xml'];
 
-            let serviceAmountForPrint=0;
-            let advanceAmountForPrint=0;
+            //let serviceAmountForPrint=0;
+            //let advanceAmountForPrint=0;
             let outstandingAmountForPrint=0;
 
             for(let i=1;i< $('row c[r^="B"]', sheet).length;i++){
@@ -82,22 +82,22 @@ export class ClientOutstandingReportComponent implements OnInit {
 
             }
 
+            // for(let i=1;i< $('row c[r^="D"]', sheet).length-1;i++){
+            //   let element=$('row c[r^="D"]', sheet)[i];
+            //   if (parseFloat($('c v', element).text()) > 0) {
+            //     serviceAmountForPrint=serviceAmountForPrint+parseFloat($('c v', element).text());
+            //   }
+            // }
+
+            // for(let i=1;i< $('row c[r^="E"]', sheet).length-1;i++){
+            //   let element=$('row c[r^="E"]', sheet)[i];
+            //   if (parseFloat($('c v', element).text()) > 0) {
+            //     advanceAmountForPrint=advanceAmountForPrint+parseFloat($('c v', element).text());
+            //   }
+            // }
+
             for(let i=1;i< $('row c[r^="D"]', sheet).length-1;i++){
               let element=$('row c[r^="D"]', sheet)[i];
-              if (parseFloat($('c v', element).text()) > 0) {
-                serviceAmountForPrint=serviceAmountForPrint+parseFloat($('c v', element).text());
-              }
-            }
-
-            for(let i=1;i< $('row c[r^="E"]', sheet).length-1;i++){
-              let element=$('row c[r^="E"]', sheet)[i];
-              if (parseFloat($('c v', element).text()) > 0) {
-                advanceAmountForPrint=advanceAmountForPrint+parseFloat($('c v', element).text());
-              }
-            }
-
-            for(let i=1;i< $('row c[r^="F"]', sheet).length-1;i++){
-              let element=$('row c[r^="F"]', sheet)[i];
               if (parseFloat($('c v', element).text()) > 0) {
                 outstandingAmountForPrint=outstandingAmountForPrint+parseFloat($('c v', element).text());
               }
@@ -105,11 +105,11 @@ export class ClientOutstandingReportComponent implements OnInit {
 
 
 
-            $('c v', $('row c[r^="D"]', sheet)[$('row c[r^="D"]', sheet).length-1]).text(serviceAmountForPrint);
-            $('c v', $('row c[r^="E"]', sheet)[$('row c[r^="E"]', sheet).length-1]).text(advanceAmountForPrint);
+            //$('c v', $('row c[r^="D"]', sheet)[$('row c[r^="D"]', sheet).length-1]).text(serviceAmountForPrint);
+            //$('c v', $('row c[r^="E"]', sheet)[$('row c[r^="E"]', sheet).length-1]).text(advanceAmountForPrint);
             $('c v', $('row c[r^="F"]', sheet)[$('row c[r^="F"]', sheet).length-1]).text(outstandingAmountForPrint);
 
-            $('row c[r^="F"]', sheet).each(function() {
+            $('row c[r^="D"]', sheet).each(function() {
               if (parseFloat($('c v', this).text()) > 0) {
                 $(this).attr('s', '36');
               }
@@ -138,35 +138,35 @@ export class ClientOutstandingReportComponent implements OnInit {
 
         let docContent=doc.content[1];
 
-          docContent.table.widths =
-              Array(docContent.table.body[0].length + 1).join('*').split('');
+          docContent.table.widths =[ 'auto', 'auto', '*', '*' ];
+             // Array(docContent.table.body[0].length + 1).join('*').split('');
 
-              let serviceAmountForPrint=0;
-              let advanceAmountForPrint=0;
+              // let serviceAmountForPrint=0;
+              // let advanceAmountForPrint=0;
               let outstandingAmountForPrint=0;
 
               for (let r=1;r<docContent.table.body.length-1;r++) {
                 let row = docContent.table.body[r];
                 row[1].text=r;
+                // if(parseFloat(row[3].text)>0){
+                //   serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[3].text);
+                // }
+                // if(parseFloat(row[4].text)>0){
+                //   advanceAmountForPrint=advanceAmountForPrint+parseFloat(row[4].text);
+                // }
                 if(parseFloat(row[3].text)>0){
-                  serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[3].text);
-                }
-                if(parseFloat(row[4].text)>0){
-                  advanceAmountForPrint=advanceAmountForPrint+parseFloat(row[4].text);
-                }
-                if(parseFloat(row[5].text)>0){
-                  outstandingAmountForPrint=outstandingAmountForPrint+parseFloat(row[5].text);
+                  outstandingAmountForPrint=outstandingAmountForPrint+parseFloat(row[3].text);
                 }
 
               }
-              docContent.table.body[docContent.table.body.length-1][3].text=serviceAmountForPrint;
-              docContent.table.body[docContent.table.body.length-1][4].text=advanceAmountForPrint;
-              docContent.table.body[docContent.table.body.length-1][5].text=outstandingAmountForPrint;
+             // docContent.table.body[docContent.table.body.length-1][3].text=serviceAmountForPrint;
+             // docContent.table.body[docContent.table.body.length-1][4].text=advanceAmountForPrint;
+              docContent.table.body[docContent.table.body.length-1][3].text=outstandingAmountForPrint;
 
               for (let r=1;r<docContent.table.body.length;r++) {
                 let row = docContent.table.body[r];
-                if(parseFloat(row[5].text)>0){
-                  row[5].color = 'red';
+                if(parseFloat(row[3].text)>0){
+                  row[3].color = 'red';
                 }
 
 
@@ -186,20 +186,20 @@ export class ClientOutstandingReportComponent implements OnInit {
       };
 
 
-      that.servicetotal = api
-          .column( 3)
-          .data()
-          .reduce( function (a, b) {
-              return intVal(a) + intVal(b);
-          }, 0 );
-          that.advancetotal = api
-          .column( 4)
-          .data()
-          .reduce( function (a, b) {
-              return intVal(a) + intVal(b);
-          }, 0 );
+      // that.servicetotal = api
+      //     .column( 3)
+      //     .data()
+      //     .reduce( function (a, b) {
+      //         return intVal(a) + intVal(b);
+      //     }, 0 );
+      //     that.advancetotal = api
+      //     .column( 4)
+      //     .data()
+      //     .reduce( function (a, b) {
+      //         return intVal(a) + intVal(b);
+      //     }, 0 );
           that.outStandingtotal= api
-          .column( 5)
+          .column( 3)
           .data()
           .reduce( function (a, b) {
               return intVal(a) + intVal(b);
@@ -212,8 +212,8 @@ export class ClientOutstandingReportComponent implements OnInit {
      columns: [{orderable: false,className: 'select-checkbox',targets:   0},
      { data: '',searchable:false,orderable:true  },
      { data: 'clientName',searchable:false,orderable:true  },
-      { data: 'serviceAmount',searchable:false,orderable:true  },
-      { data: 'advanceAmount',searchable:false,orderable:true  },
+      // { data: 'serviceAmount',searchable:false,orderable:true  },
+      // { data: 'advanceAmount',searchable:false,orderable:true  },
       { data: 'outstandingAmount',searchable:false,orderable:true  },
       ]
 
