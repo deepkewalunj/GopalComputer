@@ -22,7 +22,7 @@
                   <th style="width: 20%;">Company Name</th>
                   <th style="width: 10%;">Model No</th>
                   <th style="width: 10%;">Is Repaired</th>
-                  <th style="width: 10%;">Delivery Date</th>
+                  <th style="width: 10%;">Inward Date</th>
                   <th style="width: 20%;">Bill/Outward Status</th>
                   <th style="width: 20%;" class="text-center actions-td cursor">Action</th>
                 </tr>
@@ -34,7 +34,7 @@
                     <td data-title="Customer Name">{{ inward.clientName }}</td>
                     <td data-title="Model No">{{ inward.modelNo }}</td>
                     <td data-title="Is Repaired">{{getRepairedStatusesById(inward.isRepaired)}}</td>
-                    <td data-title="Delivery Date">{{ inward.deliveryDate | date: 'dd/MM/yyyy' }}</td>
+                    <td data-title="Inward Date">{{ inward.deliveryDate | date: 'dd/MM/yyyy' }}</td>
                     <td data-title="Bill/Outward Status">{{ getInwardOutwardBillStatusById(inward.outwardBillStatus) }}</td>
                     <td data-title="Actions" class="action text-center actions-td">
                       <div class="d-flex justify-content-center">

@@ -95,7 +95,7 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openAddEditUserPopup(user,modulepermission){
-    const modalRef = this.modalService.open(AddEditUserComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddEditUserComponent, { size: 'lg',backdrop:'static' });
     modalRef.componentInstance.user=user;
     modalRef.componentInstance.modulePermission= modulepermission;
     modalRef.componentInstance.modelRef=modalRef;

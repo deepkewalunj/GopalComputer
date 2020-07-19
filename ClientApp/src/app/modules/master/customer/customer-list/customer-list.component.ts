@@ -73,7 +73,7 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
 
     }
 
-    const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg',backdrop:'static' });
     modalRef.componentInstance.customer=localCustomer;
     modalRef.componentInstance.modelRef=modalRef;
     modalRef.result.then((result) => {

@@ -91,6 +91,7 @@ namespace Gopal.Models.Customer
         public string modelNo { get; set; }
         public int isRepaired { get; set; }
         public DateTime? deliveryDate { get; set; }
+        public DateTime? inwardDate { get; set; }
         public int outwardBillStatus { get; set; }
 
     }

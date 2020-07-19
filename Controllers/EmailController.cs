@@ -29,7 +29,7 @@ namespace Gopal.Controllers
             EmailModel emailModel = new EmailModel();
             emailModel.toList = new List<string>();
             emailModel.attachments = new List<EmailFileModel>();
-            emailModel.subject = "Client O/S Report- Gopal Computers";
+            emailModel.subject = "Bill Report- Gopal Computers";
             emailModel.messageBody = "Please see the attached Outstanding Report.";
             emailModel.toList.Add(_emailService.GetCAEmailAddress());
             if (files?.Count() > 0)

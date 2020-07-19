@@ -10,7 +10,9 @@ import { TypeAheadResponseModel } from 'src/app/models/typeahead.model';
 import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
 import { FiscalYear } from 'src/app/models/FiscalYear.model';
+import { EmailService } from 'src/app/services/email.service';
 
+declare var pdfMake: any;
 @Component({
   selector: 'app-bill-report',
   templateUrl: './bill-report.component.html',
@@ -39,7 +41,8 @@ export class BillReportComponent implements OnInit {
 
   constructor(private ngbCalendar: NgbCalendar,
     private reportService:ReportService,
-    private typeAheadService:TypeAheadService) { }
+    private typeAheadService:TypeAheadService,
+    private emailService:EmailService) { }
 
   ngOnInit() {
 
@@ -62,6 +65,61 @@ export class BillReportComponent implements OnInit {
       buttons: [
         'selectAll',
         'selectNone',
+        {
+          text: 'Send to CA',
+          className:'buttons-send-to-ca',
+          extend: 'pdfHtml5',
+          orientation: 'landscape',
+          pageSize: 'LEGAL',
+          messageTop: ``,
+         footer: true,
+         action: function ( e, dt, button, config ) {
+
+          let allRows= dt.rows().data();
+          let selectedRows= dt.rows( { selected: true } ).data();
+
+          let lstReportId=[];
+
+          if(selectedRows && selectedRows.length>0)
+          {
+            for(let i=0;i<selectedRows.length;i++)
+            {
+              lstReportId.push(selectedRows[i][""]);
+            }
+
+          }
+          else if(allRows && allRows.length>0)
+          {
+            for(let i=0;i<allRows.length;i++)
+            {
+              lstReportId.push(allRows[i][""]);
+            }
+          }
+
+
+         let doc= that.createDocPDF(config,dt)
+         const pdfDocGenerator = pdfMake.createPdf(doc);
+         pdfDocGenerator.getBlob((data) => {
+         let outstandingFile= that.blobToFile(data,"Bill_Report.pdf");
+
+
+         const formData = new FormData();
+
+         formData.append("billreport_file", outstandingFile);
+         formData.append("ClientIdArray",JSON.stringify(lstReportId) )
+
+          that.emailService.SendEmailToCA(formData).subscribe(data=>{
+
+          },error=>{
+              console.log(error);
+          })
+         });
+        },
+          customize: function (doc) {
+              that.customizeDocPDF(that,doc);
+
+          }
+      },
         {
           extend:'excel',
           messageTop: `Bill Report   F.Y. - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(this.todaydate)+1}`,
@@ -136,52 +194,7 @@ export class BillReportComponent implements OnInit {
         className: 'far fa-file-pdf',
         footer: true,
         customize: function (doc) {
-        doc.defaultStyle.alignment = 'right';
-        doc.styles.tableHeader.alignment = 'right';
-        doc.content[0].text = `Gopal Computers \n
-        ${that.inwardAddressPrint} Contact : ${that.inwardAddressPhoneNoPrint} \n
-        Bill Report \n
-        F.Y. - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)+1}`;
-
-        let docContent=doc.content[1];
-        docContent.table.widths =
-              Array(docContent.table.body[0].length + 1).join('*').split('');
-
-              let serviceAmountForPrint=0;
-              let advanceAmountForPrint=0;
-              let paidAmountForPrint=0;
-              let outstandingAmountForPrint=0;
-
-              for (let r=1;r<docContent.table.body.length-1;r++) {
-                let row = docContent.table.body[r];
-                row[1].text=r;
-                if(parseFloat(row[6].text)>0){
-                  serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[6].text);
-                }
-                if(parseFloat(row[7].text)>0){
-                  advanceAmountForPrint=advanceAmountForPrint+parseFloat(row[7].text);
-                }
-                if(parseFloat(row[8].text)>0){
-                  paidAmountForPrint=paidAmountForPrint+parseFloat(row[8].text);
-                }
-                if(parseFloat(row[9].text)>0){
-                  outstandingAmountForPrint=outstandingAmountForPrint+parseFloat(row[9].text);
-                }
-              }
-              docContent.table.body[docContent.table.body.length-1][6].text=serviceAmountForPrint;
-              docContent.table.body[docContent.table.body.length-1][7].text=advanceAmountForPrint;
-              docContent.table.body[docContent.table.body.length-1][8].text=paidAmountForPrint;
-              docContent.table.body[docContent.table.body.length-1][9].text=outstandingAmountForPrint;
-
-
-              for (let r=1;r<docContent.table.body.length;r++) {
-                let row = docContent.table.body[r];
-                if(parseFloat(row[9].text)>0){
-                  row[9].color = 'red';
-                }
-
-
-            }
+          that.customizeDocPDF(that,doc);
         }
     }],
     footerCallback: function ( row, data, start, end, display ) {
@@ -246,6 +259,164 @@ export class BillReportComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+
+  public blobToFile = (theBlob: Blob, fileName:string): File => {
+    var b: any = theBlob;
+
+    b.lastModifiedDate = new Date();
+    b.name = fileName;
+
+    //Cast to a File() type
+    return <File>theBlob;
+}
+
+  createDocPDF(config,dt){
+
+    var data = dt.buttons.exportData( config.exportOptions );
+    var rows = [];
+
+    if ( config.header ) {
+      rows.push( $.map( data.header, function ( d ) {
+        return {
+          text: typeof d === 'string' ? d : d+'',
+          style: 'tableHeader'
+        };
+      } ) );
+    }
+
+    for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
+      rows.push( $.map( data.body[i], function ( d ) {
+        return {
+          text: typeof d === 'string' ? d : d+'',
+          style: i % 2 ? 'tableBodyEven' : 'tableBodyOdd'
+        };
+      } ) );
+    }
+
+    if ( config.footer && data.footer) {
+      rows.push( $.map( data.footer, function ( d ) {
+        return {
+          text: typeof d === 'string' ? d : d+'',
+          style: 'tableFooter'
+        };
+      } ) );
+    }
+
+    var doc = {
+      pageSize: config.pageSize,
+      pageOrientation: config.orientation,
+      content: [
+        {
+          table: {
+            headerRows: 1,
+            body: rows
+          },
+          layout: 'noBorders'
+        }
+      ] as any[],
+      styles: {
+        tableHeader: {
+          bold: true,
+          fontSize: 11,
+          color: 'white',
+          fillColor: '#2d4154',
+          alignment: 'center'
+        },
+        tableBodyEven: {},
+        tableBodyOdd: {
+          fillColor: '#f3f3f3'
+        },
+        tableFooter: {
+          bold: true,
+          fontSize: 11,
+          color: 'white',
+          fillColor: '#2d4154'
+        },
+        title: {
+          alignment: 'center',
+          fontSize: 15
+        },
+        message: {}
+      },
+      defaultStyle: {
+        fontSize: 10,
+        alignment : 'right'
+      }
+    };
+
+if ( config.message ) {
+doc.content.unshift( {
+  text: '',
+  style: 'message',
+  margin: [ 0, 0, 0, 12 ]
+} );
+}
+
+if ( config.title ) {
+doc.content.unshift( {
+  text: 'Gopal Computers',
+  style: 'title',
+  margin: [ 0, 0, 0, 12 ]
+} );
+}
+    if ( config.customize ) {
+      config.customize( doc, config );
+    }
+
+    return doc;
+  }
+
+  customizeDocPDF(that,doc){
+
+
+    doc.defaultStyle.alignment = 'right';
+    doc.styles.tableHeader.alignment = 'right';
+    doc.content[0].text = `Gopal Computers \n
+    ${that.inwardAddressPrint} Contact : ${that.inwardAddressPhoneNoPrint} \n
+    Bill Report \n
+    F.Y. - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)} - ${FiscalYear.getFiscalStartYearByToday(that.todaydate)+1}`;
+
+    let docContent=doc.content[1];
+    docContent.table.widths =
+          Array(docContent.table.body[0].length + 1).join('*').split('');
+
+          let serviceAmountForPrint=0;
+          let advanceAmountForPrint=0;
+          let paidAmountForPrint=0;
+          let outstandingAmountForPrint=0;
+
+          for (let r=1;r<docContent.table.body.length-1;r++) {
+            let row = docContent.table.body[r];
+            row[1].text=r;
+            if(parseFloat(row[6].text)>0){
+              serviceAmountForPrint=serviceAmountForPrint+parseFloat(row[6].text);
+            }
+            if(parseFloat(row[7].text)>0){
+              advanceAmountForPrint=advanceAmountForPrint+parseFloat(row[7].text);
+            }
+            if(parseFloat(row[8].text)>0){
+              paidAmountForPrint=paidAmountForPrint+parseFloat(row[8].text);
+            }
+            if(parseFloat(row[9].text)>0){
+              outstandingAmountForPrint=outstandingAmountForPrint+parseFloat(row[9].text);
+            }
+          }
+          docContent.table.body[docContent.table.body.length-1][6].text=serviceAmountForPrint;
+          docContent.table.body[docContent.table.body.length-1][7].text=advanceAmountForPrint;
+          docContent.table.body[docContent.table.body.length-1][8].text=paidAmountForPrint;
+          docContent.table.body[docContent.table.body.length-1][9].text=outstandingAmountForPrint;
+
+
+          for (let r=1;r<docContent.table.body.length;r++) {
+            let row = docContent.table.body[r];
+            if(parseFloat(row[9].text)>0){
+              row[9].color = 'red';
+            }
+
+
+        }
   }
 
   clearFilter(){

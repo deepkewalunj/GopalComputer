@@ -67,7 +67,7 @@ export class ClientOutstandingReportComponent implements OnInit {
         'selectAll',
         'selectNone',
         {
-          text: 'Send to CA',
+          text: 'Send SMS',
           className:'buttons-send-to-ca',
           extend: 'pdfHtml5',
           orientation: 'landscape',
@@ -97,24 +97,10 @@ export class ClientOutstandingReportComponent implements OnInit {
             }
           }
 
-
-         let doc= that.createDocPDF(config,dt)
-         const pdfDocGenerator = pdfMake.createPdf(doc);
-         pdfDocGenerator.getBlob((data) => {
-         let outstandingFile= that.blobToFile(data,"Outstanding_Report.pdf");
+          alert("Send SMS to"+lstReportId);
 
 
-         const formData = new FormData();
 
-         formData.append("outstanding_file", outstandingFile);
-         formData.append("ClientIdArray",JSON.stringify(lstReportId) )
-
-          that.emailService.SendEmailToCA(formData).subscribe(data=>{
-
-          },error=>{
-              console.log(error);
-          })
-         });
         },
           customize: function (doc) {
               that.customizeDocPDF(that,doc);

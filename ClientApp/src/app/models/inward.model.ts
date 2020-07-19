@@ -62,4 +62,5 @@ export class InwardListModel{
    isRepaired:number
    deliveryDate:string
    outwardBillStatus: string
+   inwardDate:string
 }
