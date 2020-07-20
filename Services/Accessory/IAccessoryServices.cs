@@ -13,7 +13,7 @@ namespace Gopal.Services.Accessory
 
         TblMaterialAccessory getAccessoryById(int accessoryId);
 
-        bool saveAccessory(AccessoryInputModel model);
+        object saveAccessory(AccessoryInputModel model);
 
         bool deleteAccessory(int accessoryId);
     }

@@ -46,6 +46,17 @@ namespace Gopal.Services.MaterialType
 
         public object SaveSearchModelNoMaterialTypeCompanyNameData(tblSearchModelNoMaterialTypeCompanyNameInputModel model)
         {
+            // check enrty already exist or not
+            var isTblSearchModelNoMaterialTypeCompanyNameExist = _dbContext.TblSearchModelNoMaterialTypeCompanyName.Any(x => x.IsDeleted != true &&
+                                                             x.ModelNo.ToUpper() == model.modelNo.ToUpper() &&
+                                                             x.MaterialType.ToUpper() == model.materialType.ToUpper() &&
+                                                             x.CompanyName.ToUpper() == model.companyName.ToUpper());
+            if (isTblSearchModelNoMaterialTypeCompanyNameExist)
+            {
+                return "ALREADY_EXIST";
+            }
+            //
+
             var searchModelNoMaterialTypeCompanyNameObj = _dbContext.TblSearchModelNoMaterialTypeCompanyName.Where(x => x.IsDeleted != true && x.SearchId == model.searchId).FirstOrDefault();
             if(searchModelNoMaterialTypeCompanyNameObj != null)
             {
@@ -59,6 +70,7 @@ namespace Gopal.Services.MaterialType
                 {
                     _dbContext.Entry(searchModelNoMaterialTypeCompanyNameObj).State = EntityState.Modified;
                     _dbContext.SaveChanges();
+                    return "UPDATED";
                 }
             }
             else
@@ -71,8 +83,9 @@ namespace Gopal.Services.MaterialType
                 obj.CreatedDate = DateTime.Now;
                 _dbContext.Add(obj);
                 _dbContext.SaveChanges();
+                return "INSERTED";
             }
-            return null;
+            return "ERROR";
         }
 
         public int DeleteSearchModelNoMaterialTypeCompanyName(int searchId)

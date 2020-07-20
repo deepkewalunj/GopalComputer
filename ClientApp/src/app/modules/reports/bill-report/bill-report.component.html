@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-sm">
                         <div class="form-group has-float-label">
-                            <input class="form-control"  [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="searchModel.reportId" id="billNumber" placeholder="Bill Number">
+                            <input autocomplete="new"  class="form-control"  [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="searchModel.reportId" id="billNumber" placeholder="Bill Number">
                             <label for="billNumber">Bill Number</label>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <div class="input-group datepicker">
                                 <label class="date-label">From Date</label>
-                                <input class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchModel.reportFromDate"  placeholder="dd-mm-yyyy" name="dp"
+                                <input autocomplete="new"  class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchModel.reportFromDate"  placeholder="dd-mm-yyyy" name="dp"
                                 ngbDatepicker
                                     #d1="ngbDatepicker" (click)="d1.toggle()">
                                 <div class="input-group-append">
@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <div class="input-group datepicker">
                                 <label class="date-label">To Date</label>
-                                <input class="form-control" [ngModelOptions]="{standalone: true}"  placeholder="dd-mm-yyyy" name="dp"
+                                <input autocomplete="new"  class="form-control" [ngModelOptions]="{standalone: true}"  placeholder="dd-mm-yyyy" name="dp"
                                 ngbDatepicker [(ngModel)]="searchModel.reportToDate"
                                     #d2="ngbDatepicker" (click)="d2.toggle()">
                                 <div class="input-group-append">

@@ -59,7 +59,7 @@
               <label class="text-success" for="totalPaidAmount">Total Paid Amt</label>
             </div><span class="math-signs">=</span>
             <div class="form-group mb-0 has-float-label">
-              <input class="form-control text-danger" id="outstandingAmount" [(ngModel)]="lumpsum.outstandingAmount" formControlName="outstandingAmount" type="number" />
+              <input  class="form-control text-danger" id="outstandingAmount" [(ngModel)]="lumpsum.outstandingAmount" formControlName="outstandingAmount" type="number" />
               <label class="text-danger" for="outstandingAmount">Total OST Amt</label>
             </div>
           </div>
@@ -75,7 +75,7 @@
         <div class="row">
           <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" id="paidAmount" [(ngModel)]="lumpsum.paidAmount" formControlName="paidAmount" type="number" placeholder="Paid Amount" />
+              <input autocomplete="new"  class="form-control" id="paidAmount" [(ngModel)]="lumpsum.paidAmount" formControlName="paidAmount" type="number" placeholder="Paid Amount" />
               <label for="paidAmount">Paid Amount</label>
               <div *ngIf="lumpsumGenerationForm.controls['paidAmount'].invalid &&
                           (lumpsumGenerationForm.controls['paidAmount'].dirty || lumpsumGenerationForm.controls['paidAmount'].touched)"
@@ -93,7 +93,7 @@
             <div class="form-group">
               <div class="input-group datepicker">
                 <label class="date-label">Hand Over Date</label>
-                <input class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="lumpsum.ngbLumpsumDate" name="dp"
+                <input autocomplete="new"  class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="lumpsum.ngbLumpsumDate" name="dp"
                        ngbDatepicker
                        #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="lumpsumDate">
                 <div class="input-group-append">
@@ -189,7 +189,7 @@
             <div class="form-group">
               <div class="input-group datepicker">
                 <label class="date-label">Cheque Date</label>
-                <input class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="lumpsum.ngbChequeDate" name="dp"
+                <input autocomplete="new"  class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="lumpsum.ngbChequeDate" name="dp"
                        ngbDatepicker
                        #d2="ngbDatepicker" (click)="d2.toggle()" formControlName="chequeDate">
                 <div class="input-group-append">
@@ -210,7 +210,7 @@
           </div>
           <div *ngIf="lumpsum.paymentMode == '2'" class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" [(ngModel)]="lumpsum.chequeNo" formControlName="chequeNo" id="chequeNo" type="text" placeholder="Cheque Number" />
+              <input autocomplete="new"  class="form-control" [(ngModel)]="lumpsum.chequeNo" formControlName="chequeNo" id="chequeNo" type="text" placeholder="Cheque Number" />
               <label for="chequeNo">Cheque Number</label>
               <div *ngIf="!lumpsum.chequeNo"
                    class="error-msg">
@@ -222,7 +222,7 @@
           </div>
           <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" id="paymentRecievedBy" [(ngModel)]="lumpsum.paymentRecievedBy" formControlName="paymentRecievedBy" type="text" placeholder="{{lumpsum.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}" />
+              <input autocomplete="new"  class="form-control" id="paymentRecievedBy" [(ngModel)]="lumpsum.paymentRecievedBy" formControlName="paymentRecievedBy" type="text" placeholder="{{lumpsum.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}" />
               <label for="paymentRecievedBy">{{lumpsum.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}</label>
               <div *ngIf="!lumpsum.paymentRecievedBy && (lumpsum.paymentMode == '2' || lumpsum.paymentMode == '1')"
                    class="error-msg">

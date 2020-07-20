@@ -15,7 +15,7 @@
     <div class="col-12">
       <div class="form-group has-float-label field-with-icon">
         <i class="fas fa-envelope"></i>
-        <input class="form-control" type="text" id="userEmail" placeholder="Email Address" formControlName="userEmail">
+        <input autocomplete="new"  class="form-control" type="text" id="userEmail" placeholder="Email Address" formControlName="userEmail">
         <label for="userEmail">Email Address</label>
         <div *ngIf="loginForm.controls['userEmail'].invalid && (loginForm.controls['userEmail'].dirty || loginForm.controls['userEmail'].touched)"
              class="error-msg">
@@ -30,7 +30,7 @@
     </div>
     <div class="col-12">
       <div class="form-group  has-float-label field-with-icon">
-        <i class="fas fa-key"></i>  <input class="form-control" type="password" id="userPassword" placeholder="Password" formControlName="userPassword">
+        <i class="fas fa-key"></i>  <input autocomplete="new"  class="form-control" type="password" id="userPassword" placeholder="Password" formControlName="userPassword">
         <label for="userPassword">Password</label>
         <div *ngIf="loginForm.controls['userPassword'].invalid && (loginForm.controls['userPassword'].dirty || loginForm.controls['userPassword'].touched)"
              class="error-msg">

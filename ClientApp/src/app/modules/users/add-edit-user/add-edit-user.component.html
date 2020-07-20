@@ -7,7 +7,7 @@
     <div class="row">
       <div class="col-12 col-md-6 col-lg-4">
         <div class="form-group has-float-label">
-          <input class="form-control" [(ngModel)]="user.firstName" id="firstName" type="text" placeholder="First Name"
+          <input autocomplete="new"  class="form-control" [(ngModel)]="user.firstName" id="firstName" type="text" placeholder="First Name"
                  formControlName="firstName" />
           <label for="firstName">First Name</label>
           <div *ngIf="userForm.controls['firstName'].invalid && (userForm.controls['firstName'].dirty || userForm.controls['firstName'].touched)"
@@ -20,7 +20,7 @@
       </div>
       <div class="col-12 col-md-6 col-lg-4">
         <div class="form-group has-float-label">
-          <input class="form-control" [(ngModel)]="user.middleName" id="middleName" type="text" placeholder="Middle Name"
+          <input autocomplete="new"  class="form-control" [(ngModel)]="user.middleName" id="middleName" type="text" placeholder="Middle Name"
                  formControlName="middleName" />
           <label for="middleName">Middle Name</label>
           <div *ngIf="userForm.controls['middleName'].invalid && (userForm.controls['middleName'].dirty || userForm.controls['middleName'].touched)"
@@ -33,7 +33,7 @@
       </div>
       <div class="col-12 col-md-6 col-lg-4">
         <div class="form-group has-float-label">
-          <input class="form-control" id="lastName" [(ngModel)]="user.lastName" type="text" placeholder="Last Name"
+          <input autocomplete="new"  class="form-control" id="lastName" [(ngModel)]="user.lastName" type="text" placeholder="Last Name"
                  formControlName="lastName" />
           <label for="lastName">Last Name</label>
           <div *ngIf="userForm.controls['lastName'].invalid && (userForm.controls['lastName'].dirty || userForm.controls['lastName'].touched)"
@@ -68,7 +68,7 @@
       </div>
       <div class="col-12 col-md-6 col-lg-4">
         <div class="form-group has-float-label">
-          <input class="form-control" [(ngModel)]="user.userEmail" id="userEmail" type="text" placeholder="User Email"
+          <input autocomplete="new"  class="form-control" [(ngModel)]="user.userEmail" id="userEmail" type="text" placeholder="User Email"
                  formControlName="userEmail" />
           <label for="userEmail">User Email</label>
           <div *ngIf="userForm.controls['userEmail'].invalid && (userForm.controls['userEmail'].dirty || userForm.controls['userEmail'].touched)"
@@ -84,7 +84,7 @@
       </div>
       <div class="col-12 col-md-6 col-lg-4">
         <div class="form-group has-float-label">
-          <input class="form-control" [(ngModel)]="user.userPassword" id="userPassword" type="text" placeholder="User Password"
+          <input autocomplete="new"  class="form-control" [(ngModel)]="user.userPassword" id="userPassword" type="text" placeholder="User Password"
                  formControlName="userPassword" />
           <label for="userPassword">User Password</label>
           <div *ngIf="userForm.controls['userPassword'].invalid && (userForm.controls['userPassword'].dirty || userForm.controls['userPassword'].touched)"

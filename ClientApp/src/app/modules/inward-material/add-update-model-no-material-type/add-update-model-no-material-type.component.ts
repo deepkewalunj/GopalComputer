@@ -21,7 +21,8 @@ export class AddUpdateModelNoMaterialTypeComponent implements OnInit {
   modelRef:any;
   searchModelNoMaterialTypeCompanyName:tblSearchModelNoMaterialTypeCompanyName;
   modulePermission:any;
-  roles=CommonModel.getRoles();
+  roles = CommonModel.getRoles();
+  errorMessage : String;
 
   ngOnInit() {
   }
@@ -34,16 +35,31 @@ export class AddUpdateModelNoMaterialTypeComponent implements OnInit {
     }
     );
   }
-  close(){
+  close() {
+    this.errorMessage = "";
     this.modelRef.close(false);
 }
 saveMaterialData() {
-  debugger;
+  this.errorMessage = "";
   this.searchModelNoMaterialTypeCompanyNameService.SaveSearchModelNoMaterialTypeCompanyNameData(this.searchModelNoMaterialTypeCompanyName)
     .pipe(first())
     .subscribe(
       data => {
-        this.modelRef.close(true);
+        if (data.materialTypeDetail == 'ALREADY_EXIST') {
+          this.errorMessage = "Record already exist, Please try another one.";
+        }
+        else if (data.materialTypeDetail == 'UPDATED') {
+          this.modelRef.close(true);
+        }
+        else if (data.materialTypeDetail == 'INSERTED') {
+          this.modelRef.close(true);
+        }
+        else if (data.materialTypeDetail == 'ERROR') {
+          this.errorMessage = "Something went wrong.";
+        }
+        else {
+          this.errorMessage = "Something went wrong.";
+        }
       },
       error => {
        console.log(error);

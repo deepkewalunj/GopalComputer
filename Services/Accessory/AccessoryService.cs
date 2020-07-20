@@ -43,8 +43,18 @@ namespace Gopal.Services.Accessory
             return _dbContext.TblMaterialAccessory.Where(x => x.IsDeleted != true && x.MaterialAccessoryId == accessoryId).FirstOrDefault();
         }
 
-        public bool saveAccessory(AccessoryInputModel model)
+        public object saveAccessory(AccessoryInputModel model)
         {
+            // check enrty already exist or not
+            var isTblMaterialAccessoryExist = _dbContext.TblMaterialAccessory.Any(x => x.IsDeleted != true &&
+                                                             x.MaterialType.ToUpper() == model.materialType.ToUpper() &&
+                                                             x.AccessoryName.ToUpper() == model.accessoryName.ToUpper());
+            if (isTblMaterialAccessoryExist)
+            {
+                return "ALREADY_EXIST";
+            }
+            //
+
             var acc = _dbContext.TblMaterialAccessory.Where(x => x.IsDeleted != true && x.MaterialAccessoryId == model.materialAccessoryId).FirstOrDefault();
             if (acc != null)
             {
@@ -56,6 +66,7 @@ namespace Gopal.Services.Accessory
                 {
                     _dbContext.Entry(acc).State = EntityState.Modified;
                     _dbContext.SaveChanges();
+                    return "UPDATED";
                 }
             }
             else
@@ -67,8 +78,9 @@ namespace Gopal.Services.Accessory
                 accObj.CreatedDate = DateTime.Now;
                 _dbContext.Add(accObj);
                 _dbContext.SaveChanges();
+                return "INSERTED";
             }
-            return true;
+            return "ERROR";
         }
 
 

@@ -19,8 +19,8 @@ export class AddEditAccessoryComponent implements OnInit {
   addAccessoryForm: FormGroup;
   modelRef:any;
   accessoryInputModel:AccessoryInputModel;
-  roles=CommonModel.getRoles();
-
+  roles = CommonModel.getRoles();
+  errorMessage: String;
 
   ngOnInit() {
   }
@@ -32,17 +32,33 @@ export class AddEditAccessoryComponent implements OnInit {
     }
     );
   }
-  close(){
+  close() {
+    this.errorMessage = "";
     this.modelRef.close(false);
   }
 
   saveAccessoryData() {
-    debugger;
+    this.errorMessage = "";
     this.materialAccessoryService.saveAccessory(this.accessoryInputModel)
       .pipe(first())
       .subscribe(
         data => {
-          this.modelRef.close(true);
+          if (data.result == 'ALREADY_EXIST') {
+            this.errorMessage = "Record already exist, Please try another one.";
+          }
+          else if (data.result == 'UPDATED') {
+            this.modelRef.close(true);
+          }
+          else if (data.result == 'INSERTED') {
+            this.modelRef.close(true);
+          }
+          else if (data.result == 'ERROR') {
+            this.errorMessage = "Something went wrong.";
+          }
+          else
+          {
+            this.errorMessage = "Something went wrong.";
+          }
         },
         error => {
          console.log(error);

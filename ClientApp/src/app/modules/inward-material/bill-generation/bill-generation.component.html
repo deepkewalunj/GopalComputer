@@ -164,7 +164,7 @@
           </div>
           <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" id="paidImmediatlyAmount" (keyup)="onKeyFromPaidImmidiatly()" [(ngModel)]="bill.paidImmediatlyAmount" formControlName="paidImmediatlyAmount" type="number" placeholder="Paid Immediatly Amount" />
+              <input autocomplete="new"  class="form-control" id="paidImmediatlyAmount" (keyup)="onKeyFromPaidImmidiatly()" [(ngModel)]="bill.paidImmediatlyAmount" formControlName="paidImmediatlyAmount" type="number" placeholder="Paid Immediatly Amount" />
               <label for="paidImmediatlyAmount">Paid Immediatly Amount</label>
               <div *ngIf="billGenerationForm.controls['paidImmediatlyAmount'].invalid &&
                           (billGenerationForm.controls['paidImmediatlyAmount'].dirty || billGenerationForm.controls['paidImmediatlyAmount'].touched)"
@@ -190,7 +190,7 @@
           </div>
           <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" id="enggName" [(ngModel)]="bill.enggName" type="text" formControlName="enggName" placeholder="Engg. Name" />
+              <input autocomplete="new"  class="form-control" id="enggName" [(ngModel)]="bill.enggName" type="text" formControlName="enggName" placeholder="Engg. Name" />
               <label for="enggName">Engg. Name</label>
               <div *ngIf="billGenerationForm.controls['enggName'].invalid &&
                           (billGenerationForm.controls['enggName'].dirty || billGenerationForm.controls['enggName'].touched)"
@@ -205,7 +205,7 @@
             <div class="form-group">
               <div class="input-group datepicker">
                 <label class="date-label">Bill Date</label>
-                <input class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="bill.ngbBillDate" name="dp"
+                <input autocomplete="new"  class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="bill.ngbBillDate" name="dp"
                        ngbDatepicker
                        #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="billDate">
                 <div class="input-group-append">
@@ -317,7 +317,7 @@
             <div class="form-group">
               <div class="input-group datepicker">
                 <label class="date-label">Cheque Date</label>
-                <input class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="bill.ngbChequeDate" name="dp"
+                <input autocomplete="new"  class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="bill.ngbChequeDate" name="dp"
                        ngbDatepicker
                        #d2="ngbDatepicker" (click)="d2.toggle()" formControlName="chequeDate">
                 <div class="input-group-append">
@@ -338,7 +338,7 @@
           </div>
           <div *ngIf="bill.paymentMode == '2'" class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" [(ngModel)]="bill.chequeNo" formControlName="chequeNo" id="chequeNo" type="text" placeholder="Cheque Number" />
+              <input autocomplete="new"  class="form-control" [(ngModel)]="bill.chequeNo" formControlName="chequeNo" id="chequeNo" type="text" placeholder="Cheque Number" />
               <label for="chequeNo">Cheque Number</label>
               <div *ngIf="!bill.chequeNo"
                    class="error-msg">
@@ -350,7 +350,7 @@
           </div>
           <div class="col-12 col-md-6 col-lg-4">
             <div class="form-group has-float-label">
-              <input class="form-control" id="paymentRecievedBy" [(ngModel)]="bill.paymentRecievedBy" formControlName="paymentRecievedBy" type="text" placeholder="{{bill.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}" />
+              <input autocomplete="new"  class="form-control" id="paymentRecievedBy" [(ngModel)]="bill.paymentRecievedBy" formControlName="paymentRecievedBy" type="text" placeholder="{{bill.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}" />
               <label for="paymentRecievedBy">{{bill.paymentMode == '2' ? 'Bank Name' : 'Payment Recieved By'}}</label>
               <div *ngIf="!bill.paymentRecievedBy && (bill.paymentMode == '2' || bill.paymentMode == '1')"
                    class="error-msg">
