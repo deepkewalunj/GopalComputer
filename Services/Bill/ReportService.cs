@@ -129,6 +129,12 @@ namespace Gopal.Models.Bill
 
         public AccountStatementModel GetAccountStatementReport(ReportSearchModel searchModel)
         {
+            var fromDate = new DateTime(searchModel.reportFromDate.year,
+                                         searchModel.reportFromDate.month,
+                                         searchModel.reportFromDate.day);
+            var toDate = new DateTime(searchModel.reportToDate.year,
+                                         searchModel.reportToDate.month,
+                                         searchModel.reportToDate.day);
             AccountStatementModel obj = new AccountStatementModel();
             var clientId = 0;
             if (searchModel.customerName != null)
@@ -183,30 +189,53 @@ namespace Gopal.Models.Bill
             }
 
             var billOustandingCount =  fullBillList.Where(x => x.IsDeleted != true && x.IsOpeningBalanceEntry != true
-                                          && (x.BillDate.Value.Month < searchModel.reportFromDate.month &&
-                                              x.BillDate.Value.Day < searchModel.reportFromDate.day &&
-                                              x.BillDate.Value.Year < searchModel.reportFromDate.year)
+                                          && x.BillDate < fromDate
                                           && x.ClientIdRef == clientId).Sum(x=>x.OutstandingAmount);
-            obj.billOpeningBalance = oldOpeningBalance + billOustandingCount;
+            var oldPaidBillProcess = fullBillList.Where(x => x.IsDeleted != true
+                                                    && x.BillDate < fromDate
+                                                        ).ToList();
+            decimal oldPaidBillProcessCount = 0;
+            foreach (var item in oldPaidBillProcess)
+            {
+                if(item.AdvanceAmount > 0)
+                {
+                    oldPaidBillProcessCount += item.AdvanceAmount;
+                }
+                if (item.PaidImmediatlyAmount > 0)
+                {
+                    oldPaidBillProcessCount += item.PaidImmediatlyAmount; 
+                }
+            }
+
+            obj.billOpeningBalance = (oldOpeningBalance + billOustandingCount) - oldPaidBillProcessCount;
             //
 
             // calculate outward opening balance before date filter
-            var OutwardOutstandingCount = fullOutwardList.Where(x => x.IsDeleted != true 
-                                         && (x.OutwardDate.Value.Month < searchModel.reportFromDate.month &&
-                                             x.OutwardDate.Value.Day < searchModel.reportFromDate.day &&
-                                             x.OutwardDate.Value.Year < searchModel.reportFromDate.year)
+            var OutwardOutstandingCount = fullOutwardList.Where(x => x.IsDeleted != true
+                                        && x.OutwardDate < fromDate
                                          && x.ClientIdRef == clientId).Sum(x => x.OutstandingAmount);
-            obj.outwardOpeningBalance = OutwardOutstandingCount;
+            var oldPaidOutwardProcess = fullOutwardList.Where(x => x.IsDeleted != true
+                                                     && x.OutwardDate < fromDate
+                                                        ).ToList();
+            decimal oldPaidOutwardProcessCount = 0;
+            foreach (var item in oldPaidOutwardProcess)
+            {
+                if (item.AdvanceAmount > 0)
+                {
+                    oldPaidOutwardProcessCount += item.AdvanceAmount;
+                }
+                if (item.PaidImmediatlyAmount > 0)
+                {
+                    oldPaidOutwardProcessCount += item.PaidImmediatlyAmount;
+                }
+            }
+            obj.outwardOpeningBalance = OutwardOutstandingCount - oldPaidOutwardProcessCount;
             //
 
             // process bill payment details
             var tblBillProcess = fullBillList.Where(x => x.IsDeleted != true
-                                                    && (x.BillDate.Value.Month >= searchModel.reportFromDate.month &&
-                                                        x.BillDate.Value.Day >= searchModel.reportFromDate.day &&
-                                                        x.BillDate.Value.Year >= searchModel.reportFromDate.year)
-                                                    && (x.BillDate.Value.Month <= searchModel.reportToDate.month &&
-                                                        x.BillDate.Value.Day <= searchModel.reportToDate.day &&
-                                                        x.BillDate.Value.Year <= searchModel.reportToDate.year)
+                                                     && x.BillDate >= fromDate
+                                                    && x.BillDate <= toDate
                                                         ).ToList();
             if(tblBillProcess != null)
             {
@@ -261,12 +290,8 @@ namespace Gopal.Models.Bill
 
             // process outward payment details
             var tblOutwardProcess = fullOutwardList.Where(x => x.IsDeleted != true
-                                                    && (x.OutwardDate.Value.Month >= searchModel.reportFromDate.month &&
-                                                        x.OutwardDate.Value.Day >= searchModel.reportFromDate.day &&
-                                                        x.OutwardDate.Value.Year >= searchModel.reportFromDate.year)
-                                                    && (x.OutwardDate.Value.Month <= searchModel.reportToDate.month &&
-                                                        x.OutwardDate.Value.Day <= searchModel.reportToDate.day &&
-                                                        x.OutwardDate.Value.Year <= searchModel.reportToDate.year)
+                                                    && x.OutwardDate >= fromDate
+                                                    && x.OutwardDate <= toDate
                                                         ).ToList();
             if (tblOutwardProcess != null)
             {
@@ -325,12 +350,8 @@ namespace Gopal.Models.Bill
             // process lumpsum payment details
             decimal lumpsumpaidInnerCount = 0;
             var tblLumpsumProcess = fullLumpsumList.Where(x => x.IsDeleted != true
-                                                    && (x.LumpsumDate.Value.Month >= searchModel.reportFromDate.month &&
-                                                        x.LumpsumDate.Value.Day >= searchModel.reportFromDate.day &&
-                                                        x.LumpsumDate.Value.Year >= searchModel.reportFromDate.year)
-                                                    && (x.LumpsumDate.Value.Month <= searchModel.reportToDate.month &&
-                                                        x.LumpsumDate.Value.Day <= searchModel.reportToDate.day &&
-                                                        x.LumpsumDate.Value.Year <= searchModel.reportToDate.year)
+                                                    && x.LumpsumDate >= fromDate
+                                                    && x.LumpsumDate <= toDate
                                                         ).ToList();
             if (tblLumpsumProcess != null)
             {
@@ -373,8 +394,12 @@ namespace Gopal.Models.Bill
                 }
                 obj.LumpsumPaymentDetails = finalLumpsumPaymentList;
             }
+
+            var oldPaidLumpsumCount = fullLumpsumList.Where(x => x.IsDeleted != true
+                                         && x.LumpsumDate < fromDate
+                                         && x.ClientIdRef == clientId).Sum(x => x.PaidAmount);
             //
-            obj.rightSideClosingBalance = obj.leftSideOutstandingAmount - lumpsumpaidInnerCount;
+            obj.rightSideClosingBalance = obj.leftSideOutstandingAmount - (lumpsumpaidInnerCount + oldPaidLumpsumCount);
             obj.rightSideBottomAmount = obj.leftSideOutstandingAmount;
             obj.addressPrint = _dbContext.TblMaster.Where(x => x.MasterKey == "INWARD_ADDRESS").FirstOrDefault().MasterValue;
             obj.contactPrint = _dbContext.TblMaster.Where(x => x.MasterKey == "INWARD_PHONE_NO").FirstOrDefault().MasterValue;
