@@ -7,6 +7,7 @@ using Gopal.Models.Bill;
 using Gopal.Models.Customer;
 using Gopal.Models.Outward;
 using Gopal.Models.Payment;
+using Gopal.Models.Report;
 using Gopal.Services.Bill;
 using Gopal.Services.Customer;
 using Gopal.Services.Outward;
@@ -30,15 +31,17 @@ namespace Gopal.Controllers
         private IBillServices _billServices;
         private IOutwardServices _outwardServices;
         private IPaymentServices _lumpsumServices;
+        private IReportServices _reportService;
         public string UPLOAD_PATH;
         public PDFController(IHostingEnvironment hostingEnvironment, IInwardServices inwardServices, IBillServices billServices,
-            IOutwardServices outwardServices, IPaymentServices lumpsumServices)
+            IOutwardServices outwardServices, IPaymentServices lumpsumServices, IReportServices reportService)
         {
             _hostingEnvironment = hostingEnvironment;
             _inwardServices = inwardServices;
             _billServices = billServices;
             _outwardServices = outwardServices;
             _lumpsumServices = lumpsumServices;
+            _reportService = reportService;
         }
         private string GetUploadFolderPath()
         {
@@ -106,11 +109,10 @@ namespace Gopal.Controllers
 
         [HttpGet]
         [Route("PrintAccountStatement")]
-        public IActionResult PrintAccountStatement(int clientId)
+        public IActionResult PrintAccountStatement(int id, int fd, int fm, int fy, int td, int tm, int ty)
         {
-           
-            
-            return new ViewAsPdf("PrintAccountStatement");
+            AccountStatementModel accountStatement = _reportService.GetAccountStatementReportPDF(id, fd, fm, fy, td, tm, ty);
+            return new ViewAsPdf("PrintAccountStatement", accountStatement);
         }
     }
 }

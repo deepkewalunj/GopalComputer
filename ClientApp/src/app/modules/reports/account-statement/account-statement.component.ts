@@ -9,6 +9,8 @@ import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from '
 import { TypeAheadService } from 'src/app/services/type-ahead.service';
 import { ReportService } from 'src/app/services/report.service';
 import { FiscalYear } from 'src/app/models/FiscalYear.model';
+import { environment } from '../../../../environments/environment';
+import { QzTrayService } from '../../../services/qz-tray.service';
 
 @Component({
   selector: 'app-account-statement',
@@ -31,9 +33,10 @@ export class AccountStatementComponent implements OnInit {
   searchFailed = false;
   isShow = false;
   isError = false;
+  isAcStatementPrinting: boolean = false;
   constructor(private ngbCalendar: NgbCalendar,
     private reportService: ReportService,
-    private typeAheadService: TypeAheadService) { }
+    private typeAheadService: TypeAheadService, private printService: QzTrayService) { }
 
   ngOnInit() {
     const that = this;
@@ -100,4 +103,57 @@ export class AccountStatementComponent implements OnInit {
       ),
       tap(() => this.searching = false)
     )
+
+  toDataUrl(url, that, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        callback(reader.result);
+      }
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url + "?" + "id=" + that.searchModel.customerName.searchId + "&fd=" + that.searchModel.reportFromDate.day + "&fm=" + that.searchModel.reportFromDate.month + "&fy=" + that.searchModel.reportFromDate.year + "&td=" + that.searchModel.reportToDate.day + "&tm=" + that.searchModel.reportToDate.month + "&ty=" + that.searchModel.reportToDate.year + "");
+    xhr.responseType = 'blob';
+    xhr.send();
+    xhr.send();
+  }
+
+  getBase64EncodedImage() {
+    if (this.searchModel.customerName && this.searchModel.reportFromDate && this.searchModel.reportToDate) {
+      const that = this;
+      that.isAcStatementPrinting = true;
+      that.toDataUrl(environment.API_URL + 'PDF/PrintAccountStatement', that, function (base64Image) {
+        base64Image = base64Image.split(",")[1];
+        that.printAcStatement(base64Image, that);
+
+      });
+    }
+    else {
+      this.searchModel.customerName = null;
+      this.isError = true;
+      this.isShow = false;
+    }
+  }
+  printAcStatement(base64Data, that) {
+
+    var printData = [
+      {
+        type: 'pixel',
+        format: 'pdf',
+        flavor: 'base64',
+        data: base64Data
+
+      }
+    ];
+
+    that.printService.printData(this.accountStatement.normalPrinterName, printData).subscribe(data => {
+      that.isAcStatementPrinting = false;
+      console.log(data);
+    }, error => {
+        that.isAcStatementPrinting = false;
+      console.log(error);
+    });
+
+  }
 }

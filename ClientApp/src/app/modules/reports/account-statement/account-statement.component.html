@@ -58,8 +58,9 @@
               </div>
               <div class="col-sm text-right">
                 <div class="form-group">
-                  <button type="reset" (click)="clearFilter()" class="btn btn-outline btn-outline-dark">Reset</button>
                   <button type="button" (click)="GetAccountStatementReport()" class="btn btn-outline btn-outline-dark">Search</button>
+                  <button type="reset" (click)="clearFilter()" class="btn btn-outline btn-outline-dark">Reset</button>&nbsp;&nbsp;
+                  <a printSectionId="print-section" href="javascript:void(0)"><i (click)="getBase64EncodedImage()" class="fas fa-print orange"></i></a>
                 </div>
               </div>
               

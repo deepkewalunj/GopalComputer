@@ -16,7 +16,7 @@ namespace Gopal.Services.Bill
 
 
         AccountStatementModel GetAccountStatementReport(ReportSearchModel searchModel);
-
+        AccountStatementModel GetAccountStatementReportPDF(int id, int fd, int fm, int fy, int td, int tm, int ty);
         DatatableResponseModel GetClientOutstandingReportList();
 
     }
