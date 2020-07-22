@@ -105,7 +105,7 @@ export class MaterialTypeComponent implements OnInit {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-  
+
 
 
   rerender(): void {
@@ -159,7 +159,6 @@ export class MaterialTypeComponent implements OnInit {
   }
 
   openDelete(content,searchId:number) {
-debugger;
     const that=this;
     this.modalService.open(content).result.then((result) => {
       if(result==true)

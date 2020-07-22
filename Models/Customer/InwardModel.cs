@@ -92,7 +92,7 @@ namespace Gopal.Models.Customer
         public int isRepaired { get; set; }
         public DateTime? deliveryDate { get; set; }
         public DateTime? inwardDate { get; set; }
-        public int outwardBillStatus { get; set; }
+        public string outwardBillStatus { get; set; }
 
     }
     public class InwardBarCodeModel {

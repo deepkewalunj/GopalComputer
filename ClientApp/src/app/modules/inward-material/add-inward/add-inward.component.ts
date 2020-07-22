@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { NgbModal, NgbDate, NgbCalendar ,NgbPeriod} from '@ng-bootstrap/ng-bootstrap';
 import {Observable, Subject,of} from 'rxjs';
-import {catchError, debounceTime, distinctUntilChanged, map, tap, switchMap} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, map, tap, switchMap, first} from 'rxjs/operators';
 
 import { Inward } from 'src/app/models/inward.model';
 import { TypeAheadSelect, CommonModel, FilePoco, Guid } from 'src/app/models/common.model';
@@ -16,6 +16,11 @@ import { environment } from 'src/environments/environment';
 import {WebcamImage} from 'ngx-webcam';
 import { InwardPrintComponent } from '../inward-print/inward-print.component';
 import { QzTrayService } from 'src/app/services/qz-tray.service';
+import { tblSearchModelNoMaterialTypeCompanyName } from 'src/app/models/tblSearchModelNoMaterialTypeCompanyName';
+import { AddUpdateModelNoMaterialTypeComponent } from '../add-update-model-no-material-type/add-update-model-no-material-type.component';
+import { SearchModelNoMaterialTypeCompanyNameService } from 'src/app/services/search-model-no-material-type-company-name.service';
+import { AccessoryInputModel } from 'src/app/models/AccessoryInputModel';
+import { AddEditAccessoryComponent } from '../add-edit-accessory/add-edit-accessory.component';
 
 @Component({
   selector: 'app-add-inward',
@@ -36,11 +41,14 @@ export class AddInwardComponent implements OnInit {
   searchFailed = false;
 
   private _success = new Subject<string>();
+  private _error = new Subject<string>();
+
   staticAlertClosed = false;
   successMessage: string;
+  errorMessage:string;
 
   isBarCodePrinting=false;
-
+  isInwardSaving=false;
   formatter = (typeAhead: TypeAheadResponseModel) => typeAhead.searchValue;
 
   hideTag = true;
@@ -175,6 +183,13 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
     this._success.pipe(
       debounceTime(5000)
     ).subscribe(() => this.successMessage = null);
+
+    this._error.subscribe((message) => this.errorMessage = message);
+    this._error.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.errorMessage = null);
+
+
   }
 
   addDays(date: Date, days: number): Date {
@@ -335,7 +350,7 @@ deleteTag(item) {
   }
 
   SaveInward(){
-
+this.isInwardSaving=true;
   const formData = new FormData();
 
     if (this.inward.inwardFiles.length>0)
@@ -354,10 +369,14 @@ deleteTag(item) {
 
       this.inwardService.addEditInward(formData).subscribe(data=>{
       this.inward=data;
+      this.isInwardSaving=false;
+      this._success.next("Inward Saved Successfully.");
+
      this.GoToInwardById(this.inward.inwardId);
     },error=>{
 
-
+      this.isInwardSaving=false;
+      this._error.next("Something went wrong.Error Occurred.");
     })
   }
 
@@ -455,5 +474,55 @@ this.urltoFile(this.webcamImage.imageAsDataUrl,Guid.newGuid()+".jpeg",'text/plai
     );
 }
 
+
+addSearchModelNoMaterialTypePopup() {
+
+    let searchModelNoMaterialTypeCompanyName = new tblSearchModelNoMaterialTypeCompanyName();
+    this.openAddEditSearchModelNoMaterialTypeCompanyNamePopup(searchModelNoMaterialTypeCompanyName);
+
+}
+
+openAddEditSearchModelNoMaterialTypeCompanyNamePopup(searchModelNoMaterialTypeCompanyName){
+  const modalRef = this.modalService.open(AddUpdateModelNoMaterialTypeComponent, { size: 'lg' });
+  modalRef.componentInstance.searchModelNoMaterialTypeCompanyName=searchModelNoMaterialTypeCompanyName;
+  modalRef.componentInstance.modelRef=modalRef;
+  modalRef.result.then((result) => {
+    if(result==true)
+    {
+      this._success.next("Material type saved Successfully.")
+
+    }
+
+  }, (reason) => {
+
+  });
+}
+
+
+openAccessoryPopup() {
+
+
+    let accessoryInputModel = new AccessoryInputModel();
+    this.openAddEditAccessoryPopup(accessoryInputModel);
+
+
+
+}
+
+openAddEditAccessoryPopup(accessoryInputModel){
+  const modalRef = this.modalService.open(AddEditAccessoryComponent, { size: 'lg' });
+  modalRef.componentInstance.accessoryInputModel=accessoryInputModel;
+  modalRef.componentInstance.modelRef=modalRef;
+  modalRef.result.then((result) => {
+    if(result==true)
+    {
+      this._success.next("Accessory Saved Successfully.")
+
+    }
+
+  }, (reason) => {
+
+  });
+}
 
 }

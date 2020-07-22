@@ -35,7 +35,7 @@
                     <td data-title="Model No">{{ inward.modelNo }}</td>
                     <td data-title="Is Repaired">{{getRepairedStatusesById(inward.isRepaired)}}</td>
                     <td data-title="Inward Date">{{ inward.deliveryDate | date: 'dd/MM/yyyy' }}</td>
-                    <td data-title="Bill/Outward Status">{{ getInwardOutwardBillStatusById(inward.outwardBillStatus) }}</td>
+                    <td data-title="Bill/Outward Status">{{ inward.outwardBillStatus}}</td>
                     <td data-title="Actions" class="action text-center actions-td">
                       <div class="d-flex justify-content-center">
                         <a href="javascript:void(0)">
