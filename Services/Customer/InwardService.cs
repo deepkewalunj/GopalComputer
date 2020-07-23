@@ -64,56 +64,9 @@ namespace Gopal.Services.Customer
             return inwardTypeSriptModel;
         }
 
-        private bool IsMaterialExist(string modelNo, string materialType, string companyName)
-        {
+       
 
-            string sql = @"SELECT  COUNT(searchId) FROM TblSearchModelNoMaterialTypeCompanyName
-                            WHERE modelno=@modelNo and materialType=@materialType and companyName=@companyName;";
-
-            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
-            {
-                return connection.QueryFirst<int>(sql, new {modelNo, materialType,companyName })>0;
-
-               
-            }
-        }
-
-        private bool IsAccessoriesExist(string materialType, string accessories)
-        {
-            string sql = @"SELECT  COUNT(materialAccessoryId) FROM TblMaterialAccessory
-                            WHERE  materialType=@materialType and AccessoryName=@accessories;";
-
-            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
-            {
-                return connection.QueryFirst<int>(sql, new { materialType, accessories }) > 0;
-
-            }
-            
-        }
-
-        private int InsertintoTblSearchMaterialType(string modelNo, string materialType, string companyName) {
-            TblSearchModelNoMaterialTypeCompanyName tblSearchModelNoMaterialTypeCompanyName 
-                = new TblSearchModelNoMaterialTypeCompanyName();
-            tblSearchModelNoMaterialTypeCompanyName.ModelNo = modelNo;
-            tblSearchModelNoMaterialTypeCompanyName.MaterialType = materialType;
-            tblSearchModelNoMaterialTypeCompanyName.CompanyName = companyName;
-            tblSearchModelNoMaterialTypeCompanyName.CreatedBy= _userServices.GetCurrentUserId();
-            tblSearchModelNoMaterialTypeCompanyName.CreatedDate = DateTime.Now;
-            _dbContext.TblSearchModelNoMaterialTypeCompanyName.Add(tblSearchModelNoMaterialTypeCompanyName);
-            _dbContext.SaveChanges();
-            return tblSearchModelNoMaterialTypeCompanyName.SearchId;
-        }
-
-        private int InsertintoTblMaterialAccessories(string materialType,string accessories) {
-            TblMaterialAccessory tblMaterialAccessory = new TblMaterialAccessory();
-            tblMaterialAccessory.AccessoryName = accessories;
-            tblMaterialAccessory.MaterialType = materialType;
-            tblMaterialAccessory.CreatedBy= _userServices.GetCurrentUserId(); ;
-            tblMaterialAccessory.CreatedDate = DateTime.Now;
-            _dbContext.TblMaterialAccessory.Add(tblMaterialAccessory);
-            _dbContext.SaveChanges();
-            return tblMaterialAccessory.MaterialAccessoryId;
-        }
+   
 
         
         private String GetSearchValue(Object searchModel) {
@@ -135,15 +88,7 @@ namespace Gopal.Services.Customer
             inwardModel.clientRefId = inwardModel.customerTypeAhead.searchId;
 
             //Search Inward Details
-            bool isMaterialExist = IsMaterialExist(GetSearchValue(inwardModel.modelNoTypeAhead) ,
-             GetSearchValue(inwardModel.materialTypeAhead)   , GetSearchValue(inwardModel.companyNameTypeAhead));
-            if (!isMaterialExist)
-            {
-                //Insert it for Search
-                InsertintoTblSearchMaterialType(GetSearchValue(inwardModel.modelNoTypeAhead) ,
-              GetSearchValue(inwardModel.materialTypeAhead)  , GetSearchValue(inwardModel.companyNameTypeAhead));
-            }
-
+           
             inwardModel.modelNo = GetSearchValue(inwardModel.modelNoTypeAhead);
             inwardModel.materialType = GetSearchValue(inwardModel.materialTypeAhead);
             inwardModel.companyName = GetSearchValue(inwardModel.companyNameTypeAhead);
@@ -161,10 +106,7 @@ namespace Gopal.Services.Customer
                 List<String> lstAccessories = new List<String>();
                 inwardModel.lstAccessories.ForEach(accesory =>
                 {
-                    if (!IsAccessoriesExist(GetSearchValue(inwardModel.materialTypeAhead) , accesory.searchValue))
-                    {
-                        InsertintoTblMaterialAccessories(GetSearchValue(inwardModel.materialTypeAhead), accesory.searchValue);
-                    }
+                    
                     lstAccessories.Add(accesory.searchValue);
                 });
                 inwardModel.accessories = String.Join('|', lstAccessories);

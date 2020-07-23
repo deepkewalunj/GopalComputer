@@ -1,6 +1,5 @@
 <form [formGroup]="addInwardForm" novalidate>
   <div class="container form-container">
-      <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
 
       <h3 class="text-center mb-4">{{inward.inwardId>0?'Edit':'Add'}} Inward </h3>
       <div class="card">
@@ -84,7 +83,7 @@
                                [resultFormatter]="formatter"
                                [ngbTypeahead]="searchModel"
                                (selectItem)="materialTypeAheadSelected($event)" placeholder="Search"
-
+                                [editable]="false"
                                />
                                <small *ngIf="searching" class="form-text text-muted">searching...</small>
                                <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
@@ -108,6 +107,7 @@
                                [ngbTypeahead]="searchMaterialType"
                                (selectItem)="materialTypeAheadSelected($event)"
                                placeholder="Search"
+                               [editable]="false"
                                 />
                                <small *ngIf="searching" class="form-text text-muted">searching...</small>
                                <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
@@ -132,6 +132,7 @@
                           [ngbTypeahead]="searchCompanyName"
                           (selectItem)="materialTypeAheadSelected($event)"
                           placeholder="Search"
+                          [editable]="false"
                            />
                           <small *ngIf="searching" class="form-text text-muted">searching...</small>
                           <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
@@ -147,6 +148,10 @@
                          </div>
                       </div>
                   </div>
+                  <div class="col-12 col-md-4 col-lg-4 pt-1">
+                    <a href="javascript:void(0)"  class="btn btn-sm btn-outline btn-outline-dark mt-2"
+                    (click)="addSearchModelNoMaterialTypePopup()" >Add Material Type<i class="ml-1 fas fa-plus"></i></a>
+                </div>
               </div>
           </div>
       </div>
@@ -456,11 +461,15 @@
                                   (selectItem)="selectedInventory($event)"
                                   [inputFormatter]="formatter"
                                   [resultFormatter]="formatter"
-                                   autofocus placeholder="Select Inventory"  (dblclick)="AddTag()">
+                                   autofocus placeholder="Select Inventory" >
 
                           </div>
                       </div>
                   </div>
+                  <div class="col-12 col-md-4 col-lg-4 pt-1">
+                    <a href="javascript:void(0)"  class="btn btn-sm btn-outline btn-outline-dark mt-2"
+                    (click)="openAccessoryPopup()" >Add Accessories<i class="ml-1 fas fa-plus"></i></a>
+                </div>
               </div>
           </div>
       </div>
@@ -480,6 +489,10 @@
           </div>
       </div>
       <footer>
+        <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null" class="text-left" >{{ successMessage }}</ngb-alert>
+        <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null" class="text-left" >{{ errorMessage }}</ngb-alert>
+
+
           <button class="btn btn-secondary" (click)="GoToInwardList()" >Cancel</button>
           <button type="button"  (click)="PrintInward()" *ngIf="inward.inwardId>0" class="btn btn-success">
               Print Inward
@@ -487,7 +500,7 @@
       <button type="button" [disabled]="isBarCodePrinting"  (click)="printInwardByZPL()" *ngIf="inward.inwardId>0" class="btn btn-success">
         Print BarCode
     </button>
-          <button type="submit" (click)="addInwardForm.valid && SaveInward()" class="btn btn-primary">
+          <button type="submit" [disabled]="isInwardSaving"  (click)="addInwardForm.valid && SaveInward()" class="btn btn-primary">
               Save
           </button>
           <button type="button" (click)="AddAdditional()" *ngIf="inward.inwardId>0" class="btn btn-primary">
