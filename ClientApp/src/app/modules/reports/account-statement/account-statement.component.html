@@ -26,7 +26,7 @@
                 <div class="form-group">
                   <div class="input-group datepicker">
                     <label class="date-label">From Date</label>
-                    <input autocomplete="new"  class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchModel.reportFromDate" placeholder="dd-mm-yyyy" name="dp"
+                    <input autocomplete="new" [maxDate]="maxDate" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchModel.reportFromDate" placeholder="dd-mm-yyyy" name="dp"
                            ngbDatepicker
                            #d1="ngbDatepicker" (click)="d1.toggle()">
                     <div class="input-group-append">
@@ -43,7 +43,7 @@
                 <div class="form-group">
                   <div class="input-group datepicker">
                     <label class="date-label">To Date</label>
-                    <input autocomplete="new"  class="form-control" [ngModelOptions]="{standalone: true}" placeholder="dd-mm-yyyy" name="dp"
+                    <input autocomplete="new" [maxDate]="maxDate"  class="form-control" [ngModelOptions]="{standalone: true}" placeholder="dd-mm-yyyy" name="dp"
                            ngbDatepicker [(ngModel)]="searchModel.reportToDate"
                            #d2="ngbDatepicker" (click)="d2.toggle()">
                     <div class="input-group-append">
@@ -59,7 +59,7 @@
               <div class="col-sm text-right">
                 <div class="form-group">
                   <button type="button" (click)="GetAccountStatementReport()" class="btn btn-outline btn-outline-dark">Search</button>
-                  <button type="reset" (click)="clearFilter()" class="btn btn-outline btn-outline-dark">Reset</button>&nbsp;&nbsp;
+                  <button type="button" (click)="clearFilter()" class="btn btn-outline btn-outline-dark">Reset</button>&nbsp;&nbsp;
                   <a printSectionId="print-section" href="javascript:void(0)"><i (click)="getBase64EncodedImage()" class="fas fa-print orange"></i></a>
                 </div>
               </div>

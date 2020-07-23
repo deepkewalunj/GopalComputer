@@ -34,9 +34,15 @@ export class AccountStatementComponent implements OnInit {
   isShow = false;
   isError = false;
   isAcStatementPrinting: boolean = false;
+  maxDate = {};
   constructor(private ngbCalendar: NgbCalendar,
     private reportService: ReportService,
-    private typeAheadService: TypeAheadService, private printService: QzTrayService) { }
+    private typeAheadService: TypeAheadService, private printService: QzTrayService) {
+    this.maxDate = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDate()
+    };}
 
   ngOnInit() {
     const that = this;
@@ -65,6 +71,7 @@ export class AccountStatementComponent implements OnInit {
 
   GetAccountStatementReport() {
     if (this.searchModel.customerName && this.searchModel.reportFromDate && this.searchModel.reportToDate) {
+      
       const that = this;
       this.reportService.GetAccountStatementReport(this.searchModel).subscribe(data => {
         that.isShow = true;
@@ -121,6 +128,10 @@ export class AccountStatementComponent implements OnInit {
 
   getBase64EncodedImage() {
     if (this.searchModel.customerName && this.searchModel.reportFromDate && this.searchModel.reportToDate) {
+      if (this.searchModel.reportToDate.before(this.searchModel.reportFromDate)) {
+        alert("From date should be less than to date");
+        return false;
+      }
       const that = this;
       that.isAcStatementPrinting = true;
       that.toDataUrl(environment.API_URL + 'PDF/PrintAccountStatement', that, function (base64Image) {
