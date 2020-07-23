@@ -344,7 +344,12 @@ namespace Gopal.Models.Bill
             //
 
             // process leftside bottom total
-            obj.leftSideOutstandingAmount = obj.billOpeningBalance + obj.outwardOpeningBalance + billOutstandingInnerCount + outwardOutstandingInnerCount;
+            var oldPaidLumpsumCount = fullLumpsumList.Where(x => x.IsDeleted != true
+                                         && x.LumpsumDate < fromDate
+                                         && x.ClientIdRef == clientId).Sum(x => x.PaidAmount);
+
+            obj.billPlusOutwardOpeningBalance = (obj.billOpeningBalance + obj.outwardOpeningBalance) - oldPaidLumpsumCount;
+            obj.leftSideOutstandingAmount = obj.billPlusOutwardOpeningBalance + billOutstandingInnerCount + outwardOutstandingInnerCount;
             //
 
             // process lumpsum payment details
@@ -395,11 +400,9 @@ namespace Gopal.Models.Bill
                 obj.LumpsumPaymentDetails = finalLumpsumPaymentList;
             }
 
-            var oldPaidLumpsumCount = fullLumpsumList.Where(x => x.IsDeleted != true
-                                         && x.LumpsumDate < fromDate
-                                         && x.ClientIdRef == clientId).Sum(x => x.PaidAmount);
+            
             //
-            obj.rightSideClosingBalance = obj.leftSideOutstandingAmount - (lumpsumpaidInnerCount + oldPaidLumpsumCount);
+            obj.rightSideClosingBalance = obj.leftSideOutstandingAmount - lumpsumpaidInnerCount;
             obj.rightSideBottomAmount = obj.leftSideOutstandingAmount;
             obj.addressPrint = _dbContext.TblMaster.Where(x => x.MasterKey == "INWARD_ADDRESS").FirstOrDefault().MasterValue;
             obj.contactPrint = _dbContext.TblMaster.Where(x => x.MasterKey == "INWARD_PHONE_NO").FirstOrDefault().MasterValue;
@@ -616,7 +619,12 @@ namespace Gopal.Models.Bill
             //
 
             // process leftside bottom total
-            obj.leftSideOutstandingAmount = obj.billOpeningBalance + obj.outwardOpeningBalance + billOutstandingInnerCount + outwardOutstandingInnerCount;
+            var oldPaidLumpsumCount = fullLumpsumList.Where(x => x.IsDeleted != true
+                                         && x.LumpsumDate < fromDate
+                                         && x.ClientIdRef == clientId).Sum(x => x.PaidAmount);
+
+            obj.billPlusOutwardOpeningBalance = (obj.billOpeningBalance + obj.outwardOpeningBalance) - oldPaidLumpsumCount;
+            obj.leftSideOutstandingAmount = obj.billPlusOutwardOpeningBalance + billOutstandingInnerCount + outwardOutstandingInnerCount;
             //
 
             // process lumpsum payment details
@@ -667,11 +675,9 @@ namespace Gopal.Models.Bill
                 obj.LumpsumPaymentDetails = finalLumpsumPaymentList;
             }
 
-            var oldPaidLumpsumCount = fullLumpsumList.Where(x => x.IsDeleted != true
-                                         && x.LumpsumDate < fromDate
-                                         && x.ClientIdRef == clientId).Sum(x => x.PaidAmount);
+            
             //
-            obj.rightSideClosingBalance = obj.leftSideOutstandingAmount - (lumpsumpaidInnerCount + oldPaidLumpsumCount);
+            obj.rightSideClosingBalance = obj.leftSideOutstandingAmount - lumpsumpaidInnerCount;
             obj.rightSideBottomAmount = obj.leftSideOutstandingAmount;
             obj.addressPrint = _dbContext.TblMaster.Where(x => x.MasterKey == "INWARD_ADDRESS").FirstOrDefault().MasterValue;
             obj.contactPrint = _dbContext.TblMaster.Where(x => x.MasterKey == "INWARD_PHONE_NO").FirstOrDefault().MasterValue;

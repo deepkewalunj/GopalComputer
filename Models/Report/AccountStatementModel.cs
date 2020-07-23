@@ -16,6 +16,8 @@ namespace Gopal.Models.Report
 
         public decimal leftSideOutstandingAmount { get; set; }
 
+        public decimal billPlusOutwardOpeningBalance { get; set; }
+
         public decimal rightSideClosingBalance { get; set; }
         public decimal rightSideBottomAmount { get; set; }
         public List<BillPayment> BillPaymentDetails { get; set; }

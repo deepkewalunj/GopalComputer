@@ -123,13 +123,13 @@
                                    background: transparent;
                                    font-size: 14px;
                                    line-height: 18px; font-weight: bold; vertical-align: top; text-align:left;">
-                                        Opening Balance
+                                        Opening Balance (Bill + Outward) = 
                                     </td>
                                     <td colspan="4" style="padding: 5px 5px;
                                    background: transparent;
                                    font-size: 14px;
                                    line-height: 18px; font-weight: bold; vertical-align: top; text-align:right;">
-                                        @Model.billOpeningBalance
+                                        @Model.billPlusOutwardOpeningBalance
                                     </td>
                                 </tr>
                                 @foreach (var item in Model.BillPaymentDetails)
@@ -230,13 +230,13 @@
                                    background: transparent;
                                    font-size: 14px;
                                    line-height: 18px; font-weight: bold; vertical-align: top; text-align:left;">
-                                        Opening Balance
+                                       
                                     </td>
                                     <td colspan="4" style="padding: 5px 5px;
                                    background: transparent;
                                    font-size: 14px;
                                    line-height: 18px; font-weight: bold; vertical-align: top; text-align:right;">
-                                        @Model.outwardOpeningBalance
+                                        
                                     </td>
                                 </tr>
                                 @foreach (var item in Model.OutwardPaymentDetails)
