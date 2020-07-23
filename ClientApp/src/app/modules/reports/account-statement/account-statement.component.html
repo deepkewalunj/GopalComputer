@@ -109,8 +109,8 @@
                         </thead>
                         <tbody>
                             <tr class="opening-balance">
-                                <td colspan="3" class="pb-2" style="border:0">Opening Balance</td>
-                                <td colspan="4" style="border:0" class="text-right">{{accountStatement.billOpeningBalance}} </td>
+                                <td colspan="3" class="pb-2" style="border:0">Opening Balance (Bill + Outward) = </td>
+                                <td colspan="4" style="border:0" class="text-right">{{accountStatement.billPlusOutwardOpeningBalance}} </td>
                             </tr>
                             <tr *ngFor="let bill of accountStatement.billPaymentDetails">
                               <td data-title="Bill Date">{{bill.billDate  | date:'dd/MM/yyyy'}}</td>
@@ -164,8 +164,8 @@
                         </thead>
                         <tbody>
                           <tr class="opening-balance">
-                            <td colspan="3" class="pb-2" style="border:0">Opening Balance</td>
-                            <td colspan="4" style="border:0" class="text-right">{{accountStatement.outwardOpeningBalance}} </td>
+                            <td colspan="3" class="pb-2" style="border:0"></td>
+                            <td colspan="4" style="border:0" class="text-right"> </td>
                           </tr>
                           <tr *ngFor="let bill of accountStatement.outwardPaymentDetails">
                             <td data-title="Outward Date">{{bill.billDate  | date:'dd/MM/yyyy'}}</td>
