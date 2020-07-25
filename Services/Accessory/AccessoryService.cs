@@ -35,7 +35,7 @@ namespace Gopal.Services.Accessory
 
         public List<TblMaterialAccessory> getAccessories()
         {
-            return _dbContext.TblMaterialAccessory.Where(x => x.IsDeleted != true).ToList();
+            return _dbContext.TblMaterialAccessory.Where(x => x.IsDeleted != true).OrderByDescending(x=>x.CreatedDate).ToList();
         }
 
         public TblMaterialAccessory getAccessoryById(int accessoryId)

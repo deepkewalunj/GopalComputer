@@ -128,7 +128,7 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
               data: []
             });
           });
-      },
+      },order: [[ 5, "desc" ]],
       columns: [{ data: 'clientTitleId',searchable:true,orderable:true  },
                 { data: 'companyName',searchable:true,orderable:true  },
                 { data: 'clientName',searchable:true,orderable:true  },

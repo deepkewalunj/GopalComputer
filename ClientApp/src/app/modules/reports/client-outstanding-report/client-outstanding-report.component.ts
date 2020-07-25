@@ -218,6 +218,7 @@ export class ClientOutstandingReportComponent implements OnInit {
 
 
   },
+  order: [[ 1, "asc" ]],
      columns: [{orderable: false,className: 'select-checkbox',targets:   0},
      { data: '',searchable:false,orderable:true  },
      { data: 'clientName',searchable:false,orderable:true  },

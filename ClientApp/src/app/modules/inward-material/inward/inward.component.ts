@@ -156,7 +156,7 @@ export class InwardComponent implements OnInit {
               data: []
             });
           });
-      },
+      },order: [[ 6, "desc" ]],
       columns: [{ data: 'inwardId',searchable:true,orderable:true  },
                 { data: 'clientName',searchable:true,orderable:true  },
                 { data: 'modelNo',searchable:true,orderable:true  },
