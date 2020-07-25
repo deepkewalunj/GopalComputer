@@ -12,7 +12,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { InwardPrintComponent } from '../inward-print/inward-print.component';
-
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-inward',
@@ -37,7 +37,7 @@ export class InwardComponent implements OnInit {
     addClientForm: FormGroup;
     constructor(private fb: FormBuilder,private http: HttpClient,
       private modalService: NgbModal,private inwardService:InwardService,
-      private router:Router,private route: ActivatedRoute) {}
+      private router: Router, private route: ActivatedRoute, public sharedService: SharedService) {}
 
 
 

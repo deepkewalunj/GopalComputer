@@ -11,7 +11,7 @@ import { AddEditCustomerComponent } from '../add-edit-customer/add-edit-customer
 import { CustomerService } from 'src/app/services/customer.service';
 import { DataTableDirective } from 'angular-datatables';
 import { CommonModel, DataTablesResponse } from 'src/app/models/common.model';
-
+import { SharedService } from '../../../../shared/shared.service';
 
 @Component({
   selector: 'app-client',
@@ -36,7 +36,7 @@ export class CustomerListComponent implements AfterViewInit, OnDestroy,OnInit {
     // we used reactive forms and validations
     addClientForm: FormGroup;
     constructor(private fb: FormBuilder, private modalService: NgbModal,private http: HttpClient,
-      private customerService:CustomerService) {}
+      private customerService: CustomerService, public sharedService: SharedService) {}
 
 
 

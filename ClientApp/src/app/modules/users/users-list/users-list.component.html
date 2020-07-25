@@ -52,11 +52,11 @@
               <td data-title="Role" >{{ getuserRoleName(user.userRole)}}</td>
               <td data-title="Actions" class="action text-center actions-td">
                 <div class="d-flex justify-content-center">
-                  <a href="javascript:void(0)">
+                  <a *ngIf="sharedService.getRoleId()==1" href="javascript:void(0)">
                     <i class="far fa-edit orange" placement="top"
                        ngbTooltip="View/Edit" (click)="openUserPopup(user.userId)"></i>
                   </a>
-                  <a href="javascript:void(0)">
+                  <a  *ngIf="sharedService.getRoleId()==1" href="javascript:void(0)">
                     <i class="far fa-trash-alt orange" placement="top" ngbTooltip="Delete" (click)="openDelete(content,user.userId)"></i>
                   </a>
                 </div>

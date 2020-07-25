@@ -11,7 +11,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { CommonModel, DataTablesResponse } from 'src/app/models/common.model';
 import { Outward } from '../../../models/Outward.model';
 import { OutwardPrintComponent } from '../outward-print/outward-print.component';
-
+import { SharedService } from '../../../shared/shared.service';
 @Component({
   selector: 'app-outward-list',
   templateUrl: './outward-list.component.html',
@@ -34,7 +34,7 @@ export class OutwardListComponent implements AfterViewInit, OnDestroy, OnInit {
   // we used reactive forms and validations
   addClientForm: FormGroup;
   constructor(private fb: FormBuilder, private modalService: NgbModal, private http: HttpClient,
-    private outwardService: OutwardService, config: NgbModalConfig) {
+    private outwardService: OutwardService, config: NgbModalConfig, public sharedService: SharedService) {
     config.backdrop = 'static'; config.keyboard = false;
   }
 

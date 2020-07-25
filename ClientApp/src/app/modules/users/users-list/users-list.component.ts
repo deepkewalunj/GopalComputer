@@ -8,6 +8,7 @@ import { UserPermission } from '../../../models/user-permission';
 import { DataTableDirective } from 'angular-datatables';
 import { AddEditUserComponent } from '../add-edit-user/add-edit-user.component';
 import { CommonModel } from 'src/app/models/common.model';
+import { SharedService } from '../../../shared/shared.service';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
@@ -42,7 +43,7 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
   userList = [];
   dtTrigger: Subject<any> = new Subject();
 
-  constructor( private modalService: NgbModal, private userService: UserService
+  constructor(private modalService: NgbModal, private userService: UserService, public sharedService: SharedService
    ) {
 
   }

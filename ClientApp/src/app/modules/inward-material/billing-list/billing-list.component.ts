@@ -11,7 +11,7 @@ import { BillService } from 'src/app/services/bill.service';
 import { DataTableDirective } from 'angular-datatables';
 import { CommonModel, DataTablesResponse } from 'src/app/models/common.model';
 import { BillPrintComponent } from '../bill-print/bill-print.component';
-
+import { SharedService } from '../../../shared/shared.service';
 @Component({
   selector: 'app-billing-list',
   templateUrl: './billing-list.component.html',
@@ -34,7 +34,7 @@ export class BillingListComponent implements AfterViewInit, OnDestroy, OnInit {
   // we used reactive forms and validations
   addClientForm: FormGroup;
   constructor(private fb: FormBuilder, private modalService: NgbModal, private http: HttpClient,
-    private billService: BillService, config: NgbModalConfig) {
+    private billService: BillService, config: NgbModalConfig, public sharedService: SharedService) {
     config.backdrop = 'static'; config.keyboard = false;
   }
 

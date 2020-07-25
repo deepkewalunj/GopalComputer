@@ -11,7 +11,7 @@ import { LumpsumService } from 'src/app/services/lumpsum.service';
 import { DataTableDirective } from 'angular-datatables';
 import { CommonModel, DataTablesResponse } from 'src/app/models/common.model';
 import { LumpsumPrintComponent } from '../lumpsum-print/lumpsum-print.component';
-
+import { SharedService } from '../../../shared/shared.service';
 @Component({
   selector: 'app-lumpsum',
   templateUrl: './lumpsum.component.html',
@@ -34,7 +34,7 @@ export class LumpsumComponent implements AfterViewInit, OnDestroy, OnInit {
   // we used reactive forms and validations
   addClientForm: FormGroup;
   constructor(private fb: FormBuilder, private modalService: NgbModal, private http: HttpClient,
-    private lumpsumService: LumpsumService, config: NgbModalConfig) {
+    private lumpsumService: LumpsumService, config: NgbModalConfig, public sharedService: SharedService) {
     config.backdrop = 'static'; config.keyboard = false;
   }
 
