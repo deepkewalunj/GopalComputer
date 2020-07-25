@@ -15,8 +15,8 @@ export class EmailService {
     return this.http.post<any>(environment.API_URL + 'Email/SendEmailToCA', formData);
   }
 
-  SendAccountStatementEmail(clientId){
-    return this.http.get<any>(environment.API_URL + 'Email/SendAccountStatementEmail?clientId='+clientId);
+  SendAccountStatementEmail(id, fd, fm, fy, td, tm, ty){
+    return this.http.get<any>(environment.API_URL + 'Email/SendAccountStatementEmail?id=' + id + '&fd=' + fd + '&fm=' + fm + '&fy=' + fy + '&td=' + td + '&tm=' + tm + '&ty=' + ty);
   }
 
 }

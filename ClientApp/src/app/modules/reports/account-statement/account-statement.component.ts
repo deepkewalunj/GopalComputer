@@ -11,7 +11,9 @@ import { ReportService } from 'src/app/services/report.service';
 import { FiscalYear } from 'src/app/models/FiscalYear.model';
 import { environment } from '../../../../environments/environment';
 import { QzTrayService } from '../../../services/qz-tray.service';
+import { EmailService } from 'src/app/services/email.service';
 
+declare var pdfMake: any;
 @Component({
   selector: 'app-account-statement',
   templateUrl: './account-statement.component.html',
@@ -37,7 +39,7 @@ export class AccountStatementComponent implements OnInit {
   maxDate = {};
   constructor(private ngbCalendar: NgbCalendar,
     private reportService: ReportService,
-    private typeAheadService: TypeAheadService, private printService: QzTrayService) {
+    private typeAheadService: TypeAheadService, private printService: QzTrayService, private emailService: EmailService) {
     this.maxDate = {
       year: new Date().getFullYear(),
       month: new Date().getMonth() + 1,
@@ -128,10 +130,6 @@ export class AccountStatementComponent implements OnInit {
 
   getBase64EncodedImage() {
     if (this.searchModel.customerName && this.searchModel.reportFromDate && this.searchModel.reportToDate) {
-      if (this.searchModel.reportToDate.before(this.searchModel.reportFromDate)) {
-        alert("From date should be less than to date");
-        return false;
-      }
       const that = this;
       that.isAcStatementPrinting = true;
       that.toDataUrl(environment.API_URL + 'PDF/PrintAccountStatement', that, function (base64Image) {
@@ -166,5 +164,21 @@ export class AccountStatementComponent implements OnInit {
       console.log(error);
     });
 
+  }
+  
+  getBase64EncodedImageSendEmail() {
+    if (this.searchModel.customerName && this.searchModel.reportFromDate && this.searchModel.reportToDate) {
+      const that = this;
+      that.emailService.SendAccountStatementEmail(that.searchModel.customerName.searchId, that.searchModel.reportFromDate.day, that.searchModel.reportFromDate.month, that.searchModel.reportFromDate.year, that.searchModel.reportToDate.day, that.searchModel.reportToDate.month, that.searchModel.reportToDate.year).subscribe(data => {
+        alert('Account statement sent successfully.')
+      }, error => {
+        console.log(error);
+      })
+    }
+    else {
+      this.searchModel.customerName = null;
+      this.isError = true;
+      this.isShow = false;
+    }
   }
 }

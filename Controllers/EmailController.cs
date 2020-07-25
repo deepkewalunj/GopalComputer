@@ -48,13 +48,13 @@ namespace Gopal.Controllers
             return Ok();
         }
         [HttpGet("SendAccountStatementEmail")]
-        public ActionResult SendAccountEmail(int clientId) {
+        public ActionResult SendAccountStatementEmail(int id, int fd, int fm, int fy, int td, int tm, int ty) {
             string protocol = _httpContextAccessor.HttpContext.Request.IsHttps ? "https" : "http";
             string requestUrl =$" {protocol}://{_httpContextAccessor.HttpContext.Request.Host.Value}";
 
             var restClient = new RestClient(requestUrl);
             var request = new RestRequest(Method.GET);
-            request.Resource = $"api/pdf/PrintAccountStatement?clientId={clientId}";
+            request.Resource = $"api/pdf/PrintAccountStatement?id={id}&fd={fd}&fm={fm}&fy={fy}&td={td}&tm={tm}&ty={ty}";
 
             byte[] response = restClient.DownloadData(request);
             if (response != null)
@@ -64,7 +64,7 @@ namespace Gopal.Controllers
                 emailModel.attachments = new List<EmailFileModel>();
                 emailModel.subject = "Account Statement- Gopal Computers";
                 emailModel.messageBody = "Please see the attached Account Statement.";
-                emailModel.toList.Add(_emailService.GetClientEmailAddressById(clientId));
+                emailModel.toList.Add(_emailService.GetClientEmailAddressById(id));
 
                 emailModel.attachments.Add(new EmailFileModel
                 {
