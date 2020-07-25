@@ -3,7 +3,7 @@
 
     <!--top header and side navigation start here-->
     <app-header *ngIf="sharedService.isLoggedIn()"></app-header>
-    <div class="side-nav expand-lg" *ngIf="sharedService.getRoleId()==1">
+    <div class="side-nav expand-lg" *ngIf="sharedService.isLoggedIn()">
         <app-sidebar></app-sidebar>
       </div>
     <!--top header and side navigation end here-->

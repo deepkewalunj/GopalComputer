@@ -3,7 +3,7 @@
 <div class="side-nav-inner">
   <ul class="side-nav-menu">
 
-    <li class="nav-item" (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': users.isActive }">
+    <li [hidden]="sharedService.isMenuShow('Users')" class="nav-item" (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': users.isActive }">
       <a class="nav-link" routerLink="/users" routerLinkActive #users="routerLinkActive">
         <i class="far fa-user"></i>
         <span class="menu-title">Users</span>
@@ -11,7 +11,7 @@
     </li>
 
     <!--master-meenu-->
-    <li class="nav-item" [routerLinkActive]="['active']">
+    <li [hidden]="sharedService.isMenuShow('Master')" class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" (click)="uiBasicCollapsed = !uiBasicCollapsed" [attr.aria-expanded]="uiBasicCollapsed"
          aria-controls="ui-list">
         <i class="fab fa-buromobelexperte"></i>
@@ -21,7 +21,7 @@
       <div class="collapse" id="ui-list" [ngbCollapse]="!uiBasicCollapsed" [ngClass]="{ 'show': isShown }">
         <ul class="nav flex-column sub-menu">
           <!--client-menu-->
-          <li class="nav-item" (click)="uiBasicCollapsedIn = false" [routerLinkActive]="['subActive']">
+          <li [hidden]="sharedService.isMenuShow('Client Master')" class="nav-item" (click)="uiBasicCollapsedIn = false" [routerLinkActive]="['subActive']">
             <a class="nav-link" (click)="uiBasicCollapsedr = !uiBasicCollapsedr"
                [attr.aria-expanded]="uiBasicCollapsedr" aria-controls="ui-list">
               <i class="far fa-circle"></i> <span class="menu-title"> Client Master</span>
@@ -30,7 +30,7 @@
 
             <div class="collapse" id="ui-list" [ngbCollapse]="!uiBasicCollapsedr" [ngClass]="{ 'show': isShown }">
               <ul class="nav flex-column sub-menu" [routerLinkActive]="['in']">
-                <li class="nav-item">
+                <li [hidden]="sharedService.isMenuShow('Client')" class="nav-item">
                   <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="master"
                      routerLinkActive="active" #clientMaster="routerLinkActive"><i class="fas fa-circle"></i> Client</a>
                 </li>
@@ -40,7 +40,7 @@
           </li>
           <!--client-menu-end-->
           <!--inward-menu-->
-          <li class="nav-item" (click)="uiBasicCollapsedr = false" [routerLinkActive]="['subActive']">
+          <li [hidden]="sharedService.isMenuShow('Inward Material')" class="nav-item" (click)="uiBasicCollapsedr = false" [routerLinkActive]="['subActive']">
             <a class="nav-link" (click)="uiBasicCollapsedIn = !uiBasicCollapsedIn"
                [attr.aria-expanded]="uiBasicCollapsedIn" aria-controls="ui-list">
               <i class="far fa-circle"></i> <span class="menu-title">Inward Material</span>
@@ -49,11 +49,11 @@
 
             <div class="collapse" id="ui-list" [ngbCollapse]="!uiBasicCollapsedIn" [ngClass]="{ 'show': isShown }">
               <ul class="nav flex-column sub-menu" [routerLinkActive]="['in']">
-                <li class="nav-item">
+                <li [hidden]="sharedService.isMenuShow('Inward')" class="nav-item">
                   <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/inward"
                      routerLinkActive="active" #inward="routerLinkActive"><i class="fas fa-circle"></i> Inward</a>
                 </li>
-                <li class="nav-item">
+                <li [hidden]="sharedService.isMenuShow('Material Type')" class="nav-item">
                   <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/material-type"
                      routerLinkActive="active" #materialType="routerLinkActive">
                     <i class="fas fa-circle"></i>
@@ -61,7 +61,7 @@
                   </a>
                 </li>
 
-                <li class="nav-item">
+                <li [hidden]="sharedService.isMenuShow('Inward Accessories')" class="nav-item">
                   <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/inward-accessories"
                      routerLinkActive="active" #inwardAccessories="routerLinkActive">
                     <i class="fas fa-circle"></i>
@@ -77,7 +77,7 @@
     </li>
     <!--inward-menu-end-->
 
-    <li class="nav-item" (click)="uiBasicCollapsedRepoIn = false" [routerLinkActive]="['active']">
+    <li [hidden]="sharedService.isMenuShow('Reports')" class="nav-item" (click)="uiBasicCollapsedRepoIn = false" [routerLinkActive]="['active']">
       <a class="nav-link" (click)="uiBasicCollapseRe = !uiBasicCollapseRe"
          [attr.aria-expanded]="uiBasicCollapseRe" aria-controls="ui-list">
         <i class="far fa-user"></i> <span class="menu-title"> Reports</span>
@@ -86,23 +86,23 @@
 
       <div class="collapse" id="ui-list" [ngbCollapse]="!uiBasicCollapseRe" [ngClass]="{ 'show': isShown }">
         <ul class="nav flex-column sub-menu" [routerLinkActive]="['subActive']">
-          <li class="nav-item">
+          <li [hidden]="sharedService.isMenuShow('Bill Reports')" class="nav-item">
             <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="reports/bill-report"
                routerLinkActive="active"><i class="fas fa-circle"></i> Bill Reports</a>
           </li>
-          <li class="nav-item">
+          <li [hidden]="sharedService.isMenuShow('Outward Reports')" class="nav-item">
             <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="reports/outward-report"
                routerLinkActive="active"><i class="fas fa-circle"></i> Outward Reports</a>
           </li>
-          <li class="nav-item">
+          <li [hidden]="sharedService.isMenuShow('Inward Reports')" class="nav-item">
             <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="reports/inward-report"
                routerLinkActive="active"><i class="fas fa-circle"></i> Inward Reports</a>
           </li>
-          <li class="nav-item">
+          <li [hidden]="sharedService.isMenuShow('Client O/S Reports')" class="nav-item">
             <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="reports/client-outstanding-report"
                routerLinkActive="active"><i class="fas fa-circle"></i> Client O/S Reports</a>
           </li>
-          <li class="nav-item">
+          <li [hidden]="sharedService.isMenuShow('Account Statement')" class="nav-item">
             <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="reports/account-statement"
                routerLinkActive="active"><i class="fas fa-circle"></i>Account Statement</a>
           </li>
@@ -111,7 +111,7 @@
       </div>
     </li>
 
-    <li class="nav-item" (click)="uiBasicCollapsedPayIn = false" [routerLinkActive]="['active']">
+    <li [hidden]="sharedService.isMenuShow('Payment')" class="nav-item" (click)="uiBasicCollapsedPayIn = false" [routerLinkActive]="['active']">
       <a class="nav-link" (click)="uiBasicCollapsePay = !uiBasicCollapsePay"
          [attr.aria-expanded]="uiBasicCollapsePay" aria-controls="ui-list">
         <i class="fas fa-rupee-sign"></i> <span class="menu-title"> Payment</span>
@@ -120,18 +120,18 @@
 
       <div class="collapse" id="ui-list" [ngbCollapse]="!uiBasicCollapsePay" [ngClass]="{ 'show': isShown }">
         <ul class="nav flex-column sub-menu" [routerLinkActive]="['subActive']">
-          <li class="nav-item">
+          <li [hidden]="sharedService.isMenuShow('Lumpsum')" class="nav-item">
             <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="payment/lumpsum"
                routerLinkActive="active"><i class="fas fa-circle"></i> Lumpsum</a>
           </li>
-          <li class="nav-item">
+          <li [hidden]="sharedService.isMenuShow('Billing List')" class="nav-item">
             <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/billing-list"
                routerLinkActive="active" #billingList="routerLinkActive">
               <i class="fas fa-circle"></i>
               Billing List
             </a>
           </li>
-          <li class="nav-item">
+          <li [hidden]="sharedService.isMenuShow('Outward List')" class="nav-item">
             <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/inward-material/outward-list"
                routerLinkActive="active" #outwardList="routerLinkActive">
               <i class="fas fa-circle"></i>
@@ -142,7 +142,7 @@
       </div>
     </li>
 
-    <li class="nav-item" (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': users.isActive }">
+    <li [hidden]="sharedService.isMenuShow('SMS')" class="nav-item" (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': users.isActive }">
       <a class="nav-link">
         <i class="fas fa-sms"></i>
         <span class="menu-title">SMS Count : {{sharedService.smsCount()}}</span>

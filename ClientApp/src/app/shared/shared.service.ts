@@ -17,7 +17,7 @@ export class SharedService {
     return helper.decodeToken(localStorage.getItem('TokenInfo'));
   }
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     if (localStorage.getItem('TokenInfo')) {
       return true;
     }
@@ -49,4 +49,14 @@ export class SharedService {
     return JSON.parse(this.AUTH_TOKEN.modules);
   }
 
+  isMenuShow(moduleName): boolean {
+    var permissions = this.getPermissions();
+    let validModule = permissions.find(x => x.ModuleName == moduleName);
+    if (validModule) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
 }

@@ -232,12 +232,20 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.modulePermission.push({ isChecked: false, moduleId: 2, moduleName: "Client Master" });
     this.modulePermission.push({ isChecked: false, moduleId: 3, moduleName: "Client" });
     this.modulePermission.push({ isChecked: false, moduleId: 4, moduleName: "Inward Material" });
-    this.modulePermission.push({ isChecked: false, moduleId: 5, moduleName: "Inward Master" });
+    this.modulePermission.push({ isChecked: false, moduleId: 5, moduleName: "Inward" });
     this.modulePermission.push({ isChecked: false, moduleId: 6, moduleName: "Material Type" });
-    this.modulePermission.push({ isChecked: false, moduleId: 7, moduleName: "Material Company" });
-    this.modulePermission.push({ isChecked: false, moduleId: 8, moduleName: "Inward Accessories" });
-    this.modulePermission.push({ isChecked: false, moduleId: 9, moduleName: "Transaction" });
-    this.modulePermission.push({ isChecked: false, moduleId: 10, moduleName: "Report" });
+    this.modulePermission.push({ isChecked: false, moduleId: 7, moduleName: "Inward Accessories" });
+    this.modulePermission.push({ isChecked: false, moduleId: 8, moduleName: "Reports" });
+    this.modulePermission.push({ isChecked: false, moduleId: 9, moduleName: "Bill Reports" });
+    this.modulePermission.push({ isChecked: false, moduleId: 10, moduleName: "Outward Reports" });
+    this.modulePermission.push({ isChecked: false, moduleId: 11, moduleName: "Inward Reports" });
+    this.modulePermission.push({ isChecked: false, moduleId: 12, moduleName: "Client O/S Reports" });
+    this.modulePermission.push({ isChecked: false, moduleId: 13, moduleName: "Account Statement" });
+    this.modulePermission.push({ isChecked: false, moduleId: 14, moduleName: "Payment" });
+    this.modulePermission.push({ isChecked: false, moduleId: 15, moduleName: "Lumpsum" });
+    this.modulePermission.push({ isChecked: false, moduleId: 16, moduleName: "Billing List" });
+    this.modulePermission.push({ isChecked: false, moduleId: 17, moduleName: "Outward List" });
+
   }
 
 

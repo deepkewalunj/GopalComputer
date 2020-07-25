@@ -157,6 +157,10 @@ namespace Gopal.Services.User
                 user.ModifiedDate = DateTime.Now;
                 user.ModifiedBy= GetCurrentUserId();
                 _dbContext.SaveChanges();
+
+                var modulePermission = _dbContext.TblModulePermission.Where(x => x.UserUserIdRef == userId).ToList();
+                _dbContext.RemoveRange(modulePermission);
+                _dbContext.SaveChanges();
                 return userId;
             }
             return 0;
