@@ -80,14 +80,14 @@ namespace Gopal.Services.User
                     where per.UserUserIdRef == userId && per.IsDeleted != true && mod.IsDeleted != true
                     select new { mod.ModuleId, mod.ModuleName }
                     ).ToList();
-                //_dbContext.TblModulePermission.Where(x => x.IsDeleted != true && x.UserUserIdRef == userId).ToList();
+               
 
 
         }
 
         public List<TblUser> GetUsers()
         {
-            return _dbContext.TblUser.Where(x => x.IsDeleted != true && x.UserRole != 1).ToList();
+            return _dbContext.TblUser.Where(x => x.IsDeleted != true && x.UserRole != 1).OrderByDescending(x=>x.CreatedDate).ToList();
         }
 
         public object SaveUserData(UserDetailsInputModel model)
