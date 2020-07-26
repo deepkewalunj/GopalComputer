@@ -212,7 +212,11 @@ getInwardById(inwardId)
       {
         this.inward.inwardFiles=[];
       }
-      this.inward.accessories="";
+    this.inward.accessories = "";
+
+    if (!this.inward.isOutwardOrBillExist && this.sharedService.getRoleId() != 1 && this.inwardId > 0) {
+      this.inward.isOutwardOrBillExist = true;
+    }
 
   },error=>{
 

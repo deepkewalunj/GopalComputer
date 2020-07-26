@@ -38,7 +38,7 @@
                     <td data-title="Bill/Outward Status">{{ inward.outwardBillStatus}}</td>
                     <td data-title="Actions" class="action text-center actions-td">
                       <div class="d-flex justify-content-center">
-                        <a  *ngIf="sharedService.getRoleId()==1" href="javascript:void(0)">
+                        <a href="javascript:void(0)">
                           <i class="far fa-edit orange" placement="top"
                              ngbTooltip="Edit" (click)="addEditInward(inward.inwardId)"></i>
                         </a>
