@@ -43,13 +43,18 @@ export class OutwardComponent implements OnInit {
   outwardForm: FormGroup;
 
   outwardId: number;
-
+  maxDate = {};
   // we used reactive forms and validations
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private outwardService: OutwardService, private typeAheadService: TypeAheadService,
     private route: ActivatedRoute, private router: Router,
     private ngbCalendar: NgbCalendar) {
     this.createForm();
+    this.maxDate = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDate()
+    };
   }
 
   createForm() {

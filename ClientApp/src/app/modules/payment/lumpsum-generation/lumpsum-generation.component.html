@@ -93,7 +93,7 @@
             <div class="form-group">
               <div class="input-group datepicker">
                 <label class="date-label">Hand Over Date</label>
-                <input autocomplete="new"  class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="lumpsum.ngbLumpsumDate" name="dp"
+                <input autocomplete="new"  [maxDate]="maxDate" class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="lumpsum.ngbLumpsumDate" name="dp"
                        ngbDatepicker
                        #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="lumpsumDate">
                 <div class="input-group-append">

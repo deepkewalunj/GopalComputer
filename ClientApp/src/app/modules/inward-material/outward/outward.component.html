@@ -148,7 +148,7 @@
             <div class="form-group">
               <div class="input-group datepicker">
                 <label class="date-label">Outward Date</label>
-                <input autocomplete="new"  class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="outward.ngbOutwardDate" name="dp"
+                <input autocomplete="new"  [maxDate]="maxDate" class="form-control" placeholder="dd-mm-yyyy" [(ngModel)]="outward.ngbOutwardDate" name="dp"
                        ngbDatepicker
                        #d1="ngbDatepicker" (click)="d1.toggle()" formControlName="outwardDate">
                 <div class="input-group-append">
