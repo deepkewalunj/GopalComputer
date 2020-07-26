@@ -325,12 +325,12 @@
                 </div>
               </div>
                   <div class="col-12 col-md-6 col-lg-4">
-                      <div class="form-group has-float-label"  *ngIf="inward.isOutwardOrBillExist==false">
+                      <div class="form-group has-float-label"  *ngIf="inward.isOutwardOrBillExist==false && ((sharedService.getRoleId() == 1) || (sharedService.getRoleId() != 1 && (inwardId <= 0 || !inwardId)))">
                           <input class="form-control" autocomplete="new" type="number"   [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="inward.advanceAmount"  maxlength="17"  id="advAmount" placeholder="Advance Amount">
                           <label for="advAmount">Advance Amount</label>
                       </div>
-                      <div class="form-group has-float-label"  *ngIf="inward.isOutwardOrBillExist==true">
+                      <div class="form-group has-float-label"  *ngIf="inward.isOutwardOrBillExist==true || (sharedService.getRoleId() != 1 && inwardId > 0)">
                         <label for="advAmount">Advance Amount : {{inward.advanceAmount}}</label>
                     </div>
                   </div>
