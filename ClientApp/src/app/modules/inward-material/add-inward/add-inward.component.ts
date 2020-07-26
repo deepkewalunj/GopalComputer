@@ -21,6 +21,7 @@ import { AddUpdateModelNoMaterialTypeComponent } from '../add-update-model-no-ma
 import { SearchModelNoMaterialTypeCompanyNameService } from 'src/app/services/search-model-no-material-type-company-name.service';
 import { AccessoryInputModel } from 'src/app/models/AccessoryInputModel';
 import { AddEditAccessoryComponent } from '../add-edit-accessory/add-edit-accessory.component';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-add-inward',
@@ -80,12 +81,17 @@ billStatuses=CommonModel.getInwardOutwardBillStatuses();
 printStatuses=CommonModel.getInwardOutwardPrintStatuses();
 repeatJobs=CommonModel.getInwardRepeatJobs();
 smsStatuses=CommonModel.getInwardSmsStatuses();
-
+  maxDate = {};
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private inwardService:InwardService,private typeAheadService:TypeAheadService,
     private route: ActivatedRoute,private router:Router,
-    private ngbCalendar: NgbCalendar,private printService: QzTrayService) {
-   this.createForm();
+    private ngbCalendar: NgbCalendar, private printService: QzTrayService, public sharedService: SharedService) {
+    this.createForm();
+    this.maxDate = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDate()
+    };
   }
 
   createForm() {

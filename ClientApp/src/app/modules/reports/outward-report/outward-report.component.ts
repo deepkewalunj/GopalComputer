@@ -37,10 +37,15 @@ export class OutwardReportComponent implements OnInit {
   searchFailed = false;
   inwardAddressPrint:string;
   inwardAddressPhoneNoPrint:string;
-
+  maxDate = {};
   constructor(private ngbCalendar: NgbCalendar,
      private reportService:ReportService,
-     private typeAheadService:TypeAheadService) { }
+    private typeAheadService: TypeAheadService) {
+    this.maxDate = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDate()
+    };}
 
   ngOnInit() {
 

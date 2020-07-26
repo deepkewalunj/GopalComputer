@@ -12,7 +12,7 @@
                       <div class="form-group">
                           <div class="input-group datepicker">
                               <label class="date-label">Inward Date</label>
-                              <input class="form-control" autocomplete="new"  placeholder="dd-mm-yyyy" [(ngModel)]="inward.ngbInwardDate" name="dp"
+                              <input class="form-control"  [maxDate]="maxDate" autocomplete="new"  placeholder="dd-mm-yyyy" [(ngModel)]="inward.ngbInwardDate" name="dp"
                               ngbDatepicker
                                   #d1="ngbDatepicker" (click)="d1.toggle()"  formControlName="inwardDate">
                               <div class="input-group-append">

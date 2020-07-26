@@ -43,13 +43,18 @@ export class BillGenerationComponent implements OnInit {
   billGenerationForm: FormGroup;
 
   billId: number;
-
+  maxDate = {};
   // we used reactive forms and validations
   constructor(private fb: FormBuilder, private modalService: NgbModal,
     private billService: BillService, private typeAheadService: TypeAheadService,
     private route: ActivatedRoute, private router: Router,
     private ngbCalendar: NgbCalendar) {
     this.createForm();
+    this.maxDate = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDate()
+    };
   }
 
   createForm() {
