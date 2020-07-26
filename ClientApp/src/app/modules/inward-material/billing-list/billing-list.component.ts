@@ -107,7 +107,7 @@ export class BillingListComponent implements AfterViewInit, OnDestroy, OnInit {
               data: []
             });
           });
-      },
+      },order: [[ 5, "desc" ]],
       columns: [{ data: 'billId', searchable: true, orderable: true }, { data: 'billDate', searchable: true, orderable: true },
         { data: 'jobNumbers', searchable: true, orderable: true }, { data: 'customerName', searchable: false, orderable: true }, { data: 'serviceAmount', searchable: true, orderable: true },
       { data: null, searchable: false, orderable: false }]
@@ -139,7 +139,7 @@ export class BillingListComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
-  
+
   public changeSuccessMessage() {
     this._success.next('Bill deleted successfully.');
   }

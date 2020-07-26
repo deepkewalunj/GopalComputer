@@ -107,7 +107,7 @@ export class LumpsumComponent implements AfterViewInit, OnDestroy, OnInit {
               data: []
             });
           });
-      },
+      },order: [[ 4, "desc" ]],
       columns: [{ data: 'lumpsumId', searchable: true, orderable: true }, { data: 'lumpsumDate', searchable: true, orderable: true },
         { data: 'companyName', searchable: false, orderable: true }, { data: 'paidAmount', searchable: true, orderable: true },
       { data: null, searchable: false, orderable: false }]

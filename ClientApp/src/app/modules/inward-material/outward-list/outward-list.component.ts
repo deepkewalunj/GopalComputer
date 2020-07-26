@@ -107,7 +107,7 @@ export class OutwardListComponent implements AfterViewInit, OnDestroy, OnInit {
               data: []
             });
           });
-      },
+      },order: [[ 5, "desc" ]],
       columns: [{ data: 'outwardId', searchable: true, orderable: true }, { data: 'outwardDate', searchable: true, orderable: true },
       { data: 'jobNumbers', searchable: true, orderable: true }, { data: 'customerName', searchable: false, orderable: true }, { data: 'serviceAmount', searchable: true, orderable: true },
       { data: null, searchable: false, orderable: false }]

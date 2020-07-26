@@ -41,7 +41,7 @@ namespace Gopal.Services.MaterialType
 
         public List<TblSearchModelNoMaterialTypeCompanyName> GetSearchModelNoMaterialTypeCompanyNames()
         {
-            return _dbContext.TblSearchModelNoMaterialTypeCompanyName.Where(x => x.IsDeleted != true).ToList();
+            return _dbContext.TblSearchModelNoMaterialTypeCompanyName.Where(x => x.IsDeleted != true).OrderByDescending(x=>x.CreatedDate).ToList();
         }
 
         public object SaveSearchModelNoMaterialTypeCompanyNameData(tblSearchModelNoMaterialTypeCompanyNameInputModel model)
