@@ -68,5 +68,11 @@ namespace Gopal.Controllers
         {
             return Ok(_paymentServices.DeleteLumpsum(lumpsumId));
         }
+
+        [HttpPost]
+        [Route("GetPaymentDetailsBySearch")]
+        public ActionResult GetPaymentDetailsBySearch(GetPaymentDetailsBySearchModel searchModel) {
+            return Ok(_paymentServices.GetPaymentDetailsBySearch(searchModel));
+        }
     }
 }

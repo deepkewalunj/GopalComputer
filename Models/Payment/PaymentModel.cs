@@ -66,4 +66,44 @@ namespace Gopal.Models.Payment
         public string  customerName { get; set; }
 
     }
+
+    public class GetPaymentDetailsBySearchModel {
+        public NgbDateModel startDate { get; set; }
+        public NgbDateModel endDate { get; set; }
+    }
+
+    public class PaymentByMethod {
+        public int id { get; set; }
+        public string jobNumber { get; set; }
+        public string billDate { get; set; }
+        public string companyName { get; set; }
+        public string billReportStatus { get; set; }
+        public string engineerName { get; set; }
+        public float paidImmediately { get; set; }
+    }
+    public class PaymentByListModel {
+        public string methodType { get; set; }
+        public List<PaymentByMethod> lstPaymentbymethod { get; set; }
+        public float? paymentByMethodTotal { get{ return lstPaymentbymethod?.Sum(x => x.paidImmediately);} }
+    }
+    public class PaymentListModel {
+        public string normalPrinterName { get; set; }
+        public string inwardAddressPrint { get; set; }
+        public string inwardAddressPhoneNoPrint { get; set; }
+        public List<PaymentByListModel> paymentListModel { get; set; }
+        public float? paymentListTotal { get { return paymentListModel?.Sum(x => x.paymentByMethodTotal); } }
+    }
+
+    public enum PAYMENT_BY
+    {
+        Cash=1,
+        Cheque=2,
+        Online_Transfer=3,
+        Google_Pay=4,
+        Phone_Pay=5,
+        Other=6
+
+
+    }
 }
+

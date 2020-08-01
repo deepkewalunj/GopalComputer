@@ -14,5 +14,6 @@ namespace Gopal.Services.Payment
         LumpsumTypeScriptModel GetLumpsumById(int lumpsumId);
         int DeleteLumpsum(int lumpsumId);
         statementAmounts getStatementAmount(int clientRefId);
+        PaymentListModel GetPaymentDetailsBySearch(GetPaymentDetailsBySearchModel searchModel);
     }
 }

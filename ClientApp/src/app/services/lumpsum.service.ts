@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { GetPaymentDetailsBySearchModel } from '../models/Lumpsum.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class LumpsumService {
 
   constructor(private http: HttpClient) { }
 
-  
+
   getStatementAmount(clientRefId: number) {
     return this.http.get<any>(environment.API_URL + 'Payment/getStatementAmount?clientRefId=' + clientRefId);
   }
@@ -48,6 +49,11 @@ export class LumpsumService {
 
   getOutwardByOutwardById(lumpsumId: number) {
     return this.http.get<any>(environment.API_URL + 'Payment/GetOutwardByOutwardById?lumpsumId=' + lumpsumId);
+  }
+
+  getPaymentDetailsBySearch(searchModel: GetPaymentDetailsBySearchModel) {
+    return this.http.post<any>(environment.API_URL + 'Payment/GetPaymentDetailsBySearch', searchModel);
+
   }
 
 }

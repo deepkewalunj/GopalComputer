@@ -8,7 +8,18 @@ namespace Gopal.Models.Customer
 {
 
 
-   
+    public static class NgbDateModelToDatetime {
+        public static DateTime? ToDateTime(this NgbDateModel ngbDateModel) {
+            if (ngbDateModel == null)
+            {
+                return (DateTime?)null;
+            }
+            return new DateTime(ngbDateModel.year, ngbDateModel.month, ngbDateModel.day);
+        }
+
+    }
+
+
     public class NgbDateModel
     {
         public int year { get; set; }

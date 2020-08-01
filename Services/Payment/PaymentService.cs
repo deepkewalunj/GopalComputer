@@ -255,6 +255,68 @@ namespace Gopal.Services.Payment
             
             return responceStatement;
         }
+        public PaymentListModel GetPaymentDetailsBySearch(GetPaymentDetailsBySearchModel searchModel) {
+            PaymentListModel listModel = new PaymentListModel();
+            var masterData = _dbContext.TblMaster.ToList();
+            listModel.normalPrinterName = masterData.FirstOrDefault(x => x.MasterKey == "NORMAL_PRINTER")?.MasterValue;
+            listModel.inwardAddressPrint = masterData.FirstOrDefault(x => x.MasterKey == "INWARD_ADDRESS")?.MasterValue;
+            listModel.inwardAddressPhoneNoPrint = masterData.FirstOrDefault(x => x.MasterKey == "INWARD_PHONE_NO")?.MasterValue;
+            var cashList = GetPaymentListByMethod(PAYMENT_BY.Cash, searchModel);
+            if (cashList.lstPaymentbymethod?.Count > 0) {
+               
+                listModel.paymentListModel.Add(cashList);
+            }
+            var googlePayList = GetPaymentListByMethod(PAYMENT_BY.Google_Pay, searchModel);
+            if (googlePayList.lstPaymentbymethod?.Count > 0)
+            {
+               
+                listModel.paymentListModel.Add(googlePayList);
+            }
+            var phonePayList = GetPaymentListByMethod(PAYMENT_BY.Phone_Pay, searchModel);
+            if (phonePayList.lstPaymentbymethod?.Count > 0)
+            {
+                
+                listModel.paymentListModel.Add(phonePayList);
+            }
+            return listModel;
+        }
+
+        private PaymentByListModel GetPaymentListByMethod(PAYMENT_BY paymentBy, GetPaymentDetailsBySearchModel searchModel) {
+            PaymentByListModel lstModel = new PaymentByListModel();
+
+            lstModel.methodType = GetPaymentMethodByEnum(paymentBy);
+            DateTime? startDate = searchModel.startDate.ToDateTime();
+            DateTime? endDate = searchModel.endDate.ToDateTime();
+            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
+            {
+                lstModel.lstPaymentbymethod = connection.Query<PaymentByMethod>("usp_GetPaymentDetailByMethod",
+                     new { startDate, endDate, paymentMethod=(int)paymentBy
+                     }, commandType: CommandType.StoredProcedure)?.ToList();
+            }
+            return lstModel;
+        }
+
+        private String GetPaymentMethodByEnum(PAYMENT_BY paymentBy) {
+            String methodType = String.Empty;
+            switch (paymentBy)
+            {
+                case PAYMENT_BY.Cash:
+
+                    methodType = "Cash";
+                    break;
+                case PAYMENT_BY.Google_Pay:
+
+                    methodType = "Google Pay";
+                    break;
+                case PAYMENT_BY.Phone_Pay:
+
+                    methodType = "Phone Pay";
+                    break;
+                    
+            }
+            return methodType;
+        }
+
     }
 }
 

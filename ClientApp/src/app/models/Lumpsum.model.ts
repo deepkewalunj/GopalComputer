@@ -34,3 +34,30 @@ export class Lumpsum{
   inwardAddressPhoneNoPrint: string;
 }
 
+
+export class GetPaymentDetailsBySearchModel {
+   startDate :NgbDate;
+   endDate:NgbDate;
+}
+
+export class PaymentByMethod {
+  id :number;
+    jobNumber :string;
+    billDate :string;
+    companyName :string;
+    billReportStatus :string;
+    engineerName :string;
+    paidImmediately :number
+}
+export class PaymentByListModel {
+    methodType:string;
+    lstPaymentbymethod :PaymentByMethod[];
+   paymentByMethodTotal :number;
+}
+export class PaymentListModel {
+   normalPrinterName :string;
+   inwardAddressPrint:string;
+   inwardAddressPhoneNoPrint :string;
+  paymentListModel :PaymentByListModel[];
+  paymentListTotal :number
+}
