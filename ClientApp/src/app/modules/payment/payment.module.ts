@@ -8,11 +8,12 @@ import { PaymentRoutingModule } from './payment-routing.module';
 import { LumpsumComponent } from './lumpsum/lumpsum.component';
 import { LumpsumGenerationComponent } from './lumpsum-generation/lumpsum-generation.component';
 import { LumpsumPrintComponent } from './lumpsum-print/lumpsum-print.component';
+import { BillDetailsComponent } from './bill-details/bill-details.component';
 
 
 
 @NgModule({
-  declarations: [LumpsumComponent, LumpsumGenerationComponent, LumpsumPrintComponent],
+  declarations: [LumpsumComponent, LumpsumGenerationComponent, LumpsumPrintComponent, BillDetailsComponent],
   imports: [
     CommonModule,
     PaymentRoutingModule,

@@ -80,7 +80,7 @@
     <li [hidden]="sharedService.isMenuShow('Reports')" class="nav-item" (click)="uiBasicCollapsedRepoIn = false" [routerLinkActive]="['active']">
       <a class="nav-link" (click)="uiBasicCollapseRe = !uiBasicCollapseRe"
          [attr.aria-expanded]="uiBasicCollapseRe" aria-controls="ui-list">
-        <i class="far fa-user"></i> <span class="menu-title"> Reports</span>
+         <i class="far fa-file-alt"></i> <span class="menu-title"> Reports</span>
         <i class="fa fa-arrow-circle-right menu-arrow" aria-hidden="true"></i>
       </a>
 
@@ -138,6 +138,13 @@
               Outward List
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/payment/bill-details"
+               routerLinkActive="active" #outwardList="routerLinkActive">
+              <i class="fas fa-circle"></i>
+             Bill Details
+            </a>
+          </li>
         </ul>
       </div>
     </li>
@@ -145,7 +152,7 @@
     <li [hidden]="sharedService.isMenuShow('SMS')" class="nav-item" (click)="deviceSidemenuCollapse()" [ngClass]="{ 'active': users.isActive }">
       <a class="nav-link">
         <i class="fas fa-sms"></i>
-        <span class="menu-title">SMS Count : {{sharedService.smsCount()}}</span>
+        <span class="menu-title sms-title">SMS Count : {{sharedService.smsCount()}}</span>
       </a>
     </li>
 
