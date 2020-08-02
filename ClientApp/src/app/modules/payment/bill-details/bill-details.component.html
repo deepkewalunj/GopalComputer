@@ -3,237 +3,144 @@
 <div class="container-fluid">
     <div class="card mb-4 list-card">
       <div class="card-header">
-        <h4 class="float-left">Bill Details</h4>
-        <a href="javascript:void(0)" class="btn  btn-primary float-right">Print</a>
+
+
       </div>
       <div class="card-body pt-0">
-        <!DOCTYPE html>
-        <html lang="en"  id="print-section">
-        <head>
-          <meta charset="utf-8">
-          <title>Account Statement</title>
-          <!--<link rel="stylesheet" href="style.css" media="all" />-->
-          <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap' rel='stylesheet' type='text/css'>
-        
-          <style>
-            /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap'); */
-        
-            @media print {
-                body {
-                   font-family:Arial, Helvetica, sans-serif !important;
-                   font-family: 'Poppins', sans-serif !important;
-                   padding: 0 !important;
-                }
-              }
-          </style>
-        </head>
-        <body style="padding: 0 0px;page-break-after:always; background: #fff; font-family: 'Poppins', sans-serif !important;">
-            <!--customer-copy-start-->
-          <main style="width:100%; margin-left:auto; margin-right:auto">
-         <div class="clearfix" style=" page-break-after:before; padding: 0px 0;
-          margin-bottom: 10px;
-          border: 0px solid #ccc;
-          margin-top: 10px;">
-            <div id="logo" style=" text-align: center;
-            margin-bottom: 10px;">
-              <table style="background:transparent; margin-bottom:0; width: 100%;">
-                <tr>
-                  <td style="padding:0; width: 50%; background: transparent">
-                    <h4 style="font-weight: 700;
-                    font-size: 2.375rem;
-                    letter-spacing: 3px;
-                    color: #1c0f3a;
-                    margin: 0;
-                    text-align: left;font-family: 'Poppins', sans-serif !important;">GOPAL</h4>
-                    <p style="font-size: 0.875rem;
-                    line-height: 7px;
-                    letter-spacing: 0.406rem;
-                    text-transform: uppercase;
-                    position: relative;
-                    left: 3px;
-                    color: #FF4081;
-                    font-weight: 600;
-                    margin: 0 0 10px 0;
-                    text-align: left;">Computers</p>
-                  </td>
-                  <td style="padding:0; background: transparent; width: 50%; text-align: right;"></td>
-                </tr>
-              </table>
-            </div>
-            <div class="address" style=" border-top: 1px solid #C1CED9;
-            border-bottom: 1px solid #C1CED9;
-            margin: 0 0 0px 0;
-            padding: 7px;
-            background: #f5f5f5;">
-              <p style="margin:0; font-weight:500; font-size: 14px;">
-                Flat No 4, B Wing, Viththal Park, Samant Vadi, Near Ashok Stambh, Kashiba Medical Back side, Gangapur Road, Nashik - 422002.
-                <strong>Contact</strong>: 9867545678, 9867545678
-              </p>
-            </div>
+        <h5 style="text-transform: uppercase; text-align: center;font-size: 18px;line-height: 30px;margin: 0;">PAYMENT DETAILS</h5>
+
+        <button [disabled]="isPaymentDetailPrinting" (click)="getBase64EncodedImage()" class="btn  btn-primary float-right">Print</button>
+        <form  class="search-filter d-none d-md-block" [ngClass]="searchFilter ? 'd-block' : 'd-none'">
+          <div class="row mb-2">
+
+
+              <div class="col-sm">
+                  <div class="form-group">
+                      <div class="input-group datepicker">
+                          <label class="date-label">From Date</label>
+                          <input autocomplete="new"  [maxDate]="maxDate" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="paymentSearchModel.startDate"  placeholder="dd-mm-yyyy" name="dp"
+                          ngbDatepicker
+                              #d1="ngbDatepicker" (click)="d1.toggle()">
+                          <div class="input-group-append">
+                              <button  class="btn btn-outline-secondary calendar" (click)="d1.toggle()"
+                                  type="button" ><i class="far fa-calendar-alt"></i></button>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+              <div class="col-sm">
+                  <div class="form-group">
+                      <div class="input-group datepicker">
+                          <label class="date-label">To Date</label>
+                          <input autocomplete="new"  [maxDate]="maxDate" class="form-control" [ngModelOptions]="{standalone: true}"  placeholder="dd-mm-yyyy" name="dp"
+                          ngbDatepicker [(ngModel)]="paymentSearchModel.endDate"
+                              #d2="ngbDatepicker" (click)="d2.toggle()">
+                          <div class="input-group-append">
+                              <button  class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
+                                  type="button" ><i class="far fa-calendar-alt"></i></button>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+              <div class="col-sm text-right">
+                  <div class="form-group">
+                      <button type="reset" (click)="clearFilter()" class="btn btn-outline btn-outline-dark">Reset</button>
+                      <button type="button" (click)="GetPaymentModel()" class="btn btn-outline btn-outline-dark">Search</button>
+                  </div>
+              </div>
           </div>
-        
-            <h5 style="text-transform: uppercase; text-align: center;font-size: 18px;line-height: 30px;margin: 0;">BILL DETAILS</h5>
-            <p style="text-align: center;font-size: 14px;line-height: 25px;margin: 0;font-weight: bold;">01/01/2020 TO 07/072020</p>
-            <table style="background:transparent; margin-top:15px; margin-bottom:20px; width: 100%;border:0px solid #ccc; border-collapse: collapse;">
-             <thead>
-                                 <tr>
-                                    <th style="padding: 5px 5px;
-                                      background: #f5f5f5;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: middle; text-align:left; width:14%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Job #.</th>
-                                      <th style="padding: 5px 5px;
-                                      background: #f5f5f5;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: middle; text-align:left; width:12%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Bill Date</th>
-                                      <th style="padding: 5px 5px;
-                                      background: #f5f5f5;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: middle; text-align:left; width:23%;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">Client Name </th>
-                                   
-                                      <th style="padding: 5px 5px;
-                                      background: #f5f5f5;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: middle; text-align:left; width:20%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Engineer Name</th>
-                                
-                                      <th style="padding: 5px 5px;
-                                      background: #f5f5f5;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: middle; text-align:left; width:15%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Payment Mode</th>
-                                      <th style="padding: 5px 5px;
-                                      background: #f5f5f5;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: middle; text-align:right; width:15%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Paid Immidiatly</th>
-                                 </tr>
-                               
-                                  </thead>
-                                  <tbody>
-                                  <!--cash record-->
-                                    <tr>
-                                      <td colspan="6" style="padding: 15px 5px;text-align: center;font-size: 14px;
-                                      line-height: 18px; font-weight: bold;">Cash</td>
-                                 </tr>
-                                 <tr>
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">1234567</td>
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">09/09/2020</td>
-                                 
-                                        <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">Infosys System, Pune</td>
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">Abhishek Kumar</td>
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">Cash</td>
-                                     
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:right;">5000/-</td>
-                                 </tr>
-                                     <tr>
-                                        <td colspan="6" style="text-align: right;font-size: 14px;line-height: 18px;padding: 10px 5px; font-weight:bold; border-bottom: 1px solid #ccc;">7500</td>
-                                    </tr>
-                                    <!--phone pay record-->
-                                    <tr>
-                                      <td colspan="6" style="padding: 15px 5px;text-align: center;font-size: 14px;
-                                      line-height: 18px; font-weight: bold;">PhonePe</td>
-                                 </tr>
+      </form>
+        <table style="background:transparent; margin-top:15px; margin-bottom:20px; width: 100%;border:0px solid #ccc; border-collapse: collapse;">
+         <thead>
+                             <tr>
+                                <th style="padding: 5px 5px;
+                                  background: #f5f5f5;
+                                  font-size: 12px;
+                                  line-height: 18px; vertical-align: middle; text-align:left; width:14%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Job #.</th>
+                                  <th style="padding: 5px 5px;
+                                  background: #f5f5f5;
+                                  font-size: 12px;
+                                  line-height: 18px; vertical-align: middle; text-align:left; width:12%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Bill Date</th>
+                                  <th style="padding: 5px 5px;
+                                  background: #f5f5f5;
+                                  font-size: 12px;
+                                  line-height: 18px; vertical-align: middle; text-align:left; width:23%;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">Client Name </th>
+
+                                  <th style="padding: 5px 5px;
+                                  background: #f5f5f5;
+                                  font-size: 12px;
+                                  line-height: 18px; vertical-align: middle; text-align:left; width:20%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Engineer Name</th>
+
+                                  <th style="padding: 5px 5px;
+                                  background: #f5f5f5;
+                                  font-size: 12px;
+                                  line-height: 18px; vertical-align: middle; text-align:left; width:15%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Bill/Outward Status</th>
+                                  <th style="padding: 5px 5px;
+                                  background: #f5f5f5;
+                                  font-size: 12px;
+                                  line-height: 18px; vertical-align: middle; text-align:right; width:15%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Paid Immediately</th>
+                             </tr>
+
+                              </thead>
+                              <tbody>
+                              <!--cash record-->
+                              <ng-container *ngIf="paymentListModel && paymentListModel.paymentListModel.length>0">
+                                <ng-container  *ngFor="let listModel of paymentListModel.paymentListModel">
                                   <tr>
+                                    <td colspan="6" style="padding: 15px 5px;text-align: center;font-size: 14px;
+                                    line-height: 18px; font-weight: bold;">{{listModel.methodType}}</td>
+                               </tr>
+                               <tr  *ngFor="let paymentModel of listModel.lstPaymentbymethod">
+                                    <td style="padding: 5px 5px;
+                                    background: transparent;
+                                    font-size: 12px;
+                                    line-height: 18px; vertical-align: top; text-align:left;">{{paymentModel.jobNumber}}</td>
+                                    <td style="padding: 5px 5px;
+                                    background: transparent;
+                                    font-size: 12px;
+                                    line-height: 18px; vertical-align: top; text-align:left;">{{paymentModel.billDate | date: 'dd/MM/yyyy'}}</td>
+
                                       <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">1234567</td>
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">09/09/2020</td>
-                                 
-                                        <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">Infosys System, Pune</td>
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">Abhishek Kumar</td>
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">Cash</td>
-                                     
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:right;">5000/-</td>
-                                 </tr>
-                                     <tr>
-                                        <td colspan="6" style="text-align: right;font-size: 14px;line-height: 18px;padding: 10px 5px; font-weight:bold; border-bottom: 1px solid #ccc;">7500</td>
-                                    </tr>
-                                    <!--Google pay record-->
-                                    <tr>
-                                      <td colspan="6" style="padding: 15px 5px;text-align: center;font-size: 14px;
-                                      line-height: 18px; font-weight: bold;">Google Pay</td>
-                                 </tr>
-                                  <tr>
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">1234567</td>
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">09/09/2020</td>
-                                 
-                                        <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">Infosys System, Pune</td>
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">Abhishek Kumar</td>
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:left;">Cash</td>
-                                     
-                                      <td style="padding: 5px 5px;
-                                      background: transparent;
-                                      font-size: 12px;
-                                      line-height: 18px; vertical-align: top; text-align:right;">5000/-</td>
-                                 </tr>
-                                     <tr>
-                                        <td colspan="6" style="text-align: right;font-size: 14px;line-height: 18px;padding: 10px 5px; font-weight:bold; border-bottom: 1px solid #ccc;">7500</td>
-                                    </tr>
-                            </tbody>
-                         <tfoot>
-                                <tr>
-                                   <td colspan="4" style="text-align: right;font-size: 14px;line-height: 30px;"></td>
-                                    <td  style="text-align: left;font-size: 14px;font-weight:bold;line-height: 30px;">Total</td>
-                                   <td style="text-align: right;font-size: 14px;font-weight:bold;line-height: 18px; border-bottom: 2px solid #000;">7500</td>
-                              </tr>
-                        </tfoot>
-            </table>
-          
-          </main>
-         
-        
-        </body>
-        </html>
-        
+                                    background: transparent;
+                                    font-size: 12px;
+                                    line-height: 18px; vertical-align: top; text-align:left;">{{paymentModel.companyName}}</td>
+                                    <td style="padding: 5px 5px;
+                                    background: transparent;
+                                    font-size: 12px;
+                                    line-height: 18px; vertical-align: top; text-align:left;">{{paymentModel.engineerName}}</td>
+                                    <td style="padding: 5px 5px;
+                                    background: transparent;
+                                    font-size: 12px;
+                                    line-height: 18px; vertical-align: top; text-align:left;">{{paymentModel.billReportStatus}}</td>
+
+                                    <td style="padding: 5px 5px;
+                                    background: transparent;
+                                    font-size: 12px;
+                                    line-height: 18px; vertical-align: top; text-align:right;">{{paymentModel.paidImmediately}} /-</td>
+                               </tr>
+                                   <tr>
+                                      <td colspan="6" style="text-align: right;font-size: 14px;line-height: 18px;padding: 10px 5px; font-weight:bold; border-bottom: 1px solid #ccc;">{{listModel.paymentByMethodTotal}}</td>
+                                  </tr>
+                                </ng-container>
+                              </ng-container>
+
+
+
+                        </tbody>
+                     <tfoot>
+                            <tr>
+                               <td colspan="4" style="text-align: right;font-size: 14px;line-height: 30px;"></td>
+                                <td  style="text-align: left;font-size: 14px;font-weight:bold;line-height: 30px;">Total</td>
+                               <td style="text-align: right;font-size: 14px;font-weight:bold;line-height: 18px; border-bottom: 2px solid #000;">{{paymentListModel ? paymentListModel.paymentListTotal:''}}</td>
+                          </tr>
+                    </tfoot>
+        </table>
+
       </div>
     </div>
   </div>
-  
 
-  
+
+

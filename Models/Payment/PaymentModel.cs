@@ -75,7 +75,7 @@ namespace Gopal.Models.Payment
     public class PaymentByMethod {
         public int id { get; set; }
         public string jobNumber { get; set; }
-        public string billDate { get; set; }
+        public DateTime? billDate { get; set; }
         public string companyName { get; set; }
         public string billReportStatus { get; set; }
         public string engineerName { get; set; }
@@ -92,6 +92,8 @@ namespace Gopal.Models.Payment
         public string inwardAddressPhoneNoPrint { get; set; }
         public List<PaymentByListModel> paymentListModel { get; set; }
         public float? paymentListTotal { get { return paymentListModel?.Sum(x => x.paymentByMethodTotal); } }
+        public DateTime? startDate { get; set; }
+        public DateTime? endDate { get; set; }
     }
 
     public enum PAYMENT_BY

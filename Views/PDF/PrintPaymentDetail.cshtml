@@ -1,0 +1,187 @@
+﻿@model Gopal.Models.Payment.PaymentListModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" id="print-section">
+<head>
+    <meta charset="utf-8">
+    <title>Payment Details</title>
+    <!--<link rel="stylesheet" href="style.css" media="all" />-->
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap' rel='stylesheet' type='text/css'>
+    <style>
+
+    @@media print {
+        body {
+           font-family:Arial, Helvetica, sans-serif !important;
+           font-family: 'Poppins', sans-serif !important;
+           padding: 0 !important;
+        }
+      }
+    </style>
+</head>
+<body style="padding: 0 0px;page-break-after:always; background: #fff; font-family: 'Poppins', sans-serif !important;">
+    <!--customer-copy-start-->
+    <main style="width:780px; margin-left:auto; margin-right:auto">
+        <div class="clearfix" style=" page-break-after:before; padding: 0px 0;
+  margin-bottom: 10px;
+  border: 0px solid #ccc;
+  margin-top: 10px;">
+            <div id="logo" style=" text-align: center;
+    margin-bottom: 10px;">
+                <table style="background:transparent; margin-bottom:0; width: 100%;">
+                    <tr>
+                        <td style="padding:0; width: 50%; background: transparent">
+                            <h4 style="font-weight: 700;
+            font-size: 2.375rem;
+            letter-spacing: 3px;
+            color: #1c0f3a;
+            margin: 0;
+            text-align: left;font-family: 'Poppins', sans-serif !important;">
+                                GOPAL
+                            </h4>
+                            <p style="font-size: 0.875rem;
+            line-height: 7px;
+            letter-spacing: 0.406rem;
+            text-transform: uppercase;
+            position: relative;
+            left: 3px;
+            color: #FF4081;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            text-align: left;">Computers</p>
+                        </td>
+                        <td style="padding:0; background: transparent; width: 50%; text-align: right;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="address" style=" border-top: 1px solid #C1CED9;
+    border-bottom: 1px solid #C1CED9;
+    margin: 0 0 0px 0;
+    padding: 7px;
+    background: #f5f5f5;">
+                <p style="margin:0; font-weight:500; font-size: 14px;">
+                    @Model.inwardAddressPrint
+                    <strong>Contact</strong>: @Model.inwardAddressPhoneNoPrint
+                </p>
+            </div>
+        </div>
+        <h5 style="text-transform: uppercase; text-align: center;font-size: 18px;line-height: 30px;margin: 0;">PAYMENT DETAILS</h5>
+        @{
+            if (Model.startDate != null && Model.endDate != null)
+            {
+                <p style="text-align:  center;font-size: 14px;line-height: 25px;margin: 0;font-weight: bold;">@Model.startDate.Value.ToString("dd/MM/yyyy") TO @Model.endDate.Value.ToString("dd/MM/yyyy")</p>
+            }
+        }
+
+        <table style="background:transparent; margin-top:15px; margin-bottom:20px; width: 100%;border:0px solid #ccc; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="padding: 5px 5px;
+                              background: #f5f5f5;
+                              font-size: 12px;
+                              line-height: 18px; vertical-align: middle; text-align:left; width:14%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Job #.</th>
+                    <th style="padding: 5px 5px;
+                              background: #f5f5f5;
+                              font-size: 12px;
+                              line-height: 18px; vertical-align: middle; text-align:left; width:12%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Bill Date</th>
+                    <th style="padding: 5px 5px;
+                              background: #f5f5f5;
+                              font-size: 12px;
+                              line-height: 18px; vertical-align: middle; text-align:left; width:23%;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;">Client Name</th>
+
+                    <th style="padding: 5px 5px;
+                              background: #f5f5f5;
+                              font-size: 12px;
+                              line-height: 18px; vertical-align: middle; text-align:left; width:20%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Engineer Name</th>
+
+                    <th style="padding: 5px 5px;
+                              background: #f5f5f5;
+                              font-size: 12px;
+                              line-height: 18px; vertical-align: middle; text-align:left; width:15%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Outward/Bill Status</th>
+                    <th style="padding: 5px 5px;
+                              background: #f5f5f5;
+                              font-size: 12px;
+                              line-height: 18px; vertical-align: middle; text-align:right; width:15%;border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Paid Immidiatly</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model.paymentListModel)
+                    {
+                        <!--cash record-->
+                        <tr>
+                            <td colspan="6" style="padding: 15px 5px;text-align: center;font-size: 14px;
+                              line-height: 18px; font-weight: bold;">
+                                @item.methodType
+                            </td>
+                        </tr>
+                        foreach (var paymentMethod in item.lstPaymentbymethod)
+                        {
+                            <tr>
+                                <td style="padding: 5px 5px;
+                              background: transparent;
+                              font-size: 12px;
+                              line-height: 18px; vertical-align: top; text-align:left;">
+                                    @paymentMethod.jobNumber
+                                </td>
+                                <td style="padding: 5px 5px;
+                              background: transparent;
+                              font-size: 12px;
+                              line-height: 18px; vertical-align: top; text-align:left;">
+                                    @{ var billdate = paymentMethod.billDate != null ? paymentMethod.billDate.Value.ToString("dd/MM/yyyy") : String.Empty;}
+                                    @billdate
+                                </td>
+
+                                <td style="padding: 5px 5px;
+                              background: transparent;
+                                        font-size: 12px;
+                                        line-height: 18px; vertical-align: top; text-align:left;">
+                                    @paymentMethod.companyName
+                                </td>
+                                <td style="padding: 5px 5px;
+                              background: transparent;
+                              font-size: 12px;
+                              line-height: 18px; vertical-align: top; text-align:left;">
+                                    @paymentMethod.engineerName
+                                </td>
+                                <td style="padding: 5px 5px;
+                              background: transparent;
+                              font-size: 12px;
+                              line-height: 18px; vertical-align: top; text-align:left;">
+                                    @paymentMethod.billReportStatus
+                                </td>
+
+                                <td style="padding: 5px 5px;
+                              background: transparent;
+                              font-size: 12px;
+                              line-height: 18px; vertical-align: top; text-align:right;">
+                                    @paymentMethod.paidImmediately /-
+                                </td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td colspan="6" style="text-align: right;font-size: 14px;line-height: 18px;padding: 10px 5px; font-weight:bold; border-bottom: 1px solid #ccc;">@item.paymentByMethodTotal</td>
+                        </tr>
+                    }
+
+                }
+
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" style="text-align: right;font-size: 14px;line-height: 30px;"></td>
+                    <td style="text-align: left;font-size: 14px;font-weight:bold;line-height: 30px;">Total</td>
+                    <td style="text-align: right;font-size: 14px;font-weight:bold;line-height: 18px; border-bottom: 2px solid #000;">@Model.paymentListTotal</td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </main>
+
+    <hr style="page-break-after:always;">
+</body>
+</html>

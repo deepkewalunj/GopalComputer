@@ -114,5 +114,26 @@ namespace Gopal.Controllers
             AccountStatementModel accountStatement = _reportService.GetAccountStatementReportPDF(id, fd, fm, fy, td, tm, ty);
             return new ViewAsPdf("PrintAccountStatement", accountStatement);
         }
+
+        [HttpGet]
+        [Route("PrintPaymentDetail")]
+        public IActionResult PrintPaymentDetail(DateTime? startDate,DateTime? endDate)
+        {
+            if (startDate == DateTime.MinValue)
+            {
+                startDate = null;
+            }
+            if (endDate == DateTime.MinValue)
+            {
+                endDate = null;
+            }
+            GetPaymentDetailsBySearchModel searchModel = new GetPaymentDetailsBySearchModel();
+            searchModel.startDate = startDate.ToNgbDateModel();
+            searchModel.endDate = endDate.ToNgbDateModel();
+            PaymentListModel listModel= _lumpsumServices.GetPaymentDetailsBySearch(searchModel);
+            listModel.startDate = startDate;
+            listModel.endDate = endDate;
+            return new ViewAsPdf("PrintPaymentDetail", listModel);
+        }
     }
 }

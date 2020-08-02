@@ -261,6 +261,7 @@ namespace Gopal.Services.Payment
             listModel.normalPrinterName = masterData.FirstOrDefault(x => x.MasterKey == "NORMAL_PRINTER")?.MasterValue;
             listModel.inwardAddressPrint = masterData.FirstOrDefault(x => x.MasterKey == "INWARD_ADDRESS")?.MasterValue;
             listModel.inwardAddressPhoneNoPrint = masterData.FirstOrDefault(x => x.MasterKey == "INWARD_PHONE_NO")?.MasterValue;
+            listModel.paymentListModel = new List<PaymentByListModel>();
             var cashList = GetPaymentListByMethod(PAYMENT_BY.Cash, searchModel);
             if (cashList.lstPaymentbymethod?.Count > 0) {
                

@@ -16,7 +16,14 @@ namespace Gopal.Models.Customer
             }
             return new DateTime(ngbDateModel.year, ngbDateModel.month, ngbDateModel.day);
         }
-
+        public static NgbDateModel ToNgbDateModel(this DateTime? datetime)
+        {
+            if (datetime == null)
+            {
+                return null;
+            }
+            return new NgbDateModel {year= datetime.Value.Year, month=datetime.Value.Month,day= datetime.Value.Day };
+        }
     }
 
 
