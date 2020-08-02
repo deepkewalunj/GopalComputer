@@ -13,54 +13,81 @@ import { BillGenerationComponent } from './bill-generation/bill-generation.compo
 import { OutwardComponent } from './outward/outward.component';
 import { BillingListComponent } from './billing-list/billing-list.component';
 import { OutwardListComponent } from './outward-list/outward-list.component';
+import { AuthorizationCheck } from 'src/app/services/authorization-Check';
 
 
 const routes: Routes = [
  {
-   path: 'inward', component: InwardComponent
+   path: 'inward', component: InwardComponent,
+   canActivate: [AuthorizationCheck],
+    data:{permission:["Inward"]}
  },
 
  {
-  path: 'add-inward', component: AddInwardComponent
+  path: 'add-inward', component: AddInwardComponent,
+  canActivate: [AuthorizationCheck],
+  data:{permission:["Inward"]}
 },
 {
-  path: 'add-inward/:inwardId', component: AddInwardComponent
+  path: 'add-inward/:inwardId', component: AddInwardComponent,
+  canActivate: [AuthorizationCheck],
+  data:{permission:["Inward"]}
 },
   {
-    path: 'material-type', component: MaterialTypeComponent
+    path: 'material-type', component: MaterialTypeComponent,
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Material Type"]}
   },
   {
-    path: 'inward-accessories', component: InwardAccessoriesComponent
+    path: 'inward-accessories', component: InwardAccessoriesComponent,
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Inward Accessories"]}
+  },
+
+  {
+    path: 'add-material-type', component: AddUpdateModelNoMaterialTypeComponent,
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Material Type"]}
   },
   {
-    path: 'inward-accessories', component: InwardAccessoriesComponent
+    path: 'add-accessory', component: AddEditAccessoryComponent,
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Inward Accessories"]}
   },
   {
-    path: 'add-material-type', component: AddUpdateModelNoMaterialTypeComponent
+    path: 'inward-print', component: InwardPrintComponent,
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Inward"]}
   },
   {
-    path: 'add-accessory', component: AddEditAccessoryComponent
+    path: 'bill-generation', component: BillGenerationComponent,
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Billing List"]}
   },
   {
-    path: 'inward-print', component: InwardPrintComponent
+    path: 'outward', component: OutwardComponent,
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Outward List"]}
   },
   {
-    path: 'bill-generation', component: BillGenerationComponent
+    path: 'billing-list', component: BillingListComponent,
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Billing List"]}
   },
   {
-    path: 'outward', component: OutwardComponent
+    path: 'outward-list', component: OutwardListComponent,
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Outward List"]}
   },
   {
-    path: 'billing-list', component: BillingListComponent
+    path: 'bill-print', component: BillPrintComponent,
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Billing List"]}
   },
   {
-    path: 'outward-list', component: OutwardListComponent
-  },
-  {
-    path: 'bill-print', component: BillPrintComponent
-  },
-  {
-    path: 'outward-print', component: OutwardPrintComponent
+    path: 'outward-print', component: OutwardPrintComponent,
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Outward List"]}
   },
   {
     path: '',

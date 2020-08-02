@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Services.Customer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,7 @@ namespace Gopal.Controllers
 {
     [Route("api/Inward")]
     [ApiController]
+    [Authorize]
     public class InwardController : ControllerBase
     {
         private IHostingEnvironment _hostingEnvironment;

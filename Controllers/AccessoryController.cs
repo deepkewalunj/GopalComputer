@@ -48,6 +48,7 @@ namespace Gopal.Controllers
 
         [HttpDelete]
         [Route("deleteAccessory")]
+        [Authorize]
         public ActionResult deleteAccessory(int accessoryId)
         {
             return Ok(new { result = _services.deleteAccessory(accessoryId) });

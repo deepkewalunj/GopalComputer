@@ -8,11 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Gopal.Services.Common;
 using RestSharp;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Gopal.Controllers
 {
     [Route("api/Email")]
     [ApiController]
+    [Authorize]
     public class EmailController : ControllerBase
     {
         private IEmailService _emailService;

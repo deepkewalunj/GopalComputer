@@ -13,6 +13,7 @@ using Gopal.Models.Outward;
 using Gopal.Services.Bill;
 using Gopal.Services.Customer;
 using Gopal.Services.Outward;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,7 @@ namespace Gopal.Controllers
 {
     [Route("api/Outward")]
     [ApiController]
+    [Authorize]
     public class OutwardController : ControllerBase
     {
         private IHostingEnvironment _hostingEnvironment;

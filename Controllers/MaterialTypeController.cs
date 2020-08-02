@@ -14,6 +14,7 @@ namespace Gopal.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MaterialTypeController : ControllerBase
     {
         private IConfiguration _config;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Gopal.Models.Payment;
 using Gopal.Services.Payment;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace Gopal.Controllers
 {
     [Route("api/Payment")]
     [ApiController]
+    [Authorize]
     public class PaymentController : ControllerBase
     {
         private IHostingEnvironment _hostingEnvironment;

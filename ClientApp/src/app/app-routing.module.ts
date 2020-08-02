@@ -31,19 +31,22 @@ const routes: Routes = [
   {
     path: 'users',
     loadChildren: './modules/users/users.module#UsersModule',
-    canActivate: [AuthorizationCheck]
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Users"]}
   },
 
   {
     path: 'master',
     loadChildren: './modules/master/master.module#MasterModule',
-    canActivate: [AuthorizationCheck]
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Master"]}
   },
 
   {
     path: 'inward-material',
     loadChildren: './modules/inward-material/inward-material.module#InwardMaterialModule',
-    canActivate: [AuthorizationCheck]
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Inward Material"]}
   },
 
   {
@@ -53,7 +56,8 @@ const routes: Routes = [
   {
     path: 'reports',
     loadChildren: './modules/reports/reports.module#ReportsModule',
-    canActivate: [AuthorizationCheck]
+    canActivate: [AuthorizationCheck],
+    data:{permission:["Reports"]}
   },
   {
     path: 'login',
@@ -66,7 +70,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
 
-  { path: 'payment', loadChildren: () => import('./modules/payment/payment.module').then(m => m.PaymentModule), canActivate: [AuthorizationCheck] },
+  { path: 'payment', loadChildren: () => import('./modules/payment/payment.module').then(m => m.PaymentModule), canActivate: [AuthorizationCheck],
+  data:{permission:["Payment"]} },
 ];
 
 

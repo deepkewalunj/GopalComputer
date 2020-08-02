@@ -12,6 +12,7 @@ namespace Gopal.Controllers
 {
     [Route("api/Report")]
     [ApiController]
+    [Authorize]
     public class ReportController : ControllerBase
     {
         IReportServices _reportServices;

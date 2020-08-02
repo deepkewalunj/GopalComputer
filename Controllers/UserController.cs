@@ -106,6 +106,7 @@ namespace Gopal.Controllers
 
         [HttpGet]
         [Route("DeleteUser")]
+        [Authorize]
         public ActionResult DeleteUser(int userId)
         {
             return Ok(_services.DeleteUser(userId));

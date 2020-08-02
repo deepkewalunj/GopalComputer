@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Gopal.Models.Common;
 using Gopal.Services.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace Gopal.Controllers
 {
     [Route("api/TypeAheadCommon")]
     [ApiController]
+    [Authorize]
     public class TypeAheadCommonController : ControllerBase
     {
         ITypeAheadService _typeaheadService;
