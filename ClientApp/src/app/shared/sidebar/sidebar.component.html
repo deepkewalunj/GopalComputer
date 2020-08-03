@@ -106,7 +106,13 @@
             <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="reports/account-statement"
                routerLinkActive="active"><i class="fas fa-circle"></i>Account Statement</a>
           </li>
-
+          <li  [hidden]="sharedService.isMenuShow('Collection Report')"  class="nav-item">
+            <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/payment/bill-details"
+               routerLinkActive="active">
+              <i class="fas fa-circle"></i>
+              Collection Report
+            </a>
+          </li>
         </ul>
       </div>
     </li>
@@ -138,13 +144,7 @@
               Outward List
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" (click)="deviceSidemenuCollapse()" routerLink="/payment/bill-details"
-               routerLinkActive="active" #outwardList="routerLinkActive">
-              <i class="fas fa-circle"></i>
-             Bill Details
-            </a>
-          </li>
+          
         </ul>
       </div>
     </li>

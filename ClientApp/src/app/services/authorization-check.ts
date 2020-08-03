@@ -17,7 +17,7 @@ export class AuthorizationCheck implements CanActivate {
    if(permission && permission.length>0)
    {
      let isModuleValid=false;
-     debugger;
+     
      for(let i=0;i<permission.length;i++)
      {
       let validModule=authmodules.find(x=>x.ModuleName==permission[i])
