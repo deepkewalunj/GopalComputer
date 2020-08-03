@@ -17,7 +17,7 @@ export class AuthorizationCheck implements CanActivate {
    if(permission && permission.length>0)
    {
      let isModuleValid=false;
-     
+
      for(let i=0;i<permission.length;i++)
      {
       let validModule=authmodules.find(x=>x.ModuleName==permission[i])
@@ -31,6 +31,11 @@ export class AuthorizationCheck implements CanActivate {
      {
 
       return true;
+     }
+    else
+     {
+        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+        return false;
      }
    }
    else

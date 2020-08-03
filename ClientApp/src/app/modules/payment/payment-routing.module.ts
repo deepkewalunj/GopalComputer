@@ -14,7 +14,10 @@ const routes: Routes = [
   data:{permission:["Lumpsum"]}},
   { path: 'lumpsum-print', component: LumpsumPrintComponent ,canActivate: [AuthorizationCheck],
   data:{permission:["Lumpsum"]}},
-  { path: 'bill-details', component: BillDetailsComponent }
+  { path: 'bill-details', component: BillDetailsComponent,
+  canActivate: [AuthorizationCheck],
+  data:{permission:["Collection Report"]}
+ }
 ];
 
 @NgModule({
