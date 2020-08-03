@@ -241,7 +241,7 @@ export class UsersListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.modulePermission.push({ isChecked: false, moduleId: 10, moduleName: "Outward Reports" });
     this.modulePermission.push({ isChecked: false, moduleId: 11, moduleName: "Inward Reports" });
     this.modulePermission.push({ isChecked: false, moduleId: 12, moduleName: "Client O/S Reports" });
-    this.modulePermission.push({ isChecked: false, moduleId: 20, moduleName: "Outward List" });
+    this.modulePermission.push({ isChecked: false, moduleId: 20, moduleName: "Collection Report" });
     this.modulePermission.push({ isChecked: false, moduleId: 13, moduleName: "Account Statement" });
     this.modulePermission.push({ isChecked: false, moduleId: 14, moduleName: "Payment" });
     this.modulePermission.push({ isChecked: false, moduleId: 15, moduleName: "Lumpsum" });
