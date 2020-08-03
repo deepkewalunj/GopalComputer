@@ -406,6 +406,7 @@ namespace Gopal.Models.Bill
             obj.rightSideBottomAmount = obj.leftSideOutstandingAmount;
             obj.addressPrint = _dbContext.TblMaster.Where(x => x.MasterKey == "INWARD_ADDRESS").FirstOrDefault().MasterValue;
             obj.contactPrint = _dbContext.TblMaster.Where(x => x.MasterKey == "INWARD_PHONE_NO").FirstOrDefault().MasterValue;
+            obj.normalPrinterName = _dbContext.TblMaster.Where(x => x.MasterKey == "NORMAL_PRINTER").FirstOrDefault().MasterValue;
             return obj;
         }
 
