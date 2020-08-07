@@ -3,6 +3,7 @@ using Gopal.EntityFrameworkCore;
 using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Models.Payment;
+using Gopal.Services.Common;
 using Gopal.Services.User;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -18,16 +19,19 @@ namespace Gopal.Services.Payment
 {
     public class PaymentService : IPaymentServices
     {
+        private IEmailService _emailService;
         private readonly gopal_dbContext _dbContext;
         private readonly IUserServices _userServices;
 
-        public PaymentService(gopal_dbContext dbContext, IUserServices userServices)
+        public PaymentService(gopal_dbContext dbContext, IUserServices userServices, IEmailService emailService)
         {
             _dbContext = dbContext;
             _userServices = userServices;
+            _emailService = emailService;
         }
         public LumpsumTypeScriptModel AddEditLumpsum(LumpsumTypeScriptModel lumpsumModel)
         {
+            string VoucherNo = "";
             lumpsumModel.lumpsumDate = new DateTime(lumpsumModel.ngbLumpsumDate.year,
                                          lumpsumModel.ngbLumpsumDate.month,
                                          lumpsumModel.ngbLumpsumDate.day);
@@ -56,6 +60,7 @@ namespace Gopal.Services.Payment
                     lumpsum.ModifiedDate = DateTime.Now;
                     _dbContext.Entry(lumpsum).State = EntityState.Modified;
                     _dbContext.SaveChanges();
+                    VoucherNo = lumpsum.LumpsumId.ToString();
                 }
             }
             else
@@ -74,6 +79,35 @@ namespace Gopal.Services.Payment
                 lumpsum.CreatedDate = DateTime.Now;
                 _dbContext.TblLumpsum.Add(lumpsum);
                 _dbContext.SaveChanges();
+                VoucherNo = lumpsum.LumpsumId.ToString();
+            }
+
+            var smsApiKey = _dbContext.TblMaster.Where(x => x.MasterKey == "SMS_API_KEY").FirstOrDefault().MasterValue;
+            var SEND_SMS = _dbContext.TblMaster.Where(x => x.MasterKey == "SEND_SMS").FirstOrDefault().MasterValue;
+            var customerModel = _dbContext.TblClient.Where(x => x.IsDeleted != true && x.ClientId == lumpsumModel.clientRefId).FirstOrDefault();
+            if (customerModel != null)
+            {
+                SMSModel smsModel = new SMSModel();
+                smsModel.TemplateName = "LUMPSUM_V1";
+                smsModel.SMS_API_KEY = smsApiKey;
+                smsModel.VAR1 = VoucherNo;
+                smsModel.VAR2 = lumpsumModel.outstandingAmount > 0 ? lumpsumModel.outstandingAmount.ToString() : "0.00";
+                smsModel.VAR3 = lumpsumModel.paidAmount > 0 ? lumpsumModel.paidAmount.ToString() : "0.00";
+                var totalOutStanding = lumpsumModel.outstandingAmount - lumpsumModel.paidAmount;
+                smsModel.VAR4 = totalOutStanding.ToString();
+
+                if (!string.IsNullOrEmpty(customerModel.MobileNoFirst))
+                {
+                    smsModel.To = customerModel.MobileNoFirst;
+                }
+                else if (!string.IsNullOrEmpty(customerModel.OwnerMobileNo))
+                {
+                    smsModel.To = customerModel.OwnerMobileNo;
+                }
+                if (SEND_SMS == "TRUE" && !string.IsNullOrEmpty(smsModel.To) && lumpsumModel.smsSent == "1")
+                {
+                    Task.Factory.StartNew(() => { _emailService.SendSMS(smsModel); });
+                }
             }
             return lumpsumModel;
         }

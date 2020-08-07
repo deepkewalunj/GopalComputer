@@ -16,6 +16,23 @@ namespace Gopal.Models.Common
         public List<string> ccToEmails { get; set; }
     }
 
+    public class SMSModel
+    {
+        public string SMS_API_KEY { get; set; }
+        public string To { get; set; }
+        public string TemplateName { get; set; }
+        public string VAR1 { get; set; }
+        public string VAR2 { get; set; }
+        public string VAR3 { get; set; }
+        public string VAR4 { get; set; }
+        public string VAR5 { get; set; }
+        public string VAR6 { get; set; }
+        public string VAR7 { get; set; }
+        public string VAR8 { get; set; }
+        public string VAR9 { get; set; }
+        public string VAR10 { get; set; }
+    }
+
     public class EmailFileModel
     {
         public Byte[] file { get; set; }

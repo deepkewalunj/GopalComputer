@@ -3,6 +3,7 @@ using Gopal.EntityFrameworkCore;
 using Gopal.Models.Bill;
 using Gopal.Models.Common;
 using Gopal.Models.Customer;
+using Gopal.Services.Common;
 using Gopal.Services.User;
 using Microsoft.AspNetCore.Razor.Language.Intermediate;
 using Microsoft.EntityFrameworkCore;
@@ -18,17 +19,21 @@ namespace Gopal.Services.Bill
 {
     public class BillService : IBillServices
     {
+        private IEmailService _emailService;
         private readonly gopal_dbContext _dbContext;
         private readonly IUserServices _userServices;
 
-        public BillService(gopal_dbContext dbContext, IUserServices userServices)
+        public BillService(gopal_dbContext dbContext, IUserServices userServices, IEmailService emailService)
         {
             _dbContext = dbContext;
             _userServices = userServices;
+            _emailService = emailService;
         }
 
         public BillTypeScriptModel AddEditBill(BillTypeScriptModel billModel)
         {
+            int? clientId = 0;
+            string jobNumber = "";
             billModel.billDate = new DateTime(billModel.ngbBillDate.year,
                                          billModel.ngbBillDate.month,
                                          billModel.ngbBillDate.day);
@@ -53,6 +58,7 @@ namespace Gopal.Services.Bill
                     bill.ChequeDate = billModel.chequeDate;
                     bill.ChequeNo = billModel.chequeNo;
                     bill.ClientIdRef = billModel.lstJobNumbers.FirstOrDefault().clientRefId;
+                    clientId = bill.ClientIdRef;
                     bill.ModifiedBy = billModel.createdBy;
                     bill.EnggName = billModel.enggName;
                     bill.IsOpeningBalanceEntry = false;
@@ -92,7 +98,8 @@ namespace Gopal.Services.Bill
                             _dbContext.Entry(inward).State = EntityState.Modified;
                             _dbContext.SaveChanges();
                         }
-                            
+                        jobNumber += item.searchId.ToString();
+                        jobNumber += ",";
                     }
 
                 }
@@ -108,6 +115,7 @@ namespace Gopal.Services.Bill
                 bill.ChequeDate = billModel.chequeDate;
                 bill.ChequeNo = billModel.chequeNo;
                 bill.ClientIdRef = billModel.lstJobNumbers.FirstOrDefault().clientRefId;
+                clientId = bill.ClientIdRef;
                 bill.CreatedBy = billModel.createdBy;
                 bill.EnggName = billModel.enggName;
                 bill.IsOpeningBalanceEntry = false;
@@ -147,9 +155,39 @@ namespace Gopal.Services.Bill
                         _dbContext.Entry(inward).State = EntityState.Modified;
                         _dbContext.SaveChanges();
                     }
+                    jobNumber += item.searchId.ToString();
+                    jobNumber += ",";
                 }
             }
 
+            var smsApiKey = _dbContext.TblMaster.Where(x => x.MasterKey == "SMS_API_KEY").FirstOrDefault().MasterValue;
+            var SEND_SMS = _dbContext.TblMaster.Where(x => x.MasterKey == "SEND_SMS").FirstOrDefault().MasterValue;
+            var customerModel = _dbContext.TblClient.Where(x => x.IsDeleted != true && x.ClientId == clientId).FirstOrDefault();
+            if (customerModel != null)
+            {
+                SMSModel smsModel = new SMSModel();
+                smsModel.TemplateName = "BILL_V1";
+                smsModel.SMS_API_KEY = smsApiKey;
+                smsModel.VAR1 = jobNumber;
+                smsModel.VAR2 = billModel.enggName;
+                smsModel.VAR3 = billModel.serviceAmount > 0 ? billModel.serviceAmount.ToString() : "0.00";
+                smsModel.VAR4 = billModel.advanceAmount > 0 ? billModel.advanceAmount.ToString() : "0.00";
+                smsModel.VAR5 = billModel.paidImmediatlyAmount > 0 ? billModel.paidImmediatlyAmount.ToString() : "0.00";
+                smsModel.VAR6 = billModel.outstandingAmount > 0 ? billModel.outstandingAmount.ToString() : "0.00";
+                
+                if (!string.IsNullOrEmpty(customerModel.MobileNoFirst))
+                {
+                    smsModel.To = customerModel.MobileNoFirst;
+                }
+                else if (!string.IsNullOrEmpty(customerModel.OwnerMobileNo))
+                {
+                    smsModel.To = customerModel.OwnerMobileNo;
+                }
+                if (SEND_SMS == "TRUE" && !string.IsNullOrEmpty(smsModel.To) && billModel.smsSent == "1")
+                {
+                    Task.Factory.StartNew(() => { _emailService.SendSMS(smsModel); });
+                }
+            }
 
             return billModel;
         }

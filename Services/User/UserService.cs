@@ -40,6 +40,8 @@ namespace Gopal.Services.User
                 IRestResponse response = client.Execute(request);
                 var data = JsonConvert.DeserializeObject<smsCountModel>(response.Content);
                 _loginModel.smsCount = data.Details.ToString();
+
+                
             }
             catch (Exception ex)
             {

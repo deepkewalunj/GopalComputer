@@ -11,5 +11,7 @@ namespace Gopal.Services.Common
         void SendEmail(EmailModel emailModel);
         string GetCAEmailAddress();
         string GetClientEmailAddressById(int clientId);
+
+        void SendSMS(SMSModel smsModel);
     }
 }

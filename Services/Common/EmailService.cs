@@ -2,7 +2,9 @@
 using Gopal.Models.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using NLog;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,6 +27,62 @@ namespace Gopal.Services.Common
             
         }
 
+        public void SendSMS(SMSModel smsModel)
+        {
+            try
+            {
+                var clientSend = new RestClient("http://2factor.in/API/V1/" + smsModel.SMS_API_KEY + "/ADDON_SERVICES/SEND/TSMS");
+                var requestSend = new RestRequest(Method.POST);
+                requestSend.AddParameter("From", "GOPALC");
+                requestSend.AddParameter("To", smsModel.To);
+                requestSend.AddParameter("TemplateName", smsModel.TemplateName);
+                if (!string.IsNullOrEmpty(smsModel.VAR1))
+                {
+                    requestSend.AddParameter("VAR1", smsModel.VAR1);
+                }
+                if (!string.IsNullOrEmpty(smsModel.VAR2))
+                {
+                    requestSend.AddParameter("VAR2", smsModel.VAR2);
+                }
+                if (!string.IsNullOrEmpty(smsModel.VAR3))
+                {
+                    requestSend.AddParameter("VAR3", smsModel.VAR3);
+                }
+                if (!string.IsNullOrEmpty(smsModel.VAR4))
+                {
+                    requestSend.AddParameter("VAR4", smsModel.VAR4);
+                }
+                if (!string.IsNullOrEmpty(smsModel.VAR5))
+                {
+                    requestSend.AddParameter("VAR5", smsModel.VAR5);
+                }
+                if (!string.IsNullOrEmpty(smsModel.VAR6))
+                {
+                    requestSend.AddParameter("VAR6", smsModel.VAR6);
+                }
+                if (!string.IsNullOrEmpty(smsModel.VAR7))
+                {
+                    requestSend.AddParameter("VAR7", smsModel.VAR7);
+                }
+                if (!string.IsNullOrEmpty(smsModel.VAR8))
+                {
+                    requestSend.AddParameter("VAR8", smsModel.VAR8);
+                }
+                if (!string.IsNullOrEmpty(smsModel.VAR9))
+                {
+                    requestSend.AddParameter("VAR9", smsModel.VAR9);
+                }
+                if (!string.IsNullOrEmpty(smsModel.VAR10))
+                {
+                    requestSend.AddParameter("VAR10", smsModel.VAR10);
+                }
+                IRestResponse responseSend = clientSend.Execute(requestSend);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"SMS Sending Error :- {ex}");
+            }
+        }
         public void SendEmail(EmailModel emailModel) {
             EmailCredential credential=  GetEmailCredential();
             MailMessage message = new MailMessage();

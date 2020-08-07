@@ -3,6 +3,7 @@ using Gopal.EntityFrameworkCore;
 using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Models.User;
+using Gopal.Services.Common;
 using Gopal.Services.User;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -18,13 +19,14 @@ namespace Gopal.Services.Customer
 {
     public class CustomerService : ICustomerServices
     {
-
+        private IEmailService _emailService;
         private readonly gopal_dbContext _dbContext;
         private readonly IUserServices _userServices;
-        public CustomerService(gopal_dbContext dbContext, IUserServices userServices)
+        public CustomerService(gopal_dbContext dbContext, IUserServices userServices, IEmailService emailService)
         {
             _dbContext = dbContext;
             _userServices = userServices;
+            _emailService = emailService;
         }
 
         public DatatableResponseModel GetCustomerList(DatatableRequestModel customerDatatableRequestModel)
@@ -93,6 +95,25 @@ namespace Gopal.Services.Customer
                 }
 
             }
+            var smsApiKey = _dbContext.TblMaster.Where(x => x.MasterKey == "SMS_API_KEY").FirstOrDefault().MasterValue;
+            var SEND_SMS = _dbContext.TblMaster.Where(x => x.MasterKey == "SEND_SMS").FirstOrDefault().MasterValue;
+            SMSModel smsModel = new SMSModel();
+            smsModel.TemplateName = "WELCOME";
+            smsModel.SMS_API_KEY = smsApiKey;
+            smsModel.VAR1 = customerModel.companyName;
+            if (!string.IsNullOrEmpty(customerModel.mobileNoFirst))
+            {
+                smsModel.To = customerModel.mobileNoFirst;
+            }
+            else if (!string.IsNullOrEmpty(customerModel.ownerMobileNo))
+            {
+                smsModel.To = customerModel.ownerMobileNo;
+            }
+            if (SEND_SMS == "TRUE" && !string.IsNullOrEmpty(smsModel.To))
+            {
+                Task.Factory.StartNew(() => { _emailService.SendSMS(smsModel); });
+            }
+            
             return customerModel;
         }
 

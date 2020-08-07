@@ -3,6 +3,7 @@ using Gopal.EntityFrameworkCore;
 using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Models.Outward;
+using Gopal.Services.Common;
 using Gopal.Services.User;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -17,16 +18,20 @@ namespace Gopal.Services.Outward
 {
     public class OutwardService : IOutwardServices
     {
+        private IEmailService _emailService;
         private readonly gopal_dbContext _dbContext;
         private readonly IUserServices _userServices;
 
-        public OutwardService(gopal_dbContext dbContext, IUserServices userServices)
+        public OutwardService(gopal_dbContext dbContext, IUserServices userServices, IEmailService emailService)
         {
             _dbContext = dbContext;
             _userServices = userServices;
+            _emailService = emailService;
         }
         public OutwardTypeScriptModel AddEditOutward(OutwardTypeScriptModel outwardModel)
         {
+            int? clientId = 0;
+            string jobNumber = "";
             outwardModel.outwardDate = new DateTime(outwardModel.ngbOutwardDate.year,
                                          outwardModel.ngbOutwardDate.month,
                                          outwardModel.ngbOutwardDate.day);
@@ -51,6 +56,7 @@ namespace Gopal.Services.Outward
                     outwardBill.ChequeDate = outwardModel.chequeDate;
                     outwardBill.ChequeNo = outwardModel.chequeNo;
                     outwardBill.ClientIdRef = outwardModel.lstJobNumbers.FirstOrDefault().clientRefId;
+                    clientId = outwardBill.ClientIdRef;
                     outwardBill.CreatedBy = outwardModel.createdBy;
                     outwardBill.EnggName = outwardModel.enggName;
                     
@@ -90,7 +96,8 @@ namespace Gopal.Services.Outward
                             _dbContext.Entry(inward).State = EntityState.Modified;
                             _dbContext.SaveChanges();
                         }
-
+                        jobNumber += item.searchId.ToString();
+                        jobNumber += ",";
                     }
 
                 }
@@ -106,6 +113,7 @@ namespace Gopal.Services.Outward
                 outward.ChequeDate = outwardModel.chequeDate;
                 outward.ChequeNo = outwardModel.chequeNo;
                 outward.ClientIdRef = outwardModel.lstJobNumbers.FirstOrDefault().clientRefId;
+                clientId = outward.ClientIdRef;
                 outward.CreatedBy = outwardModel.createdBy;
                 outward.EnggName = outwardModel.enggName;
                 
@@ -145,9 +153,41 @@ namespace Gopal.Services.Outward
                         _dbContext.Entry(inward).State = EntityState.Modified;
                         _dbContext.SaveChanges();
                     }
+
+                    jobNumber += item.searchId.ToString();
+                    jobNumber += ",";
                 }
             }
 
+            var smsApiKey = _dbContext.TblMaster.Where(x => x.MasterKey == "SMS_API_KEY").FirstOrDefault().MasterValue;
+            var SEND_SMS = _dbContext.TblMaster.Where(x => x.MasterKey == "SEND_SMS").FirstOrDefault().MasterValue;
+            var customerModel = _dbContext.TblClient.Where(x => x.IsDeleted != true && x.ClientId == clientId).FirstOrDefault();
+            if (customerModel != null)
+            {
+                SMSModel smsModel = new SMSModel();
+                smsModel.TemplateName = "OUTWARD_V1";
+                smsModel.SMS_API_KEY = smsApiKey;
+                
+                smsModel.VAR1 = jobNumber;
+                smsModel.VAR2 = outwardModel.enggName;
+                smsModel.VAR3 = outwardModel.serviceAmount > 0 ? outwardModel.serviceAmount.ToString() : "0.00";
+                smsModel.VAR4 = outwardModel.advanceAmount > 0 ? outwardModel.advanceAmount.ToString() : "0.00";
+                smsModel.VAR5 = outwardModel.paidImmediatlyAmount > 0 ? outwardModel.paidImmediatlyAmount.ToString() : "0.00";
+                smsModel.VAR6 = outwardModel.outstandingAmount > 0 ? outwardModel.outstandingAmount.ToString() : "0.00";
+
+                if (!string.IsNullOrEmpty(customerModel.MobileNoFirst))
+                {
+                    smsModel.To = customerModel.MobileNoFirst;
+                }
+                else if (!string.IsNullOrEmpty(customerModel.OwnerMobileNo))
+                {
+                    smsModel.To = customerModel.OwnerMobileNo;
+                }
+                if (SEND_SMS == "TRUE" && !string.IsNullOrEmpty(smsModel.To) && outwardModel.smsSent == "1")
+                {
+                    Task.Factory.StartNew(() => { _emailService.SendSMS(smsModel); });
+                }
+            }
 
             return outwardModel;
         }

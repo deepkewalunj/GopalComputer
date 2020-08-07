@@ -3,6 +3,7 @@ using Gopal.EntityFrameworkCore;
 using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Models.User;
+using Gopal.Services.Common;
 using Gopal.Services.User;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -20,13 +21,14 @@ namespace Gopal.Services.Customer
 {
     public class InwardService : IInwardServices
     {
-        
+        private IEmailService _emailService;
         private readonly gopal_dbContext _dbContext;
         private readonly IUserServices _userServices;
-        public InwardService(gopal_dbContext dbContext, IUserServices userServices)
+        public InwardService(gopal_dbContext dbContext, IUserServices userServices, IEmailService emailService)
         {
             _dbContext = dbContext;
             _userServices = userServices;
+            _emailService = emailService;
         }
 
         public DatatableResponseModel GetInwardList(DatatableRequestModel inwardDatatableRequestModel)
@@ -58,6 +60,33 @@ namespace Gopal.Services.Customer
             {
                 inwardModel.inwardId = connection.Query<int>("usp_AddEditInward",
                      new { RequestModel = strRequestModel }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                
+                var smsApiKey = _dbContext.TblMaster.Where(x => x.MasterKey == "SMS_API_KEY").FirstOrDefault().MasterValue;
+                var SEND_SMS = _dbContext.TblMaster.Where(x => x.MasterKey == "SEND_SMS").FirstOrDefault().MasterValue;
+                var customerModel =  _dbContext.TblClient.Where(x => x.IsDeleted != true && x.ClientId == inwardModel.clientRefId).FirstOrDefault();
+                if(customerModel != null)
+                {
+                    SMSModel smsModel = new SMSModel();
+                    smsModel.TemplateName = "INWARD_V1";
+                    smsModel.SMS_API_KEY = smsApiKey;
+                    smsModel.VAR1 = inwardModel.inwardId.ToString();
+                    smsModel.VAR2 = inwardModel.modelNo;
+                    smsModel.VAR3 = inwardModel.problemDescription;
+                    smsModel.VAR4 = inwardModel.enggName;
+                    if (!string.IsNullOrEmpty(customerModel.MobileNoFirst))
+                    {
+                        smsModel.To = customerModel.MobileNoFirst;
+                    }
+                    else if (!string.IsNullOrEmpty(customerModel.OwnerMobileNo))
+                    {
+                        smsModel.To = customerModel.OwnerMobileNo;
+                    }
+                    if (SEND_SMS == "TRUE" && !string.IsNullOrEmpty(smsModel.To) && inwardModel.smsStatus == "1")
+                    {
+                        Task.Factory.StartNew(() => { _emailService.SendSMS(smsModel); });
+                    }
+                }
+                
             }
             
 
