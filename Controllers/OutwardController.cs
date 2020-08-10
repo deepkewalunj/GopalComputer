@@ -11,6 +11,7 @@ using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Models.Outward;
 using Gopal.Services.Bill;
+using Gopal.Services.Common;
 using Gopal.Services.Customer;
 using Gopal.Services.Outward;
 using Microsoft.AspNetCore.Authorization;
@@ -49,7 +50,7 @@ namespace Gopal.Controllers
         [DisableRequestSizeLimit]
         public ActionResult AddEditOutward()
         {
-            OutwardTypeScriptModel outwardModel = JsonConvert.DeserializeObject<OutwardTypeScriptModel>(Request.Form["outward"]);
+            OutwardTypeScriptModel outwardModel = JsonConvert.DeserializeObject<OutwardTypeScriptModel>(Request.Form["outward"], new TrimmingConverter());
 
 
             outwardModel =  _outwardServices.AddEditOutward(outwardModel);

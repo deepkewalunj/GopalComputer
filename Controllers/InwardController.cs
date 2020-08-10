@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Gopal.Models.Common;
 using Gopal.Models.Customer;
+using Gopal.Services.Common;
 using Gopal.Services.Customer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -60,7 +61,7 @@ namespace Gopal.Controllers
         [DisableRequestSizeLimit]
         public ActionResult AddEditInWard()
         {
-            InwardTypeScriptModel inwardModel = JsonConvert.DeserializeObject<InwardTypeScriptModel>(Request.Form["inward"]);
+            InwardTypeScriptModel inwardModel = JsonConvert.DeserializeObject<InwardTypeScriptModel>(Request.Form["inward"],new TrimmingConverter());
            
             IFormFileCollection files = Request.Form.Files;
             if (files?.Count() > 0)

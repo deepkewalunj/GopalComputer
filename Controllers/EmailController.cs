@@ -25,8 +25,7 @@ namespace Gopal.Controllers
         }
         [HttpPost("SendEmailToCA")]
         public ActionResult SendEmailToCA() {
-            List<int> clientId = JsonConvert.DeserializeObject<List<int>>(Request.Form["ClientIdArray"]);
-
+          
             IFormFileCollection files = Request.Form.Files;
             EmailModel emailModel = new EmailModel();
             emailModel.toList = new List<string>();

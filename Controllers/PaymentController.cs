@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Gopal.Models.Payment;
+using Gopal.Services.Common;
 using Gopal.Services.Payment;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -40,7 +41,7 @@ namespace Gopal.Controllers
         [DisableRequestSizeLimit]
         public ActionResult AddEditLumpsum()
         {
-            LumpsumTypeScriptModel lumpsumModel = JsonConvert.DeserializeObject<LumpsumTypeScriptModel>(Request.Form["lumpsum"]);
+            LumpsumTypeScriptModel lumpsumModel = JsonConvert.DeserializeObject<LumpsumTypeScriptModel>(Request.Form["lumpsum"],new TrimmingConverter());
 
 
             lumpsumModel = _paymentServices.AddEditLumpsum(lumpsumModel);

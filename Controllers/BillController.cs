@@ -10,6 +10,7 @@ using Gopal.Models.Bill;
 using Gopal.Models.Common;
 using Gopal.Models.Customer;
 using Gopal.Services.Bill;
+using Gopal.Services.Common;
 using Gopal.Services.Customer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -47,7 +48,7 @@ namespace Gopal.Controllers
         [DisableRequestSizeLimit]
         public ActionResult AddEditBill()
         {
-            BillTypeScriptModel billModel = JsonConvert.DeserializeObject<BillTypeScriptModel>(Request.Form["bill"]);
+            BillTypeScriptModel billModel = JsonConvert.DeserializeObject<BillTypeScriptModel>(Request.Form["bill"], new TrimmingConverter());
 
 
             billModel =  _billServices.AddEditBill(billModel);
