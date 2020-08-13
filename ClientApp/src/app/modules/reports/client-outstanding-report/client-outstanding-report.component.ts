@@ -2,7 +2,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { NgbModal, NgbDate, NgbCalendar ,NgbPeriod} from '@ng-bootstrap/ng-bootstrap';
-import { ReportModel, ReportSearchModel } from 'src/app/models/Report.model';
+import { ReportModel, ReportSearchModel, ClientOutstandingSMSModel } from 'src/app/models/Report.model';
 import { Subject, Observable, of } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { TypeAheadResponseModel } from 'src/app/models/typeahead.model';
@@ -78,26 +78,39 @@ export class ClientOutstandingReportComponent implements OnInit {
 
           let allRows= dt.rows().data();
           let selectedRows= dt.rows( { selected: true } ).data();
-
+          debugger;
           let lstReportId=[];
 
           if(selectedRows && selectedRows.length>0)
           {
             for(let i=0;i<selectedRows.length;i++)
             {
-              lstReportId.push(selectedRows[i][""]);
+              lstReportId.push(selectedRows[i][0].match(/<span[^>]*>(.*?)<\/span>$/)[1]);
             }
 
           }
-          else if(allRows && allRows.length>0)
-          {
-            for(let i=0;i<allRows.length;i++)
-            {
-              lstReportId.push(allRows[i][""]);
+          let lstClientOutstandingSMSModel:ClientOutstandingSMSModel[]=[];
+          if(lstReportId.length>0){
+
+            for(let i=0;i<lstReportId.length;i++){
+              let splittedRow=lstReportId[i].split('_');
+              if(splittedRow.length>1)
+              {
+               let outstandingRow= new ClientOutstandingSMSModel();
+               outstandingRow.clientId=splittedRow[0];
+               outstandingRow.mobileNumber=splittedRow[1];
+               outstandingRow.outstandingAmount=splittedRow[2];
+
+                lstClientOutstandingSMSModel.push(outstandingRow );
+              }
             }
+
+          }
+          if(lstClientOutstandingSMSModel.length>0){
+              that.SendOutstandingSMS(lstClientOutstandingSMSModel);
           }
 
-          alert("Send SMS to"+lstReportId);
+
 
 
 
@@ -416,6 +429,15 @@ doc.content.unshift( {
       {
         that.rerender();
       }
+    },error=>{
+      console.log(error);
+    })
+  }
+
+  SendOutstandingSMS(lstClientOutstandingSMSModel)
+  {
+    this.reportService.SendClientOutstandingSMS(lstClientOutstandingSMSModel).subscribe(data=>{
+
     },error=>{
       console.log(error);
     })

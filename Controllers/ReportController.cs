@@ -53,5 +53,14 @@ namespace Gopal.Controllers
         {
             return Ok(_reportServices.GetAccountStatementReport(searchModel));
         }
+
+        [HttpPost("SendClientOutstandingSMS")]
+        [Authorize]
+        public IActionResult SendClientOutstandingSMS(List<ClientOutstandingSMSModel> lstClientOutstandingSMSModel)
+        {
+
+            return Ok();
+        }
+
     }
 }

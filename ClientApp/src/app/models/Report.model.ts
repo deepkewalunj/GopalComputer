@@ -22,4 +22,12 @@ export class ReportModel{
   repairedStatus:string
   billOutwardAmount:number
   paymentAmount:number
+  mobileNumber:string
+}
+
+
+export class ClientOutstandingSMSModel{
+    mobileNumber :string
+    clientId :number
+    outstandingAmount :string
 }

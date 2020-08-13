@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Bill, BillOutwardReportSearchModel } from '../models/Bill.model';
-import { ReportSearchModel } from '../models/Report.model';
+import { ReportSearchModel, ClientOutstandingSMSModel } from '../models/Report.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +28,9 @@ export class ReportService {
   }
   GetAccountStatementReport(searchModel: ReportSearchModel) {
     return this.http.post<any>(environment.API_URL + 'Report/GetAccountStatementReport', searchModel);
+  }
+  SendClientOutstandingSMS(lstClientOutstandingSMSModel:ClientOutstandingSMSModel[])
+  {
+    return this.http.post<any>(environment.API_URL + 'Report/SendClientOutstandingSMS', lstClientOutstandingSMSModel);
   }
 }

@@ -23,6 +23,7 @@ namespace Gopal.Models.Report
         public float billOutwardAmount { get; set; }
         public float paymentAmount { get; set; }
         public string materialName { get; set; }
+        public string mobileNumber { get; set; }
     }
 
     public class ReportViewModel
@@ -38,4 +39,14 @@ namespace Gopal.Models.Report
         public NgbDateModel reportFromDate { get; set; }
         public NgbDateModel reportToDate { get; set; }
     }
+
+    public class ClientOutstandingSMSModel
+    {
+        public string mobileNumber { get; set; }
+        public int clientId { get; set; }
+        public string outstandingAmount { get; set; }
+    }
+
+   
 }
+

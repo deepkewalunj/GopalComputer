@@ -89,7 +89,7 @@
                   </thead>
                   <tbody>
                       <tr *ngFor="let outstanding of lstOutstandingReport ;let i = index">
-                        <td><span style="display: none;">{{outstanding.reportId}}</span></td>
+                        <td><span style="display: none;">{{outstanding.reportId}}_{{outstanding.mobileNumber}}_{{outstanding.outstandingAmount}}</span></td>
                         <td data-title="Sr No" class="text-right">{{i+1}}</td>
                            <td data-title="Client Name" class="text-right">{{outstanding.clientName }}</td>
                          <!-- <td data-title="Bill + Outward Amt" class="text-right" >{{outstanding.serviceAmount}}</td>
