@@ -13,15 +13,19 @@ using Gopal.Models.Report;
 using Gopal.Services.Bill;
 using Gopal.EntityFrameworkCore;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Gopal.Services.Common;
 
 namespace Gopal.Models.Bill
 {
+    
     public class ReportServices : IReportServices
     {
+        private IEmailService _emailService;
         private readonly gopal_dbContext _dbContext;
-        public ReportServices(gopal_dbContext dbContext)
+        public ReportServices(gopal_dbContext dbContext, IEmailService emailService)
         {
             _dbContext = dbContext;
+            _emailService = emailService;
         }
 
         private String GetSearchValue(Object searchModel)
@@ -683,6 +687,35 @@ namespace Gopal.Models.Bill
             obj.addressPrint = _dbContext.TblMaster.Where(x => x.MasterKey == "INWARD_ADDRESS").FirstOrDefault().MasterValue;
             obj.contactPrint = _dbContext.TblMaster.Where(x => x.MasterKey == "INWARD_PHONE_NO").FirstOrDefault().MasterValue;
             return obj;
+        }
+
+        public void SendOustandingSMS(List<ClientOutstandingSMSModel> model)
+        {
+            var smsApiKey = _dbContext.TblMaster.Where(x => x.MasterKey == "SMS_API_KEY").FirstOrDefault().MasterValue;
+            var SEND_SMS = _dbContext.TblMaster.Where(x => x.MasterKey == "SEND_SMS").FirstOrDefault().MasterValue;
+
+            foreach (var item in model)
+            {
+                if (item != null && item.mobileNumber != null && item.outstandingAmount != null)
+                {
+                    SMSModel smsModel = new SMSModel();
+                    smsModel.TemplateName = "OUTSTANDING_V1";
+                    smsModel.SMS_API_KEY = smsApiKey;
+                    smsModel.VAR1 = item.outstandingAmount;
+                    
+                    if (!string.IsNullOrEmpty(item.mobileNumber))
+                    {
+                        smsModel.To = item.mobileNumber;
+                    }
+                    
+                    if (SEND_SMS == "TRUE" && !string.IsNullOrEmpty(smsModel.To))
+                    {
+                        Task.Factory.StartNew(() => { _emailService.SendSMS(smsModel); });
+                    }
+                }
+            }
+
+            
         }
     }
 }

@@ -58,7 +58,7 @@ namespace Gopal.Controllers
         [Authorize]
         public IActionResult SendClientOutstandingSMS(List<ClientOutstandingSMSModel> lstClientOutstandingSMSModel)
         {
-
+            _reportServices.SendOustandingSMS(lstClientOutstandingSMSModel);
             return Ok();
         }
 

@@ -33,7 +33,7 @@ namespace Gopal.Services.Common
             {
                 var clientSend = new RestClient("http://2factor.in/API/V1/" + smsModel.SMS_API_KEY + "/ADDON_SERVICES/SEND/TSMS");
                 var requestSend = new RestRequest(Method.POST);
-                requestSend.AddParameter("From", "GOPALC");
+                requestSend.AddParameter("From", "GOPALc");
                 requestSend.AddParameter("To", smsModel.To);
                 requestSend.AddParameter("TemplateName", smsModel.TemplateName);
                 if (!string.IsNullOrEmpty(smsModel.VAR1))
