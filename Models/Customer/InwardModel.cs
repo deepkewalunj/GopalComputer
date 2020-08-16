@@ -60,8 +60,8 @@ namespace Gopal.Models.Customer
         public string mobileNumber { get; set; }
         public bool isSpecialJob { get; set; }
         public DateTime? deliveryDate { get; set; }
-        public string advanceAmount { get; set; }
-        public string estmRepairingAmount { get; set; }
+        public double advanceAmount { get; set; }
+        public double estmRepairingAmount { get; set; }
         public string clientDc { get; set; }
         public string accBarCode { get; set; }
         public string accessories { get; set; }
