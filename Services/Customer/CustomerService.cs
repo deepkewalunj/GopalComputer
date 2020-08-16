@@ -98,7 +98,7 @@ namespace Gopal.Services.Customer
             var smsApiKey = _dbContext.TblMaster.Where(x => x.MasterKey == "SMS_API_KEY").FirstOrDefault().MasterValue;
             var SEND_SMS = _dbContext.TblMaster.Where(x => x.MasterKey == "SEND_SMS").FirstOrDefault().MasterValue;
             SMSModel smsModel = new SMSModel();
-            smsModel.TemplateName = "WELCOME";
+            smsModel.TemplateName = "WELCOME_V1";
             smsModel.SMS_API_KEY = smsApiKey;
             smsModel.VAR1 = customerModel.companyName;
             if (!string.IsNullOrEmpty(customerModel.mobileNoFirst))
