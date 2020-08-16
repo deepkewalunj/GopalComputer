@@ -101,7 +101,7 @@
                   </div>
                   <div class="col-12 col-md-6 col-lg-4">
                       <div class="form-group has-float-label">
-                          <input id="materialType" type="text" class="form-control" formControlName="materialType"
+                          <input id="materialType_inward" type="text" class="form-control" formControlName="materialType"
                                [(ngModel)]="inward.materialTypeAhead" [inputFormatter]="formatter"
                                [resultFormatter]="formatter"
                                [ngbTypeahead]="searchMaterialType"
@@ -112,7 +112,7 @@
                                <small *ngIf="searching" class="form-text text-muted">searching...</small>
                                <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
 
-                          <label for="materialType">Material Type</label>
+                          <label for="materialType_inward">Material Type</label>
                           <div *ngIf="addInwardForm.controls['materialType'].invalid &&
                           (addInwardForm.controls['materialType'].dirty ||
                           addInwardForm.controls['materialType'].touched)"

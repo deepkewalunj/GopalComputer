@@ -132,7 +132,7 @@ smsStatuses=CommonModel.getInwardSmsStatuses();
       localCustomer.clientTitleId='';
 
     }
-    const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddEditCustomerComponent, { size: 'lg',backdrop:'static' });
     modalRef.componentInstance.customer=localCustomer;
     modalRef.componentInstance.modelRef=modalRef;
     modalRef.result.then((result) => {
@@ -214,7 +214,7 @@ getInwardById(inwardId)
       }
     this.inward.accessories = "";
 
-    
+
 
   },error=>{
 
@@ -438,7 +438,7 @@ AddAdditional(){
   }
 
   openInwardPrintPopup(inward) {
-    const modalRef = this.modalService.open(InwardPrintComponent, { size: 'lg', windowClass: 'print-modal' });
+    const modalRef = this.modalService.open(InwardPrintComponent, { size: 'lg', windowClass: 'print-modal',backdrop:'static' });
     modalRef.componentInstance.inward = inward;
     modalRef.componentInstance.modelRef = modalRef;
     modalRef.result.then((result) => {
@@ -491,7 +491,7 @@ addSearchModelNoMaterialTypePopup() {
 }
 
 openAddEditSearchModelNoMaterialTypeCompanyNamePopup(searchModelNoMaterialTypeCompanyName){
-  const modalRef = this.modalService.open(AddUpdateModelNoMaterialTypeComponent, { size: 'lg' });
+  const modalRef = this.modalService.open(AddUpdateModelNoMaterialTypeComponent, { size: 'lg',backdrop:'static' });
   modalRef.componentInstance.searchModelNoMaterialTypeCompanyName=searchModelNoMaterialTypeCompanyName;
   modalRef.componentInstance.modelRef=modalRef;
   modalRef.result.then((result) => {
@@ -518,7 +518,7 @@ openAccessoryPopup() {
 }
 
 openAddEditAccessoryPopup(accessoryInputModel){
-  const modalRef = this.modalService.open(AddEditAccessoryComponent, { size: 'lg' });
+  const modalRef = this.modalService.open(AddEditAccessoryComponent, { size: 'lg',backdrop:'static' });
   modalRef.componentInstance.accessoryInputModel=accessoryInputModel;
   modalRef.componentInstance.modelRef=modalRef;
   modalRef.result.then((result) => {
