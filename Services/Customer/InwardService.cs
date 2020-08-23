@@ -90,7 +90,7 @@ namespace Gopal.Services.Customer
             }
             
 
-            return inwardTypeSriptModel;
+            return GetInwardById(inwardModel.inwardId);
         }
 
        
@@ -300,7 +300,7 @@ namespace Gopal.Services.Customer
         public List<FilePOCO> GetInwardFiles(int inwardId) {
             List<FilePOCO> filePOCOs = null;
             string sql = @"SELECT inwardDocumentId as documentId,documentName as originalFilename,
-                            documentPath as documentPath
+                            documentPath as uniqueFilename
                           FROM tblInwardDocument where inwardRefId=@inwardId and ISNULL(isDeleted,0)<>1;";
 
             using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))

@@ -100,7 +100,7 @@ namespace Gopal.Services.Common
                 var attachment = new Attachment(new MemoryStream(attachmentFile.file),
                                         attachmentFile.fileName,
                                         MediaTypeNames.Application.Pdf);
-                attachment.ContentDisposition.FileName = "Outstanding_Report.pdf";
+                attachment.ContentDisposition.FileName = attachmentFile.fileName;
                 message.Attachments.Add(attachment);
             });
 

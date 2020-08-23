@@ -1,0 +1,16 @@
+:host {
+  min-width: unset !important;
+  max-width: unset !important;
+  padding: 0 !important;
+
+  &:hover,
+  &:focus {
+      ngx-dropzone-remove-badge {
+    opacity: 1;
+      }
+  }
+
+  ngx-dropzone-remove-badge {
+opacity: 0;
+  }
+}

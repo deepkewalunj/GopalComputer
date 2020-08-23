@@ -1,0 +1,10 @@
+<div style="display: flex; height: 140px; min-height: 140px; min-width: 180px; max-width: 180px; justify-content: center; align-items: center; padding: 0px 20px; margin: 10px; border-radius: 5px; position: relative;">
+
+  <div ng-if="UploadedFile"  >{{UploadedFile.originalFilename}}</div>
+  <button class="btn-success"  [hidden]="UploadedFile.file"  (click)=open_image($event)  >Open Image</button>
+ <ngx-dropzone-remove-badge *ngIf="removable" (click)="_remove($event)">
+ </ngx-dropzone-remove-badge>
+</div>
+
+
+

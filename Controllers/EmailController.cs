@@ -31,7 +31,7 @@ namespace Gopal.Controllers
             emailModel.toList = new List<string>();
             emailModel.attachments = new List<EmailFileModel>();
             emailModel.subject = "Bill Report- Gopal Computers";
-            emailModel.messageBody = "Please see the attached Outstanding Report.";
+            emailModel.messageBody = "Please see the attached Bill Report.";
             emailModel.toList.Add(_emailService.GetCAEmailAddress());
             if (files?.Count() > 0)
             {
@@ -39,8 +39,8 @@ namespace Gopal.Controllers
                 {
                     emailModel.attachments.Add(new EmailFileModel {
                         file=file.GetBytes(),
-                        fileName=file.FileName
-                });
+                        fileName= "Bill_Report.pdf"
+                    });
                 }
             }
             

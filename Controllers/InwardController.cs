@@ -114,7 +114,7 @@ namespace Gopal.Controllers
                     }
                     inwardModel.inwardFiles.ForEach((inwardfile) =>
                     {
-                        if(inwardfile.uniqueFilename== file.Name)
+                        if(inwardfile.uniqueFilename== file.Name?.ToUpper())
                         {
                             inwardfile.uniqueFilename = uniqueFileName;
                             inwardfile.originalFilename = fileName;

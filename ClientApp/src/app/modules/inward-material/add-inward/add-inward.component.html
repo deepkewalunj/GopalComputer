@@ -480,11 +480,14 @@
           <div class="card-body">
               <app-camera (pictureTaken)="handleImage($event)"></app-camera>
 
-         <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'" [expandable]="true">
-          <ngx-dropzone-label>Upload Files</ngx-dropzone-label>
-          <ngx-dropzone-preview *ngFor="let f of inward.inwardFiles" [removable]="true" (removed)="onRemove(f)">
-            <ngx-dropzone-label>{{ f.originalFilename }}</ngx-dropzone-label>
-          </ngx-dropzone-preview>
+         <ngx-dropzone (change)="onSelect($event)"  [accept]="'image/*'"  [expandable]="true">
+          <ngx-dropzone-label >Upload Files</ngx-dropzone-label>
+          <!-- <ngx-dropzone-preview *ngFor="let f of inward.inwardFiles"  [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label  >{{ f.originalFilename }}</ngx-dropzone-label>
+          </ngx-dropzone-preview> -->
+
+          <custom-dropzone-preview *ngFor="let f of inward.inwardFiles" [UploadedFile]="f"  [removable]="true" (removed)="onRemove(f)" ngProjectAs="ngx-dropzone-preview">
+          </custom-dropzone-preview>
         </ngx-dropzone>
           </div>
       </div>

@@ -23,6 +23,7 @@ import { OutwardListComponent } from './outward-list/outward-list.component';
 import { BillingListComponent } from './billing-list/billing-list.component';
 import { BillPrintComponent } from './bill-print/bill-print.component';
 import { OutwardPrintComponent } from './outward-print/outward-print.component';
+import { CustomDropzonePreviewComponent } from './custom-dropzone-preview/custom-dropzone-preview.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { OutwardPrintComponent } from './outward-print/outward-print.component';
     OutwardListComponent,
     BillingListComponent,
     BillPrintComponent,
-    OutwardPrintComponent
+    OutwardPrintComponent,
+    CustomDropzonePreviewComponent
   ],
   imports: [
     CommonModule,
