@@ -14,7 +14,7 @@ export class UserService {
     return this.http.get<any>(environment.API_URL + 'User/GetUsers');
   }
   GetUserById(userId: number) {
-    return this.http.put<any>(environment.API_URL + 'User/GetUserById', { userId })
+    return this.http.get<any>(environment.API_URL + 'User/GetUserById?userId=' + userId)
       .pipe(map(user => {
         return user;
       }));

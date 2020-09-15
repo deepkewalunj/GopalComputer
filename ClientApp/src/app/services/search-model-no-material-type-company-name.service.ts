@@ -14,7 +14,7 @@ export class SearchModelNoMaterialTypeCompanyNameService {
     return this.http.get<any>(environment.API_URL + 'MaterialType/GetSearchModelNoMaterialTypeCompanyNames');
   }
   GetSearchModelNoMaterialTypeCompanyNameById(searchId: number) {
-    return this.http.put<any>(environment.API_URL + 'MaterialType/GetSearchModelNoMaterialTypeCompanyNameById', { searchId })
+    return this.http.get<any>(environment.API_URL + 'MaterialType/GetSearchModelNoMaterialTypeCompanyNameById?searchId=' + searchId)
       .pipe(map(materialTypeDetail => {
         return materialTypeDetail;
       }));

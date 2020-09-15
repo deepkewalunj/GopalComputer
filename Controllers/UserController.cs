@@ -89,11 +89,11 @@ namespace Gopal.Controllers
             return Ok(new { users = _services.GetUsers() });
         }
 
-        [HttpPut("[action]")]
+        [HttpGet("[action]")]
         [Authorize]
-        public IActionResult GetUserById(GetUserByIdModel model)
+        public IActionResult GetUserById(int userId)
         {
-            return Ok(new { user = _services.GetUserById(model.userId), userPermissions= _services.GetUserPermissionsById(model.userId) });
+            return Ok(new { user = _services.GetUserById(userId), userPermissions= _services.GetUserPermissionsById(userId) });
         }
 
         [HttpPost("[action]")]

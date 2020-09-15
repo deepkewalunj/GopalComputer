@@ -33,11 +33,11 @@ namespace Gopal.Controllers
             return Ok(new { materialTypeDetails = _services.GetSearchModelNoMaterialTypeCompanyNames() });
         }
 
-        [HttpPut("[action]")]
+        [HttpGet("[action]")]
         [Authorize]
-        public IActionResult GetSearchModelNoMaterialTypeCompanyNameById(tblSearchModelNoMaterialTypeCompanyNameInputModel model)
+        public IActionResult GetSearchModelNoMaterialTypeCompanyNameById(int searchId)
         {
-            return Ok(new { materialTypeDetail = _services.GetSearchModelNoMaterialTypeCompanyNameById((int)model.searchId)});
+            return Ok(new { materialTypeDetail = _services.GetSearchModelNoMaterialTypeCompanyNameById((int)searchId) });
         }
 
         [HttpPost("[action]")]
