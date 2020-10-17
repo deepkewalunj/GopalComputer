@@ -64,3 +64,16 @@ export class InwardListModel{
    outwardBillStatus: string
    inwardDate:string
 }
+
+export class InwardCustomSearch {
+   companyName: string
+     modelNo: string
+     jobStatus: string
+     billStatus: string
+     inwardDate: string
+     materialType: string
+     materialCompanyName: string
+     serialNo: string
+     problemDescription: string
+     enggName: string
+}

@@ -36,3 +36,17 @@ public class DatatableRequestWrapper
     public DatatableRequestModel getListModel { get; set; }
 
 }
+
+public class InwardCustomSearch
+{
+    public string companyName { get; set; }
+    public string modelNo { get; set; }
+    public string jobStatus { get; set; }
+    public string billStatus { get; set; }
+    public string inwardDate { get; set; }
+    public string materialType { get; set; }
+    public string materialCompanyName { get; set; }
+    public string serialNo { get; set; }
+    public string problemDescription { get; set; }
+    public string enggName { get; set; }
+}

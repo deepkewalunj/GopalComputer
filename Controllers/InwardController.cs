@@ -57,6 +57,14 @@ namespace Gopal.Controllers
         }
 
         [HttpPost]
+        [Route("GetInwardListBYSearchAll")]
+        public ActionResult GetInwardListBYSearchAll(InwardCustomSearch InwardCustomSearch)
+        {
+
+            return Ok(_inwardServices.GetInwardListBYSearchAll(InwardCustomSearch));
+        }
+
+        [HttpPost]
         [Route("AddEditInWard")]
         [DisableRequestSizeLimit]
         public ActionResult AddEditInWard()

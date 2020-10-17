@@ -12,6 +12,7 @@ namespace Gopal.Services.Customer
     public interface IInwardServices
     {
         DatatableResponseModel GetInwardList(DatatableRequestModel getInwardModel);
+        DatatableResponseModel GetInwardListBYSearchAll(InwardCustomSearch getInwardModel);
         InwardTypeScriptModel AddEditInward(InwardTypeScriptModel inwardModel);
         InwardTypeScriptModel GetInwardById(int inwardId);
         int DeleteInward(int inwardId,ModelStateDictionary modelState);

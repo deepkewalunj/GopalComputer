@@ -4,7 +4,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup,  FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
-import { Inward, InwardListModel } from 'src/app/models/inward.model';
+import { Inward, InwardListModel, InwardCustomSearch } from 'src/app/models/inward.model';
 import { DataTablesResponse, CommonModel } from 'src/app/models/common.model';
 import { environment } from 'src/environments/environment';
 import { InwardService } from 'src/app/services/inward.service';
@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { InwardPrintComponent } from '../inward-print/inward-print.component';
 import { SharedService } from '../../../shared/shared.service';
+import { debounce } from 'rxjs-compat/operator/debounce';
 
 @Component({
   selector: 'app-inward',
@@ -27,17 +28,20 @@ export class InwardComponent implements OnInit {
   inwards: InwardListModel[];
   inward: Inward;
   searchFilter: boolean;
-
+  inwardSearchAll: InwardCustomSearch;
   private _success = new Subject<string>();
   staticAlertClosed = false;
   successMessage: string;
-
+  hideTable: boolean = false;
   dtTrigger: Subject<any> = new Subject();
     // we used reactive forms and validations
-    addClientForm: FormGroup;
+  addClientForm: FormGroup;
+  
     constructor(private fb: FormBuilder,private http: HttpClient,
       private modalService: NgbModal,private inwardService:InwardService,
-      private router: Router, private route: ActivatedRoute, public sharedService: SharedService) {}
+      private router: Router, private route: ActivatedRoute, public sharedService: SharedService) {
+      this.inwardSearchAll = new InwardCustomSearch();
+    }
 
 
 
@@ -54,11 +58,20 @@ export class InwardComponent implements OnInit {
       if(result==true)
       {
 
-
-        that.rerender();
+        // to do refresh
+        //that.rerender();
         that.inwardToDelete=null;
         that._success.next("Inward Deleted Successfully.");
+        if (that.getIsAllSearchDoable()) {
+          that.inwardService.GetInwardListBYSearchAll(that.inwardSearchAll).subscribe(data => {
+            that.inwards = data.data;
+          }, error => {
 
+          });
+        }
+        else {
+          that.rerender();
+        }
       }
 
     }, (reason) => {
@@ -100,6 +113,71 @@ export class InwardComponent implements OnInit {
 
   }
 
+  GetInwardData() {
+    
+    this.getIsAllSearchDoable();
+    if (this.getIsAllSearchDoable()) {
+      this.inwardService.GetInwardListBYSearchAll(this.inwardSearchAll).subscribe(data => {
+        this.inwards = data.data;
+      }, error => {
+
+      });
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        //this.dtTrigger.next();
+      });
+      
+    }
+    
+    
+  }
+
+  clearFilter() {
+    
+    window.location.reload();
+    
+  }
+
+  getIsAllSearchDoable() {
+    
+    var result = false;
+    if (this.inwardSearchAll.companyName) result = true;
+    if (this.inwardSearchAll.modelNo) result = true;
+    if (this.inwardSearchAll.jobStatus) result = true;
+    if (this.inwardSearchAll.billStatus) result = true;
+    if (this.inwardSearchAll.inwardDate) result = true;
+    if (this.inwardSearchAll.materialType) result = true;
+    if (this.inwardSearchAll.materialCompanyName) result = true;
+    if (this.inwardSearchAll.serialNo) result = true;
+    if (this.inwardSearchAll.problemDescription) result = true;
+    if (this.inwardSearchAll.enggName) result = true;
+    if (result) {
+      this.hideTable = true;
+    }
+    return result;
+  }
+
+  print(): void {
+    let printContents, popupWin;
+    printContents = document.getElementById('print-section').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Print tab</title>
+          <style>
+          //........Customized style.......
+          </style>
+        </head>
+    <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
+  }
+
   printInward(inwardId) {
     if (inwardId > 0) {
       this.givePrint(inwardId);
@@ -132,11 +210,11 @@ export class InwardComponent implements OnInit {
   ngOnInit(): void {
 
 
-
+    
     const that = this;
 
 
-
+    //this.clearFilter();
 
     this.dtOptions = {
       pagingType: 'full_numbers',

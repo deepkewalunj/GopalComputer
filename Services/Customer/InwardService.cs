@@ -50,9 +50,40 @@ namespace Gopal.Services.Customer
             return datatableResponseModel;
         }
 
+        public DatatableResponseModel GetInwardListBYSearchAll(InwardCustomSearch model)
+        {
+            DatatableResponseModel datatableResponseModel = new DatatableResponseModel();
+            using (var connection = new SqlConnection(ConnectionHelper.GetConnectionString()))
+            {
+                using (var multi = connection.QueryMultiple("usp_GetInwardList_By_All_Field",
+                     new { companyName = model.companyName, modelNo = model.modelNo, jobStatus = model.jobStatus, billStatus = model.billStatus,
+                         inwardDate = model.inwardDate, materialType = model.materialType, materialCompanyName = model.materialCompanyName,
+                         serialNo = model.serialNo, problemDescription = model.problemDescription,
+                         enggName = model.enggName},
+                     commandType: CommandType.StoredProcedure))
+                {
+                    datatableResponseModel.data = multi.Read<InwardListModel>()?.ToList();
+                }
+            }
+            
+            return datatableResponseModel;
+        }
+
         public InwardTypeScriptModel AddEditInward(InwardTypeScriptModel inwardTypeSriptModel)
         {
             InwardModel inwardModel = PreProcessInward(inwardTypeSriptModel);
+            bool sentMSGAsPerRepairedStatus = false;
+            if (inwardModel.inwardId > 0)
+            {
+                var inwardOriginal = _dbContext.TblInward.Where(x => x.InwardId == inwardModel.inwardId && x.IsDeleted != true).FirstOrDefault();
+                if (inwardOriginal != null && inwardOriginal.IsRepaired > 0)
+                {
+                    if(inwardModel.isRepaired != inwardOriginal.IsRepaired.ToString())
+                    {
+                        sentMSGAsPerRepairedStatus = true;
+                    }
+                }
+            }
 
             inwardModel.userId= _userServices.GetCurrentUserId();
             String strRequestModel = JsonConvert.SerializeObject(inwardModel);
@@ -67,12 +98,7 @@ namespace Gopal.Services.Customer
                 if(customerModel != null)
                 {
                     SMSModel smsModel = new SMSModel();
-                    smsModel.TemplateName = "INWARD_V1";
-                    smsModel.SMS_API_KEY = smsApiKey;
-                    smsModel.VAR1 = inwardModel.inwardId.ToString();
-                    smsModel.VAR2 = inwardModel.modelNo;
-                    smsModel.VAR3 = inwardModel.problemDescription;
-                    smsModel.VAR4 = inwardModel.enggName;
+                    
                     if (!string.IsNullOrEmpty(customerModel.MobileNoFirst))
                     {
                         smsModel.To = customerModel.MobileNoFirst;
@@ -83,7 +109,40 @@ namespace Gopal.Services.Customer
                     }
                     if (SEND_SMS == "TRUE" && !string.IsNullOrEmpty(smsModel.To) && inwardModel.smsStatus == "1")
                     {
-                        Task.Factory.StartNew(() => { _emailService.SendSMS(smsModel); });
+                        if(sentMSGAsPerRepairedStatus == true)
+                        {
+                            if(inwardModel.isRepaired == "1")
+                            {
+                                smsModel.VAR5 = "Repaired";
+                            }
+                            else if (inwardModel.isRepaired == "2")
+                            {
+                                smsModel.VAR5 = "Unrepaired";
+                            }
+                            else if (inwardModel.isRepaired == "3")
+                            {
+                                smsModel.VAR5 = "Not Repairable";
+                            }
+                            smsModel.TemplateName = "INWARD_V2";
+                            smsModel.SMS_API_KEY = smsApiKey;
+                            smsModel.VAR1 = inwardModel.inwardId.ToString();
+                            smsModel.VAR2 = inwardModel.modelNo;
+                            smsModel.VAR3 = inwardModel.problemDescription;
+                            Task.Factory.StartNew(() => { _emailService.SendSMS(smsModel); });
+                        }
+                        else
+                        {
+                            smsModel.TemplateName = "INWARD_V1";
+                            smsModel.SMS_API_KEY = smsApiKey;
+                            smsModel.VAR1 = inwardModel.inwardId.ToString();
+                            smsModel.VAR2 = inwardModel.modelNo;
+                            smsModel.VAR3 = inwardModel.problemDescription;
+                            smsModel.VAR4 = inwardModel.enggName;
+                            Task.Factory.StartNew(() => { _emailService.SendSMS(smsModel); });
+                        }
+                        
+
+                       /// Task.Factory.StartNew(() => { _emailService.SendSMS(smsModel); });
                     }
                 }
                 

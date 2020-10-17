@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Inward } from '../models/inward.model';
+import { Inward, InwardCustomSearch } from '../models/inward.model';
 import { TypeAheadRequestModel } from '../models/typeahead.model';
 
 @Injectable({
@@ -20,6 +20,9 @@ export class InwardService {
   getInward(inwardId) {
     return this.http.get<any>(environment.API_URL+'Inward/GetInwardById?inwardId='+inwardId);
 
+  }
+  GetInwardListBYSearchAll(requestObjectWrapper: InwardCustomSearch) {
+    return this.http.post<any>(environment.API_URL + 'Inward/GetInwardListBYSearchAll', requestObjectWrapper);
   }
   deleteInward(inwardId:number){
     return this.http.get<any>(environment.API_URL+'Inward/DeleteInWard?inwardId='+inwardId);

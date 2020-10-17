@@ -11,58 +11,197 @@
       </div>
       <div class="card-body">
           <!--table listing statrt hover-->
-          <div id="no-more-tables">
-              <!-- This id used for responsive table -->
+        <div id="no-more-tables">
+          <!-- This id used for responsive table -->
 
-            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
-              <thead>
-                <tr>
-
-                  <th style="width: 10%;">Job No#</th>
-                  <th style="width: 15%;">Company Name</th>
-                  <th style="width: 10%;">Model No</th>
-                  <th style="width: 15%;">Is Repaired</th>
-                  <th style="width: 15%;">Inward Date</th>
-                  <th style="width: 20%;">Bill/Outward Status</th>
-                  <th style="width: 15%;" class="text-center actions-td cursor">Action</th>
-                </tr>
-              </thead>
-              <tbody *ngIf="inwards?.length != 0">
-                <tr *ngFor="let inward of inwards">
-
-                    <td data-title="Job No">{{ inward.inwardId }}</td>
-                    <td data-title="Customer Name">{{ inward.clientName }}</td>
-                    <td data-title="Model No">{{ inward.modelNo }}</td>
-                    <td data-title="Is Repaired">{{getRepairedStatusesById(inward.isRepaired)}}</td>
-                    <td data-title="Inward Date">{{ inward.deliveryDate | date: 'dd/MM/yyyy' }}</td>
-                    <td data-title="Bill/Outward Status">{{ inward.outwardBillStatus}}</td>
-                    <td data-title="Actions" class="action text-center actions-td">
-                      <div class="d-flex justify-content-center">
-                        <a href="javascript:void(0)">
-                          <i class="far fa-edit orange" placement="top"
-                             ngbTooltip="Edit" (click)="addEditInward(inward.inwardId)"></i>
-                        </a>
-                        <a href="javascript:void(0)">
-                          <i class="fas fa-print orange" placement="top"
-                             ngbTooltip="Inward Print" (click)="printInward(inward.inwardId)"></i>
-                        </a>
-                        <a  *ngIf="sharedService.getRoleId()==1" href="javascript:void(0)">
-                          <i class="far fa-trash-alt orange" placement="top"
-                             ngbTooltip="Delete" (click)="openDelete(content,inward)"></i>
-                        </a>
-                      </div>
-                  </td>
-
-
-                </tr>
-                <tr *ngIf="inwards?.length == 0">
-                  <td colspan="12" class="no-data-available">No Records Found!</td>
-                </tr>
-              </tbody>
-
-            </table>
-              <!--table listing end-->
+          <div class="row mb-2">
+            <div class="col-sm">
+              <div class="form-group has-float-label">
+                <input class="form-control" autocomplete="new" type="text" id="CompanyName"
+                       [(ngModel)]="inwardSearchAll.companyName" 
+                       placeholder="Company Name">
+                <label for="CompanyName">Company Name</label>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="form-group has-float-label">
+                <input class="form-control" autocomplete="new" type="text" id="modelNo"
+                       [(ngModel)]="inwardSearchAll.modelNo" 
+                       placeholder="Model No">
+                <label for="modelNo">Model No</label>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="form-group has-float-label">
+                <input class="form-control" autocomplete="new" type="text" id="jobStatus"
+                       [(ngModel)]="inwardSearchAll.jobStatus" 
+                       placeholder="Job Status">
+                <label for="jobStatus">Job Status</label>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="form-group has-float-label">
+                <input class="form-control" autocomplete="new" type="text" id="billStatus"
+                       [(ngModel)]="inwardSearchAll.billStatus" 
+                       placeholder="Bill Status">
+                <label for="billStatus">Bill Status</label>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="form-group has-float-label">
+                <input class="form-control" autocomplete="new" type="text" id="inwardDate"
+                       [(ngModel)]="inwardSearchAll.inwardDate" 
+                       placeholder="Inward Date">
+                <label for="inwardDate">Inward Date</label>
+              </div>
+            </div>
           </div>
+          <div class="row mb-2">
+            <div class="col-sm">
+              <div class="form-group has-float-label">
+                <input class="form-control" autocomplete="new" type="text" id="serialNo"
+                       [(ngModel)]="inwardSearchAll.serialNo" 
+                       placeholder="Serial No">
+                <label for="serialNo">Serial No</label>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="form-group has-float-label">
+                <input class="form-control" autocomplete="new" type="text" id="materialType"
+                       [(ngModel)]="inwardSearchAll.materialType" 
+                       placeholder="Material Type">
+                <label for="materialType">Material Type</label>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="form-group has-float-label">
+                <input class="form-control" autocomplete="new" type="text" id="materialCompanyName"
+                       [(ngModel)]="inwardSearchAll.materialCompanyName" 
+                       placeholder="Material Company Name">
+                <label for="materialCompanyName">Material Company Name</label>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="form-group has-float-label">
+                <input class="form-control" autocomplete="new" type="text" id="problemDescription"
+                       [(ngModel)]="inwardSearchAll.problemDescription" 
+                       placeholder="Problem Description">
+                <label for="problemDescription">Problem Description</label>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="form-group has-float-label">
+                <input class="form-control" autocomplete="new" type="text" id="enggName"
+                       [(ngModel)]="inwardSearchAll.enggName" 
+                       placeholder="Engg Name">
+                <label for="enggName">Engg Name</label>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-sm text-right">
+              <div class="form-group">
+                <span [hidden]="!hideTable" style="color:red;">Click on RESET button to switch standard search</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <!--<button [hidden]="!hideTable" type="button" (click)="print()" class="btn btn-outline btn-outline-dark">print</button>-->
+                <button type="reset" (click)="clearFilter()" class="btn btn-outline btn-outline-dark">Reset</button>
+                <button type="button" (click)="GetInwardData()" class="btn btn-outline btn-outline-dark">Search</button>
+              </div>
+            </div>
+          </div>
+          <table id="print-section" [hidden]="!hideTable" class="table row-border hover">
+            <thead>
+              <tr>
+                <th style="width: 10%;">Job No#</th>
+                <th style="width: 15%;">Company Name</th>
+                <th style="width: 10%;">Model No</th>
+                <th style="width: 15%;">Is Repaired</th>
+                <th style="width: 15%;">Inward Date</th>
+                <th style="width: 20%;">Bill/Outward Status</th>
+                <th style="width: 15%;" class="text-center actions-td cursor">Action</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="inwards?.length != 0">
+              <tr *ngFor="let inward of inwards">
+                <td data-title="Job No">{{ inward.inwardId }}</td>
+                <td data-title="Customer Name">{{ inward.clientName }}</td>
+                <td data-title="Model No">{{ inward.modelNo }}</td>
+                <td data-title="Is Repaired">{{getRepairedStatusesById(inward.isRepaired)}}</td>
+                <td data-title="Inward Date">{{ inward.deliveryDate | date: 'dd/MM/yyyy' }}</td>
+                <td data-title="Bill/Outward Status">{{ inward.outwardBillStatus}}</td>
+                <td data-title="Actions" class="action text-center actions-td">
+                  <div class="d-flex justify-content-center">
+                    <a href="javascript:void(0)">
+                      <i class="far fa-edit orange" placement="top"
+                         ngbTooltip="Edit" (click)="addEditInward(inward.inwardId)"></i>
+                    </a>
+                    <a href="javascript:void(0)">
+                      <i class="fas fa-print orange" placement="top"
+                         ngbTooltip="Inward Print" (click)="printInward(inward.inwardId)"></i>
+                    </a>
+                    <a *ngIf="sharedService.getRoleId()==1" href="javascript:void(0)">
+                      <i class="far fa-trash-alt orange" placement="top"
+                         ngbTooltip="Delete" (click)="openDelete(content,inward)"></i>
+                    </a>
+                  </div>
+                </td>
+
+
+              </tr>
+              <tr *ngIf="inwards?.length == 0">
+                <td colspan="12" class="no-data-available">No Records Found!</td>
+              </tr>
+            </tbody>
+
+          </table>
+          <table [hidden]="hideTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover">
+            <thead>
+              <tr>
+
+                <th style="width: 10%;">Job No#</th>
+                <th style="width: 15%;">Company Name</th>
+                <th style="width: 10%;">Model No</th>
+                <th style="width: 15%;">Is Repaired</th>
+                <th style="width: 15%;">Inward Date</th>
+                <th style="width: 20%;">Bill/Outward Status</th>
+                <th style="width: 15%;" class="text-center actions-td cursor">Action</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="inwards?.length != 0">
+              <tr *ngFor="let inward of inwards">
+
+                <td data-title="Job No">{{ inward.inwardId }}</td>
+                <td data-title="Customer Name">{{ inward.clientName }}</td>
+                <td data-title="Model No">{{ inward.modelNo }}</td>
+                <td data-title="Is Repaired">{{getRepairedStatusesById(inward.isRepaired)}}</td>
+                <td data-title="Inward Date">{{ inward.deliveryDate | date: 'dd/MM/yyyy' }}</td>
+                <td data-title="Bill/Outward Status">{{ inward.outwardBillStatus}}</td>
+                <td data-title="Actions" class="action text-center actions-td">
+                  <div class="d-flex justify-content-center">
+                    <a href="javascript:void(0)">
+                      <i class="far fa-edit orange" placement="top"
+                         ngbTooltip="Edit" (click)="addEditInward(inward.inwardId)"></i>
+                    </a>
+                    <a href="javascript:void(0)">
+                      <i class="fas fa-print orange" placement="top"
+                         ngbTooltip="Inward Print" (click)="printInward(inward.inwardId)"></i>
+                    </a>
+                    <a *ngIf="sharedService.getRoleId()==1" href="javascript:void(0)">
+                      <i class="far fa-trash-alt orange" placement="top"
+                         ngbTooltip="Delete" (click)="openDelete(content,inward)"></i>
+                    </a>
+                  </div>
+                </td>
+
+
+              </tr>
+              <tr *ngIf="inwards?.length == 0">
+                <td colspan="12" class="no-data-available">No Records Found!</td>
+              </tr>
+            </tbody>
+
+          </table>
+          <!--table listing end-->
+        </div>
       </div>
   </div>
 </div>
