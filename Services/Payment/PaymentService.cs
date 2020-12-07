@@ -313,6 +313,24 @@ namespace Gopal.Services.Payment
                 
                 listModel.paymentListModel.Add(phonePayList);
             }
+            var onlineTransferList = GetPaymentListByMethod(PAYMENT_BY.Online_Transfer, searchModel);
+            if (onlineTransferList.lstPaymentbymethod?.Count > 0)
+            {
+
+                listModel.paymentListModel.Add(onlineTransferList);
+            }
+            var chequeList = GetPaymentListByMethod(PAYMENT_BY.Cheque, searchModel);
+            if (chequeList.lstPaymentbymethod?.Count > 0)
+            {
+
+                listModel.paymentListModel.Add(chequeList);
+            }
+            var otherList = GetPaymentListByMethod(PAYMENT_BY.Other, searchModel);
+            if (otherList.lstPaymentbymethod?.Count > 0)
+            {
+
+                listModel.paymentListModel.Add(otherList);
+            }
             return listModel;
         }
 
@@ -336,16 +354,22 @@ namespace Gopal.Services.Payment
             switch (paymentBy)
             {
                 case PAYMENT_BY.Cash:
-
                     methodType = "Cash";
                     break;
                 case PAYMENT_BY.Google_Pay:
-
                     methodType = "Google Pay";
                     break;
                 case PAYMENT_BY.Phone_Pay:
-
                     methodType = "Phone Pay";
+                    break;
+                case PAYMENT_BY.Online_Transfer:
+                    methodType = "Online Transfer";
+                    break;
+                case PAYMENT_BY.Cheque:
+                    methodType = "Cheque";
+                    break;
+                case PAYMENT_BY.Other:
+                    methodType = "Other";
                     break;
                     
             }

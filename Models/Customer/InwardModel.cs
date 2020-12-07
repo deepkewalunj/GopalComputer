@@ -111,6 +111,7 @@ namespace Gopal.Models.Customer
         public DateTime? deliveryDate { get; set; }
         public DateTime? inwardDate { get; set; }
         public string outwardBillStatus { get; set; }
+        public string companyName { get; set; }
 
     }
     public class InwardBarCodeModel {

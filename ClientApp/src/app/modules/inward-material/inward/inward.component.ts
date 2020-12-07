@@ -234,12 +234,13 @@ export class InwardComponent implements OnInit {
               data: []
             });
           });
-      },order: [[ 6, "desc" ]],
-      columns: [{ data: 'inwardId',searchable:true,orderable:true  },
+      },order: [[ 7, "desc" ]],
+      columns: [{ data: 'deliveryDate', searchable: false, orderable: true },
+                { data: 'inwardId', searchable: true, orderable: true },
                 { data: 'clientName',searchable:true,orderable:true  },
-                { data: 'modelNo',searchable:true,orderable:true  },
+        { data: 'modelNo', searchable: true, orderable: true },
+        { data: 'companyName', searchable: true, orderable: true },
                 { data: 'isRepaired',searchable:true,orderable:true  },
-                { data: 'deliveryDate',searchable:false,orderable:true  },
                 { data: 'outwardBillStatus',searchable:false,orderable:true  },
                 {data:null,searchable:false,orderable:false }]
     };
