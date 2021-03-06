@@ -199,17 +199,17 @@ namespace Gopal.Models.Bill
                                                     && x.BillDate < fromDate
                                                         ).ToList();
             decimal oldPaidBillProcessCount = 0;
-            foreach (var item in oldPaidBillProcess)
-            {
-                if(item.AdvanceAmount > 0)
-                {
-                    oldPaidBillProcessCount += item.AdvanceAmount;
-                }
-                if (item.PaidImmediatlyAmount > 0)
-                {
-                    oldPaidBillProcessCount += item.PaidImmediatlyAmount; 
-                }
-            }
+            //foreach (var item in oldPaidBillProcess)
+            //{
+            //    if(item.AdvanceAmount > 0)
+            //    {
+            //        oldPaidBillProcessCount += item.AdvanceAmount;
+            //    }
+            //    if (item.PaidImmediatlyAmount > 0)
+            //    {
+            //        oldPaidBillProcessCount += item.PaidImmediatlyAmount; 
+            //    }
+            //}
 
             obj.billOpeningBalance = (oldOpeningBalance + billOustandingCount) - oldPaidBillProcessCount;
             //
@@ -222,17 +222,17 @@ namespace Gopal.Models.Bill
                                                      && x.OutwardDate < fromDate
                                                         ).ToList();
             decimal oldPaidOutwardProcessCount = 0;
-            foreach (var item in oldPaidOutwardProcess)
-            {
-                if (item.AdvanceAmount > 0)
-                {
-                    oldPaidOutwardProcessCount += item.AdvanceAmount;
-                }
-                if (item.PaidImmediatlyAmount > 0)
-                {
-                    oldPaidOutwardProcessCount += item.PaidImmediatlyAmount;
-                }
-            }
+            //foreach (var item in oldPaidOutwardProcess)
+            //{
+            //    if (item.AdvanceAmount > 0)
+            //    {
+            //        oldPaidOutwardProcessCount += item.AdvanceAmount;
+            //    }
+            //    if (item.PaidImmediatlyAmount > 0)
+            //    {
+            //        oldPaidOutwardProcessCount += item.PaidImmediatlyAmount;
+            //    }
+            //}
             obj.outwardOpeningBalance = OutwardOutstandingCount - oldPaidOutwardProcessCount;
             //
 
